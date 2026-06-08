@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     [Header("Slow Effect Settings")]
     [SerializeField] float speedMultiplier = 1f; // 느려지는 효과 수치
     [SerializeField] int slowEffectCount = 0;    // 느려지는 효과 중첩 카운트
+    [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
+    [SerializeField] float cobwebMaxFallSpeed = 0.1f;
     
     bool isDashing = false;
     bool canDashAgain = true;
@@ -48,6 +50,8 @@ public class PlayerController : MonoBehaviour
         {
             isJump = false;
         }
+
+        ApplyCobwebVerticalLimit();
         rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
     }
 
@@ -67,10 +71,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+#region Cobweb Slow Effect
     public void SetSpeedMultiplier(float multiplier)
     {
         slowEffectCount++;
         speedMultiplier = Mathf.Clamp(multiplier, 0f, 1f);
+        ApplyCobwebVerticalLimit();
     }
 
     public void ResetSpeedMultiplier()
@@ -83,14 +89,33 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void ApplyCobwebVerticalLimit()
+    {
+        if (slowEffectCount <= 0) return;
+
+        float clampedY = rigid.linearVelocityY;
+
+        if (clampedY > cobwebMaxRiseSpeed)
+        {
+            clampedY = cobwebMaxRiseSpeed;
+        }
+        else if (clampedY < -cobwebMaxFallSpeed)
+        {
+            clampedY = -cobwebMaxFallSpeed;
+        }
+
+        rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, clampedY);
+    }
+#endregion
+
     public void OnJump(InputValue value)
     {
         // 대시 중에는 점프 불가
         if (isDashing) return;
 
-        if (value.isPressed && (!isJump || (TouchingWallCnt>0 && abilityManager.canWallJump && canWallJumpAgain)))
+        if (value.isPressed && (!isJump || (TouchingWallCnt > 0 && abilityManager.canWallJump && canWallJumpAgain)))
         {
-            canWallJumpAgain=false;
+            canWallJumpAgain = false;
             Invoke("enableWallJump", wallJumpDelay);
 
             rigid.linearVelocityY = 0;
