@@ -9,6 +9,7 @@ public class CobwebObstacle : MonoBehaviour
         if (other.GetComponentInParent<PlayerController>() is PlayerController controller)
         {
             controller.SetSpeedMultiplier(slowDebuffRate);
+            controller.StopDash();
         }
     }
 

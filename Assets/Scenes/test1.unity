@@ -657,7 +657,7 @@ Transform:
   m_GameObject: {fileID: 674867451}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.65, y: -2.4, z: 0}
+  m_LocalPosition: {x: -3.31, y: -1.09, z: 0}
   m_LocalScale: {x: 2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1107,7 +1107,7 @@ Transform:
   m_GameObject: {fileID: 1553241110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.02, y: -3.32, z: 0}
+  m_LocalPosition: {x: 2.02, y: -3.41, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1216,7 +1216,7 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1424,12 +1424,13 @@ MonoBehaviour:
   jumpForce: 8
   wallJumpDelay: 0.3
   dashSpeed: 20
-  dashDuration: 0.2
+  dashDuration: 0.15
   dashCooldown: 1
   speedMultiplier: 1
   slowEffectCount: 0
   cobwebMaxRiseSpeed: 2.5
   cobwebMaxFallSpeed: 1.5
+  canMove: 1
 --- !u!114 &1738328933
 MonoBehaviour:
   m_ObjectHideFlags: 0
