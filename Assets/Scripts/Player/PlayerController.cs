@@ -9,6 +9,9 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rigid;
     [SerializeField] PlayerAbilityManager abilityManager;
 
+    //스태미나 컴포넌트 참조 추가
+    Stamina stamina;
+
     [Header("Movement Settings")]
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
@@ -18,13 +21,18 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashSpeed = 20f;     // 돌진 속도
     [SerializeField] float dashDuration = 0.2f; // 돌진 유지 시간
     [SerializeField] float dashCooldown = 1f;   // 돌진 쿨타임
+    //대시할 때 스태미나 소모량
+    [SerializeField] float dashStaminaCost = 20f;
+
 
     [Header("Slow Effect Settings")]
     [SerializeField] float speedMultiplier = 1f; // 느려지는 효과 수치
     [SerializeField] int slowEffectCount = 0;    // 느려지는 효과 중첩 카운트
     [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
     [SerializeField] float cobwebMaxFallSpeed = 0.1f;
-    
+
+
+
     bool isDashing = false;
     bool canDashAgain = true;
     Coroutine DashCoroutine;
@@ -43,6 +51,8 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         originalGravity = rigid.gravityScale;
+
+        stamina = GetComponent<Stamina>();
     }
 
     // Update is called once per frame
@@ -136,7 +146,10 @@ public class PlayerController : MonoBehaviour
     {
         if (value.isPressed && abilityManager.canDash && canDashAgain && !isDashing && canMove)
         {
-            DashCoroutine = StartCoroutine(DashRoutine());
+            if (stamina != null && stamina.UseStamina(dashStaminaCost))
+            {
+                DashCoroutine = StartCoroutine(DashRoutine());
+            }
         }
     }
 
