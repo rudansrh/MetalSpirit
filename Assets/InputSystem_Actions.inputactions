@@ -54,9 +54,9 @@
             ],
             "bindings": [
                 {
-                    "name": "Horizontal",
-                    "id": "00ca640b-d935-4593-8157-c05846ea39b3",
-                    "path": "Dpad",
+                    "name": "2D Vector",
+                    "id": "d52e5f54-8f93-4232-98c0-ab1693b8d33d",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -65,8 +65,30 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "up",
+                    "id": "0e1ee581-b033-48b4-b4df-56e598777ed8",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "f9c58358-d451-4b3e-a742-d875ff2a2a0c",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "left",
-                    "id": "2e46982e-44cc-431b-9f0b-c11910bf467a",
+                    "id": "6ebb6d97-2c55-4fe5-9365-26b17397eb71",
                     "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
@@ -77,7 +99,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "77bff152-3580-4b21-b6de-dcd0c7e41164",
+                    "id": "bbe95dfe-de2e-46e5-ba5a-f116cdc05613",
                     "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",

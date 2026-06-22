@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid;
+    Collider2D col;
     [SerializeField] PlayerAbilityManager abilityManager;
 
     //스태미나 컴포넌트 참조 추가
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] float speed;
+    [SerializeField] float soulSpeed = 10f;
     [SerializeField] float jumpForce;
     [SerializeField] float wallJumpDelay;
 
@@ -53,6 +55,23 @@ public class PlayerController : MonoBehaviour
         originalGravity = rigid.gravityScale;
 
         stamina = GetComponent<Stamina>();
+
+        col = GetComponent<Collider2D>();
+        UpdateFormState();
+    }
+
+    void UpdateFormState()
+    {
+        if (abilityManager.isSoul)
+        {
+            rigid.gravityScale = 0f;
+            col.isTrigger = true;
+        }
+        else
+        {
+            rigid.gravityScale = originalGravity;
+            col.isTrigger = false;
+        }
     }
 
     // Update is called once per frame
@@ -62,6 +81,20 @@ public class PlayerController : MonoBehaviour
         if (isDashing || !canMove)
             return;
 
+        // 영혼 상태일 때의 이동
+        if (abilityManager.isSoul)
+        {
+            Vector2 soulMoveDir = moveInput;
+            if (soulMoveDir.magnitude > 1f)
+            {
+                soulMoveDir.Normalize();
+            }
+
+            rigid.linearVelocity = soulMoveDir * soulSpeed;
+            return;
+        }
+
+        // 빙의 상태일 때
         if (rigid.linearVelocityY == 0)
         {
             isJump = false;
@@ -70,12 +103,6 @@ public class PlayerController : MonoBehaviour
         ApplyCobwebVerticalLimit();
         rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
     }
-
-    void EnableWallJump()
-    {
-        canWallJumpAgain = true;
-    }
-
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -87,7 +114,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-#region Cobweb Slow Effect
+    // 빙의 처리 로직
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (abilityManager.isSoul && abilityManager.canPossess)
+        {
+            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            {
+                transform.position = enemy.transform.position;
+
+                Destroy(enemy.gameObject);
+
+                abilityManager.PossessBody();
+                UpdateFormState();
+            }
+        }
+    }
+
+    #region Cobweb Slow Effect
     public void SetSpeedMultiplier(float multiplier)
     {
         slowEffectCount++;
@@ -127,8 +171,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        // 대시 중에는 점프 불가
-        if (isDashing) return;
+        // 점프 불가
+        if (isDashing || abilityManager.isSoul) return;
 
         if (value.isPressed && (!isJump || (TouchingWallCnt > 0 && abilityManager.canWallJump && canWallJumpAgain)))
         {
@@ -140,10 +184,16 @@ public class PlayerController : MonoBehaviour
             isJump = true;
         }
     }
-
+    void EnableWallJump()
+    {
+        canWallJumpAgain = true;
+    }
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
+
+        if (abilityManager.isSoul) return;
+
         if (value.isPressed && abilityManager.canDash && canDashAgain && !isDashing && canMove)
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
