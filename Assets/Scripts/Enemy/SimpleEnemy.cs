@@ -3,25 +3,25 @@ using UnityEngine;
 public class SimpleEnemy : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float speed = 2f;           // ÀÌµ¿ ¼Óµµ
-    [SerializeField] private Transform leftWaypoint;     // ÁÂÃø ÀÌµ¿ ÇÑ°èÁ¡
-    [SerializeField] private Transform rightWaypoint;    // ¿ìÃø ÀÌµ¿ ÇÑ°èÁ¡
+    [SerializeField] private float speed = 2f;           // ï¿½Ìµï¿½ ï¿½Óµï¿½
+    [SerializeField] private Transform leftWaypoint;     // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½
+    [SerializeField] private Transform rightWaypoint;    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½
 
     private bool movingRight = true;
 
     [Header("Damage Settings")]
-    [SerializeField] private float damage = 15f;         // Àû Á¢ÃË ½Ã µ¥¹ÌÁö
-    [SerializeField] private float knockbackForce = 7f;  // ³Ë¹é Èû
+    [SerializeField] private float damage = 15f;         // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    [SerializeField] private float knockbackForce = 7f;  // ï¿½Ë¹ï¿½ ï¿½ï¿½
 
     private void Update()
     {
         MovePatrol();
     }
 
-    // ÁÂ¿ì ¼øÂû ·ÎÁ÷
+    // ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private void MovePatrol()
     {
-        // ¿þÀÌÆ÷ÀÎÆ®°¡ ÇÒ´çµÇÁö ¾Ê¾Ò´Ù¸é ÀÌµ¿ÇÏÁö ¾ÊÀ½
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ò´ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (leftWaypoint == null || rightWaypoint == null) return;
 
         if (movingRight)
@@ -42,7 +42,7 @@ public class SimpleEnemy : MonoBehaviour
         }
     }
 
-    // ¹æÇâ ÀüÈ¯ ¹× ½ºÇÁ¶óÀÌÆ® ¹ÝÀü
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     private void Flip()
     {
         movingRight = !movingRight;
@@ -51,27 +51,27 @@ public class SimpleEnemy : MonoBehaviour
         transform.localScale = localScale;
     }
 
-    // ÇÃ·¹ÀÌ¾î¿Í Ãæµ¹ ½Ã µ¥¹ÌÁö ¹× ³Ë¹é Ã³¸® (SpikeObstacle Âü°í)
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë¹ï¿½ Ã³ï¿½ï¿½ (SpikeObstacle ï¿½ï¿½ï¿½ï¿½)
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // 1. µ¥¹ÌÁö Àû¿ë
+        // 1. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(damage, DamageType.Normal);
         }
 
-        // 2. ¹°¸® ³Ë¹é Àû¿ë
+        // 2. ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb))
         {
             Vector2 knockbackDir = collision.transform.position - transform.position;
 
-            // XÃà ¹æÇâ °áÁ¤ ¹× YÃàÀ» ¶ç¿öÁÖ´Â È¿°ú
+            // Xï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Yï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ È¿ï¿½ï¿½
             knockbackDir = new Vector2(Mathf.Sign(knockbackDir.x) * 0.4f, 1f).normalized;
 
-            // ÇÏ°­ ÁßÀÏ ¶§ ³Ë¹é ¹æÇâ º¸Á¤
+            // ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ë¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             if (rb.linearVelocityY > 0) knockbackDir.y = -1;
 
-            rb.linearVelocity = Vector2.zero; // ±âÁ¸ ¼Óµµ ÃÊ±âÈ­
+            rb.linearVelocity = Vector2.zero; // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½Ê±ï¿½È­
             rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
         }
     }
