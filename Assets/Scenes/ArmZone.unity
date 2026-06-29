@@ -620,6 +620,7 @@ MonoBehaviour:
   rightWaypoint: {fileID: 0}
   damage: 15
   knockbackForce: 7
+  enemyHp: 30
 --- !u!50 &1077583397
 Rigidbody2D:
   serializedVersion: 5
@@ -1366,6 +1367,10 @@ MonoBehaviour:
   slowEffectCount: 0
   cobwebMaxRiseSpeed: 2.5
   cobwebMaxFallSpeed: 1.5
+  lowAttackCoolTime: 0.6
+  lowAttackDamage: 10
+  highAttackCoolTime: 0.6
+  highAttackDamage: 10
   canMove: 1
 --- !u!114 &1738328933
 MonoBehaviour:
@@ -1437,6 +1442,8 @@ MonoBehaviour:
   canPossess: 1
   canDash: 1
   canWallJump: 1
+  canLowAttack: 1
+  canHighAttack: 1
 --- !u!114 &1738328935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1473,7 +1480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bb4073002c1ab41824a6dde88fac0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stamina
-  staminaRegenRate: 0
+  staminaRegenRate: 2
 --- !u!1 &1774209516
 GameObject:
   m_ObjectHideFlags: 0
