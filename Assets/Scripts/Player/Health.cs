@@ -39,7 +39,7 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
             OnDeath?.Invoke();
         }
 
-        Debug.Log($"Player Health Reduced: {CurrentHealth}/{MaxHealth}");
+        //Debug.Log($"Player Health Reduced: {CurrentHealth}/{MaxHealth}");
     }
 
     // 체력 회복 메서드, 외부에서 회복 등으로 호출

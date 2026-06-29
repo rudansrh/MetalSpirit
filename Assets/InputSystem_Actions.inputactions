@@ -16,9 +16,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "LowAttack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HighAttack",
+                    "type": "Button",
+                    "id": "e1298f75-7d8e-4ced-bf5e-fbf47dd979f3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -115,7 +124,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Attack",
+                    "action": "LowAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -144,11 +153,22 @@
                 {
                     "name": "",
                     "id": "627a7ae7-9621-4df1-811f-0d040e95c49f",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae4df587-e619-4048-a570-a28a2251426b",
+                    "path": "<Keyboard>/c",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "HighAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

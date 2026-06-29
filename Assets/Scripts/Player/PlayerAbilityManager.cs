@@ -10,6 +10,8 @@ public class PlayerAbilityManager : MonoBehaviour
     [Header("Abilities")]
     public bool canDash = false;
     public bool canWallJump = false;
+    public bool canLowAttack = false;
+    public bool canHighAttack = false;
 
     public void PossessBody()
     {

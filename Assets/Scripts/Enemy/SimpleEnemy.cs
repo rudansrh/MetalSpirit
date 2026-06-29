@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SimpleEnemy : MonoBehaviour
@@ -12,6 +13,9 @@ public class SimpleEnemy : MonoBehaviour
     [Header("Damage Settings")]
     [SerializeField] private float damage = 15f;         // �� ���� �� ������
     [SerializeField] private float knockbackForce = 7f;  // �˹� ��
+
+    [Header("Enemy Hp")]
+    [SerializeField] private float enemyHp = 30f;
 
     private void Update()
     {
@@ -73,6 +77,16 @@ public class SimpleEnemy : MonoBehaviour
 
             rb.linearVelocity = Vector2.zero; // ���� �ӵ� �ʱ�ȭ
             rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+        }
+    }
+
+    public void Attacked(float playerDamage)
+    {
+        enemyHp -= playerDamage;
+        if (enemyHp <= 0)
+        {
+            this.gameObject.SetActive(false);
+            Debug.Log("Enemy killed");
         }
     }
 }

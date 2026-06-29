@@ -33,6 +33,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
     [SerializeField] float cobwebMaxFallSpeed = 0.1f;
 
+    [Header("Attack Settings")]
+    bool isAttacking = false;
+    float curTime_low = 0f;
+    [SerializeField] float lowAttackCoolTime = 0.6f;
+    [SerializeField] float lowAttackDamage = 10f;
+    float curTime_high = 0f;
+    [SerializeField] float highAttackCoolTime = 0.6f;
+    [SerializeField] float highAttackDamage = 10f;
+
 
 
     bool isDashing = false;
@@ -77,6 +86,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        curTime_high += Time.deltaTime;
+        curTime_low += Time.deltaTime;
+
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
             return;
@@ -103,6 +115,47 @@ public class PlayerController : MonoBehaviour
         ApplyCobwebVerticalLimit();
         rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
     }
+
+    //적 공격 (발차기)
+    public void OnLowAttack(InputValue value)
+    {
+        if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low) return;
+
+        curTime_low = 0f;
+        Vector2 pos = transform.position + transform.up*transform.localScale.y*0.2f + transform.right*facingDirection;
+        Vector2 size = new Vector2(1.0f, 0.1f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                Debug.Log("발차기 공격");
+                hit.GetComponent<SimpleEnemy>().Attacked(lowAttackDamage);
+            }
+        }
+    }
+
+    //적 공격 (주먹)
+    public void OnHighAttack(InputValue value) 
+    {
+        if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high) return;
+
+        curTime_high = 0f;
+        Vector2 pos = transform.position + transform.up * transform.localScale.y * -0.2f + transform.right * facingDirection;
+        Vector2 size = new Vector2(1.0f, 0.1f);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
+
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                Debug.Log("주먹 공격");
+                hit.GetComponent<SimpleEnemy>().Attacked(highAttackDamage);
+            }
+        }
+    }
+
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -111,23 +164,6 @@ public class PlayerController : MonoBehaviour
         if (moveInput.x != 0)
         {
             facingDirection = Mathf.Sign(moveInput.x);
-        }
-    }
-
-    // 빙의 처리 로직
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (abilityManager.isSoul && abilityManager.canPossess)
-        {
-            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
-            {
-                transform.position = enemy.transform.position;
-
-                Destroy(enemy.gameObject);
-
-                abilityManager.PossessBody();
-                UpdateFormState();
-            }
         }
     }
 
@@ -188,13 +224,14 @@ public class PlayerController : MonoBehaviour
     {
         canWallJumpAgain = true;
     }
+
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
 
         if (abilityManager.isSoul) return;
 
-        if (value.isPressed && abilityManager.canDash && canDashAgain && !isDashing && canMove)
+        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
@@ -245,6 +282,23 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             TouchingWallCnt--;
+        }
+    }
+
+    // 빙의 처리 로직
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (abilityManager.isSoul && abilityManager.canPossess)
+        {
+            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            {
+                transform.position = enemy.transform.position;
+
+                Destroy(enemy.gameObject);
+
+                abilityManager.PossessBody();
+                UpdateFormState();
+            }
         }
     }
 }
