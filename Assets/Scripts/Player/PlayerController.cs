@@ -184,7 +184,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    #region Cobweb Slow Effect
+#region Cobweb Slow Effect
     public void SetSpeedMultiplier(float multiplier)
     {
         slowEffectCount++;
@@ -292,6 +292,8 @@ public class PlayerController : MonoBehaviour
         canDashAgain = true;
     }
 
+#region Wall Climb
+    // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
         if (!CanWallClimb())
@@ -319,6 +321,7 @@ public class PlayerController : MonoBehaviour
         return true;
     }
 
+    // 벽 타기 가능 여부
     bool CanWallClimb()
     {
         return abilityManager.canWallJump
@@ -332,6 +335,7 @@ public class PlayerController : MonoBehaviour
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
     }
 
+    // 벽 타기 중지
     void StopWallClimb()
     {
         if (!isWallClimbing)
@@ -380,6 +384,7 @@ public class PlayerController : MonoBehaviour
             wallClimbDetachDirection = Mathf.Sign(fallbackDirection);
         }
     }
+#endregion
 
     void OnCollisionEnter2D(Collision2D collision)
     {
