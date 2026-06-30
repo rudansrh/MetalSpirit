@@ -22,7 +22,7 @@ public class PlayerStatsUIManager : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     static void Bootstrap()
     {
-        if (FindFirstObjectByType<PlayerStatsUIManager>() != null)
+        if (FindAnyObjectByType<PlayerStatsUIManager>() != null)
         {
             return;
         }
@@ -74,8 +74,8 @@ public class PlayerStatsUIManager : MonoBehaviour
     // Stats 참조를 캐싱
     void CacheStatReferences()
     {
-        health = FindFirstObjectByType<Health>();
-        stamina = FindFirstObjectByType<Stamina>();
+        health = FindAnyObjectByType<Health>();
+        stamina = FindAnyObjectByType<Stamina>();
     }
 
     // Stats 이벤트에 구독
