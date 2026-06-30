@@ -11,7 +11,7 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
 
     private PlayerAbilityManager abilityManager;
 
-    private void Start()
+    private void Awake()
     {
         CurrentHealth = MaxHealth;
         abilityManager = GetComponent<PlayerAbilityManager>();

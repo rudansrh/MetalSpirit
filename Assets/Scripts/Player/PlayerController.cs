@@ -18,6 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float soulSpeed = 10f;
     [SerializeField] float jumpForce;
     [SerializeField] float wallJumpDelay;
+    [SerializeField] float wallClimbSpeed = 3f;
+    [SerializeField] float wallClimbStaminaCostPerSecond = 2f;
+    [SerializeField] float jumpStaminaCost = 10f;
 
     [Header("Dash Settings")]
     [SerializeField] float dashSpeed = 20f;     // 돌진 속도
@@ -53,6 +56,7 @@ public class PlayerController : MonoBehaviour
     bool isJump = false;
     bool canWallJumpAgain = true;
     int TouchingWallCnt = 0;
+    bool isWallClimbing = false;
 
     Vector2 moveInput;
 
@@ -112,6 +116,7 @@ public class PlayerController : MonoBehaviour
             isJump = false;
         }
 
+        UpdateWallClimbState();
         ApplyCobwebVerticalLimit();
         rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
     }
@@ -212,9 +217,15 @@ public class PlayerController : MonoBehaviour
 
         if (value.isPressed && (!isJump || (TouchingWallCnt > 0 && abilityManager.canWallJump && canWallJumpAgain)))
         {
+            if (stamina != null && !stamina.UseStamina(jumpStaminaCost))
+            {
+                return;
+            }
+
             canWallJumpAgain = false;
             Invoke("EnableWallJump", wallJumpDelay);
 
+            StopWallClimb();
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isJump = true;
@@ -269,6 +280,53 @@ public class PlayerController : MonoBehaviour
         canDashAgain = true;
     }
 
+    void UpdateWallClimbState()
+    {
+        if (!CanWallClimb())
+        {
+            StopWallClimb();
+            return;
+        }
+
+        float climbInput = moveInput.y;
+        if (Mathf.Abs(climbInput) <= 0.01f)
+        {
+            StopWallClimb();
+            return;
+        }
+
+        float staminaCost = wallClimbStaminaCostPerSecond * Time.fixedDeltaTime;
+        if (stamina != null && !stamina.UseStaminaSilently(staminaCost))
+        {
+            StopWallClimb();
+            return;
+        }
+
+        isWallClimbing = true;
+        rigid.gravityScale = 0f;
+        rigid.linearVelocityY = climbInput * wallClimbSpeed;
+    }
+
+    bool CanWallClimb()
+    {
+        return abilityManager.canWallJump
+            && !abilityManager.isSoul
+            && TouchingWallCnt > 0
+            && !isDashing
+            && canMove;
+    }
+
+    void StopWallClimb()
+    {
+        if (!isWallClimbing)
+        {
+            return;
+        }
+
+        isWallClimbing = false;
+        rigid.gravityScale = originalGravity;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
@@ -282,6 +340,11 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             TouchingWallCnt--;
+            if (TouchingWallCnt <= 0)
+            {
+                TouchingWallCnt = 0;
+                StopWallClimb();
+            }
         }
     }
 

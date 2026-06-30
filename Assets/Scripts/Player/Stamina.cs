@@ -11,7 +11,7 @@ public class Stamina : MonoBehaviour
 
     public event Action OnStaminaChanged;
 
-    private void Start()
+    private void Awake()
     {
         CurrentStamina = MaxStamina;
         Debug.Log($"Player Stamina Initialized: {CurrentStamina}/{MaxStamina}");
@@ -19,28 +19,43 @@ public class Stamina : MonoBehaviour
 
     private void Update()
     {
-        // ½ºÅÂ¹Ì³ª ÀÚµ¿ È¸º¹
+        // ìŠ¤íƒœë¯¸ë‚˜ ìë™ íšŒë³µ
         if (CurrentStamina < MaxStamina)
         {
             CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + staminaRegenRate * Time.deltaTime);
-            
+            OnStaminaChanged?.Invoke();
         }
     }
 
     public bool UseStamina(float amount)
     {
-        // ½ºÅÂ¹Ì³ª°¡ ÃæºĞÇÑÁö È®ÀÎ
+        return TryConsumeStamina(amount, true, true);
+    }
+
+    public bool UseStaminaSilently(float amount)
+    {
+        return TryConsumeStamina(amount, false, false);
+    }
+
+    bool TryConsumeStamina(float amount, bool logUsage, bool logFailure)
+    {
+        // ìŠ¤íƒœë¯¸ë‚˜ê°€ ì¶©ë¶„í•œì§€ í™•ì¸
         if (CurrentStamina >= amount)
         {
             CurrentStamina -= amount;
             OnStaminaChanged?.Invoke();
 
-            // ½ºÅÂ¹Ì³ª °¨¼Ò ·Î±×
-            Debug.Log($"Stamina Reduced: {CurrentStamina}/{MaxStamina}");
+            if (logUsage)
+            {
+                Debug.Log($"Stamina Reduced: {CurrentStamina}/{MaxStamina}");
+            }
             return true;
         }
 
-        Debug.Log("½ºÅÂ¹Ì³ª ºÎÁ·");
+        if (logFailure)
+        {
+            Debug.Log("ìŠ¤íƒœë¯¸ë‚˜ ë¶€ì¡±");
+        }
         return false;
     }
 }
