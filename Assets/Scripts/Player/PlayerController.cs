@@ -48,6 +48,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float highAttackCoolTime = 0.6f;
     [SerializeField] float highAttackDamage = 10f;
 
+    [Header("Possession Settings")]
+    private SimpleEnemy targetEnemyToPossess = null;
+    [Header("Interaction Settings")]
+    private IInteractable nearbyInteractable = null; // 근처에 있는 상호작용 객체
 
 
     bool isDashing = false;
@@ -418,19 +422,81 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // 빙의 처리 로직
+    public void OnPossess(InputValue value)
+    {
+        // X키가 눌렸고, 영혼 상태이며, 빙의 가능한 상태일 때
+        if (value.isPressed && abilityManager.isSoul && abilityManager.canPossess)
+        {
+            // 범위 내에 빙의할 적이 있다면
+            if (targetEnemyToPossess != null)
+            {
+                // 1. 위치 이동 및 적 제거
+                transform.position = targetEnemyToPossess.transform.position;
+                Destroy(targetEnemyToPossess.gameObject);
+
+                // 2. 빙의 상태 업데이트
+                abilityManager.PossessBody();
+                UpdateFormState();
+
+                // 3. 변수 초기화
+                targetEnemyToPossess = null;
+            }
+        }
+    }
+
+    //E키 상호작용
+    public void OnInteract(InputValue value)
+    {
+        Debug.Log("E키 입력 감지됨!");
+
+        // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
+        if (value.isPressed && nearbyInteractable != null && !abilityManager.isSoul)
+        {
+            nearbyInteractable.Interact(this.gameObject);
+            nearbyInteractable = null;
+        }
+    }
+
+    // 트리거 감지 로직
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        // 빙의 대상 감지 로직
         if (abilityManager.isSoul && abilityManager.canPossess)
         {
             if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
             {
-                transform.position = enemy.transform.position;
+                targetEnemyToPossess = enemy;
+            }
+        }
 
-                Destroy(enemy.gameObject);
+        // 아이템 등 상호작용 객체 감지 로직
+        if (collision.TryGetComponent<IInteractable>(out var interactable))
+        {
+            nearbyInteractable = interactable;
+        }
+    }
 
-                abilityManager.PossessBody();
-                UpdateFormState();
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // 빙의 대상 해제 로직
+        if (abilityManager.isSoul)
+        {
+            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            {
+                if (targetEnemyToPossess == enemy)
+                {
+                    targetEnemyToPossess = null;
+                }
+            }
+        }
+
+        // 상호작용 객체 해제 로직
+        if (collision.TryGetComponent<IInteractable>(out var interactable))
+        {
+            // 방금 벗어난 객체가 내가 타겟팅하던 객체라면 초기화
+            if (nearbyInteractable == interactable)
+            {
+                nearbyInteractable = null;
             }
         }
     }

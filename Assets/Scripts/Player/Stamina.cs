@@ -58,4 +58,10 @@ public class Stamina : MonoBehaviour
         }
         return false;
     }
+
+    public void RestoreStamina(float amount)
+    {
+        CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + amount);
+        OnStaminaChanged?.Invoke();
+    }
 }
