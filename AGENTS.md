@@ -4,11 +4,11 @@
 - Active scene:
   - Name: test1
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: Bottom
-  - Tag: Floor
+  - Name: item_sp_0
+  - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
