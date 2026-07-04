@@ -1589,6 +1589,7 @@ EdgeCollider2D:
   m_EdgeRadius: 0
   m_Points:
   - {x: 10.0633955, y: -2.197098}
+  - {x: 3.82362, y: -2.1873877}
   - {x: -4.284723, y: -2.1747699}
   - {x: -4.2898564, y: -5.0680075}
   - {x: -6.7668753, y: -5.068722}
@@ -1617,9 +1618,9 @@ EdgeCollider2D:
   - {x: 3.1665816, y: -7.4224544}
   - {x: 4.062129, y: -7.410275}
   - {x: 4.061391, y: -5.0200567}
-  - {x: 11.517902, y: -5.02039}
+  - {x: 11.502347, y: -5.022983}
   - {x: 11.507334, y: -3.629767}
-  - {x: 10.059817, y: -3.6355956}
+  - {x: 10.059817, y: -3.6207304}
   - {x: 10.064085, y: -2.2038646}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -1800,10 +1801,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -2.8986993, y: -0.67036176}
+  - {x: -2.8973482, y: -0.68862087}
   - {x: -2.8984065, y: 2.1891334}
   - {x: 4.494383, y: 2.1985657}
-  - {x: 7.258448, y: 2.2021236}
+  - {x: 7.2221174, y: 2.2021236}
   - {x: 7.224613, y: -0.7159131}
   - {x: 11.495716, y: -0.69928527}
   - {x: 11.509788, y: 6.4461813}
@@ -1817,7 +1818,7 @@ EdgeCollider2D:
   - {x: -2.624079, y: 6.470697}
   - {x: -4.2898016, y: 6.468385}
   - {x: -4.3009286, y: -0.6843734}
-  - {x: -2.8860536, y: -0.68923134}
+  - {x: -2.8974473, y: -0.68923134}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -2201,8 +2202,7 @@ MonoBehaviour:
   wallClimbSpeed: 0.25
   wallClimbHoldStaminaCostPerSecond: 2
   wallClimbMoveStaminaCostPerSecond: 3
-  wallClimbFallOffDistance: 0.1
-  wallClimbFallSpeed: 0.25
+  wallClimbFallOffDistance: 0.15
   jumpStaminaCost: 10
   dashSpeed: 20
   dashDuration: 0.15

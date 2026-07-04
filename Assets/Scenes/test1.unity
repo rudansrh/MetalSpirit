@@ -2287,7 +2287,7 @@ GameObject:
   - component: {fileID: 1359489549}
   m_Layer: 0
   m_Name: Bottom
-  m_TagString: Floor
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3070,7 +3070,6 @@ MonoBehaviour:
   wallClimbHoldStaminaCostPerSecond: 2
   wallClimbMoveStaminaCostPerSecond: 3
   wallClimbFallOffDistance: 0.1
-  wallClimbFallSpeed: 0.25
   jumpStaminaCost: 10
   dashSpeed: 20
   dashDuration: 0.15
@@ -3193,7 +3192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bb4073002c1ab41824a6dde88fac0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stamina
-  staminaRegenRate: 0
+  staminaRegenRate: 2
 --- !u!1 &1774209516
 GameObject:
   m_ObjectHideFlags: 0

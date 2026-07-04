@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float wallClimbHoldStaminaCostPerSecond = 2f;
     [SerializeField] float wallClimbMoveStaminaCostPerSecond = 3f;
     [SerializeField] float wallClimbFallOffDistance = 0.1f;
-    [SerializeField] float wallClimbFallSpeed = 0.25f;
     [SerializeField] float jumpStaminaCost = 10f;
 
     [Header("Dash Settings")]
@@ -60,11 +59,10 @@ public class PlayerController : MonoBehaviour
     float facingDirection = 1f; // 바라보는 방향 (기본값: 오른쪽 1)
     float originalGravity = 1f;
 
+    //벽점프 관련 변수
     bool isJump = false;
-    bool canWallJumpAgain = true;
-    int TouchingWallCnt = 0;
     bool isWallClimbing = false;
-    bool wallClimbLockedUntilExit = false;
+    int TouchingWallCnt = 0;
     float wallClimbDetachDirection = 0f;
 
     Vector2 moveInput;
@@ -120,11 +118,6 @@ public class PlayerController : MonoBehaviour
         }
 
         // 빙의 상태일 때
-        if (rigid.linearVelocityY == 0)
-        {
-            isJump = false;
-        }
-
         if (UpdateWallClimbState())
         {
             return;
@@ -179,7 +172,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = value.Get<Vector2>();
         moveInput = new Vector2(
             input.x,
-            abilityManager.isSoul || TouchingWallCnt > 0 ? input.y : 0f);
+            abilityManager.isSoul || wallClimbDetachDirection != 0 ? input.y : 0f);
 
         // 바라보는 방향을 업데이트
         if (moveInput.x != 0)
@@ -231,25 +224,18 @@ public class PlayerController : MonoBehaviour
         // 점프 불가
         if (isDashing || abilityManager.isSoul) return;
 
-        if (value.isPressed && (!isJump || (TouchingWallCnt > 0 && abilityManager.canWallJump && canWallJumpAgain)))
+        if (value.isPressed && !isJump)
         {
             if (stamina != null && !stamina.UseStamina(jumpStaminaCost))
             {
                 return;
             }
 
-            canWallJumpAgain = false;
-            Invoke("EnableWallJump", wallJumpDelay);
-
             StopWallClimb();
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isJump = true;
         }
-    }
-    void EnableWallJump()
-    {
-        canWallJumpAgain = true;
     }
 
     // 대쉬 액션
@@ -306,6 +292,7 @@ public class PlayerController : MonoBehaviour
             return false;
         }
 
+        isJump = false;
         float climbInput = moveInput.y;
         bool isMovingVertically = Mathf.Abs(climbInput) > 0.01f;
         float staminaCostPerSecond = isMovingVertically
@@ -321,7 +308,7 @@ public class PlayerController : MonoBehaviour
 
         isWallClimbing = true;
         rigid.gravityScale = 0f;
-        rigid.linearVelocity = new Vector2(0f, isMovingVertically ? climbInput * wallClimbSpeed : 0f);
+        rigid.linearVelocity = new Vector2(-wallClimbDetachDirection, isMovingVertically ? climbInput * wallClimbSpeed : 0f);
         return true;
     }
 
@@ -330,10 +317,9 @@ public class PlayerController : MonoBehaviour
     {
         return abilityManager.canWallJump
             && !abilityManager.isSoul
-            && TouchingWallCnt > 0
+            && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
-            && !wallClimbLockedUntilExit
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
@@ -351,20 +337,19 @@ public class PlayerController : MonoBehaviour
         rigid.gravityScale = originalGravity;
     }
 
+    IEnumerator FallFromWall()
+    {
+        StopWallClimb();
+        rigid.AddForce(Vector2.right * wallClimbDetachDirection * wallClimbFallOffDistance, ForceMode2D.Impulse); //벽에 붙어있다면 반대방향으로 점프
+        canMove = false;
+        yield return new WaitForSeconds(0.4f);
+        canMove = true;
+    }
+
     // 벽 타기 중 스태미나 부족 시 강제 낙하 처리
     void ForceWallClimbFall()
     {
-        StopWallClimb();
-        wallClimbLockedUntilExit = true;
-
-        float detachDirection = wallClimbDetachDirection;
-        if (Mathf.Abs(detachDirection) <= 0.01f)
-        {
-            detachDirection = moveInput.x != 0f ? -Mathf.Sign(moveInput.x) : -facingDirection;
-        }
-
-        transform.position += Vector3.right * detachDirection * wallClimbFallOffDistance;
-        rigid.linearVelocity = new Vector2(0f, -wallClimbFallSpeed);
+        StartCoroutine(FallFromWall());
     }
 
     // 벽과의 충돌에서 떨어지는 방향을 결정
@@ -375,17 +360,15 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        ContactPoint2D contact = collision.GetContact(0);
-        if (Mathf.Abs(contact.normal.x) > 0.01f)
-        {
-            wallClimbDetachDirection = Mathf.Sign(contact.normal.x);
-            return;
-        }
+        wallClimbDetachDirection = 0;
 
-        float fallbackDirection = transform.position.x - collision.transform.position.x;
-        if (Mathf.Abs(fallbackDirection) > 0.01f)
+        foreach (ContactPoint2D contact in collision.contacts)
         {
-            wallClimbDetachDirection = Mathf.Sign(fallbackDirection);
+            if (Mathf.Abs(contact.normal.x) > 0.1f)
+            {
+                wallClimbDetachDirection = Mathf.Sign(contact.normal.x);
+                return;
+            }
         }
     }
 #endregion
@@ -394,6 +377,16 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (Mathf.Abs(contact.normal.x) > 0.1f || contact.normal.y > 0.1f)
+                {
+                    isJump = false;
+                    return;
+                }
+            }
+
             TouchingWallCnt++;
             UpdateWallClimbDetachDirection(collision);
         }
@@ -416,7 +409,6 @@ public class PlayerController : MonoBehaviour
             {
                 TouchingWallCnt = 0;
                 wallClimbDetachDirection = 0f;
-                wallClimbLockedUntilExit = false;
                 StopWallClimb();
             }
         }
