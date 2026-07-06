@@ -69,7 +69,28 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove = true;
 
-    void Start()
+    public static PlayerController Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+
+            rigid = GetComponent<Rigidbody2D>();
+            originalGravity = rigid.gravityScale;
+            stamina = GetComponent<Stamina>();
+            col = GetComponent<Collider2D>();
+            UpdateFormState();
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    /*void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         originalGravity = rigid.gravityScale;
@@ -78,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
         col = GetComponent<Collider2D>();
         UpdateFormState();
-    }
+    }*/
 
     void UpdateFormState()
     {
@@ -416,23 +437,29 @@ public class PlayerController : MonoBehaviour
 
     public void OnPossess(InputValue value)
     {
-        // X키가 눌렸고, 영혼 상태이며, 빙의 가능한 상태일 때
-        if (value.isPressed && abilityManager.isSoul && abilityManager.canPossess)
+        if (!value.isPressed) return;
+
+        //영혼 -> 빙의
+        if (abilityManager.isSoul && abilityManager.canPossess)
         {
-            // 범위 내에 빙의할 적이 있다면
             if (targetEnemyToPossess != null)
             {
-                // 1. 위치 이동 및 적 제거
                 transform.position = targetEnemyToPossess.transform.position;
                 Destroy(targetEnemyToPossess.gameObject);
 
-                // 2. 빙의 상태 업데이트
                 abilityManager.PossessBody();
                 UpdateFormState();
 
-                // 3. 변수 초기화
                 targetEnemyToPossess = null;
             }
+        }
+        //빙의 -> 영혼
+        else if (!abilityManager.isSoul)
+        {
+            abilityManager.DepossessBody();
+            UpdateFormState();
+
+            if (isDashing) StopDash();
         }
     }
 

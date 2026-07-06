@@ -18,6 +18,20 @@ public class PlayerAbilityManager : MonoBehaviour
         isSoul = false;
         canDash = true;
         canWallJump = true;
-        Debug.Log("빙의 성공! 물리 능력 활성화.");
+        canLowAttack = true;
+        canHighAttack = true;
+        Debug.Log("빙의 성공");
     }
+
+    public void DepossessBody()
+    {
+        isSoul = true;
+        canDash = false;
+        canWallJump = false;
+        canLowAttack = false;
+        canHighAttack = false;
+        Debug.Log("빙의 해제");
+    }
+
+
 }
