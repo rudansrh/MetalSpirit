@@ -58,6 +58,16 @@ public class SimpleEnemy : MonoBehaviour
     // �÷��̾�� �浹 �� ������ �� �˹� ó�� (SpikeObstacle ����)
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        //영혼상태, 무적상태일때 충돌 무시
+        if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
+        {
+            if (playerController.isInvincibility) return;
+        }
+        if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+        {
+            if (playerAbility.isSoul) return;
+        }
+
         // 1. ������ ����
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
@@ -71,9 +81,6 @@ public class SimpleEnemy : MonoBehaviour
 
             // X�� ���� ���� �� Y���� ����ִ� ȿ��
             knockbackDir = new Vector2(Mathf.Sign(knockbackDir.x) * 0.4f, 1f).normalized;
-
-            // �ϰ� ���� �� �˹� ���� ����
-            if (rb.linearVelocityY > 0) knockbackDir.y = -1;
 
             rb.linearVelocity = Vector2.zero; // ���� �ӵ� �ʱ�ȭ
             rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);

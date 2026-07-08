@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput;
 
     public bool canMove = true;
+    public bool isInvincibility = false;
 
     public static PlayerController Instance { get; private set; }
 
@@ -361,7 +362,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator FallFromWall()
     {
         StopWallClimb();
-        rigid.AddForce(Vector2.right * wallClimbDetachDirection * wallClimbFallOffDistance, ForceMode2D.Impulse); //벽에 붙어있다면 반대방향으로 점프
+        rigid.AddForce(Vector2.right * wallClimbDetachDirection * wallClimbFallOffDistance * 5, ForceMode2D.Impulse); //벽에 붙어있다면 반대방향으로 점프
         canMove = false;
         yield return new WaitForSeconds(0.4f);
         canMove = true;
@@ -398,7 +399,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-
             foreach (ContactPoint2D contact in collision.contacts)
             {
                 if (Mathf.Abs(contact.normal.x) > 0.1f || contact.normal.y > 0.1f)

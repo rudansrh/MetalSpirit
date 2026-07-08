@@ -5,8 +5,18 @@ public class SpikeObstacle : MonoBehaviour
     [SerializeField] private float damage = 10f;
     [SerializeField] private float knockbackForce = 5f;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
+        //영혼상태, 무적상태일때 충돌 무시
+        if (collision.TryGetComponent<PlayerController>(out var playerController))
+        {
+            if (playerController.isInvincibility) return;
+        }
+        if (collision.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+        {
+            if (playerAbility.isSoul) return;
+        }
+
         // 데미지 적용
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {

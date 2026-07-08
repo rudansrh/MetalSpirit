@@ -2636,7 +2636,7 @@ Canvas:
   m_GameObject: {fileID: 1673857272}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2644,7 +2644,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
@@ -2838,7 +2838,7 @@ Transform:
   m_GameObject: {fileID: 1738328927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.11, y: -1.34, z: 0}
+  m_LocalPosition: {x: 4.32, y: -1.08, z: 0}
   m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3576,6 +3576,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 1346522987}
+  - {fileID: 1673857276}
   - {fileID: 1894264355}
   - {fileID: 1318778425}
   - {fileID: 1738328931}
@@ -3585,5 +3586,4 @@ SceneRoots:
   - {fileID: 1907846924}
   - {fileID: 415887316}
   - {fileID: 430973162}
-  - {fileID: 1673857276}
   - {fileID: 1549716938}
