@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ItemType { Health, Stamina }
+public enum ItemType {Empty, Health, Stamina }
 
 public class RecoveryItem : MonoBehaviour, IInteractable
 {
@@ -10,6 +10,15 @@ public class RecoveryItem : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
+        if(interactor.TryGetComponent<PlayerAbilityManager>(out var abilityManager)
+            && abilityManager.canUseInventory
+            && interactor.GetComponent<InventoryManager>().AddItem(type, recoveryAmount))
+        {   
+            Debug.Log($"{type} æ∆¿Ã≈€ »πµÊ");
+            Destroy(gameObject);
+            return;
+        }
+
         if (type == ItemType.Health)
         {
             if (interactor.TryGetComponent<Health>(out var health))

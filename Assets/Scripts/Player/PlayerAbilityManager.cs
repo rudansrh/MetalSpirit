@@ -13,6 +13,9 @@ public class PlayerAbilityManager : MonoBehaviour
     public bool canLowAttack = false;
     public bool canHighAttack = false;
 
+    [Header("Inventory")]
+    public bool canUseInventory = false;
+
     public void PossessBody()
     {
         isSoul = false;
