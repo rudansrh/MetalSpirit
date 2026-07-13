@@ -1,19 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public class SimpleEnemy : MonoBehaviour
 {
-    [Header("Movement")]
-    [SerializeField] private float speed = 3f;           // 추적 이동 속도
-    [SerializeField] private float jumpForce = 12f;      // 점프력
-    [SerializeField] private float detectionRange = 10f; // 플레이어 인식 거리
+    [Header("Movement & AI Settings")]
+    [SerializeField] private float speed = 3f;
+    [SerializeField] private float jumpForce = 12f;
+    [SerializeField] private float detectionRange = 10f;
 
-    [Header("Detection Settings")]
-    [SerializeField] private float wallCheckDistance = 1f; // 앞의 벽을 감지할 거리
-    [SerializeField] private float pitCheckDistance = 2f;  // 앞의 낭떠러지를 감지할 거리
+    [Header("Attack Settings")]
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float attackDelay = 0.3f;
+    [SerializeField] private Vector2 attackBoxSize = new Vector2(1.5f, 1f);
+
+    [Header("Detection (Raycast) Settings")]
+    [SerializeField] private float wallCheckDistance = 1f;
+    [SerializeField] private float pitCheckDistance = 2f;
 
     [Header("Damage Settings")]
-    [SerializeField] private float damage = 15f;         // 충돌 시 데미지
-    [SerializeField] private float knockbackForce = 7f;  // 넉백 힘
+    [SerializeField] private float damage = 15f;
+    [SerializeField] private float knockbackForce = 7f;
 
     [Header("Enemy Hp")]
     [SerializeField] private float enemyHp = 30f;
@@ -21,7 +28,11 @@ public class SimpleEnemy : MonoBehaviour
     private Rigidbody2D rb;
     private Collider2D col;
     private bool isGrounded;
-    private float facingDirection = 1f; // 바라보는 방향 (1: 오른쪽, -1: 왼쪽)
+    private float facingDirection = 1f;
+
+
+    private bool isAttacking = false;
+    private float lastAttackTime = 0f;
 
     private void Awake()
     {
@@ -33,23 +44,36 @@ public class SimpleEnemy : MonoBehaviour
     {
         if (PlayerController.Instance == null) return;
 
-        // 영혼인지 체크
         if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
         {
             if (playerAbility.isSoul)
             {
-
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
                 return;
             }
         }
 
+        CheckGrounded();
+
+        if (isAttacking)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
+        }
+
         Vector2 playerPos = PlayerController.Instance.transform.position;
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        CheckGrounded();
+        if (distanceToPlayer <= attackRange)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
-        if (distanceToPlayer <= detectionRange)
+            if (Time.time >= lastAttackTime + attackCooldown)
+            {
+                StartCoroutine(AttackRoutine());
+            }
+        }
+        else if (distanceToPlayer <= detectionRange)
         {
             ChasePlayer(playerPos);
         }
@@ -59,9 +83,52 @@ public class SimpleEnemy : MonoBehaviour
         }
     }
 
+    // 공격 코루틴
+    private IEnumerator AttackRoutine()
+    {
+        isAttacking = true;
+        lastAttackTime = Time.time;
+
+        Debug.Log("적 공격 준비!");
+
+        yield return new WaitForSeconds(attackDelay);
+
+        Vector2 pos = (Vector2)transform.position + new Vector2(facingDirection * (attackBoxSize.x / 2f), 0);
+        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, attackBoxSize, 0);
+
+        bool hitPlayer = false;
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player") && hit.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.TakeDamage(damage, DamageType.Normal);
+                hitPlayer = true;
+                Debug.Log("적 공격 적중");
+            }
+        }
+
+        if (!hitPlayer) Debug.Log("적 공격 빗나감");
+
+        yield return new WaitForSeconds(0.2f);
+
+        isAttacking = false;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+
+        Gizmos.color = new Color(1, 0, 0, 0.3f);
+        Vector2 pos = (Vector2)transform.position + new Vector2(facingDirection * (attackBoxSize.x / 2f), 0);
+        Gizmos.DrawCube(pos, attackBoxSize); 
+    }
+
     private void ChasePlayer(Vector2 playerPos)
     {
-        // 이동할 방향 계산
         float dirX = playerPos.x - transform.position.x;
 
         if (Mathf.Abs(dirX) > 0.1f)
@@ -69,17 +136,13 @@ public class SimpleEnemy : MonoBehaviour
             facingDirection = Mathf.Sign(dirX);
         }
 
-        // 스프라이트 방향 뒤집기
         if ((facingDirection > 0 && transform.localScale.x < 0) ||
             (facingDirection < 0 && transform.localScale.x > 0))
         {
             Flip();
         }
 
-        // 플레이어 방향으로 이동
         rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
-
-        // 이동 중 점프해야 할 장애물이 있는지 체크
         CheckJumpObstacle();
     }
 
@@ -87,9 +150,9 @@ public class SimpleEnemy : MonoBehaviour
     {
         if (!isGrounded) return;
 
-        Vector2 rayOrigin = new Vector2(transform.position.x + (facingDirection * col.bounds.extents.x), transform.position.y);
+        float startOffsetX = (col.bounds.extents.x - 0.05f) * facingDirection;
+        Vector2 rayOrigin = new Vector2(transform.position.x + startOffsetX, transform.position.y);
 
-        // 벽 감지
         bool hasWall = false;
         RaycastHit2D[] wallHits = Physics2D.RaycastAll(rayOrigin, Vector2.right * facingDirection, wallCheckDistance);
         foreach (var hit in wallHits)
@@ -101,7 +164,6 @@ public class SimpleEnemy : MonoBehaviour
             }
         }
 
-        // 낭떠러지 감지
         bool hasPit = true;
         RaycastHit2D[] pitHits = Physics2D.RaycastAll(rayOrigin + new Vector2(facingDirection * 1f, 0), Vector2.down, pitCheckDistance);
         foreach (var hit in pitHits)
@@ -112,9 +174,6 @@ public class SimpleEnemy : MonoBehaviour
                 break;
             }
         }
-
-        Debug.DrawRay(rayOrigin, Vector2.right * facingDirection * wallCheckDistance, Color.red);
-        Debug.DrawRay(rayOrigin + new Vector2(facingDirection * 1f, 0), Vector2.down * pitCheckDistance, Color.blue);
 
         if (hasWall || hasPit)
         {
@@ -145,7 +204,6 @@ public class SimpleEnemy : MonoBehaviour
         localScale.x *= -1f;
         transform.localScale = localScale;
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 영혼 상태, 무적 상태일 때 충돌 무시
