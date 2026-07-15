@@ -4,12 +4,18 @@ using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
-    [SerializeField] int maxSlotCount = 2;
-    [SerializeField] private InventoryItem[] items;
+    public int maxSlotCount { get; private set; } = 2;
+    public InventoryItem[] items { get; private set; }
+
+    public InventoryUIManager inventoryUI;
 
     private void Awake()
     {
         items = new InventoryItem[maxSlotCount];
+        for (int i = 0; i < maxSlotCount; i++)
+        {
+            items[i] = new InventoryItem(ItemType.Empty, 0, 1);
+        }
     }
 
     public bool AddItem(ItemType type, float amount)
@@ -20,6 +26,7 @@ public class InventoryManager : MonoBehaviour
             if (items[i].type != ItemType.Empty && items[i].type == type)
             {
                 items[i].count++;
+                inventoryUI.UpdateInventoryUI(items);
                 return true;
             }
         }
@@ -30,6 +37,7 @@ public class InventoryManager : MonoBehaviour
             if (items[i].type == ItemType.Empty)
             {
                 items[i] = new InventoryItem(type, amount, 1);
+                inventoryUI.UpdateInventoryUI(items);
                 return true;
             }
         }
@@ -81,17 +89,19 @@ public class InventoryManager : MonoBehaviour
         {
             items[index].type = ItemType.Empty;
         }
+        inventoryUI.UpdateInventoryUI(items);
     }
 
     public void AddSlot(int addedSlotCnt) //슬롯 칸수 확장
     {
         maxSlotCount += addedSlotCnt;
         InventoryItem[] newItems = new InventoryItem[maxSlotCount];
-        for (int i = 0; i < items.Length; i++)
+        for (int i = 0; i < maxSlotCount; i++)
         {
-            newItems[i] = items[i];
+            newItems[i] = i < items.Length ? items[i] : new InventoryItem(ItemType.Empty, 0, 1);
         }
 
         items = newItems;
+        inventoryUI.UpdateInventoryUI(items);
     }
 }
