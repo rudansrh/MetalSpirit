@@ -2,13 +2,13 @@
 - Project name: MetalSpirit
 - Unity version: Unity 6000.4.9f1
 - Active scene:
-  - Name: BossPhase1
+  - Name: BossPhase2
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, MiniMap, Enemy
 - Active game object:
-  - Name: BossAttackController
+  - Name: BossArenaController
   - Tag: Untagged
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

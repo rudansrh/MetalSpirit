@@ -22,6 +22,7 @@ public class BossArenaController : MonoBehaviour
     [SerializeField] GameObject debrisImpactEffectPrefab;                       // 잔해 충돌 효과 프리팹
 
     [Header("Shake")]
+    [SerializeField] bool allowShake = true;            // 흔들림 허용 여부
     [SerializeField] Transform shakeTarget;             // 흔들림 대상 (카메라)
     [SerializeField] float shakeAmount = 0.15f;         // 흔들림 강도
     [SerializeField] float shakeTickInterval = 0.1f;    // 흔들림 갱신 간격
@@ -124,6 +125,7 @@ public class BossArenaController : MonoBehaviour
         platformCycleCoroutine = StartCoroutine(PlatformCycleRoutine());
     }
 
+    // 발판 순환 코루틴: 페이즈에 따라 발판 세트를 주기적으로 전환
     IEnumerator PlatformCycleRoutine()
     {
         while (bossController != null && bossController.IsBattleActive && !bossController.IsDefeated)
@@ -141,6 +143,7 @@ public class BossArenaController : MonoBehaviour
         }
     }
 
+    // 발판 상태 적용: 현재 활성화할 발판 세트를 설정하고, 나머지 세트는 비활성화
     void ApplyPlatformState(bool enableSetA)
     {
         SetPlatformGroup(platformSetA, enableSetA);
@@ -159,6 +162,7 @@ public class BossArenaController : MonoBehaviour
         }
     }
 
+    // 잔해 생성 코루틴: 페이즈 2에서 주기적으로 잔해를 생성하고, 플레이어에게 피해를 줄 수 있음
     IEnumerator DebrisRoutine()
     {
         while (bossController != null && bossController.IsBattleActive && !bossController.IsDefeated)
@@ -199,6 +203,7 @@ public class BossArenaController : MonoBehaviour
         }
     }
 
+    // 잔해 충돌 처리: 충돌 영역 내 플레이어에게 피해를 주고, 충돌 효과를 생성
     bool ResolveDebrisImpact(Vector2 impactPosition)
     {
         if (debrisImpactEffectPrefab != null)
@@ -227,6 +232,7 @@ public class BossArenaController : MonoBehaviour
         return playerHit;
     }
 
+    // 보너스 발판 활성화: 플레이어가 잔해 충돌을 피했을 때, 비활성화된 보너스 발판 중 하나를 활성화
     void ActivateBonusPlatform()
     {
         for (int i = 0; i < bonusPlatforms.Count; i++)
@@ -242,7 +248,7 @@ public class BossArenaController : MonoBehaviour
 
     IEnumerator ShakeRoutine()
     {
-        if (shakeTarget == null)
+        if (shakeTarget == null || allowShake == false)
         {
             yield break;
         }

@@ -22,10 +22,12 @@ public class BossAttackDefinition
 
 public class BossAttackController : MonoBehaviour
 {
-    [Header("Attack Timing")]
+    [Header("Attack Information")]
     [SerializeField] float telegraphDuration = 3f;              // 패턴 예고 시간
     [SerializeField] float recoveryDuration = 1f;               // 패턴 후 회복 시간
     [SerializeField] float idleDelayBetweenPatterns = 0.75f;    // 패턴 사이의 대기 시간
+    [SerializeField] Vector3 basicPosition;                     // 돌진 후 돌아갈 기본 위치
+    [SerializeField] float returnDuration = 0.75f;              // 돌진 후 기본 위치로 돌아가는 시간
 
     [Header("Phase 1 Attacks")]
     [SerializeField] BossAttackDefinition leftPunchAttack = new BossAttackDefinition
@@ -146,7 +148,7 @@ public class BossAttackController : MonoBehaviour
 
         if (attack.chargeStartPoint != null)
         {
-            transform.position = attack.chargeStartPoint.position;
+            yield return MoveToPositionRoutine(attack.chargeStartPoint.position);
         }
 
         float elapsed = 0f;
@@ -160,6 +162,30 @@ public class BossAttackController : MonoBehaviour
             ResolveAreaAttack(attack, damagedTargets);
             yield return null;
         }
+
+        yield return ReturnToBasicPositionRoutine();
+    }
+
+    IEnumerator MoveToPositionRoutine(Vector3 targetPosition)
+    {
+        float elapsed = 0f;
+        float duration = Mathf.Max(0.01f, returnDuration);
+        Vector3 startPosition = transform.position;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+    }
+
+    IEnumerator ReturnToBasicPositionRoutine()
+    {
+        yield return MoveToPositionRoutine(basicPosition);
     }
 
     void ResolveAreaAttack(BossAttackDefinition attack, HashSet<Collider2D> alreadyDamaged = null)
