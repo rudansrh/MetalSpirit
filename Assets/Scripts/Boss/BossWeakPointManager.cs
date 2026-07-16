@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class BossWeakPointManager : MonoBehaviour
 {
     [Header("Weak Point Settings")]
-    [SerializeField] float weakPointOpenDuration = 5f;
-    [SerializeField] List<BossPartHitbox> weakPointHitboxes = new List<BossPartHitbox>();
+    [SerializeField] float weakPointOpenDuration = 5f;                                      // 약점 포인트 활성화 시간
+    [SerializeField] List<BossPartHitbox> weakPointHitboxes = new List<BossPartHitbox>();   // 약점 포인트 Hitbox 목록
 
     [Header("UI")]
-    [SerializeField] Text weakPointText;
-    [SerializeField] string weakPointTextPrefix = "Weak Point";
+    [SerializeField] Text weakPointText;                        // 약점 포인트 UI 텍스트
+    [SerializeField] string weakPointTextPrefix = "Weak Point"; // 약점 포인트 UI 텍스트 접두사
 
-    BossController bossController;
-    BossPartHitbox currentWeakPoint;
-    Coroutine weakPointCycleCoroutine;
-    float remainingOpenTime;
+    BossController bossController;      // 보스 컨트롤러 참조
+    BossPartHitbox currentWeakPoint;    // 현재 활성화된 약점 포인트
+    Coroutine weakPointCycleCoroutine;  // 약점 포인트 순환 코루틴
+    float remainingOpenTime;            // 현재 활성화된 약점 포인트의 남은 시간
 
-    public BossWeakPointType CurrentWeakPointType =>
+    public BossWeakPointType CurrentWeakPointType =>    // 현재 활성화된 약점 포인트 유형 반환
         currentWeakPoint != null ? currentWeakPoint.WeakPointType : BossWeakPointType.LeftArm;
 
     void Reset()
@@ -34,10 +34,7 @@ public class BossWeakPointManager : MonoBehaviour
 
     void Update()
     {
-        if (currentWeakPoint == null || weakPointText == null)
-        {
-            return;
-        }
+        if (currentWeakPoint == null || weakPointText == null) return;
 
         remainingOpenTime = Mathf.Max(0f, remainingOpenTime - Time.deltaTime);
         weakPointText.text =
@@ -110,10 +107,7 @@ public class BossWeakPointManager : MonoBehaviour
     {
         StopCycle();
 
-        if (weakPointHitboxes.Count == 0)
-        {
-            return;
-        }
+        if (weakPointHitboxes.Count == 0) return;
 
         weakPointCycleCoroutine = StartCoroutine(WeakPointCycleRoutine());
     }

@@ -5,27 +5,27 @@ using UnityEngine;
 [System.Serializable]
 public class BossAttackDefinition
 {
-    public BossAttackType attackType;
-    public string displayName;
-    public Transform attackOrigin;
-    public Vector2 hitboxSize = new Vector2(3f, 2f);
-    public float damage = 20f;
-    public float activeDuration = 0.2f;
-    public GameObject telegraphIndicator;
-    public GameObject attackIndicator;
+    public BossAttackType attackType;                   // 공격 유형 (신체)
+    public string displayName;                          // 공격 이름 (신체 이름)
+    public Transform attackOrigin;                      // 타격 위치
+    public Vector2 hitboxSize = new Vector2(3f, 2f);    // 공격 범위
+    public float damage = 20f;                          // 데미지
+    public float activeDuration = 0.2f;                 // 타격 활성화 시간
+    public GameObject telegraphIndicator;               // 패턴 예고 표시기
+    public GameObject attackIndicator;                  // 공격 표시기
 
     [Header("Charge Only")]
-    public Transform chargeStartPoint;
-    public Transform chargeEndPoint;
-    public float chargeDuration = 0.75f;
+    public Transform chargeStartPoint;                  // 돌진 시작 위치
+    public Transform chargeEndPoint;                    // 돌진 종료 위치
+    public float chargeDuration = 0.75f;                // 돌진 시간
 }
 
 public class BossAttackController : MonoBehaviour
 {
     [Header("Attack Timing")]
-    [SerializeField] float telegraphDuration = 3f;
-    [SerializeField] float recoveryDuration = 1f;
-    [SerializeField] float idleDelayBetweenPatterns = 0.75f;
+    [SerializeField] float telegraphDuration = 3f;              // 패턴 예고 시간
+    [SerializeField] float recoveryDuration = 1f;               // 패턴 후 회복 시간
+    [SerializeField] float idleDelayBetweenPatterns = 0.75f;    // 패턴 사이의 대기 시간
 
     [Header("Phase 1 Attacks")]
     [SerializeField] BossAttackDefinition leftPunchAttack = new BossAttackDefinition

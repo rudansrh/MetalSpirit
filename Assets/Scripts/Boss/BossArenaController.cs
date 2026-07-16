@@ -5,33 +5,33 @@ using UnityEngine;
 public class BossArenaController : MonoBehaviour
 {
     [Header("Platform Cycle")]
-    [SerializeField] float platformCycleInterval = 5f;
-    [SerializeField] bool cyclePlatformsInPhase1;
-    [SerializeField] bool cyclePlatformsInPhase2 = true;
-    [SerializeField] List<GameObject> platformSetA = new List<GameObject>();
-    [SerializeField] List<GameObject> platformSetB = new List<GameObject>();
-    [SerializeField] List<GameObject> bonusPlatforms = new List<GameObject>();
+    [SerializeField] float platformCycleInterval = 5f;                          // 발판 생성/파괴 주기
+    [SerializeField] bool cyclePlatformsInPhase1;                               // 페이즈 1에서 발판 순환 여부
+    [SerializeField] bool cyclePlatformsInPhase2 = true;                        // 페이즈 2에서 발판 순환 여부
+    [SerializeField] List<GameObject> platformSetA = new List<GameObject>();    // 발판 세트 A
+    [SerializeField] List<GameObject> platformSetB = new List<GameObject>();    // 발판 세트 B
+    [SerializeField] List<GameObject> bonusPlatforms = new List<GameObject>();  // 보너스 발판 (페이즈 2에서만 활성화)
 
     [Header("Phase 2 Debris")]
-    [SerializeField] float debrisSpawnInterval = 2f;
-    [SerializeField] float debrisWarningDuration = 1f;
-    [SerializeField] Vector2 debrisImpactSize = new Vector2(1.5f, 1.5f);
-    [SerializeField] float debrisDamage = 15f;
-    [SerializeField] List<Transform> debrisSpawnPoints = new List<Transform>();
-    [SerializeField] GameObject debrisWarningIndicatorPrefab;
-    [SerializeField] GameObject debrisImpactEffectPrefab;
+    [SerializeField] float debrisSpawnInterval = 2f;                            // 잔해 떨어지는 주기
+    [SerializeField] float debrisWarningDuration = 1f;                          // 잔해 경고 표시 시간
+    [SerializeField] Vector2 debrisImpactSize = new Vector2(1.5f, 1.5f);        // 잔해 충돌 크기
+    [SerializeField] float debrisDamage = 15f;                                  // 잔해 피해량
+    [SerializeField] List<Transform> debrisSpawnPoints = new List<Transform>(); // 잔해 생성 지점 목록
+    [SerializeField] GameObject debrisWarningIndicatorPrefab;                   // 잔해 경고 표시 프리팹
+    [SerializeField] GameObject debrisImpactEffectPrefab;                       // 잔해 충돌 효과 프리팹
 
     [Header("Shake")]
-    [SerializeField] Transform shakeTarget;
-    [SerializeField] float shakeAmount = 0.15f;
-    [SerializeField] float shakeTickInterval = 0.1f;
+    [SerializeField] Transform shakeTarget;             // 흔들림 대상 (카메라)
+    [SerializeField] float shakeAmount = 0.15f;         // 흔들림 강도
+    [SerializeField] float shakeTickInterval = 0.1f;    // 흔들림 갱신 간격
 
-    BossController bossController;
-    Coroutine platformCycleCoroutine;
-    Coroutine debrisCoroutine;
-    Coroutine shakeCoroutine;
-    bool usingPlatformSetA = true;
-    Vector3 originalShakeLocalPosition;
+    BossController bossController;      // 보스 컨트롤러 참조
+    Coroutine platformCycleCoroutine;   // 발판 순환 코루틴
+    Coroutine debrisCoroutine;          // 잔해 생성 코루틴
+    Coroutine shakeCoroutine;           // 흔들림 코루틴
+    bool usingPlatformSetA = true;      // 현재 사용 중인 발판 세트 (A 또는 B)
+    Vector3 originalShakeLocalPosition; // 흔들림 대상의 원래 로컬 위치
 
     void Awake()
     {

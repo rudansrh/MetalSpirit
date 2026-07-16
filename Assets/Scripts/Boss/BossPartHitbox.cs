@@ -3,15 +3,15 @@ using UnityEngine;
 public class BossPartHitbox : MonoBehaviour
 {
     [Header("Part Settings")]
-    [SerializeField] BossWeakPointType weakPointType;
-    [SerializeField] Collider2D hitboxCollider;
+    [SerializeField] BossWeakPointType weakPointType;   // 약점 포인트 유형
+    [SerializeField] Collider2D hitboxCollider;         // 타격 범위 콜라이더
 
     [Header("Visual Feedback")]
-    [SerializeField] SpriteRenderer targetRenderer;
-    [SerializeField] Color activeColor = new Color(1f, 0.4f, 0.4f, 1f);
-    [SerializeField] Color inactiveColor = Color.white;
-    [SerializeField] GameObject activeMarker;
-    [SerializeField] GameObject inactiveMarker;
+    [SerializeField] SpriteRenderer targetRenderer;                     // 시각적 피드백을 위한 Sprite Renderer
+    [SerializeField] Color activeColor = new Color(1f, 0.4f, 0.4f, 1f); // 활성화 상태 색상
+    [SerializeField] Color inactiveColor = Color.white;                 // 비활성화 상태 색상
+    [SerializeField] GameObject activeMarker;                           // 활성화 상태 표시기
+    [SerializeField] GameObject inactiveMarker;                         // 비활성화 상태 표시기
 
     BossWeakPointManager weakPointManager;
     bool isWeakPointActive;

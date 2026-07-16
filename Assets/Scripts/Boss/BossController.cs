@@ -4,67 +4,67 @@ using UnityEngine.SceneManagement;
 
 public enum BossPhase
 {
-    Phase1,
-    Phase2
+    Phase1, // 페이즈 1
+    Phase2  // 페이즈 2
 }
 
 public enum BossState
 {
-    Idle,
-    Telegraph,
-    Attack,
-    Recovery,
-    Transition,
-    Defeated
+    Idle,       // 대기 상태
+    Telegraph,  // 패턴 예고 상태
+    Attack,     // 공격 상태
+    Recovery,   // 패턴 후 회복 상태
+    Transition, // 페이즈 전환 상태
+    Defeated    // 처치 상태
 }
 
 public enum BossWeakPointType
 {
-    LeftArm,
-    RightArm,
-    UpperBody,
-    LowerBody
+    LeftArm,    // 왼쪽 팔
+    RightArm,   // 오른쪽 팔
+    UpperBody,  // 상체(머리)
+    LowerBody   // 하체(몸통)
 }
 
 public enum BossAttackType
 {
-    LeftPunch,
-    RightPunch,
-    Charge
+    LeftPunch,  // 왼팔 펀치
+    RightPunch, // 오른팔 펀치
+    Charge      // 돌진
 }
 
 public class BossController : MonoBehaviour
 {
     [Header("Phase Settings")]
-    [SerializeField] BossPhase startPhase = BossPhase.Phase1;
-    [SerializeField] float phase1MaxHealth = 100f;
-    [SerializeField] float phase2MaxHealth = 150f;
-    [SerializeField] bool autoStartBattle = true;
+    [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
+    [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
+    [SerializeField] float phase2MaxHealth = 150f;              // 페이즈 2 최대 체력
+    [SerializeField] bool autoStartBattle = true;               // 자동으로 전투 시작 여부
 
     [Header("Transition Settings")]
-    [SerializeField] bool loadPhase2SceneOnTransition = true;
-    [SerializeField] string phase2SceneName = "BossPhase2";
+    [SerializeField] bool loadPhase2SceneOnTransition = true;   // 페이즈 2로 전환 시 씬 로드 여부
+    [SerializeField] string phase2SceneName = "BossPhase2";     // 페이즈 2 씬 이름
 
     [Header("Combat Test Settings")]
-    [SerializeField] bool usePassiveTestDamage = true;
-    [SerializeField] float passiveDamagePerSecond = 10f;
+    [SerializeField] bool usePassiveTestDamage = true;          // 테스트용 지속 피해 사용 여부
+    [SerializeField] float passiveDamagePerSecond = 10f;        // 테스트용 지속 피해량 (초당)
 
     [Header("Component References")]
-    [SerializeField] BossWeakPointManager weakPointManager;
-    [SerializeField] BossAttackController attackController;
-    [SerializeField] BossArenaController arenaController;
+    [SerializeField] BossWeakPointManager weakPointManager;     // 약점 포인트 Manager
+    [SerializeField] BossAttackController attackController;     // 공격 Controller
+    [SerializeField] BossArenaController arenaController;       // 전투 Arena Controller
 
-    public event Action<BossPhase> OnPhaseChanged;
-    public event Action<BossState> OnStateChanged;
-    public event Action<float, float> OnHealthChanged;
-    public event Action OnBossDefeated;
+    public event Action<BossPhase> OnPhaseChanged;              // 페이즈 변경 이벤트
+    public event Action<BossState> OnStateChanged;              // 상태 변경 이벤트
+    public event Action<float, float> OnHealthChanged;          // 체력 변경 이벤트 (현재 체력, 최대 체력)
+    public event Action OnBossDefeated;                         // 보스 처치 이벤트
 
-    public BossPhase CurrentPhase { get; private set; }
-    public BossState CurrentState { get; private set; } = BossState.Idle;
-    public float CurrentHealth { get; private set; }
-    public float MaxHealth { get; private set; }
-    public bool IsBattleActive { get; private set; }
-    public bool IsDefeated => CurrentState == BossState.Defeated;
+    public BossPhase CurrentPhase { get; private set; }                     // 현재 페이즈
+    public BossState CurrentState { get; private set; } = BossState.Idle;   // 현재 상태
+    public float CurrentHealth { get; private set; }                        // 현재 체력
+    public float MaxHealth { get; private set; }                            // 최대 체력
+    public bool IsBattleActive { get; private set; }                        // 전투 활성화 여부
+    public bool IsDefeated => CurrentState == BossState.Defeated;           // 보스 처치 여부
 
     void Reset()
     {
@@ -162,10 +162,7 @@ public class BossController : MonoBehaviour
 
     public void SetState(BossState nextState)
     {
-        if (CurrentState == nextState)
-        {
-            return;
-        }
+        if (CurrentState == nextState) return;
 
         CurrentState = nextState;
         OnStateChanged?.Invoke(CurrentState);
@@ -173,13 +170,12 @@ public class BossController : MonoBehaviour
 
     public void ApplyDamage(float amount)
     {
-        if (!IsBattleActive || IsDefeated || amount <= 0f)
-        {
-            return;
-        }
+        if (!IsBattleActive || IsDefeated || amount <= 0f) return;
 
         CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+
+        // Debug.Log($"Boss took {amount} damage. Current Health: {CurrentHealth}/{MaxHealth}");
 
         if (CurrentHealth <= 0f)
         {
