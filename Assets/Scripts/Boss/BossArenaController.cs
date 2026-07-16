@@ -4,19 +4,24 @@ using UnityEngine;
 
 public class BossArenaController : MonoBehaviour
 {
+    const string WallTag = "Wall";
+    const string WallLayerName = "Wall";
+
     [Header("Platform Cycle")]
     [SerializeField] float platformCycleInterval = 5f;                          // 발판 생성/파괴 주기
-    [SerializeField] bool cyclePlatformsInPhase1;                               // 페이즈 1에서 발판 순환 여부
+    [SerializeField] bool cyclePlatformsInPhase1 = true;                        // 페이즈 1에서 발판 순환 여부
     [SerializeField] bool cyclePlatformsInPhase2 = true;                        // 페이즈 2에서 발판 순환 여부
     [SerializeField] List<GameObject> platformSetA = new List<GameObject>();    // 발판 세트 A
     [SerializeField] List<GameObject> platformSetB = new List<GameObject>();    // 발판 세트 B
-    [SerializeField] List<GameObject> bonusPlatforms = new List<GameObject>();  // 보너스 발판 (페이즈 2에서만 활성화)
+    // [SerializeField] List<GameObject> bonusPlatforms = new List<GameObject>();
 
     [Header("Phase 2 Debris")]
-    [SerializeField] float debrisSpawnInterval = 2f;                            // 잔해 떨어지는 주기
+    [SerializeField] GameObject debrisObjectPrefab;                             // 실제 떨어질 잔해 프리팹
+    [SerializeField] float debrisSpawnInterval = 2f;                            // 잔해 주기
     [SerializeField] float debrisWarningDuration = 1f;                          // 잔해 경고 표시 시간
-    [SerializeField] Vector2 debrisImpactSize = new Vector2(1.5f, 1.5f);        // 잔해 충돌 크기
+    [SerializeField] float debrisFallSpeed = 8f;                                // 잔해 낙하 속도
     [SerializeField] float debrisDamage = 15f;                                  // 잔해 피해량
+    [SerializeField] Vector2 landedDebrisHeightRange = new Vector2(0.5f, 2f);   // 피했을 때 바닥 기준 추가 높이 범위
     [SerializeField] List<Transform> debrisSpawnPoints = new List<Transform>(); // 잔해 생성 지점 목록
     [SerializeField] GameObject debrisWarningIndicatorPrefab;                   // 잔해 경고 표시 프리팹
     [SerializeField] GameObject debrisImpactEffectPrefab;                       // 잔해 충돌 효과 프리팹
@@ -27,12 +32,13 @@ public class BossArenaController : MonoBehaviour
     [SerializeField] float shakeAmount = 0.15f;         // 흔들림 강도
     [SerializeField] float shakeTickInterval = 0.1f;    // 흔들림 갱신 간격
 
-    BossController bossController;      // 보스 컨트롤러 참조
-    Coroutine platformCycleCoroutine;   // 발판 순환 코루틴
-    Coroutine debrisCoroutine;          // 잔해 생성 코루틴
-    Coroutine shakeCoroutine;           // 흔들림 코루틴
-    bool usingPlatformSetA = true;      // 현재 사용 중인 발판 세트 (A 또는 B)
-    Vector3 originalShakeLocalPosition; // 흔들림 대상의 원래 로컬 위치
+    BossController bossController;                      // 보스 컨트롤러 참조
+    Coroutine platformCycleCoroutine;                   // 발판 순환 코루틴
+    Coroutine debrisCoroutine;                          // 잔해 생성 코루틴
+    Coroutine shakeCoroutine;                           // 흔들림 코루틴
+    bool usingPlatformSetA = true;                      // 현재 사용 중인 발판 세트 (A 또는 B)
+    Vector3 originalShakeLocalPosition;                 // 흔들림 대상의 원래 로컬 위치
+    readonly List<GameObject> spawnedDebrisObjects = new List<GameObject>();
 
     void Awake()
     {
@@ -84,6 +90,7 @@ public class BossArenaController : MonoBehaviour
             shakeCoroutine = null;
         }
 
+        ClearSpawnedDebrisObjects();
         ResetShakePosition();
     }
 
@@ -115,6 +122,7 @@ public class BossArenaController : MonoBehaviour
                 shakeCoroutine = null;
             }
 
+            ClearSpawnedDebrisObjects();
             ResetShakePosition();
         }
     }
@@ -125,7 +133,6 @@ public class BossArenaController : MonoBehaviour
         platformCycleCoroutine = StartCoroutine(PlatformCycleRoutine());
     }
 
-    // 발판 순환 코루틴: 페이즈에 따라 발판 세트를 주기적으로 전환
     IEnumerator PlatformCycleRoutine()
     {
         while (bossController != null && bossController.IsBattleActive && !bossController.IsDefeated)
@@ -143,7 +150,6 @@ public class BossArenaController : MonoBehaviour
         }
     }
 
-    // 발판 상태 적용: 현재 활성화할 발판 세트를 설정하고, 나머지 세트는 비활성화
     void ApplyPlatformState(bool enableSetA)
     {
         SetPlatformGroup(platformSetA, enableSetA);
@@ -162,16 +168,17 @@ public class BossArenaController : MonoBehaviour
         }
     }
 
-    // 잔해 생성 코루틴: 페이즈 2에서 주기적으로 잔해를 생성하고, 플레이어에게 피해를 줄 수 있음
     IEnumerator DebrisRoutine()
     {
         while (bossController != null && bossController.IsBattleActive && !bossController.IsDefeated)
         {
-            if (bossController.CurrentPhase != BossPhase.Phase2 || debrisSpawnPoints.Count == 0)
+            if (bossController.CurrentPhase != BossPhase.Phase2 || debrisSpawnPoints.Count == 0 || debrisObjectPrefab == null)
             {
                 yield return null;
                 continue;
             }
+
+            ClearSpawnedDebrisObjects();
 
             Transform spawnPoint = debrisSpawnPoints[Random.Range(0, debrisSpawnPoints.Count)];
             if (spawnPoint == null)
@@ -180,12 +187,13 @@ public class BossArenaController : MonoBehaviour
                 continue;
             }
 
-            GameObject warningInstance = null;
-            if (debrisWarningIndicatorPrefab != null)
+            if (!TryGetDebrisLandingData(spawnPoint.position, out Vector3 fallTargetPosition, out float floorY))
             {
-                warningInstance = Instantiate(debrisWarningIndicatorPrefab, spawnPoint.position, Quaternion.identity);
+                yield return new WaitForSeconds(debrisSpawnInterval);
+                continue;
             }
 
+            GameObject warningInstance = SpawnWarningIndicator(spawnPoint.position, fallTargetPosition);
             yield return new WaitForSeconds(debrisWarningDuration);
 
             if (warningInstance != null)
@@ -193,47 +201,196 @@ public class BossArenaController : MonoBehaviour
                 Destroy(warningInstance);
             }
 
-            bool playerHit = ResolveDebrisImpact(spawnPoint.position);
-            if (!playerHit)
-            {
-                ActivateBonusPlatform();
-            }
-
+            yield return RunDebrisFallRoutine(spawnPoint.position, fallTargetPosition, floorY);
             yield return new WaitForSeconds(debrisSpawnInterval);
         }
     }
 
-    // 잔해 충돌 처리: 충돌 영역 내 플레이어에게 피해를 주고, 충돌 효과를 생성
-    bool ResolveDebrisImpact(Vector2 impactPosition)
+    bool TryGetDebrisLandingData(Vector3 spawnPosition, out Vector3 fallTargetPosition, out float floorY)
     {
-        if (debrisImpactEffectPrefab != null)
-        {
-            Destroy(Instantiate(debrisImpactEffectPrefab, impactPosition, Quaternion.identity), 1.5f);
-        }
+        fallTargetPosition = spawnPosition;
+        floorY = spawnPosition.y;
 
-        Collider2D[] hits = Physics2D.OverlapBoxAll(impactPosition, debrisImpactSize, 0f);
-        bool playerHit = false;
+        RaycastHit2D[] hits = Physics2D.RaycastAll(spawnPosition, Vector2.down, 50f);
+        RaycastHit2D selectedHit = default;
+        bool foundHit = false;
+        int wallLayer = LayerMask.NameToLayer(WallLayerName);
 
         for (int i = 0; i < hits.Length; i++)
         {
-            Collider2D hit = hits[i];
-            if (hit == null || !hit.CompareTag("Player"))
+            Collider2D hitCollider = hits[i].collider;
+            if (hitCollider == null)
             {
                 continue;
             }
 
-            if (hit.TryGetComponent<IDamageable>(out var damageable))
+            bool isWallLayer = wallLayer >= 0 && hitCollider.gameObject.layer == wallLayer;
+            bool isWallTag = hitCollider.CompareTag(WallTag);
+            if (!isWallLayer && !isWallTag)
             {
-                damageable.TakeDamage(debrisDamage, DamageType.Normal);
-                playerHit = true;
+                continue;
+            }
+
+            selectedHit = hits[i];
+            foundHit = true;
+            break;
+        }
+
+        if (!foundHit)
+        {
+            return false;
+        }
+
+        float halfHeight = GetDebrisHalfHeight();
+        floorY = selectedHit.point.y;
+        fallTargetPosition = new Vector3(spawnPosition.x, floorY + halfHeight, spawnPosition.z);
+        return true;
+    }
+
+    float GetDebrisHalfHeight()
+    {
+        if (debrisObjectPrefab == null)
+        {
+            return 0.5f;
+        }
+
+        if (debrisObjectPrefab.TryGetComponent<BoxCollider2D>(out var boxCollider))
+        {
+            return boxCollider.size.y * Mathf.Abs(debrisObjectPrefab.transform.localScale.y) * 0.5f;
+        }
+
+        if (debrisObjectPrefab.TryGetComponent<Collider2D>(out var collider2D))
+        {
+            return collider2D.bounds.extents.y;
+        }
+
+        return 0.5f;
+    }
+
+    GameObject SpawnWarningIndicator(Vector3 spawnPosition, Vector3 targetPosition)
+    {
+        if (debrisWarningIndicatorPrefab == null)
+        {
+            return null;
+        }
+
+        Vector3 indicatorPosition = (spawnPosition + targetPosition) * 0.5f;
+        GameObject warningInstance = Instantiate(debrisWarningIndicatorPrefab, indicatorPosition, Quaternion.identity);
+
+        Vector3 warningScale = warningInstance.transform.localScale;
+        warningScale.y = Mathf.Abs(spawnPosition.y - targetPosition.y);
+        warningInstance.transform.localScale = warningScale;
+
+        return warningInstance;
+    }
+
+    IEnumerator RunDebrisFallRoutine(Vector3 spawnPosition, Vector3 fallTargetPosition, float floorY)
+    {
+        GameObject fallingDebris = Instantiate(debrisObjectPrefab, spawnPosition, Quaternion.identity);
+        RegisterSpawnedDebris(fallingDebris);
+
+        BossDebrisObject debrisObject = fallingDebris.GetComponent<BossDebrisObject>();
+        if (debrisObject == null)
+        {
+            debrisObject = fallingDebris.AddComponent<BossDebrisObject>();
+        }
+
+        debrisObject.Initialize(debrisDamage);
+
+        while (fallingDebris != null)
+        {
+            if (debrisObject.WasResolved)
+            {
+                if (debrisObject.PlayerWasHit)
+                {
+                    SpawnDebrisImpactEffect(fallingDebris.transform.position);
+                    UnregisterSpawnedDebris(fallingDebris);
+                    Destroy(fallingDebris);
+                    yield break;
+                }
+
+                break;
+            }
+
+            fallingDebris.transform.position = Vector3.MoveTowards(
+                fallingDebris.transform.position,
+                fallTargetPosition,
+                debrisFallSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(fallingDebris.transform.position, fallTargetPosition) <= 0.01f)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        if (fallingDebris == null)
+        {
+            yield break;
+        }
+
+        UnregisterSpawnedDebris(fallingDebris);
+        Destroy(fallingDebris);
+
+        float halfHeight = GetDebrisHalfHeight();
+        float randomHeight = Random.Range(landedDebrisHeightRange.x, landedDebrisHeightRange.y);
+        Vector3 landedPosition = new Vector3(
+            fallTargetPosition.x,
+            floorY + halfHeight + randomHeight,
+            fallTargetPosition.z);
+
+        GameObject landedDebris = Instantiate(debrisObjectPrefab, landedPosition, Quaternion.identity);
+        RegisterSpawnedDebris(landedDebris);
+        // ActivateBonusPlatform();
+        SpawnDebrisImpactEffect(fallTargetPosition);
+    }
+
+    void SpawnDebrisImpactEffect(Vector3 position)
+    {
+        if (debrisImpactEffectPrefab == null)
+        {
+            return;
+        }
+
+        Destroy(Instantiate(debrisImpactEffectPrefab, position, Quaternion.identity), 1.5f);
+    }
+
+    void RegisterSpawnedDebris(GameObject debrisObject)
+    {
+        if (debrisObject == null)
+        {
+            return;
+        }
+
+        spawnedDebrisObjects.Add(debrisObject);
+    }
+
+    void UnregisterSpawnedDebris(GameObject debrisObject)
+    {
+        if (debrisObject == null)
+        {
+            return;
+        }
+
+        spawnedDebrisObjects.Remove(debrisObject);
+    }
+
+    void ClearSpawnedDebrisObjects()
+    {
+        for (int i = spawnedDebrisObjects.Count - 1; i >= 0; i--)
+        {
+            GameObject debrisObject = spawnedDebrisObjects[i];
+            if (debrisObject != null)
+            {
+                Destroy(debrisObject);
             }
         }
 
-        return playerHit;
+        spawnedDebrisObjects.Clear();
     }
 
-    // 보너스 발판 활성화: 플레이어가 잔해 충돌을 피했을 때, 비활성화된 보너스 발판 중 하나를 활성화
-    void ActivateBonusPlatform()
+    /* void ActivateBonusPlatform()
     {
         for (int i = 0; i < bonusPlatforms.Count; i++)
         {
@@ -244,7 +401,7 @@ public class BossArenaController : MonoBehaviour
                 return;
             }
         }
-    }
+    } */
 
     IEnumerator ShakeRoutine()
     {
@@ -288,7 +445,76 @@ public class BossArenaController : MonoBehaviour
                 continue;
             }
 
-            Gizmos.DrawWireCube(point.position, debrisImpactSize);
+            Gizmos.DrawLine(point.position, point.position + Vector3.down * 6f);
+        }
+    }
+}
+
+public class BossDebrisObject : MonoBehaviour
+{
+    float damage;
+    Collider2D debrisCollider;
+
+    public bool WasResolved { get; private set; }
+    public bool PlayerWasHit { get; private set; }
+
+    public void Initialize(float debrisDamage)
+    {
+        damage = debrisDamage;
+
+        if (debrisCollider == null)
+        {
+            debrisCollider = GetComponent<Collider2D>();
+        }
+
+        if (debrisCollider != null)
+        {
+            debrisCollider.isTrigger = true;
+        }
+
+        Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+        if (rigidbody2D == null)
+        {
+            rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
+        }
+
+        rigidbody2D.bodyType = RigidbodyType2D.Kinematic;
+        rigidbody2D.gravityScale = 0f;
+        rigidbody2D.linearVelocity = Vector2.zero;
+        rigidbody2D.angularVelocity = 0f;
+
+        WasResolved = false;
+        PlayerWasHit = false;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (WasResolved)
+        {
+            return;
+        }
+
+        if (collision.TryGetComponent<PlayerController>(out var playerController))
+        {
+            if (playerController.isInvincibility)
+            {
+                return;
+            }
+        }
+
+        if (collision.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+        {
+            if (playerAbility.isSoul)
+            {
+                return;
+            }
+        }
+
+        if (collision.TryGetComponent<IDamageable>(out var damageable))
+        {
+            damageable.TakeDamage(damage, DamageType.Normal);
+            PlayerWasHit = true;
+            WasResolved = true;
         }
     }
 }
