@@ -50,7 +50,9 @@ public class PlayerStatsUIManager : MonoBehaviour
 
     void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        BindToScene();
+        CacheUiReferences();
+        RefreshAll();
+
     }
 
     void BindToScene()

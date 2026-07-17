@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,10 @@ public class InventoryUIManager : MonoBehaviour
     {
         inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
         inventoryManager.inventoryUI = this;
-        UpdateInventoryUI(inventoryManager.items); //시작할때 인벤토리UI보이기 (임시)
+        if(PlayerController.Instance.GetComponent<PlayerAbilityManager>().canUseInventory)
+        {
+            UpdateInventoryUI(inventoryManager.items);
+        }
     }
 
     public void UpdateInventoryUI(InventoryItem[] items) //인벤토리 UI 업데이트

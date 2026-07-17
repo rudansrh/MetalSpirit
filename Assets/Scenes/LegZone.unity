@@ -2055,7 +2055,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346522987}
-  - component: {fileID: 1346522988}
   - component: {fileID: 1346522989}
   m_Layer: 0
   m_Name: UIManager
@@ -2079,22 +2078,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1346522988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1346522986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86e8c5b3d7f947f080d737883b328d21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsUIManager
-  healthSlider: {fileID: 0}
-  staminaSlider: {fileID: 0}
-  healthValueText: {fileID: 0}
-  staminaValueText: {fileID: 0}
 --- !u!114 &1346522989
 MonoBehaviour:
   m_ObjectHideFlags: 0
