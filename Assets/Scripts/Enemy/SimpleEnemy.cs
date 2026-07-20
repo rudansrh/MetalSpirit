@@ -27,30 +27,33 @@ public class SimpleEnemy : MonoBehaviour
 
     private Rigidbody2D rb;
     private Collider2D col;
+    private PlayerController playerController;
+    private PlayerAbilityManager playerAbility;
     private bool isGrounded;
     private float facingDirection = 1f;
 
-
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
+    private Vector2 playerPos;
 
-    private void Awake()
+    public bool isPossessed = false; //빙의당했는지 판단
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
+        playerController = PlayerController.Instance;
+        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
     }
 
     private void FixedUpdate()
     {
-        if (PlayerController.Instance == null) return;
+        if (playerController == null || isPossessed) return;
 
-        if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+        if (playerAbility.isSoul)
         {
-            if (playerAbility.isSoul)
-            {
-                rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
-                return;
-            }
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            return;
         }
 
         CheckGrounded();
@@ -61,10 +64,10 @@ public class SimpleEnemy : MonoBehaviour
             return;
         }
 
-        Vector2 playerPos = PlayerController.Instance.transform.position;
+        playerPos = playerController.transform.position;
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        if (distanceToPlayer <= attackRange)
+        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
 
@@ -73,7 +76,7 @@ public class SimpleEnemy : MonoBehaviour
                 StartCoroutine(AttackRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange)
+        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
         {
             ChasePlayer(playerPos);
         }
@@ -231,6 +234,22 @@ public class SimpleEnemy : MonoBehaviour
 
             rb.linearVelocity = Vector2.zero;
             rb.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        //빙의시 점프 판정 처리
+        if (isPossessed && playerController.isJump && collision.gameObject.tag == "Wall")
+        {
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.1f)
+                {
+                    playerController.isJump = false;
+                    return;
+                }
+            }
         }
     }
 

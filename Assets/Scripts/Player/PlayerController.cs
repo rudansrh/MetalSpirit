@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D rigid;
     Collider2D col;
+    SpriteRenderer spriteRenderer;
     [SerializeField] PlayerAbilityManager abilityManager;
 
     //스태미나 컴포넌트 참조 추가
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     float originalGravity = 1f;
 
     //벽점프 관련 변수
-    bool isJump = false;
+    public bool isJump = false;
     bool isWallClimbing = false;
     int TouchingWallCnt = 0;
     float wallClimbDetachDirection = 0f;
@@ -69,6 +69,8 @@ public class PlayerController : MonoBehaviour
 
     public bool canMove = true;
     public bool isInvincibility = false;
+
+    public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
 
     public static PlayerController Instance { get; private set; }
 
@@ -83,7 +85,10 @@ public class PlayerController : MonoBehaviour
             originalGravity = rigid.gravityScale;
             stamina = GetComponent<Stamina>();
             col = GetComponent<Collider2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
             UpdateFormState();
+
+            cameraFollow.Instance.SetTarget(transform);
         }
         else if (Instance != this)
         {
@@ -91,16 +96,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*void Start()
-    {
-        rigid = GetComponent<Rigidbody2D>();
-        originalGravity = rigid.gravityScale;
-
-        stamina = GetComponent<Stamina>();
-
-        col = GetComponent<Collider2D>();
-        UpdateFormState();
-    }*/
 
     void UpdateFormState()
     {
@@ -152,10 +147,10 @@ public class PlayerController : MonoBehaviour
     //적 공격 (발차기)
     public void OnLowAttack(InputValue value)
     {
-        if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low) return;
+        if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low || isPossessing) return;
 
         curTime_low = 0f;
-        Vector2 pos = transform.position + transform.up*transform.localScale.y*0.2f + transform.right*facingDirection;
+        Vector2 pos = transform.position + transform.up * transform.localScale.y * 0.2f + transform.right * facingDirection;
         Vector2 size = new Vector2(1.0f, 0.1f);
         Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
 
@@ -170,9 +165,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //적 공격 (주먹)
-    public void OnHighAttack(InputValue value) 
+    public void OnHighAttack(InputValue value)
     {
-        if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high) return;
+        if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high || isPossessing) return;
 
         curTime_high = 0f;
         Vector2 pos = transform.position + transform.up * transform.localScale.y * -0.2f + transform.right * facingDirection;
@@ -202,7 +197,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-#region Cobweb Slow Effect
+    #region Cobweb Slow Effect
     public void SetSpeedMultiplier(float multiplier)
     {
         slowEffectCount++;
@@ -237,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
         rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, clampedY);
     }
-#endregion
+    #endregion
 
 
     public void OnJump(InputValue value)
@@ -276,13 +271,13 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DashRoutine()
     {
-       
+
         canDashAgain = false;
         isDashing = true;
         rigid.gravityScale = 0f;
 
         rigid.linearVelocityX = facingDirection * dashSpeed * speedMultiplier;
-        rigid.linearVelocityY = 0.0000001f; 
+        rigid.linearVelocityY = 0.0000001f;
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -303,7 +298,7 @@ public class PlayerController : MonoBehaviour
         canDashAgain = true;
     }
 
-#region Wall Climb
+    #region Wall Climb
     // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
@@ -341,6 +336,7 @@ public class PlayerController : MonoBehaviour
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
+            && !isPossessing
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
@@ -392,7 +388,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-#endregion
+    #endregion
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -438,27 +434,62 @@ public class PlayerController : MonoBehaviour
     {
         if (!value.isPressed) return;
 
-        //영혼 -> 빙의
         if (abilityManager.isSoul && abilityManager.canPossess)
         {
-            if (targetEnemyToPossess != null)
+            if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
-                transform.position = targetEnemyToPossess.transform.position;
-                Destroy(targetEnemyToPossess.gameObject);
+                SimpleEnemy targetEnemy = targetEnemyToPossess;
+                isPossessing = true;
+                rigid.linearVelocity = Vector3.zero;
+                rigid = targetEnemy.GetComponent<Rigidbody2D>();
+                rigid.linearVelocity = Vector3.zero;
+                cameraFollow.Instance.SetTarget(targetEnemy.transform);
+
+                targetEnemy.isPossessed = true;
+                spriteRenderer.enabled = false;
+                col.enabled = false;
+                col = targetEnemy.GetComponent<Collider2D>();
 
                 abilityManager.PossessBody();
                 UpdateFormState();
+                isJump = false;
 
                 targetEnemyToPossess = null;
             }
+            else //영혼 -> 물질상태
+            {
+                rigid.linearVelocity = Vector3.zero;
+                abilityManager.PossessBody();
+                UpdateFormState();
+            }
         }
-        //빙의 -> 영혼
         else if (!abilityManager.isSoul)
         {
-            abilityManager.DepossessBody();
-            UpdateFormState();
+            if (isPossessing) //빙의 -> 영혼
+            {
+                isPossessing = false;
+                transform.position = rigid.GetComponent<Transform>().position;
+                cameraFollow.Instance.SetTarget(transform);
+                rigid.linearVelocity = Vector3.zero;
+                rigid.GetComponent<SimpleEnemy>().isPossessed = false;
 
-            if (isDashing) StopDash();
+                rigid = GetComponent<Rigidbody2D>();
+                rigid.linearVelocity = Vector3.zero;
+                spriteRenderer.enabled = true;
+                col = GetComponent<Collider2D>();
+                col.enabled = true;
+
+                abilityManager.DepossessBody();
+                UpdateFormState();
+
+                if (isDashing) StopDash();
+            }
+            else //물질 -> 영혼
+            {
+                rigid.linearVelocity = Vector3.zero;
+                abilityManager.DepossessBody();
+                UpdateFormState();
+            }
         }
     }
 

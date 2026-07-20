@@ -35,6 +35,4 @@ public class PlayerAbilityManager : MonoBehaviour
         canHighAttack = false;
         Debug.Log("ºùÀÇ ÇØÁ¦");
     }
-
-
 }
