@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ArmZone.unity
     guid: d5e084c6940436c42b10b5e5ed0686e9
+  - enabled: 1
+    path: Assets/Scenes/Start.unity
+    guid: f2e35fca13f99d640b6bd9ea46b0332a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a9d93e31f7ded454e883769b927b07c0, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 67717d106a030ec4891aa748250cf911, type: 3}
