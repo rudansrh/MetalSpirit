@@ -4,15 +4,28 @@ public class SavePoint : MonoBehaviour, IInteractable
 {
     public void Interact(GameObject interactor)
     {
-        if (SaveManager.Instance != null)
-        {
-            SaveManager.Instance.SaveGame();
+        if (DocumentUIManager.Instance == null) return;
 
-            // 전에 만드신 DocumentUIManager를 활용해서 "저장되었습니다." 텍스트를 띄우면 아주 좋습니다.
-            if (DocumentUIManager.Instance != null)
+        if (DocumentUIManager.Instance.isOpen)
+        {
+            DocumentUIManager.Instance.CloseDocument();
+        }
+
+        else
+        {
+            if (PlayerController.Instance != null)
             {
-                DocumentUIManager.Instance.ShowDocument("게임이 안전하게 저장되었습니다.");
+                PlayerController.Instance.canMove = false;
+                PlayerController.Instance.StopMovement();
+                PlayerController.Instance.StopDash();
             }
+
+            if (SaveManager.Instance != null)
+            {
+                SaveManager.Instance.SaveGame();
+            }
+
+            DocumentUIManager.Instance.ShowDocument("게임이 안전하게 저장되었습니다.");
         }
     }
 }

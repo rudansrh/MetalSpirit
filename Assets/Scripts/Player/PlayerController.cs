@@ -293,9 +293,10 @@ public class PlayerController : MonoBehaviour
         if (DashCoroutine == null) return;
 
         StopCoroutine(DashCoroutine);
-        rigid.gravityScale = originalGravity;
+        UpdateFormState();
         isDashing = false;
         canDashAgain = true;
+        DashCoroutine = null;
     }
 
     #region Wall Climb
@@ -499,10 +500,10 @@ public class PlayerController : MonoBehaviour
         Debug.Log("E키 입력 감지됨!");
 
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
-        if (value.isPressed && nearbyInteractable != null && !abilityManager.isSoul)
+        if (value.isPressed && nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
-            nearbyInteractable = null;
+            //nearbyInteractable = null;
         }
     }
 
@@ -546,6 +547,21 @@ public class PlayerController : MonoBehaviour
             if (nearbyInteractable == interactable)
             {
                 nearbyInteractable = null;
+            }
+        }
+    }
+
+    public void StopMovement()
+    {
+        if (rigid != null)
+        {
+            if (abilityManager != null && abilityManager.isSoul)
+            {
+                rigid.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                rigid.linearVelocity = new Vector2(0f, rigid.linearVelocity.y);
             }
         }
     }

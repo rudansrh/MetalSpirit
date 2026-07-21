@@ -4,7 +4,7 @@ using System;
 public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
 { 
     public float MaxHealth { get; set; } = 200f;        // 최대 체력
-    public float CurrentHealth { get; private set; }    // 현재 체력
+    public float CurrentHealth { get; set; }    // 현재 체력
 
     public event Action OnHealthChanged;    // 체력 변화 이벤트
     public event Action OnDeath;            // 사망 이벤트
@@ -47,5 +47,14 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
     {
         CurrentHealth = Mathf.Min(MaxHealth, CurrentHealth + amount);
         OnHealthChanged?.Invoke();
+    }
+    public void LoadHealthData(float savedHealth)
+    {
+
+        CurrentHealth = Mathf.Clamp(savedHealth, 0, MaxHealth);
+
+        OnHealthChanged?.Invoke();
+
+        Debug.Log($"체력 로드 완료: {CurrentHealth} / {MaxHealth}");
     }
 }

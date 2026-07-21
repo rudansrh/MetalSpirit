@@ -8,13 +8,17 @@ public class ReadableDocument : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
-        if (DocumentUIManager.Instance != null)
+        if (DocumentUIManager.Instance == null) return;
+
+        // 이미 문서 창이 열려있으면 닫기
+        if (DocumentUIManager.Instance.isOpen)
         {
-            DocumentUIManager.Instance.ShowDocument(documentContent);
+            DocumentUIManager.Instance.CloseDocument();
         }
+        // 닫혀있으면 문서 내용 띄우기
         else
         {
-            Debug.LogWarning("씬에 DocumentUIManager가 없습니다!");
+            DocumentUIManager.Instance.ShowDocument(documentContent);
         }
     }
 }

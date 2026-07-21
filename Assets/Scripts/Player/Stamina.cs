@@ -4,7 +4,7 @@ using System;
 public class Stamina : MonoBehaviour
 {
     public float MaxStamina { get; set; } = 100f;
-    public float CurrentStamina { get; private set; }
+    public float CurrentStamina { get; set; }
 
     [Header("Settings")]
     public float staminaRegenRate = 15f;
@@ -62,6 +62,12 @@ public class Stamina : MonoBehaviour
     public void RestoreStamina(float amount)
     {
         CurrentStamina = Mathf.Min(MaxStamina, CurrentStamina + amount);
+        OnStaminaChanged?.Invoke();
+    }
+
+    public void LoadStaminaData(float savedStamina)
+    {
+        CurrentStamina = Mathf.Clamp(savedStamina, 0, MaxStamina);
         OnStaminaChanged?.Invoke();
     }
 }

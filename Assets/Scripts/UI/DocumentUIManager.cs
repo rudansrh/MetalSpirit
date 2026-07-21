@@ -7,10 +7,10 @@ public class DocumentUIManager : MonoBehaviour
     public static DocumentUIManager Instance { get; private set; }
 
     [Header("UI References")]
-    [SerializeField] private GameObject documentPanel; // 문서를 보여줄 배경
+    [SerializeField] private GameObject documentPanel;
     [SerializeField] private TextMeshProUGUI documentText;
 
-    private bool isOpen = false;
+    public bool isOpen = false;
 
     private void Awake()
     {
@@ -36,6 +36,7 @@ public class DocumentUIManager : MonoBehaviour
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.canMove = false;
+            PlayerController.Instance.StopMovement();
             PlayerController.Instance.StopDash();
         }
     }
@@ -54,7 +55,6 @@ public class DocumentUIManager : MonoBehaviour
 
     private void Update()
     {
-        // 문서가 열려있을 때 ESC 키를 누르면 닫기
         if (isOpen && Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             CloseDocument();
