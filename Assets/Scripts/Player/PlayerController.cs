@@ -499,11 +499,21 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("E키 입력 감지됨!");
 
+        if (!value.isPressed) return;
+
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
-        if (value.isPressed && nearbyInteractable != null /*&& !abilityManager.isSoul*/)
+        if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
             //nearbyInteractable = null;
+        }
+        else if (isPossessing && rigid.GetComponent<SimpleEnemy>().nearbyEnemy != null) 
+        {
+            transform.position = rigid.GetComponent<Transform>().position;
+            canMove = false;
+            rigid.linearVelocity = Vector3.zero;
+            Debug.Log("대화시작");
+            rigid.GetComponent<SimpleEnemy>().nearbyEnemy.GetComponent<NPC>().Talk();
         }
     }
 

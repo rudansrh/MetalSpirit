@@ -18,11 +18,9 @@ public class DialogueUI : MonoBehaviour
 
     void Update()
     {
-        if (target == null)
-            return;
+        if (target == null) return;
 
-        bubble.position =
-            Camera.main.WorldToScreenPoint(target.position + Vector3.up * 2f);
+        bubble.position = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1f);
     }
 
     public void Show(string message, Transform targetTransform)

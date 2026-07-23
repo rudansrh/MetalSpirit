@@ -30,13 +30,16 @@ public class SimpleEnemy : MonoBehaviour
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
     private bool isGrounded;
-    private float facingDirection = 1f;
+    [SerializeField]private float facingDirection = 1f;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
     public bool isPossessed = false; //빙의당했는지 판단
+    public GameObject nearbyEnemy;
+
+    private bool found = false;
 
     private void Start()
     {
@@ -48,7 +51,36 @@ public class SimpleEnemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerController == null || isPossessed) return;
+        if (playerController == null) return;
+
+        if (isPossessed)
+        {
+            if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
+            else if(rb.linearVelocityX < -0.1f)facingDirection = -1f;
+
+            LayerMask enemyLayer = LayerMask.GetMask("Enemy");
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
+            found = false;
+
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider.gameObject == gameObject) //자기자신(빙의된 에너미) 제외
+                {
+                    continue;
+                }
+
+                nearbyEnemy = hit.collider.gameObject;
+                found = true;
+                break;
+            }
+
+            if (!found)
+            {
+                nearbyEnemy = null;
+            }
+
+            return;
+        }
 
         if (playerAbility.isSoul)
         {

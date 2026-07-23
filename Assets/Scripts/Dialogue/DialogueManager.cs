@@ -1,26 +1,42 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance;
-
     public Transform player;
 
     DialogueData currentDialogue;
-
     Transform npc;
+    [SerializeField]InputAction submitAction;
 
     int index;
+    bool isTalking = false;
 
     void Awake()
     {
         Instance = this;
     }
 
+    void Start()
+    {
+        player = PlayerController.Instance.transform;
+        submitAction = PlayerController.Instance.GetComponent<PlayerInput>().actions["Next"];
+    }
+
+    private void Update()
+    {
+        if (submitAction.WasPressedThisFrame())
+        {
+            Next();
+        }
+    }
+
     public void StartDialogue(DialogueData dialogue, Transform npcTransform)
     {
         currentDialogue = dialogue;
         npc = npcTransform;
+        isTalking = true;
         index = 0;
 
         ShowCurrentLine();
@@ -28,11 +44,14 @@ public class DialogueManager : MonoBehaviour
 
     public void Next()
     {
-        index++;
+        if (!isTalking) return;
 
+        index++;
         if(index >= currentDialogue.lines.Length)
         {
             DialogueUI.Instance.Hide();
+            isTalking = false;
+            PlayerController.Instance.canMove = true;
             return;
         }
 
@@ -43,8 +62,7 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[index];
 
-        Transform target =
-            line.speaker == SpeakerType.Player ? player : npc;
+        Transform target = line.speaker == SpeakerType.Player ? player : npc;
 
         DialogueUI.Instance.Show(line.text, target);
     }
