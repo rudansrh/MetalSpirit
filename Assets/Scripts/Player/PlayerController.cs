@@ -147,6 +147,8 @@ public class PlayerController : MonoBehaviour
     //적 공격 (발차기)
     public void OnLowAttack(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen) return;
+
         if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low || isPossessing) return;
 
         curTime_low = 0f;
@@ -167,6 +169,8 @@ public class PlayerController : MonoBehaviour
     //적 공격 (주먹)
     public void OnHighAttack(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen) return;
+
         if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high || isPossessing) return;
 
         curTime_high = 0f;
@@ -185,6 +189,12 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMove(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
         Vector2 input = value.Get<Vector2>();
         moveInput = new Vector2(
             input.x,
@@ -237,6 +247,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen) return;
+
         // 점프 불가
         if (isDashing || abilityManager.isSoul) return;
 
@@ -257,6 +269,7 @@ public class PlayerController : MonoBehaviour
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen) return;
 
         if (abilityManager.isSoul) return;
 
@@ -433,6 +446,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnPossess(InputValue value)
     {
+        if (PasswordUIManager.IsUiOpen) return;
+
         if (!value.isPressed) return;
 
         if (abilityManager.isSoul && abilityManager.canPossess)
@@ -499,13 +514,18 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("E키 입력 감지됨!");
 
+        if (value.isPressed && PasswordUIManager.IsUiOpen)
+        {
+            PasswordUIManager.Instance.Close();
+            return;
+        }
+
         if (!value.isPressed) return;
 
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
         if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
-            //nearbyInteractable = null;
         }
         else if (isPossessing && rigid.GetComponent<SimpleEnemy>().nearbyEnemy != null) 
         {
