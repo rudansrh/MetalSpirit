@@ -4,28 +4,17 @@ public class SavePoint : MonoBehaviour, IInteractable
 {
     public void Interact(GameObject interactor)
     {
-        if (DocumentUIManager.Instance == null) return;
+        if (SaveSlotUIManager.Instance == null) return;
 
-        if (DocumentUIManager.Instance.isOpen)
+        // 이미 슬롯 창이 열려있다면 닫기 (토글 방식)
+        if (SaveSlotUIManager.Instance.isOpen)
         {
-            DocumentUIManager.Instance.CloseDocument();
+            SaveSlotUIManager.Instance.CloseSlotUI();
         }
-
+        // 닫혀있다면 슬롯 선택 창 열기
         else
         {
-            if (PlayerController.Instance != null)
-            {
-                PlayerController.Instance.canMove = false;
-                PlayerController.Instance.StopMovement();
-                PlayerController.Instance.StopDash();
-            }
-
-            if (SaveManager.Instance != null)
-            {
-                SaveManager.Instance.SaveGame();
-            }
-
-            DocumentUIManager.Instance.ShowDocument("게임이 안전하게 저장되었습니다.");
+            SaveSlotUIManager.Instance.OpenSlotUI();
         }
     }
 }

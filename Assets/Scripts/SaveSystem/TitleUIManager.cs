@@ -17,7 +17,7 @@ public class TitleUIManager : MonoBehaviour
     {
         if (SaveManager.Instance != null)
         {
-            SaveManager.Instance.LoadGame();
+            //SaveManager.Instance.LoadGame();
         }
         else
         {
@@ -25,9 +25,16 @@ public class TitleUIManager : MonoBehaviour
         }
     }
 
-    // 새 게임 버튼(미구현)
+    // 새 게임 버튼
     public void OnClickNewGame()
     {
-        SceneManager.LoadScene("test1"); 
+        if (SaveManager.Instance != null)
+        {
+            //SaveManager.Instance.NewGame("LegZone");
+        }
+        else
+        {
+            SceneManager.LoadScene("Stage1");
+        }
     }
 }
