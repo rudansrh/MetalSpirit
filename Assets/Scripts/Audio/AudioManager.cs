@@ -22,8 +22,8 @@ public class AudioManager : MonoBehaviour
 
     public enum Sfx
     {
-        Jump, Dash, Attack,
-        // TODO: 
+        Jump, Dash, Attack
+        // TODO: 효과음 종류 정해지면 enum으로 정리하기
     }
 
     [Header("SFX Spam Protection")]
