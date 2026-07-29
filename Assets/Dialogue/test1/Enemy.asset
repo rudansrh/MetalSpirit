@@ -15,7 +15,13 @@ MonoBehaviour:
   lines:
   - speaker: 0
     text: "\uD50C\uB808\uC774\uC5B4 \uBB38\uC7A5\uCD9C\uB825 \uD14C\uC2A4\uD2B8"
+    textBold: 0
+    color: {r: 1, g: 0, b: 0, a: 1}
   - speaker: 1
     text: "\uC5D0\uB108\uBBF8 \uBB38\uC7A5\uCD9C\uB825 \uD14C\uC2A4\uD2B8"
+    textBold: 1
+    color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     text: .......
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}

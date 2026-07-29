@@ -12,4 +12,6 @@ public class DialogueLine
 {
     public SpeakerType speaker;
     public string text;
+    public bool textBold;
+    public Color color = Color.black;
 }

@@ -28,7 +28,14 @@ public class DialogueManager : MonoBehaviour
     {
         if (submitAction.WasPressedThisFrame())
         {
-            Next();
+            if (DialogueUI.Instance.IsTyping)
+            {
+                DialogueUI.Instance.FinishTyping();
+            }
+            else
+            {
+                Next();
+            }
         }
     }
 
@@ -61,9 +68,9 @@ public class DialogueManager : MonoBehaviour
     void ShowCurrentLine()
     {
         DialogueLine line = currentDialogue.lines[index];
-
         Transform target = line.speaker == SpeakerType.Player ? player : npc;
+        Color textColor = line.color;
 
-        DialogueUI.Instance.Show(line.text, target);
+        DialogueUI.Instance.Show(line.text, target, textColor, line.textBold);
     }
 }

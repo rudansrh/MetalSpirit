@@ -1330,8 +1330,6 @@ MonoBehaviour:
   passwordUI: {fileID: 448678143}
   inputText: {fileID: 1762241985}
   messageText: {fileID: 1134500549}
-  inputTMPText: {fileID: 0}
-  messageTMPText: {fileID: 0}
 --- !u!1 &471407595
 GameObject:
   m_ObjectHideFlags: 0
@@ -4107,6 +4105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
   bubble: {fileID: 1581661543}
   text: {fileID: 1581661544}
+  typingSpeed: 0.03
 --- !u!1 &1346924473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4922,6 +4921,18 @@ PrefabInstance:
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_LocalPosition.x
