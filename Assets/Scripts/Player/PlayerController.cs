@@ -72,6 +72,7 @@ public class PlayerController : MonoBehaviour
 
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
 
+    public CanInteractUI canInteractUI;
     public static PlayerController Instance { get; private set; }
 
     void Awake()
@@ -546,6 +547,7 @@ public class PlayerController : MonoBehaviour
             if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
             {
                 targetEnemyToPossess = enemy;
+                canInteractUI.showInterectUI(collision.transform, "v", "빙의");
             }
         }
 
@@ -553,6 +555,7 @@ public class PlayerController : MonoBehaviour
         if (collision.TryGetComponent<IInteractable>(out var interactable))
         {
             nearbyInteractable = interactable;
+            canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
         }
     }
 
@@ -567,6 +570,7 @@ public class PlayerController : MonoBehaviour
                 {
                     targetEnemyToPossess = null;
                 }
+                canInteractUI.hideInterectUI();
             }
         }
 
@@ -578,6 +582,7 @@ public class PlayerController : MonoBehaviour
             {
                 nearbyInteractable = null;
             }
+            canInteractUI.hideInterectUI();
         }
     }
 

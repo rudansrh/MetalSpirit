@@ -2689,11 +2689,12 @@ RectTransform:
   m_Children:
   - {fileID: 1411664337}
   - {fileID: 71958533}
+  - {fileID: 1906615558}
   - {fileID: 73071725}
-  - {fileID: 1263591735}
-  - {fileID: 1483582896}
-  - {fileID: 536864505}
   - {fileID: 1361379650}
+  - {fileID: 1263591735}
+  - {fileID: 536864505}
+  - {fileID: 1483582896}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3261,6 +3262,7 @@ GameObject:
   - component: {fileID: 925857801}
   - component: {fileID: 925857803}
   - component: {fileID: 925857804}
+  - component: {fileID: 925857805}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -3315,6 +3317,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
   bubble: {fileID: 1361379650}
   text: {fileID: 1361379651}
+  typingSpeed: 0.03
+--- !u!114 &925857805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925857800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaa934f539f746428f7aff23ac23dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
+  bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
+  interactKeys: {fileID: 1906615558}
 --- !u!1 &1032645455
 GameObject:
   m_ObjectHideFlags: 0
@@ -5629,6 +5646,7 @@ MonoBehaviour:
   isJump: 0
   canMove: 1
   isInvincibility: 0
+  canInteractUI: {fileID: 0}
 --- !u!114 &1738328933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5938,6 +5956,41 @@ Transform:
   - {fileID: 1774209517}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1906615557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1906615558}
+  m_Layer: 5
+  m_Name: InteractKeys
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1906615558
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906615557}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 711525115}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1918136046
 GameObject:
   m_ObjectHideFlags: 0

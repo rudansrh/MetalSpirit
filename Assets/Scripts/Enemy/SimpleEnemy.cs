@@ -70,6 +70,8 @@ public class SimpleEnemy : MonoBehaviour
                 }
 
                 nearbyEnemy = hit.collider.gameObject;
+
+                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
                 found = true;
                 break;
             }
@@ -77,6 +79,7 @@ public class SimpleEnemy : MonoBehaviour
             if (!found)
             {
                 nearbyEnemy = null;
+                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             return;

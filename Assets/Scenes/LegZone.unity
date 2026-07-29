@@ -4051,6 +4051,7 @@ GameObject:
   - component: {fileID: 1346522987}
   - component: {fileID: 1346522989}
   - component: {fileID: 1346522990}
+  - component: {fileID: 1346522991}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -4106,6 +4107,20 @@ MonoBehaviour:
   bubble: {fileID: 1581661543}
   text: {fileID: 1581661544}
   typingSpeed: 0.03
+--- !u!114 &1346522991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346522986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aaa934f539f746428f7aff23ac23dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
+  bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
+  interactKeys: {fileID: 1546583051}
 --- !u!1 &1346924473
 GameObject:
   m_ObjectHideFlags: 0
@@ -4638,6 +4653,41 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!1 &1546583050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1546583051}
+  m_Layer: 5
+  m_Name: interactiveKeys
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1546583051
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546583050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1673857276}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1549716935
 GameObject:
   m_ObjectHideFlags: 0
@@ -5361,6 +5411,7 @@ RectTransform:
   - {fileID: 1278038785}
   - {fileID: 1581661543}
   - {fileID: 448678144}
+  - {fileID: 1546583051}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5790,6 +5841,7 @@ MonoBehaviour:
   isJump: 0
   canMove: 1
   isInvincibility: 0
+  canInteractUI: {fileID: 0}
 --- !u!114 &1738328933
 MonoBehaviour:
   m_ObjectHideFlags: 0
