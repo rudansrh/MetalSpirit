@@ -5,9 +5,12 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController instance;
+
     Rigidbody2D rigid;
     Collider2D col;
     SpriteRenderer spriteRenderer;
+    [SerializeField] PlayerVisualManager visualManager;
     [SerializeField] PlayerAbilityManager abilityManager;
 
     //스태미나 컴포넌트 참조 추가
@@ -73,27 +76,46 @@ public class PlayerController : MonoBehaviour
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
 
     public CanInteractUI canInteractUI;
-    public static PlayerController Instance { get; private set; }
+    public static PlayerController Instance => instance == null ? null : instance;
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            instance = this;
+            // DontDestroyOnLoad(gameObject);
 
             rigid = GetComponent<Rigidbody2D>();
             originalGravity = rigid.gravityScale;
             stamina = GetComponent<Stamina>();
             col = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+            if (abilityManager == null)
+            {
+                abilityManager = GetComponent<PlayerAbilityManager>();
+            }
+
+            if (visualManager == null)
+            {
+                visualManager = GetComponent<PlayerVisualManager>();
+            }
+
             UpdateFormState();
+            UpdateAnimationState();
 
             cameraFollow.Instance.SetTarget(transform);
         }
-        else if (Instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
+        }
+    }
+
+    void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
         }
     }
 
@@ -110,6 +132,16 @@ public class PlayerController : MonoBehaviour
             rigid.gravityScale = originalGravity;
             col.isTrigger = false;
         }
+
+        if (visualManager != null)
+        {
+            visualManager.ApplyCurrentVisual();
+        }
+    }
+
+    void Update()
+    {
+        UpdateAnimationState();
     }
 
     // Update is called once per frame
@@ -599,5 +631,27 @@ public class PlayerController : MonoBehaviour
                 rigid.linearVelocity = new Vector2(0f, rigid.linearVelocity.y);
             }
         }
+    }
+
+    void UpdateAnimationState()
+    {
+        if (visualManager == null || rigid == null || abilityManager == null)
+        {
+            return;
+        }
+
+        float animationSpeed = abilityManager.isSoul
+            ? rigid.linearVelocity.magnitude
+            : Mathf.Abs(rigid.linearVelocity.x);
+
+        bool isGrounded = !abilityManager.isSoul && !isJump && !isWallClimbing;
+
+        visualManager.UpdateAnimationState(
+            animationSpeed,
+            isGrounded,
+            rigid.linearVelocity.y,
+            isDashing,
+            isWallClimbing,
+            abilityManager.isSoul);
     }
 }

@@ -1291,7 +1291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &448678144
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5645,11 +5645,14 @@ GameObject:
   - component: {fileID: 1738328928}
   - component: {fileID: 1738328932}
   - component: {fileID: 1738328933}
+  - component: {fileID: 1738328941}
   - component: {fileID: 1738328934}
   - component: {fileID: 1738328935}
   - component: {fileID: 1738328936}
   - component: {fileID: 1738328937}
   - component: {fileID: 1738328938}
+  - component: {fileID: 1738328940}
+  - component: {fileID: 1738328939}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -5695,7 +5698,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.08, y: 0.92}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -5779,8 +5782,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.78867924, g: 0.5842233, b: 0.36755425, a: 1}
+  m_Sprite: {fileID: -4482812937369022216, guid: dd7736179609648758993cee58a94a13, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5816,6 +5819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cce3ec16a653f4aa41c7ca7c33e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
+  visualManager: {fileID: 0}
   abilityManager: {fileID: 1738328934}
   speed: 3.5
   soulSpeed: 10
@@ -5965,6 +5969,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   inventoryUI: {fileID: 0}
+--- !u!114 &1738328939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738328927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc86ebe26c144aac92066f63f40858c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerProgressionManager
+  abilityManager: {fileID: 1738328934}
+  visualManager: {fileID: 1738328940}
+  unlockedStage: 0
+--- !u!114 &1738328940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738328927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ff360c082bb48d19bb5c0debfdff32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVisualManager
+  animator: {fileID: 1738328941}
+  spriteRenderer: {fileID: 1738328930}
+  progressionManager: {fileID: 1738328939}
+  stageVisuals:
+  - stage: 0
+    animatorController: {fileID: 22100000, guid: bca4d92d88bde49098cce03f7b1703d6, type: 2}
+    previewSprite: {fileID: -4482812937369022216, guid: dd7736179609648758993cee58a94a13, type: 3}
+  - stage: 1
+    animatorController: {fileID: 22100000, guid: 92a80322812b043c9b39af3834100462, type: 2}
+    previewSprite: {fileID: -2286018338768912969, guid: 9a2a7b8cfe51844e78689fd033ce1c3e, type: 3}
+  - stage: 2
+    animatorController: {fileID: 22100000, guid: 9a392ae56c27044c6a8e8b5fd21fbba0, type: 2}
+    previewSprite: {fileID: 5289398730728190858, guid: 2d863a987671840ecb0c53b97db8ba61, type: 3}
+  - stage: 3
+    animatorController: {fileID: 22100000, guid: 1676f24fdf804409ba7cfab55b136dea, type: 2}
+    previewSprite: {fileID: -5815985843714593396, guid: ffc1bc41be25440e7a32b626d72c5123, type: 3}
+  stageParameter: Stage
+  speedParameter: Speed
+  groundedParameter: IsGrounded
+  yVelocityParameter: YVelocity
+  dashingParameter: IsDashing
+  wallClimbParameter: IsWallClimbing
+  soulParameter: IsSoul
+--- !u!95 &1738328941
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738328927}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4f92e5ac48674561a76acb7704ab36c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1762241983
 GameObject:
   m_ObjectHideFlags: 0

@@ -3463,6 +3463,8 @@ MonoBehaviour:
   staminaSlider: {fileID: 38637829}
   healthValueText: {fileID: 38637826}
   staminaValueText: {fileID: 38637828}
+  health: {fileID: 0}
+  stamina: {fileID: 0}
 --- !u!4 &1440883205
 Transform:
   m_ObjectHideFlags: 0
@@ -3716,6 +3718,9 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
 --- !u!50 &1540500307
 Rigidbody2D:
   serializedVersion: 5
@@ -4619,6 +4624,7 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 0.6
   highAttackDamage: 10
+  isJump: 0
   canMove: 1
   isInvincibility: 0
 --- !u!61 &1835547486

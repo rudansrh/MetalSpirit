@@ -2,21 +2,31 @@ using UnityEngine;
 
 public class cameraFollow : MonoBehaviour
 {
-    public static cameraFollow Instance { get; private set; }
+    private static cameraFollow instance;
+
+    public static cameraFollow Instance => instance == null ? null : instance;
 
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset = new Vector3(0, 0, -10);
 
     private void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
         }
     }
 
