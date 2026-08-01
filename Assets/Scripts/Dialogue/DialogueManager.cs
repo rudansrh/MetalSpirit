@@ -69,8 +69,6 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[index];
         Transform target = line.speaker == SpeakerType.Player ? player : npc;
-        Color textColor = line.color;
-
-        DialogueUI.Instance.Show(line.text, target, textColor, line.textBold);
+        DialogueUI.Instance.Show(line.BuildRichText(), target);
     }
 }
