@@ -28,6 +28,9 @@ public class PlayerVisualManager : MonoBehaviour
     [SerializeField] private string wallClimbParameter = "IsWallClimbing";
     [SerializeField] private string soulParameter = "IsSoul";
 
+    [Header("Facing Settings")]
+    [SerializeField] private bool facesLeftByDefault = true;
+
     private int stageHash;
     private int speedHash;
     private int groundedHash;
@@ -102,6 +105,17 @@ public class PlayerVisualManager : MonoBehaviour
         animator.SetBool(dashingHash, isDashing);
         animator.SetBool(wallClimbHash, isWallClimbing);
         animator.SetBool(soulHash, isSoul);
+    }
+
+    public void UpdateFacingDirection(float horizontalDirection)
+    {
+        if (spriteRenderer == null || Mathf.Abs(horizontalDirection) < 0.01f)
+        {
+            return;
+        }
+
+        bool faceRight = horizontalDirection > 0f;
+        spriteRenderer.flipX = facesLeftByDefault ? faceRight : !faceRight;
     }
 
     private void CacheParameterHashes()

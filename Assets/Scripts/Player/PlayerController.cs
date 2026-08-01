@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
     bool isDashing = false;
     bool canDashAgain = true;
     Coroutine DashCoroutine;
-    float facingDirection = 1f; // 바라보는 방향 (기본값: 오른쪽 1)
+    float facingDirection = -1f; // 현재 기본 애니메이션이 왼쪽을 바라보므로 초기 방향도 왼쪽
     float originalGravity = 1f;
 
     //벽점프 관련 변수
@@ -101,6 +101,7 @@ public class PlayerController : MonoBehaviour
             }
 
             UpdateFormState();
+            UpdateFacingVisual();
             UpdateAnimationState();
 
             cameraFollow.Instance.SetTarget(transform);
@@ -237,6 +238,7 @@ public class PlayerController : MonoBehaviour
         if (moveInput.x != 0)
         {
             facingDirection = Mathf.Sign(moveInput.x);
+            UpdateFacingVisual();
         }
     }
 
@@ -640,9 +642,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        float animationSpeed = abilityManager.isSoul
-            ? rigid.linearVelocity.magnitude
-            : Mathf.Abs(rigid.linearVelocity.x);
+        float animationSpeed = canMove && moveInput.sqrMagnitude > 0.01f ? 1f : 0f;
 
         bool isGrounded = !abilityManager.isSoul && !isJump && !isWallClimbing;
 
@@ -653,5 +653,15 @@ public class PlayerController : MonoBehaviour
             isDashing,
             isWallClimbing,
             abilityManager.isSoul);
+    }
+
+    void UpdateFacingVisual()
+    {
+        if (visualManager == null)
+        {
+            return;
+        }
+
+        visualManager.UpdateFacingDirection(facingDirection);
     }
 }
