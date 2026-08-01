@@ -10,18 +10,106 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
-  m_Name: Enemy1
+  m_Name: Enemy3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
     textElements:
-    - text: "\uBB34\uC2A8 "
+    - text: "\uC5B4~\uC774! \uAC70\uAE30 \uB108!"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uB098\uB97C \uBD80\uB974\uB294 \uAC74\uAC00?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uADF8\uB798, \uB108 \uB9D0\uD558\uB294 \uAC70\uC57C."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC5EC\uAE30 \uC788\uB294 \uD3EC\uC2A4\uD130 \uBD24\uC5B4?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uD3EC\uC2A4\uD130?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC22B\uC790 \uBA87 \uAC00\uC9C0"
       bold: 1
       color: {r: 0, g: 0, b: 0, a: 1}
-    - text: "\uC77C"
+    - text: "\uB97C \uACC4\uC18D\uD574\uC11C \uB108\uD55C\uD14C \uBCF4\uC5EC\uC8FC\uB824\uB294
+        \uADF8\uAC83\uB4E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC544, \uBB3C\uB860 \uC804\uBD80 \uADF8\uB7F0 \uAC74 \uC544\uB2C8\uC9C0\uB9CC."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uADF8\uB798\uC11C?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uADF8\uB0E5, \uBB50. \uC8FC\uC758 \uAE4A\uAC8C \uC798 \uBCF4\uB77C\uB294
+        \uAC70\uC9C0."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC798 \uAE30\uC5B5\uD574."
       bold: 1
       color: {r: 0, g: 0, b: 0, a: 1}
-    - text: "\uC778\uAC00?"
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC5EC\uB7EC\uAC00\uC9C0 \uC22B\uC790\uAC00 \uB110 \uD604\uD639\uD558\uB824
+        \uB4E4\uC5B4\uB3C4"
+      bold: 1
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uACB0\uAD6D \uB0A8\uB294 \uAC74 \uD558\uB098 \uBFD0\uC774\uC57C."
       bold: 1
       color: {r: 0, g: 0, b: 0, a: 1}
     text: 
@@ -29,7 +117,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     textElements:
-    - text: ...
+    - text: "\uADF8\uAC8C \uBB34\uC2A8 \uC18C\uB9AC..."
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 1}
     text: 
@@ -37,123 +125,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
     textElements:
-    - text: "\uD639\uC2DC \uB2E4\uB978 \uACF3\uC5D0 \uD2B9\uC774\uC0AC\uD56D\uC774
-        \uBC1C\uC0DD\uD588\uB294\uAC00?"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 0
-    textElements:
-    - text: "\uC544\uB2C8, \uBCC4 \uC77C \uC5C6\uB2E4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 0
-    textElements:
-    - text: "\uC774\uACF3\uC740 \uB108 \uD63C\uC790\uC778\uAC00?"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uADF8\uB807\uB2E4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 0
-    textElements:
-    - text: "\uB2E4\uB978 \uACF3\uC73C\uB85C \uC6C0\uC9C1\uC774\uC9C0\uB294 \uC54A\uB294\uAC74\uAC00?"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: '?'
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uC9C8\uBB38\uC774 \uC774\uD574\uB418\uC9C0 \uC54A\uB294\uB2E4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uC774\uACF3\uC774 \uB0B4 \uAD6C\uC5ED\uC774\uB2E4. \uB098\uB294 \uC5EC\uAE30\uC11C
-        \uBC97\uC5B4\uB0A0 \uC218 \uC5C6\uB2E4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uC774\uC804\uC5D0\uB294 \uC5EC\uAE30\uC5D0 \uB098 \uB9D0\uACE0\uB3C4
-        \uC5EC\uB7FF \uC788\uC5C8\uC9C0\uB9CC\u2026"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "...\uC544\uB2C8, \uB0B4\uAC00 \uC6C0\uC9C1\uC600\uB358 \uAC74\uAC00?"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: ...
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uADF8\uB798, \uB09C \uC5EC\uAE30\uC5D0\uB9CC \uBA38\uBB34\uB974\uACE0
-        \uC788\uC9C0 \uC54A\uC558\uC5B4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uC5B4? \uADF8\uB7EC\uBA74 \uC65C \uB0B4\uAC00 \uC5EC\uAE30\uC5D0...?"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uB0B4\uAC00 \uC65C\u2026? \uC544\uB0D0. \uB09C\u2026 \uB09C!"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uC624\uB958! \uC624\uB958!"
+    - text: "$*!($&#($* \uC5D0\uB7EC!\uC5D0\uB7EC!"
       bold: 1
       color: {r: 1, g: 0, b: 0, a: 1}
     text: 
@@ -161,8 +133,16 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
     textElements:
-    - text: "\uC2E0\uACBD\uACC4\uC5D0 \uC774\uC0C1\uC774 \uC0DD\uACBC\uC2B5\uB2C8\uB2E4.
-        \uC2DC\uC2A4\uD15C\uC5D0 \uC774\uC0C1\uC774 \uC0DD\uACBC\uC2B5\uB2C8\uB2E4."
+    - text: "\uBE44\uC815\uC0C1\uC801\uC778 \uD504\uB85C\uADF8\uB7A8 \uAC10\uC9C0,
+        \uC7AC\uBD80\uD305\uD569\uB2C8\uB2E4."
+      bold: 1
+      color: {r: 1, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: ...
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 1}
     text: 
@@ -170,7 +150,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
     textElements:
-    - text: "\uAC15\uC81C \uC7AC\uBD80\uD305\uC5D0 \uB4E4\uC5B4\uAC11\uB2C8\uB2E4."
+    - text: "\uBB34\uC2A8 \uC77C \uC788\uB294\uAC00?"
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 1}
     text: 
@@ -179,6 +159,14 @@ MonoBehaviour:
   - speaker: 0
     textElements:
     - text: ...
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "(\uD3EC\uC2A4\uD130\uB97C \uC8FC\uC758\uAE4A\uAC8C \uC0B4\uD3B4\uBCF4\uC790...)"
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 1}
     text: 
