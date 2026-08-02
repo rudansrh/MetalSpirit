@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
 
+    public bool isPlayingMinigame = false;
+
     public CanInteractUI canInteractUI;
     public static PlayerController Instance => instance == null ? null : instance;
 
@@ -285,7 +287,7 @@ public class PlayerController : MonoBehaviour
         if (PasswordUIManager.IsUiOpen) return;
 
         // 점프 불가
-        if (isDashing || abilityManager.isSoul) return;
+        if (isDashing || abilityManager.isSoul || !canMove) return;
 
         if (value.isPressed && !isJump)
         {
@@ -306,7 +308,7 @@ public class PlayerController : MonoBehaviour
     {
         if (PasswordUIManager.IsUiOpen) return;
 
-        if (abilityManager.isSoul) return;
+        if (abilityManager.isSoul || !canMove) return;
 
         if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
         {
@@ -445,7 +447,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (ContactPoint2D contact in collision.contacts)
             {
-                if (Mathf.Abs(contact.normal.x) > 0.1f || contact.normal.y > 0.1f)
+                if ((Mathf.Abs(contact.normal.x) > 0.1f && abilityManager.canWallJump) || contact.normal.y > 0.1f)
                 {
                     isJump = false;
                     return;
@@ -481,7 +483,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPossess(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen) return;
+        if (PasswordUIManager.IsUiOpen || isPlayingMinigame) return;
 
         if (!value.isPressed) return;
 
