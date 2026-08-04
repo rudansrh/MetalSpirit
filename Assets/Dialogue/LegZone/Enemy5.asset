@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
+  m_Name: Enemy5
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 1
+    textElements:
+    - text: "\uBB54\uAC00?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uC55E\uC758 \uBB38\uC740?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uB2E4\uB9AC \uD30C\uCE20 \uCC3D\uACE0"
+      bold: 1
+      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uC758 \uBB38\uC774\uB2E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uBA54\uBAA8\uB9AC \uCE69\uC5D0 \uBB38\uC81C\uB77C\uB3C4 \uC0DD\uACBC\uB098?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uADF8\uB7F0 \uAC83 \uAC19\uB2E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uC800\uAE30\uB294 \uBABB \uB4E4\uC5B4\uAC00\uB294 \uAC74\uAC00."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC61B\uB0A0 \uC778\uAC04\uB4E4\uC740 "
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uC138 \uC790\uB9AC\uC758 \uBE44\uBC00\uBC88\uD638"
+      bold: 1
+      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uB97C \uC785\uB825\uD574 \uC800\uACF3\uC744 \uCD9C\uC785\uD588\uB2E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uD558\uC9C0\uB9CC \uC6B0\uB9AC\uB294 \uC800\uACF3\uC5D0 \uB4E4\uC5B4\uAC08
+        \uD544\uC694\uAC00 \uC5C6\uB2E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC6B0\uB9AC\uB294 \uB9E1\uC740 \uAD6C\uC5ED\uB9CC \uC9C0\uD0A4\uBA74
+        \uB420 \uBFD0."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "...\uC54C\uACA0\uB2E4."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
