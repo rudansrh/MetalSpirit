@@ -76,6 +76,8 @@ public class PlayerController : MonoBehaviour
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
 
     public bool isPlayingMinigame = false;
+    public bool isTalking = false;
+    public bool isUIopen = false;
 
     public CanInteractUI canInteractUI;
     public static PlayerController Instance => instance == null ? null : instance;
@@ -183,7 +185,7 @@ public class PlayerController : MonoBehaviour
     //적 공격 (발차기)
     public void OnLowAttack(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen) return;
+        if (isUIopen) return;
 
         if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low || isPossessing) return;
 
@@ -205,7 +207,7 @@ public class PlayerController : MonoBehaviour
     //적 공격 (주먹)
     public void OnHighAttack(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen) return;
+        if (isUIopen) return;
 
         if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high || isPossessing) return;
 
@@ -225,7 +227,7 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMove(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen)
+        if (isUIopen)
         {
             moveInput = Vector2.zero;
             return;
@@ -284,7 +286,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen) return;
+        if (isUIopen) return;
 
         // 점프 불가
         if (isDashing || abilityManager.isSoul || !canMove) return;
@@ -299,6 +301,7 @@ public class PlayerController : MonoBehaviour
             StopWallClimb();
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            transform.Translate(new Vector3(0,0.01f,0));
             isJump = true;
         }
     }
@@ -306,9 +309,7 @@ public class PlayerController : MonoBehaviour
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen) return;
-
-        if (abilityManager.isSoul || !canMove) return;
+        if (abilityManager.isSoul || !canMove || isUIopen) return;
 
         if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
         {
@@ -434,6 +435,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Mathf.Abs(contact.normal.x) > 0.1f)
             {
+                if (abilityManager.canWallJump) isJump = false;
+
                 wallClimbDetachDirection = Mathf.Sign(contact.normal.x);
                 return;
             }
@@ -445,15 +448,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if ((Mathf.Abs(contact.normal.x) > 0.1f && abilityManager.canWallJump) || contact.normal.y > 0.1f)
-                {
-                    isJump = false;
-                    return;
-                }
-            }
-
             TouchingWallCnt++;
             UpdateWallClimbDetachDirection(collision);
         }
@@ -464,6 +458,14 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             UpdateWallClimbDetachDirection(collision);
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.1f)
+                {
+                    isJump = false;
+                    return;
+                }
+            }
         }
     }
 
@@ -483,7 +485,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnPossess(InputValue value)
     {
-        if (PasswordUIManager.IsUiOpen || isPlayingMinigame) return;
+        if (isUIopen || isPlayingMinigame || isTalking) return;
 
         if (!value.isPressed) return;
 
@@ -564,14 +566,16 @@ public class PlayerController : MonoBehaviour
         {
             nearbyInteractable.Interact(this.gameObject);
         }
-        else if (isPossessing && rigid.GetComponent<SimpleEnemy>().nearbyEnemy != null) 
-        {
+        else if (isPossessing && !isTalking && rigid.GetComponent<SimpleEnemy>().nearbyEnemy != null) 
+        { 
             transform.position = rigid.GetComponent<Transform>().position;
             canMove = false;
             rigid.linearVelocity = Vector3.zero;
             Debug.Log("대화시작");
             rigid.GetComponent<SimpleEnemy>().nearbyEnemy.GetComponent<NPC>().Talk();
         }
+        canInteractUI.hideInterectUI();
+        rigid.linearVelocity = Vector2.zero;
     }
 
     // 트리거 감지 로직

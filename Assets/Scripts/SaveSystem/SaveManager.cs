@@ -56,7 +56,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
     }
 
-    // 임 불러오기 
+    //게임 불러오기 
     public void LoadGame(int slotIndex)
     {
         if (HasSaveFile(slotIndex))
@@ -92,6 +92,8 @@ public class SaveManager : MonoBehaviour
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
+
+            Debug.Log(currentLoadData);
         }
         currentLoadData = null;
         SceneManager.sceneLoaded -= OnSceneLoaded;

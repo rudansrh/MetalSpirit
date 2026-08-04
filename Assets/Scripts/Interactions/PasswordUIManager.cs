@@ -71,6 +71,8 @@ public class PasswordUIManager : MonoBehaviour
         currentInput = string.Empty;
         RefreshInputText();
         SetMessage(string.Empty);
+
+        PlayerController.Instance.isUIopen = false;
     }
 
     public void InputNumber(string number)

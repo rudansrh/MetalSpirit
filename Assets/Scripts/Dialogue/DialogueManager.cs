@@ -45,6 +45,7 @@ public class DialogueManager : MonoBehaviour
         npc = npcTransform;
         isTalking = true;
         index = 0;
+        PlayerController.Instance.isTalking = true;
 
         ShowCurrentLine();
     }
@@ -59,6 +60,7 @@ public class DialogueManager : MonoBehaviour
             DialogueUI.Instance.Hide();
             isTalking = false;
             PlayerController.Instance.canMove = true;
+            PlayerController.Instance.isTalking = false;
             return;
         }
 

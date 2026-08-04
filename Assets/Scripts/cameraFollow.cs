@@ -11,6 +11,8 @@ public class cameraFollow : MonoBehaviour
     [SerializeField] private Vector3 normalOffset = new Vector3(0, 0, -10);
     private Vector3 currentOffset;
 
+    public bool followTarget = true;
+
     private void Awake()
     {
         if (instance == null)
@@ -35,7 +37,7 @@ public class cameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (target == null) return;
+        if (target == null || !followTarget) return;
 
         transform.position = target.position + currentOffset;
     }

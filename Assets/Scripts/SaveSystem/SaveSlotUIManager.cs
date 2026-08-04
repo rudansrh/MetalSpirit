@@ -49,6 +49,7 @@ public class SaveSlotUIManager : MonoBehaviour
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.canMove = false;
+            PlayerController.Instance.isUIopen = true;
             PlayerController.Instance.StopMovement();
             PlayerController.Instance.StopDash();
         }
@@ -62,6 +63,7 @@ public class SaveSlotUIManager : MonoBehaviour
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.canMove = true;
+            PlayerController.Instance.isUIopen = false;
         }
     }
 

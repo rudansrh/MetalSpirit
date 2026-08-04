@@ -31,6 +31,7 @@ public class Password : MonoBehaviour, IInteractable
         }
 
         PasswordUIManager.Instance.Open(this, interactor);
+        PlayerController.Instance.isUIopen = true;
     }
 
     public bool Validate(string input, out string resultMessage)
