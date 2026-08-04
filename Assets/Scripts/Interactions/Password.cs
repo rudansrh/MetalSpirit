@@ -19,6 +19,7 @@ public class Password : MonoBehaviour, IInteractable
     {
         if (stayUnlockedAfterSuccess && isUnlocked)
         {
+            gameObject.SetActive(false);
             Debug.Log($"{name}: 이미 해제된 암호입니다.");
             return;
         }
