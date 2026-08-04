@@ -298,8 +298,9 @@ public class SimpleEnemy : MonoBehaviour
         enemyHp -= playerDamage;
         if (enemyHp <= 0)
         {
-            this.gameObject.SetActive(false);
             Debug.Log("Enemy killed");
+            GetComponent<DropItem>().dropItem();
+            this.gameObject.SetActive(false);
         }
     }
 }
