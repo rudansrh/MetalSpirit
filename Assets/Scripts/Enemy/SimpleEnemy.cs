@@ -58,6 +58,8 @@ public class SimpleEnemy : MonoBehaviour
             if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
             else if(rb.linearVelocityX < -0.1f)facingDirection = -1f;
 
+            if (playerController.isTalking) return;
+
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
             found = false;
@@ -71,7 +73,10 @@ public class SimpleEnemy : MonoBehaviour
 
                 nearbyEnemy = hit.collider.gameObject;
 
-                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                if (!found)
+                {
+                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                }
                 found = true;
                 break;
             }
@@ -293,8 +298,9 @@ public class SimpleEnemy : MonoBehaviour
         enemyHp -= playerDamage;
         if (enemyHp <= 0)
         {
-            this.gameObject.SetActive(false);
             Debug.Log("Enemy killed");
+            GetComponent<DropItem>().dropItem();
+            this.gameObject.SetActive(false);
         }
     }
 }

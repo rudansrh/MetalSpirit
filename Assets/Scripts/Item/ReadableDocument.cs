@@ -20,5 +20,6 @@ public class ReadableDocument : MonoBehaviour, IInteractable
         {
             DocumentUIManager.Instance.ShowDocument(documentContent);
         }
+        PlayerController.Instance.isUIopen = !PlayerController.Instance.isUIopen;
     }
 }
