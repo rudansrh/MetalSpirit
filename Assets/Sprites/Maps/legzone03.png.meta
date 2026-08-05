@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: d31a855439bb54f79a136469850aaa4f
+guid: ca0f3460a7421fe428282683776de142
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1981407630314151122
-    second: map_legzone_bg2_0
+      213: 8281827865236376425
+    second: legzone03_0
+  - first:
+      213: -5564886667933240142
+    second: legzone03_1
+  - first:
+      213: -4133987407653480563
+    second: legzone03_2
+  - first:
+      213: -6282123851553828915
+    second: legzone03_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map_legzone_bg2_0
+      name: legzone03_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1056
-        height: 912
+        x: 81
+        y: 680
+        width: 222
+        height: 151
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2360e71240a084e0800000000000000
-      internalID: -1981407630314151122
+      spriteID: 96b885e7096fee270800000000000000
+      internalID: 8281827865236376425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: legzone03_1
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 683
+        width: 250
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b4388e3f0d85c2b0800000000000000
+      internalID: -5564886667933240142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: legzone03_2
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 156
+        width: 253
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8750e40b5021a6c0800000000000000
+      internalID: -4133987407653480563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: legzone03_3
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 392
+        width: 250
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcf002124a961d8a0800000000000000
+      internalID: -6282123851553828915
       vertices: []
       indices: 
       edges: []
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      map_legzone_bg2_0: -1981407630314151122
+      legzone03_0: 8281827865236376425
+      legzone03_1: -5564886667933240142
+      legzone03_2: -4133987407653480563
+      legzone03_3: -6282123851553828915
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

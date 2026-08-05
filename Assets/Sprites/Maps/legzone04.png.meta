@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9feda770f98fc2a49af11e833d909562
+guid: baf4583014426124c90520c96ebcb8ee
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1826650240059635722
-    second: map_legzone_wall_0
+      213: -3833907979100027518
+    second: legzone04_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: map_legzone_wall_0
+      name: legzone04_0
       rect:
         serializedVersion: 2
-        x: 80
-        y: 80
-        width: 930
-        height: 752
+        x: 0
+        y: 0
+        width: 1056
+        height: 912
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6f70d50e84f66a6e0800000000000000
-      internalID: -1826650240059635722
+      spriteID: 285053481093bcac0800000000000000
+      internalID: -3833907979100027518
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      map_legzone_wall_0: -1826650240059635722
+      legzone04_0: -3833907979100027518
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
