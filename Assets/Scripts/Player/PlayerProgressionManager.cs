@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerProgressionManager : MonoBehaviour
@@ -9,11 +10,23 @@ public class PlayerProgressionManager : MonoBehaviour
     [Header("Progression")]
     [SerializeField] private PlayerStage unlockedStage = PlayerStage.Soul;
 
+    [Header("Debug Runtime Override")]
+    [SerializeField] private bool useDebugOverride = false;
+    [SerializeField] private bool debugIsSoul = true;
+    [SerializeField] private PlayerStage debugUnlockedStage = PlayerStage.Soul;
+
     public PlayerStage UnlockedStage => unlockedStage;
-    public PlayerStage CurrentVisualStage => IsSoulForm ? PlayerStage.Soul : unlockedStage;
-    public bool IsSoulForm => abilityManager == null || abilityManager.isSoul;
+    public PlayerStage EffectiveUnlockedStage => useDebugOverride ? ClampStage(debugUnlockedStage) : unlockedStage;
+    public PlayerStage CurrentVisualStage => IsSoulForm ? PlayerStage.Soul : EffectiveUnlockedStage;
+    public bool IsSoulForm => EffectiveIsSoul;
+    public bool EffectiveIsSoul => useDebugOverride ? debugIsSoul : runtimeSoulState;
+
+    public event Action StateChanged;
 
     private PlayerStage lastAppliedVisualStage = (PlayerStage)(-1);
+    private bool runtimeSoulState = true;
+    private bool hasAppliedState = false;
+    private bool lastAppliedSoulState = true;
 
     private void Awake()
     {
@@ -28,12 +41,34 @@ public class PlayerProgressionManager : MonoBehaviour
         }
 
         unlockedStage = ClampStage(unlockedStage);
+        debugUnlockedStage = ClampStage(debugUnlockedStage);
+        runtimeSoulState = abilityManager == null ? true : abilityManager.isSoul;
         SyncState(forceVisualRefresh: true);
     }
 
-    private void LateUpdate()
+    private void Update()
     {
+        if (!useDebugOverride && abilityManager != null && abilityManager.isSoul != runtimeSoulState)
+        {
+            runtimeSoulState = abilityManager.isSoul;
+            SyncState(forceVisualRefresh: true);
+            return;
+        }
+
         SyncState();
+    }
+
+    private void OnValidate()
+    {
+        unlockedStage = ClampStage(unlockedStage);
+        debugUnlockedStage = ClampStage(debugUnlockedStage);
+
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        SyncState(forceVisualRefresh: true);
     }
 
     public void SetUnlockedStage(PlayerStage stage)
@@ -54,24 +89,27 @@ public class PlayerProgressionManager : MonoBehaviour
         return true;
     }
 
+    public void SetSoulState(bool isSoulState)
+    {
+        runtimeSoulState = isSoulState;
+        SyncState(forceVisualRefresh: true);
+    }
+
     public void LoadState(bool isSoulState, PlayerStage stage)
     {
         unlockedStage = ClampStage(stage);
-
-        if (abilityManager != null)
-        {
-            abilityManager.isSoul = isSoulState;
-        }
-
+        runtimeSoulState = isSoulState;
         SyncState(forceVisualRefresh: true);
     }
 
     private void SyncState(bool forceVisualRefresh = false)
     {
-        SyncAbilities();
+        bool effectiveSoulState = EffectiveIsSoul;
+        PlayerStage currentVisualStage = effectiveSoulState ? PlayerStage.Soul : EffectiveUnlockedStage;
+        bool hadAbilityChanges = ApplyResolvedAbilities();
+        bool visualStageChanged = currentVisualStage != lastAppliedVisualStage;
 
-        PlayerStage currentVisualStage = CurrentVisualStage;
-        if (forceVisualRefresh || currentVisualStage != lastAppliedVisualStage)
+        if (forceVisualRefresh || visualStageChanged)
         {
             lastAppliedVisualStage = currentVisualStage;
 
@@ -80,30 +118,47 @@ public class PlayerProgressionManager : MonoBehaviour
                 visualManager.ApplyVisualStage(currentVisualStage);
             }
         }
+
+        bool resolvedStateChanged = !hasAppliedState
+            || effectiveSoulState != lastAppliedSoulState
+            || visualStageChanged
+            || hadAbilityChanges;
+
+        if (!resolvedStateChanged)
+        {
+            return;
+        }
+
+        hasAppliedState = true;
+        lastAppliedSoulState = effectiveSoulState;
+        StateChanged?.Invoke();
     }
 
-    private void SyncAbilities()
+    private bool ApplyResolvedAbilities()
     {
         if (abilityManager == null)
         {
-            return;
+            return false;
         }
 
-        if (abilityManager.isSoul)
+        if (EffectiveIsSoul)
         {
-            abilityManager.canDash = false;
-            abilityManager.canWallJump = false;
-            abilityManager.canLowAttack = false;
-            abilityManager.canHighAttack = false;
-            abilityManager.canUseInventory = false;
-            return;
+            return abilityManager.ApplyResolvedState(
+                true,
+                false,
+                false,
+                false,
+                false,
+                false);
         }
 
-        abilityManager.canDash = unlockedStage >= PlayerStage.Legs;
-        abilityManager.canWallJump = unlockedStage >= PlayerStage.Legs;
-        abilityManager.canLowAttack = unlockedStage >= PlayerStage.Legs;
-        abilityManager.canUseInventory = unlockedStage >= PlayerStage.Arms;
-        abilityManager.canHighAttack = unlockedStage >= PlayerStage.FullBody;
+        return abilityManager.ApplyResolvedState(
+            false,
+            EffectiveUnlockedStage >= PlayerStage.Legs,
+            EffectiveUnlockedStage >= PlayerStage.Legs,
+            EffectiveUnlockedStage >= PlayerStage.Legs,
+            EffectiveUnlockedStage >= PlayerStage.FullBody,
+            EffectiveUnlockedStage >= PlayerStage.Arms);
     }
 
     private PlayerStage ClampStage(PlayerStage stage)

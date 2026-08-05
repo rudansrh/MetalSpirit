@@ -800,7 +800,7 @@ GameObject:
   - component: {fileID: 220172839}
   m_Layer: 0
   m_Name: damagePlatform (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5686,7 +5686,7 @@ GameObject:
   - component: {fileID: 1391396888}
   m_Layer: 0
   m_Name: damagePlatform
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6443,7 +6443,7 @@ GameObject:
   - component: {fileID: 1594888908}
   m_Layer: 0
   m_Name: damagePlatform (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7250,7 +7250,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.08, y: 0.92}
+    oldSize: {x: 1, y: 0.92}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -7334,7 +7334,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -4482812937369022216, guid: dd7736179609648758993cee58a94a13, type: 3}
+  m_Sprite: {fileID: 701804405629523170, guid: 4362912297e204ac9b265f1b9c8a964d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7373,6 +7373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   visualManager: {fileID: 0}
   abilityManager: {fileID: 1738328934}
+  progressionManager: {fileID: 0}
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
@@ -7467,6 +7468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae28185ba300be4e87d9ffed835752e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
+  progressionManager: {fileID: 0}
   isSoul: 1
   canPossess: 1
   canDash: 1
@@ -7539,6 +7541,9 @@ MonoBehaviour:
   abilityManager: {fileID: 1738328934}
   visualManager: {fileID: 1738328940}
   unlockedStage: 0
+  useDebugOverride: 0
+  debugIsSoul: 1
+  debugUnlockedStage: 0
 --- !u!114 &1738328940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7557,16 +7562,16 @@ MonoBehaviour:
   stageVisuals:
   - stage: 0
     animatorController: {fileID: 22100000, guid: bca4d92d88bde49098cce03f7b1703d6, type: 2}
-    previewSprite: {fileID: -4482812937369022216, guid: dd7736179609648758993cee58a94a13, type: 3}
+    previewSprite: {fileID: 701804405629523170, guid: 4362912297e204ac9b265f1b9c8a964d, type: 3}
   - stage: 1
     animatorController: {fileID: 22100000, guid: 92a80322812b043c9b39af3834100462, type: 2}
-    previewSprite: {fileID: -2286018338768912969, guid: 9a2a7b8cfe51844e78689fd033ce1c3e, type: 3}
+    previewSprite: {fileID: -6350825190059525619, guid: 7f5b9ed67df8c4951868c95ed0e6f58c, type: 3}
   - stage: 2
     animatorController: {fileID: 22100000, guid: 9a392ae56c27044c6a8e8b5fd21fbba0, type: 2}
-    previewSprite: {fileID: 5289398730728190858, guid: 2d863a987671840ecb0c53b97db8ba61, type: 3}
+    previewSprite: {fileID: 2393592249548997958, guid: 195d9a054afca465a8001293e5575d8e, type: 3}
   - stage: 3
     animatorController: {fileID: 22100000, guid: 1676f24fdf804409ba7cfab55b136dea, type: 2}
-    previewSprite: {fileID: -5815985843714593396, guid: ffc1bc41be25440e7a32b626d72c5123, type: 3}
+    previewSprite: {fileID: 3306012874373709551, guid: 011ab571b8a74409cb763a36bdf6809b, type: 3}
   stageParameter: Stage
   speedParameter: Speed
   groundedParameter: IsGrounded
@@ -8259,7 +8264,7 @@ GameObject:
   - component: {fileID: 1855663671}
   m_Layer: 0
   m_Name: damagePlatform (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8669,7 +8674,7 @@ GameObject:
   - component: {fileID: 1953539528}
   m_Layer: 0
   m_Name: damagePlatform (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

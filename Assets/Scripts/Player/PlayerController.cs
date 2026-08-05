@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     SpriteRenderer spriteRenderer;
     [SerializeField] PlayerVisualManager visualManager;
     [SerializeField] PlayerAbilityManager abilityManager;
+    [SerializeField] PlayerProgressionManager progressionManager;
 
     //스태미나 컴포넌트 참조 추가
     Stamina stamina;
@@ -82,6 +83,8 @@ public class PlayerController : MonoBehaviour
     public CanInteractUI canInteractUI;
     public static PlayerController Instance => instance == null ? null : instance;
 
+    bool isSubscribedToProgressionState = false;
+
     void Awake()
     {
         if (instance == null)
@@ -104,6 +107,12 @@ public class PlayerController : MonoBehaviour
                 visualManager = GetComponent<PlayerVisualManager>();
             }
 
+            if (progressionManager == null)
+            {
+                progressionManager = GetComponent<PlayerProgressionManager>();
+            }
+
+            SubscribeToProgressionState();
             UpdateFormState();
             UpdateFacingVisual();
             UpdateAnimationState();
@@ -118,16 +127,27 @@ public class PlayerController : MonoBehaviour
 
     void OnDestroy()
     {
+        UnsubscribeFromProgressionState();
+
         if (instance == this)
         {
             instance = null;
         }
     }
 
+    void OnEnable()
+    {
+        SubscribeToProgressionState();
+    }
+
+    void OnDisable()
+    {
+        UnsubscribeFromProgressionState();
+    }
 
     void UpdateFormState()
     {
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
             rigid.gravityScale = 0f;
             col.isTrigger = true;
@@ -160,7 +180,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         // 영혼 상태일 때의 이동
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
             Vector2 soulMoveDir = moveInput;
             if (soulMoveDir.magnitude > 1f)
@@ -236,7 +256,7 @@ public class PlayerController : MonoBehaviour
         Vector2 input = value.Get<Vector2>();
         moveInput = new Vector2(
             input.x,
-            abilityManager.isSoul || wallClimbDetachDirection != 0 ? input.y : 0f);
+            IsSoulForm() || wallClimbDetachDirection != 0 ? input.y : 0f);
 
         // 바라보는 방향을 업데이트
         if (moveInput.x != 0)
@@ -289,7 +309,7 @@ public class PlayerController : MonoBehaviour
         if (isUIopen) return;
 
         // 점프 불가
-        if (isDashing || abilityManager.isSoul || !canMove) return;
+        if (isDashing || IsSoulForm() || !canMove) return;
 
         if (value.isPressed && !isJump)
         {
@@ -309,7 +329,7 @@ public class PlayerController : MonoBehaviour
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
-        if (abilityManager.isSoul || !canMove || isUIopen) return;
+        if (IsSoulForm() || !canMove || isUIopen) return;
 
         if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
         {
@@ -384,7 +404,7 @@ public class PlayerController : MonoBehaviour
     bool CanWallClimb()
     {
         return abilityManager.canWallJump
-            && !abilityManager.isSoul
+            && !IsSoulForm()
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
@@ -489,7 +509,7 @@ public class PlayerController : MonoBehaviour
 
         if (!value.isPressed) return;
 
-        if (abilityManager.isSoul && abilityManager.canPossess)
+        if (IsSoulForm() && abilityManager.canPossess)
         {
             if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
@@ -518,7 +538,7 @@ public class PlayerController : MonoBehaviour
                 UpdateFormState();
             }
         }
-        else if (!abilityManager.isSoul)
+        else if (!IsSoulForm())
         {
             if (isPossessing) //빙의 -> 영혼
             {
@@ -582,7 +602,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 빙의 대상 감지 로직
-        if (abilityManager.isSoul && abilityManager.canPossess)
+        if (IsSoulForm() && abilityManager.canPossess)
         {
             if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
             {
@@ -602,7 +622,7 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         // 빙의 대상 해제 로직
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
             if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
             {
@@ -630,7 +650,7 @@ public class PlayerController : MonoBehaviour
     {
         if (rigid != null)
         {
-            if (abilityManager != null && abilityManager.isSoul)
+            if (abilityManager != null && IsSoulForm())
             {
                 rigid.linearVelocity = Vector2.zero;
             }
@@ -650,7 +670,7 @@ public class PlayerController : MonoBehaviour
 
         float animationSpeed = canMove && moveInput.sqrMagnitude > 0.01f ? 1f : 0f;
 
-        bool isGrounded = !abilityManager.isSoul && !isJump && !isWallClimbing;
+        bool isGrounded = !IsSoulForm() && !isJump && !isWallClimbing;
 
         visualManager.UpdateAnimationState(
             animationSpeed,
@@ -658,7 +678,7 @@ public class PlayerController : MonoBehaviour
             rigid.linearVelocity.y,
             isDashing,
             isWallClimbing,
-            abilityManager.isSoul);
+            IsSoulForm());
     }
 
     void UpdateFacingVisual()
@@ -669,5 +689,54 @@ public class PlayerController : MonoBehaviour
         }
 
         visualManager.UpdateFacingDirection(facingDirection);
+    }
+
+    void HandleProgressionStateChanged()
+    {
+        UpdateFormState();
+        UpdateFacingVisual();
+        UpdateAnimationState();
+    }
+
+    bool IsSoulForm()
+    {
+        if (progressionManager != null)
+        {
+            return progressionManager.EffectiveIsSoul;
+        }
+
+        return abilityManager != null && abilityManager.isSoul;
+    }
+
+    void SubscribeToProgressionState()
+    {
+        if (isSubscribedToProgressionState)
+        {
+            return;
+        }
+
+        if (progressionManager == null)
+        {
+            progressionManager = GetComponent<PlayerProgressionManager>();
+        }
+
+        if (progressionManager == null)
+        {
+            return;
+        }
+
+        progressionManager.StateChanged += HandleProgressionStateChanged;
+        isSubscribedToProgressionState = true;
+    }
+
+    void UnsubscribeFromProgressionState()
+    {
+        if (!isSubscribedToProgressionState || progressionManager == null)
+        {
+            return;
+        }
+
+        progressionManager.StateChanged -= HandleProgressionStateChanged;
+        isSubscribedToProgressionState = false;
     }
 }
