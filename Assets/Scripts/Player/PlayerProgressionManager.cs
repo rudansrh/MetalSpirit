@@ -101,9 +101,9 @@ public class PlayerProgressionManager : MonoBehaviour
 
         abilityManager.canDash = unlockedStage >= PlayerStage.Legs;
         abilityManager.canWallJump = unlockedStage >= PlayerStage.Legs;
-        abilityManager.canLowAttack = unlockedStage >= PlayerStage.Arms;
-        abilityManager.canHighAttack = unlockedStage >= PlayerStage.Arms;
-        abilityManager.canUseInventory = unlockedStage >= PlayerStage.FullBody;
+        abilityManager.canLowAttack = unlockedStage >= PlayerStage.Legs;
+        abilityManager.canUseInventory = unlockedStage >= PlayerStage.Arms;
+        abilityManager.canHighAttack = unlockedStage >= PlayerStage.FullBody;
     }
 
     private PlayerStage ClampStage(PlayerStage stage)

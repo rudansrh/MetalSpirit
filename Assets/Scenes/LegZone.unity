@@ -822,6 +822,7 @@ MonoBehaviour:
   alphaLerpSpeed: 8
   damageAmount: 2
   damageInterval: 1
+  activeAlpha: 0.5
 --- !u!61 &220172840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5827,6 +5828,7 @@ MonoBehaviour:
   alphaLerpSpeed: 8
   damageAmount: 2
   damageInterval: 1
+  activeAlpha: 0.5
 --- !u!1001 &1446123112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6463,6 +6465,7 @@ MonoBehaviour:
   alphaLerpSpeed: 8
   damageAmount: 2
   damageInterval: 1
+  activeAlpha: 0.5
 --- !u!61 &1594888909
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8278,6 +8281,7 @@ MonoBehaviour:
   alphaLerpSpeed: 8
   damageAmount: 2
   damageInterval: 1
+  activeAlpha: 0.5
 --- !u!61 &1855663672
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8687,6 +8691,7 @@ MonoBehaviour:
   alphaLerpSpeed: 8
   damageAmount: 2
   damageInterval: 1
+  activeAlpha: 0.5
 --- !u!61 &1953539529
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -13,6 +13,9 @@ public class DamagePlatform : MonoBehaviour
     [SerializeField] private float damageAmount = 2f;
     [SerializeField] private float damageInterval = 1f;
 
+    [Header("Alpha Settings")]
+    [SerializeField] private float activeAlpha = 0.75f;
+
     private float timer;
     private float damageTimer;
     private bool isActive;
@@ -46,7 +49,7 @@ public class DamagePlatform : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        float targetAlpha = isActive ? 1f : 0f;
+        float targetAlpha = isActive ? activeAlpha : 0f;
         float nextAlpha = Mathf.Lerp(spriteRenderer.color.a, targetAlpha, alphaLerpSpeed * Time.deltaTime);
         SetAlpha(nextAlpha);
 
