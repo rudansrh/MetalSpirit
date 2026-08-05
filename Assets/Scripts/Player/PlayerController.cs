@@ -670,7 +670,7 @@ public class PlayerController : MonoBehaviour
 
         float animationSpeed = canMove && moveInput.sqrMagnitude > 0.01f ? 1f : 0f;
 
-        bool isGrounded = !IsSoulForm() && !isJump && !isWallClimbing;
+        bool isGrounded = !IsSoulForm() && TouchingWallCnt > 0;
 
         visualManager.UpdateAnimationState(
             animationSpeed,
