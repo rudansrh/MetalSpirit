@@ -12,4 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
   m_Name: enemy15
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speaker: 1
+    textElements:
+    - text: "\uC5EC\uAE30\uB294 \uB124\uAC00 \uC62C \uACF3101 1\uB2C8\uC57C."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uC800\uB9AC 1111."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}

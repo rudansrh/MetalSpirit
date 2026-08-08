@@ -12,4 +12,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
   m_Name: enemy8
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speaker: 0
+    textElements:
+    - text: "\uC67C\uCABD \uBB38 \uB108\uBA38\uC5D0\uB294 \uBB50\uAC00 \uC788\uC5B4?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "10001\uC580\uC0C9 \uACF5\uAC04101 \uC788\uC9C0."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uD558\uC580\uC0C9?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uD558\uC597\uACE0, \uAE54\uB05410001\uACE0, \uC2DC\uB044\uB7EC\uC6B4
+        \uACF5\uAC04."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uB098\uB294 \uC2EB\uC5B4\uD574."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
