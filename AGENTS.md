@@ -2,13 +2,13 @@
 - Project name: MetalSpirit
 - Unity version: Unity 6000.4.9f1
 - Active scene:
-  - Name: LegZone
+  - Name: Head&BodyZone
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: document (1)
+  - Name: MapUIPanel
   - Tag: Untagged
-  - Layer: Default
+  - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
