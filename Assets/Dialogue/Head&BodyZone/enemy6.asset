@@ -10,38 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
-  m_Name: Enemy4
+  m_Name: enemy6
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
     textElements:
-    - text: ?&%*!(#
+    - text: $*!)#(#!
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     textElements:
-    - text: "\uAD1C\uCC2E\uB098?"
+    - text: "...\uC798 \uC788\uC5B4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: ?&%*!(#
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 0
-    textElements:
-    - text: "(\uB300\uD654\uAC00 \uD1B5\uD558\uC9C0 \uC54A\uB294 \uAC83 \uAC19\uB2E4...)"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

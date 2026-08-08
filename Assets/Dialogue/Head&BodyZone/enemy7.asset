@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
-  m_Name: enemy1
+  m_Name: enemy7
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
     textElements:
-    - text: "\uC751? "
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uBB50"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uC9C0?"
+    - text: "\uB1081001111 \uBE59\uAE00\uBE59\uAE00 \uB3CC\uB824\uACE0 \uC654\uB2C8?"
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
@@ -29,7 +23,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     textElements:
-    - text: "\uC774 \uAD6C\uC5ED\uC5D0\uB3C4 \uD3EC\uC2A4\uD130\uAC00 \uC788\uB098?"
+    - text: "\uC751."
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
@@ -37,13 +31,8 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
     textElements:
-    - text: "\uD3EC\uC2A4"
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uD130"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "? \uC544\uB2C8, \uD3EC\uC2A4\uD130\uB294 \uC5C6\uB2E4."
+    - text: "\uADF8\uB798? \uADF8\uB7EC\uBA74 \uC870\uAE08\uB9CC \uB3CC\uACE0 1001\uC2DC
+        \uB0B4\uB824\uAC00."
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
@@ -51,7 +40,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     textElements:
-    - text: "\uADF8\uB807\uB2E4\uBA74?"
+    - text: "\uC65C?"
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
@@ -59,27 +48,7 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
     textElements:
-    - text: "\uC774\uB07C \uC548\uC5D0 \uB2E4\uB978 "
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uC885\uC774"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uB97C \uBCF8 \uC801\uC740 \uC788\uB2E4."
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    textElements:
-    - text: "\uD558\uB098\uB294 \uAC70\uBBF8\uC904\uACFC "
-      bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uAC00"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
-    - text: "\uAE4C\uC6B4 \uACF3\uC774\uC5C8\uB2E4."
+    - text: "101\uACF3\uC740 \uADF8\uC800 \uB3CC\uC544\uAC08 \uBFD0\uC77411101001\uAE4C."
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
@@ -87,7 +56,23 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
     textElements:
-    - text: "\uC54C\uACA0\uB2E4."
+    - text: ...
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uB098\uB294 \uB2E4\uB974\uAC8C \uC0DD\uAC01\uD558\uAE34 \uD558\uC9C0\uB9CC."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uCDA9\uACE0 \uACE0\uB9C8\uC6CC."
       bold: 0
       color: {r: 0, g: 0, b: 0, a: 0}
     text: 
