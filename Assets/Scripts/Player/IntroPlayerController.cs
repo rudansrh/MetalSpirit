@@ -11,6 +11,8 @@ public class IntroPlayerController : MonoBehaviour
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private PlayerInput playerInput;
 
+    private Vector3 simulatedRoutePosition;
+
     private void Awake()
     {
         if (animator == null)
@@ -58,27 +60,36 @@ public class IntroPlayerController : MonoBehaviour
             rigidbody2D.simulated = false;
         }
 
-        transform.position = new Vector3(startPoint.x, startPoint.y, transform.position.z);
+        simulatedRoutePosition = new Vector3(startPoint.x, startPoint.y, transform.position.z);
+        transform.position = simulatedRoutePosition;
         SetIdleAnimation();
     }
 
     public IEnumerator MoveTo(Vector3 targetPoint, float speed)
     {
-        Vector3 targetPosition = new Vector3(targetPoint.x, targetPoint.y, transform.position.z);
+        Vector3 targetPosition = new Vector3(targetPoint.x, targetPoint.y, simulatedRoutePosition.z);
+        Vector3 routeDelta = targetPosition - simulatedRoutePosition;
+        float distance = routeDelta.magnitude;
 
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        if (distance <= 0.01f || speed <= 0f)
         {
-            Vector3 previousPosition = transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            simulatedRoutePosition = targetPosition;
+            SetIdleAnimation();
+            yield break;
+        }
 
-            Vector3 delta = transform.position - previousPosition;
-            float horizontal = Mathf.Abs(delta.x) > 0.001f ? Mathf.Sign(delta.x) : 0f;
+        float horizontal = Mathf.Abs(routeDelta.x) > 0.001f ? Mathf.Sign(routeDelta.x) : 0f;
+        float duration = distance / speed;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
             UpdateAnimation(horizontal, true, false, 0f);
-
             yield return null;
         }
 
-        transform.position = targetPosition;
+        simulatedRoutePosition = targetPosition;
         SetIdleAnimation();
     }
 
