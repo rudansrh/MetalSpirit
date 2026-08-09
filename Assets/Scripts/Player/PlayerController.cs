@@ -340,6 +340,17 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnMap(InputValue value)
+    {
+        if (!value.isPressed) return;
+        if (isPlayingMinigame || isTalking) return;
+
+        bool isMapOpen = MapUIManager.Instance != null && MapUIManager.Instance.IsOpen;
+        if (isUIopen && !isMapOpen) return;
+
+        MapUIManager.Instance?.ToggleMap();
+    }
+
     IEnumerator DashRoutine()
     {
 
