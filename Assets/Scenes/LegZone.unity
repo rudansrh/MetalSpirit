@@ -8907,7 +8907,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1738328931
 Transform:
@@ -8960,7 +8960,7 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 1
   highAttackDamage: 10
-  possessionLimitTime: 60
+  possessGauge: {fileID: 0}
   isJump: 0
   canMove: 1
   isInvincibility: 0

@@ -129,7 +129,7 @@ TextureImporter:
         width: 75
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -151,7 +151,7 @@ TextureImporter:
         width: 73
         height: 47
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -173,7 +173,7 @@ TextureImporter:
         width: 61
         height: 46
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -195,7 +195,7 @@ TextureImporter:
         width: 49
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,32 +214,10 @@ TextureImporter:
         serializedVersion: 2
         x: 394
         y: 0
-        width: 8
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac9702a0a1708e4c0800000000000000
-      internalID: -4258145639258359350
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemy_leg_attack_5
-      rect:
-        serializedVersion: 2
-        x: 401
-        y: 0
-        width: 42
+        width: 49
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -253,7 +231,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_leg_attack_6
+      name: enemy_leg_attack_5
       rect:
         serializedVersion: 2
         x: 490
@@ -261,7 +239,7 @@ TextureImporter:
         width: 71
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -275,7 +253,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_leg_attack_7
+      name: enemy_leg_attack_6
       rect:
         serializedVersion: 2
         x: 586
@@ -283,7 +261,7 @@ TextureImporter:
         width: 76
         height: 48
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -300,7 +278,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 47bf109f7afe7436da44028bf67d3051
     internalID: 0
     vertices: []
     indices: 
@@ -314,10 +292,9 @@ TextureImporter:
       enemy_leg_attack_1: 8738989651459121244
       enemy_leg_attack_2: -6679779055986421280
       enemy_leg_attack_3: -8863814638852174335
-      enemy_leg_attack_4: -4258145639258359350
-      enemy_leg_attack_5: -8379295683271869880
-      enemy_leg_attack_6: -6540669003214701876
-      enemy_leg_attack_7: -6192789489995545974
+      enemy_leg_attack_4: -8379295683271869880
+      enemy_leg_attack_5: -6540669003214701876
+      enemy_leg_attack_6: -6192789489995545974
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
