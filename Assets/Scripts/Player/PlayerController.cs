@@ -53,6 +53,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Possession Settings")]
     private SimpleEnemy targetEnemyToPossess = null;
+    [SerializeField] private float possessionLimitTime;
+    private float currentPossessTime;
+
     [Header("Interaction Settings")]
     private IInteractable nearbyInteractable = null; // 근처에 있는 상호작용 객체
 
@@ -175,6 +178,12 @@ public class PlayerController : MonoBehaviour
     {
         curTime_high += Time.deltaTime;
         curTime_low += Time.deltaTime;
+
+        if(!isTalking) currentPossessTime -= Time.deltaTime;
+        if(currentPossessTime < 0 && isPossessing)
+        {
+            OnPossess(null);
+        }
 
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
@@ -582,13 +591,14 @@ public class PlayerController : MonoBehaviour
     {
         if (isUIopen || isPlayingMinigame || isTalking) return;
 
-        if (!value.isPressed) return;
+        //if (!value.isPressed) return;
 
         if (IsSoulForm() && abilityManager.canPossess)
         {
             if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
                 SimpleEnemy targetEnemy = targetEnemyToPossess;
+                currentPossessTime = possessionLimitTime;
                 isPossessing = true;
                 rigid.linearVelocity = Vector3.zero;
                 rigid = targetEnemy.GetComponent<Rigidbody2D>();

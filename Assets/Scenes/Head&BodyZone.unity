@@ -6425,6 +6425,8 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 1
   highAttackDamage: 10
+  possessionLimitTime: 5
+  currentPossessTime: 0
   isJump: 0
   canMove: 1
   isInvincibility: 0
