@@ -84,6 +84,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance => instance == null ? null : instance;
 
     bool isSubscribedToProgressionState = false;
+    readonly PlayerMovementBoundsController movementBoundsController = new PlayerMovementBoundsController();
 
     void Awake()
     {
@@ -177,7 +178,11 @@ public class PlayerController : MonoBehaviour
 
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
+        {
+            rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
+            ClampControlledBodyToBounds();
             return;
+        }
 
         // 영혼 상태일 때의 이동
         if (IsSoulForm())
@@ -188,20 +193,74 @@ public class PlayerController : MonoBehaviour
                 soulMoveDir.Normalize();
             }
 
-            rigid.linearVelocity = soulMoveDir * soulSpeed;
+            rigid.linearVelocity = FilterVelocityAgainstBounds(soulMoveDir * soulSpeed);
+            ClampControlledBodyToBounds();
             return;
         }
 
         // 빙의 상태일 때
         if (UpdateWallClimbState())
         {
+            ClampControlledBodyToBounds();
             return;
         }
 
         ApplyCobwebVerticalLimit();
-        rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
+        Vector2 desiredVelocity = rigid.linearVelocity;
+        desiredVelocity.x = moveInput.x * speed * speedMultiplier;
+        rigid.linearVelocity = FilterVelocityAgainstBounds(desiredVelocity);
+        ClampControlledBodyToBounds();
     }
 
+    #region Movement Bounds
+    public void SetMovementBounds(Collider2D boundsCollider)
+    {
+        movementBoundsController.SetMovementBounds(boundsCollider);
+        ClampControlledBodyToBounds();
+    }
+
+    public void ClearMovementBounds(Collider2D boundsCollider)
+    {
+        movementBoundsController.ClearMovementBounds(boundsCollider);
+    }
+
+    void ClampControlledBodyToBounds()
+    {
+        if (!ShouldApplyMovementBounds())
+        {
+            return;
+        }
+
+        movementBoundsController.ClampControlledBodyToBounds(rigid, GetActiveControlledCollider());
+    }
+
+    Vector2 FilterVelocityAgainstBounds(Vector2 desiredVelocity)
+    {
+        if (!ShouldApplyMovementBounds())
+        {
+            return desiredVelocity;
+        }
+
+        return movementBoundsController.FilterVelocityAgainstBounds(rigid, GetActiveControlledCollider(), desiredVelocity);
+    }
+    #endregion
+
+    bool ShouldApplyMovementBounds()
+    {
+        return IsSoulForm();
+    }
+
+    Collider2D GetActiveControlledCollider()
+    {
+        if (col != null && col.enabled)
+        {
+            return col;
+        }
+
+        return rigid != null ? rigid.GetComponent<Collider2D>() : null;
+    }
+
+    #region Attack
     //적 공격 (발차기)
     public void OnLowAttack(InputValue value)
     {
@@ -245,6 +304,8 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    #endregion
+
     public void OnMove(InputValue value)
     {
         if (isUIopen)
@@ -358,8 +419,9 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         rigid.gravityScale = 0f;
 
-        rigid.linearVelocityX = facingDirection * dashSpeed * speedMultiplier;
-        rigid.linearVelocityY = 0.0000001f;
+        rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
+            facingDirection * dashSpeed * speedMultiplier,
+            0.0000001f));
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -407,7 +469,9 @@ public class PlayerController : MonoBehaviour
 
         isWallClimbing = true;
         rigid.gravityScale = 0f;
-        rigid.linearVelocity = new Vector2(-wallClimbDetachDirection, isMovingVertically ? climbInput * wallClimbSpeed : 0f);
+        rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
+            -wallClimbDetachDirection,
+            isMovingVertically ? climbInput * wallClimbSpeed : 0f));
         return true;
     }
 
@@ -539,6 +603,7 @@ public class PlayerController : MonoBehaviour
                 abilityManager.PossessBody();
                 UpdateFormState();
                 isJump = false;
+                ClampControlledBodyToBounds();
 
                 targetEnemyToPossess = null;
             }
@@ -547,6 +612,7 @@ public class PlayerController : MonoBehaviour
                 rigid.linearVelocity = Vector3.zero;
                 abilityManager.PossessBody();
                 UpdateFormState();
+                ClampControlledBodyToBounds();
             }
         }
         else if (!IsSoulForm())
@@ -567,6 +633,7 @@ public class PlayerController : MonoBehaviour
 
                 abilityManager.DepossessBody();
                 UpdateFormState();
+                ClampControlledBodyToBounds();
 
                 if (isDashing) StopDash();
             }
@@ -575,6 +642,7 @@ public class PlayerController : MonoBehaviour
                 rigid.linearVelocity = Vector3.zero;
                 abilityManager.DepossessBody();
                 UpdateFormState();
+                ClampControlledBodyToBounds();
             }
         }
     }

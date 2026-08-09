@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: cameraBound
-  - Tag: Untagged
+  - Name: playerBound
+  - Tag: Wall
   - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
