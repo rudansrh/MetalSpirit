@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: playerBound
-  - Tag: Wall
-  - Layer: Default
+  - Name: Player
+  - Tag: Player
+  - Layer: Player
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
