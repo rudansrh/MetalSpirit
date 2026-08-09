@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
 
@@ -53,8 +54,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Possession Settings")]
     private SimpleEnemy targetEnemyToPossess = null;
-    [SerializeField] private float possessionLimitTime;
-    private float currentPossessTime;
+    public PossessGauge possessGauge;
 
     [Header("Interaction Settings")]
     private IInteractable nearbyInteractable = null; // 근처에 있는 상호작용 객체
@@ -178,12 +178,6 @@ public class PlayerController : MonoBehaviour
     {
         curTime_high += Time.deltaTime;
         curTime_low += Time.deltaTime;
-
-        if(!isTalking) currentPossessTime -= Time.deltaTime;
-        if(currentPossessTime < 0 && isPossessing)
-        {
-            OnPossess(null);
-        }
 
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
@@ -598,7 +592,9 @@ public class PlayerController : MonoBehaviour
             if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
                 SimpleEnemy targetEnemy = targetEnemyToPossess;
-                currentPossessTime = possessionLimitTime;
+                possessGauge.target = targetEnemy.transform;
+                possessGauge.possessGaugeShow();
+
                 isPossessing = true;
                 rigid.linearVelocity = Vector3.zero;
                 rigid = targetEnemy.GetComponent<Rigidbody2D>();
@@ -630,6 +626,7 @@ public class PlayerController : MonoBehaviour
             if (isPossessing) //빙의 -> 영혼
             {
                 isPossessing = false;
+                possessGauge.possessGaugeHide();
                 transform.position = rigid.GetComponent<Transform>().position;
                 cameraFollow.Instance.SetTarget(transform);
                 rigid.linearVelocity = Vector3.zero;
