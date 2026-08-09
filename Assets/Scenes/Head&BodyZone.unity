@@ -6426,7 +6426,6 @@ MonoBehaviour:
   highAttackCoolTime: 1
   highAttackDamage: 10
   possessionLimitTime: 5
-  currentPossessTime: 0
   isJump: 0
   canMove: 1
   isInvincibility: 0
@@ -6594,16 +6593,16 @@ MonoBehaviour:
   stageVisuals:
   - stage: 0
     animatorController: {fileID: 22100000, guid: bca4d92d88bde49098cce03f7b1703d6, type: 2}
-    previewSprite: {fileID: -4482812937369022216, guid: dd7736179609648758993cee58a94a13, type: 3}
+    previewSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
   - stage: 1
     animatorController: {fileID: 22100000, guid: 92a80322812b043c9b39af3834100462, type: 2}
-    previewSprite: {fileID: -2286018338768912969, guid: 9a2a7b8cfe51844e78689fd033ce1c3e, type: 3}
+    previewSprite: {fileID: -6350825190059525619, guid: 0206ecf11eac948afa7c2b2d3d3030f1, type: 3}
   - stage: 2
     animatorController: {fileID: 22100000, guid: 9a392ae56c27044c6a8e8b5fd21fbba0, type: 2}
-    previewSprite: {fileID: 5289398730728190858, guid: 2d863a987671840ecb0c53b97db8ba61, type: 3}
+    previewSprite: {fileID: 2393592249548997958, guid: f160e08dfc7a448a3bd5070ef384f5c3, type: 3}
   - stage: 3
     animatorController: {fileID: 22100000, guid: 1676f24fdf804409ba7cfab55b136dea, type: 2}
-    previewSprite: {fileID: -5815985843714593396, guid: ffc1bc41be25440e7a32b626d72c5123, type: 3}
+    previewSprite: {fileID: 3306012874373709551, guid: 011ab571b8a74409cb763a36bdf6809b, type: 3}
   stageParameter: Stage
   speedParameter: Speed
   groundedParameter: IsGrounded
