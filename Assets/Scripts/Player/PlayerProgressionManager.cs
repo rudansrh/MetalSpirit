@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.LightTransport.PostProcessing;
 
 public class PlayerProgressionManager : MonoBehaviour
 {
@@ -151,6 +152,14 @@ public class PlayerProgressionManager : MonoBehaviour
                 false,
                 false);
         }
+
+        PossessGauge possess = PlayerController.Instance.possessGauge;
+
+        possess.isInfinityPossess = false;
+        if (unlockedStage == PlayerStage.Soul) possess.isInfinityPossess = true;
+        else if (unlockedStage == PlayerStage.Legs) possess.possessionLimitTime = 60;
+        else if (unlockedStage == PlayerStage.Arms) possess.possessionLimitTime = 30;
+        else if (unlockedStage == PlayerStage.FullBody) possess.possessionLimitTime = 5;
 
         return abilityManager.ApplyResolvedState(
             false,
