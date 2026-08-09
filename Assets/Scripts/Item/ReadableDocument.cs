@@ -14,11 +14,13 @@ public class ReadableDocument : MonoBehaviour, IInteractable
         if (DocumentUIManager.Instance.isOpen)
         {
             DocumentUIManager.Instance.CloseDocument();
+            PlayerController.Instance.isUIopen = false;
         }
         // 닫혀있으면 문서 내용 띄우기
         else
         {
             DocumentUIManager.Instance.ShowDocument(documentContent);
+            PlayerController.Instance.isUIopen = true;
         }
     }
 }

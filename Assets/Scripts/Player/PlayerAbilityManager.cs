@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerAbilityManager : MonoBehaviour
 {
+    [SerializeField] private PlayerProgressionManager progressionManager;
 
     [Header("State")]
     public bool isSoul = true;
@@ -16,23 +17,64 @@ public class PlayerAbilityManager : MonoBehaviour
     [Header("Inventory")]
     public bool canUseInventory = false;
 
+    private void Awake()
+    {
+        if (progressionManager == null)
+        {
+            progressionManager = GetComponent<PlayerProgressionManager>();
+        }
+    }
+
     public void PossessBody()
     {
-        isSoul = false;
-        canDash = true;
-        canWallJump = true;
-        canLowAttack = true;
-        canHighAttack = true;
-        Debug.Log("ºùÀÇ ¼º°ø");
+        if (progressionManager != null)
+        {
+            progressionManager.SetSoulState(false);
+        }
+        else
+        {
+            isSoul = false;
+        }
+
+        Debug.Log("Possess body.");
     }
 
     public void DepossessBody()
     {
-        isSoul = true;
-        canDash = false;
-        canWallJump = false;
-        canLowAttack = false;
-        canHighAttack = false;
-        Debug.Log("ºùÀÇ ÇØÁ¦");
+        if (progressionManager != null)
+        {
+            progressionManager.SetSoulState(true);
+        }
+        else
+        {
+            isSoul = true;
+        }
+
+        Debug.Log("Return to soul form.");
+    }
+
+    public bool ApplyResolvedState(
+        bool soulState,
+        bool dashEnabled,
+        bool wallJumpEnabled,
+        bool lowAttackEnabled,
+        bool highAttackEnabled,
+        bool inventoryEnabled)
+    {
+        bool changed = isSoul != soulState
+            || canDash != dashEnabled
+            || canWallJump != wallJumpEnabled
+            || canLowAttack != lowAttackEnabled
+            || canHighAttack != highAttackEnabled
+            || canUseInventory != inventoryEnabled;
+
+        isSoul = soulState;
+        canDash = dashEnabled;
+        canWallJump = wallJumpEnabled;
+        canLowAttack = lowAttackEnabled;
+        canHighAttack = highAttackEnabled;
+        canUseInventory = inventoryEnabled;
+
+        return changed;
     }
 }

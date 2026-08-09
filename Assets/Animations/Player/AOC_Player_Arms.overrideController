@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AOC_Player_Arms
+  m_Controller: {fileID: 9100000, guid: b4f92e5ac48674561a76acb7704ab36c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 76ef6d11185ae4504b7dee45dd722cd6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: bd267a8d69cd343a88452f06e6e9fee1, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3e3345724ee0e46fc847383d4dbf02ae, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ce89c560f6994471eaaa41ea480b6f29, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3cfab11a3a4624d0ab8824be09bc4b3d, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 72d2f99def754425eac0e7b8ef96f6f9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 78fac0bb64e1a479fbce306616220665, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 04e762674bcff4d66b47e05b1f499e53, type: 2}
