@@ -280,8 +280,11 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
+                IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
+                if (enemy == null) continue;
+
                 Debug.Log("발차기 공격");
-                hit.GetComponent<SimpleEnemy>().Attacked(lowAttackDamage);
+                enemy.Attacked(lowAttackDamage);
             }
         }
     }
@@ -302,8 +305,11 @@ public class PlayerController : MonoBehaviour
         {
             if (hit.CompareTag("Enemy"))
             {
+                IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
+                if (enemy == null) continue;
+
                 Debug.Log("주먹 공격");
-                hit.GetComponent<SimpleEnemy>().Attacked(highAttackDamage);
+                enemy.Attacked(highAttackDamage);
             }
         }
     }

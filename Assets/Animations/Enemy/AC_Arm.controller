@@ -153,7 +153,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: e7c2b1a13f1a948cead93b2b674a590a, type: 2}
+  m_Motion: {fileID: 7400000, guid: 75e90419a368548bd988cfa6c7a60161, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -187,7 +187,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AC_Leg
+  m_Name: AC_Arm
   serializedVersion: 6
   m_AnimatorParameters:
   - m_Name: isMove
@@ -280,7 +280,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 555cc4711940a45409149be8e379ec57, type: 2}
+  m_Motion: {fileID: 7400000, guid: 7caeba1ac28f24cd3b004df1650caa8b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -307,7 +307,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 45525477889f4436b89e33ef24617f30, type: 2}
+  m_Motion: {fileID: 7400000, guid: 38216f8fbbc364a93b97740d2c7296bd, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -359,7 +359,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 99eb38480ec59417184796fe54f12d3e, type: 2}
+  m_Motion: {fileID: 7400000, guid: b5ffafe5b06b643a7932fcbc069babc5, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -386,7 +386,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 492f54a212af345f4acec50a34dc2a64, type: 2}
+  m_Motion: {fileID: 7400000, guid: 13aeb4f1e498d4ad9905cacc88b1b4b8, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -488,7 +488,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1a7c10994b33843939119e1bb0a8be2c, type: 2}
+  m_Motion: {fileID: 7400000, guid: 47119da1a9cbc4c0884071a22707bc09, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

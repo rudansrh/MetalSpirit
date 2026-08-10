@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class SimpleEnemy : MonoBehaviour
+public class ArmEnemy : MonoBehaviour, IEnemyDamageReceiver
 {
     [Header("Movement & AI Settings")]
     [SerializeField] private float speed = 3f;
@@ -30,7 +30,7 @@ public class SimpleEnemy : MonoBehaviour
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
     private bool isGrounded;
-    [SerializeField]private float facingDirection = 1f;
+    [SerializeField]private float facingDirection = -1f;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
@@ -40,6 +40,9 @@ public class SimpleEnemy : MonoBehaviour
     public GameObject nearbyEnemy;
 
     private bool found = false;
+    private bool wasPossessed;
+    private bool isDying = false;
+    private EnemyAnimationController animationController;
 
     private void Start()
     {
@@ -47,18 +50,36 @@ public class SimpleEnemy : MonoBehaviour
         col = GetComponent<Collider2D>();
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
+        animationController = GetComponent<EnemyAnimationController>();
+        facingDirection = transform.localScale.x < 0f ? 1f : -1f;
+        UpdateFacingVisual();
+        wasPossessed = isPossessed;
     }
 
     private void FixedUpdate()
     {
         if (playerController == null) return;
 
+        HandlePossessionAnimationState();
+
+        if (isDying)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
+            return;
+        }
+
         if (isPossessed)
         {
             if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
             else if(rb.linearVelocityX < -0.1f)facingDirection = -1f;
+            UpdateFacingVisual();
 
-            if (playerController.isTalking) return;
+            if (playerController.isTalking)
+            {
+                UpdateMoveAnimation(false);
+                return;
+            }
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
@@ -87,12 +108,14 @@ public class SimpleEnemy : MonoBehaviour
                 if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
+            UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
             return;
         }
 
         if (playerAbility.isSoul)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
             return;
         }
 
@@ -101,6 +124,7 @@ public class SimpleEnemy : MonoBehaviour
         if (isAttacking)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
             return;
         }
 
@@ -110,6 +134,7 @@ public class SimpleEnemy : MonoBehaviour
         if (distanceToPlayer <= attackRange && !playerController.isPossessing)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
 
             if (Time.time >= lastAttackTime + attackCooldown)
             {
@@ -123,6 +148,7 @@ public class SimpleEnemy : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
         }
     }
 
@@ -131,6 +157,7 @@ public class SimpleEnemy : MonoBehaviour
     {
         isAttacking = true;
         lastAttackTime = Time.time;
+        animationController?.TriggerAttack();
 
         Debug.Log("적 공격 준비!");
 
@@ -177,16 +204,12 @@ public class SimpleEnemy : MonoBehaviour
         if (Mathf.Abs(dirX) > 0.1f)
         {
             facingDirection = Mathf.Sign(dirX);
-        }
-
-        if ((facingDirection > 0 && transform.localScale.x < 0) ||
-            (facingDirection < 0 && transform.localScale.x > 0))
-        {
-            Flip();
+            UpdateFacingVisual();
         }
 
         rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         CheckJumpObstacle();
+        UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
     }
 
     private void CheckJumpObstacle()
@@ -241,12 +264,31 @@ public class SimpleEnemy : MonoBehaviour
         }
     }
 
-    private void Flip()
+    private void UpdateFacingVisual()
     {
         Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
+        float absX = Mathf.Abs(localScale.x);
+        localScale.x = facingDirection > 0f ? -absX : absX;
         transform.localScale = localScale;
     }
+
+    private void HandlePossessionAnimationState()
+    {
+        if (wasPossessed == isPossessed)
+        {
+            return;
+        }
+
+        wasPossessed = isPossessed;
+        animationController?.TriggerStun();
+        UpdateMoveAnimation(false);
+    }
+
+    private void UpdateMoveAnimation(bool isMoving)
+    {
+        animationController?.SetMove(isMoving && !isAttacking && !isDying);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // 영혼 상태, 무적 상태일 때 충돌 무시
@@ -295,12 +337,64 @@ public class SimpleEnemy : MonoBehaviour
 
     public void Attacked(float playerDamage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         enemyHp -= playerDamage;
+
         if (enemyHp <= 0)
         {
             Debug.Log("Enemy killed");
-            GetComponent<DropItem>().dropItem();
-            this.gameObject.SetActive(false);
+            StartDeath();
+            return;
         }
+
+        animationController?.TriggerHit();
+    }
+
+    private void StartDeath()
+    {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
+        isAttacking = false;
+        StopAllCoroutines();
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        rb.linearVelocity = Vector2.zero;
+        UpdateMoveAnimation(false);
+
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        animationController?.TriggerDeath();
+
+        float deathDelay = animationController != null ? animationController.DeathDisableDelay : 0f;
+        if (deathDelay > 0f)
+        {
+            yield return new WaitForSeconds(deathDelay);
+        }
+
+        if (TryGetComponent<DropItem>(out var drop))
+        {
+            drop.dropItem();
+        }
+
+        gameObject.SetActive(false);
     }
 }

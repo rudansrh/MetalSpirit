@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LegEnemy : MonoBehaviour
+public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
 {
     [Header("Movement & AI Settings")]
     [SerializeField] private float speed = 3f;
@@ -9,19 +9,19 @@ public class LegEnemy : MonoBehaviour
     [SerializeField] private float detectionRange = 10f;
 
     [Header("Stomp Attack Settings")]
-    [SerializeField] private float attackRange = 1.5f;       // ¹ß±¸¸£±â¸¦ ½ÃÀÛÇÒ °Å¸®
-    [SerializeField] private float attackCooldown = 2.5f;    // °ø°İ ÄğÅ¸ÀÓ
-    [SerializeField] private float attackDelay = 0.6f;       // ´Ù¸®¸¦ À§·Î ¿Ã¸®°í ÀÖ´Â ´ë±â ½Ã°£
-    [SerializeField] private float stompDamage = 15f;        // ¹â±â µ¥¹ÌÁö
-    [SerializeField] private float stompWidth = 1.0f;        // ¹â±â ÆÇÁ¤ ³Êºñ
-    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // ¸öÃ¼ Áß½É ±âÁØ ¹â´Â ´Ù¸®ÀÇ À§Ä¡
+    [SerializeField] private float attackRange = 1.5f;       // Â¹ÃŸÂ±Â¸Â¸Â£Â±Ã¢Â¸Â¦ Â½ÃƒÃ€Ã›Ã‡Ã’ Â°Ã…Â¸Â®
+    [SerializeField] private float attackCooldown = 2.5f;    // Â°Ã¸Â°Ã Ã„Ã°Ã…Â¸Ã€Ã“
+    [SerializeField] private float attackDelay = 0.6f;       // Â´Ã™Â¸Â®Â¸Â¦ Ã€Â§Â·Ã Â¿ÃƒÂ¸Â®Â°Ã­ Ã€Ã–Â´Ã‚ Â´Ã«Â±Ã¢ Â½ÃƒÂ°Â£
+    [SerializeField] private float stompDamage = 15f;        // Â¹Ã¢Â±Ã¢ ÂµÂ¥Â¹ÃŒÃÃ¶
+    [SerializeField] private float stompWidth = 1.0f;        // Â¹Ã¢Â±Ã¢ Ã†Ã‡ÃÂ¤ Â³ÃŠÂºÃ±
+    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // Â¸Ã¶ÃƒÂ¼ ÃÃŸÂ½Ã‰ Â±Ã¢ÃÃ˜ Â¹Ã¢Â´Ã‚ Â´Ã™Â¸Â®Ã€Ã‡ Ã€Â§Ã„Â¡
 
     [Header("Detection (Raycast) Settings")]
     [SerializeField] private float wallCheckDistance = 1f;
     [SerializeField] private float pitCheckDistance = 2f;
 
     [Header("Damage Settings")]
-    [SerializeField] private float bodyDamage = 10f;         // Á¢ÃË µ¥¹ÌÁö
+    [SerializeField] private float bodyDamage = 10f;         // ÃÂ¢ÃƒÃ‹ ÂµÂ¥Â¹ÃŒÃÃ¶
     [SerializeField] private float knockbackForce = 7f;
 
     [Header("Enemy Hp")]
@@ -32,16 +32,19 @@ public class LegEnemy : MonoBehaviour
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
     private bool isGrounded;
-    [SerializeField] private float facingDirection = 1f;
+    [SerializeField] private float facingDirection = -1f;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
-    // ºùÀÇ °ü·Ã º¯¼ö[cite: 24]
+    // ÂºÃ¹Ã€Ã‡ Â°Ã¼Â·Ãƒ ÂºÂ¯Â¼Ã¶[cite: 24]
     public bool isPossessed = false;
     public GameObject nearbyEnemy;
     private bool found = false;
+    private bool wasPossessed;
+    private bool isDying = false;
+    private EnemyAnimationController animationController;
 
     private void Start()
     {
@@ -49,18 +52,36 @@ public class LegEnemy : MonoBehaviour
         col = GetComponent<Collider2D>();
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
+        animationController = GetComponent<EnemyAnimationController>();
+        facingDirection = transform.localScale.x < 0f ? 1f : -1f;
+        UpdateFacingVisual();
+        wasPossessed = isPossessed;
     }
 
     private void FixedUpdate()
     {
         if (playerController == null) return;
 
+        HandlePossessionAnimationState();
+
+        if (isDying)
+        {
+            rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
+            return;
+        }
+
         if (isPossessed)
         {
             if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
             else if (rb.linearVelocityX < -0.1f) facingDirection = -1f;
+            UpdateFacingVisual();
 
-            if (playerController.isTalking) return;
+            if (playerController.isTalking)
+            {
+                UpdateMoveAnimation(false);
+                return;
+            }
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
@@ -77,7 +98,7 @@ public class LegEnemy : MonoBehaviour
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "´ëÈ­");
+                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "ëŒ€í™”");
                 }
                 found = true;
                 break;
@@ -89,12 +110,14 @@ public class LegEnemy : MonoBehaviour
                 if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
+            UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
             return;
         }
 
         if (playerAbility.isSoul)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
             return;
         }
 
@@ -103,6 +126,7 @@ public class LegEnemy : MonoBehaviour
         if (isAttacking)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
             return;
         }
 
@@ -112,6 +136,7 @@ public class LegEnemy : MonoBehaviour
         if (distanceToPlayer <= attackRange && !playerController.isPossessing)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
 
             if (Time.time >= lastAttackTime + attackCooldown)
             {
@@ -125,21 +150,23 @@ public class LegEnemy : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+            UpdateMoveAnimation(false);
         }
     }
 
-    // ¹ß±¸¸£±â °ø°İ ÄÚ·çÆ¾
+    // Â¹ÃŸÂ±Â¸Â¸Â£Â±Ã¢ Â°Ã¸Â°Ã Ã„ÃšÂ·Ã§Ã†Â¾
     private IEnumerator StompRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+        animationController?.TriggerAttack();
 
-        Debug.Log("´Ù¸® ¿Ã¸²! (¹ß±¸¸£±â ÁØºñ)");
+        Debug.Log("ë‹¤ë¦¬ ì˜¬ë¦¼! (ë°œêµ¬ë¥´ê¸° ì¤€ë¹„)");
 
         yield return new WaitForSeconds(attackDelay);
 
-        Debug.Log("Äç! (³»¸®Âï±â)");
+        Debug.Log("ì¿µ! (ë‚´ë¦¬ì°ê¸°)");
 
         Vector2 stompPos = (Vector2)transform.position + new Vector2(legOffset.x * facingDirection, legOffset.y);
 
@@ -153,15 +180,16 @@ public class LegEnemy : MonoBehaviour
             {
                 damageable.TakeDamage(stompDamage, DamageType.Normal);
                 hitPlayer = true;
-                Debug.Log($"¹ß±¸¸£±â ÀûÁß! µ¥¹ÌÁö: {stompDamage}");
+                Debug.Log($"ë°œêµ¬ë¥´ê¸° ì ì¤‘! ë°ë¯¸ì§€: {stompDamage}");
             }
         }
 
-        if (!hitPlayer) Debug.Log("¹ß±¸¸£±â ºø³ª°¨!");
+        if (!hitPlayer) Debug.Log("ë°œêµ¬ë¥´ê¸° ë¹—ë‚˜ê°!");
 
         yield return new WaitForSeconds(0.4f);
 
         isAttacking = false;
+        UpdateMoveAnimation(false);
     }
 
     private void OnDrawGizmosSelected()
@@ -185,16 +213,12 @@ public class LegEnemy : MonoBehaviour
         if (Mathf.Abs(dirX) > 0.1f)
         {
             facingDirection = Mathf.Sign(dirX);
-        }
-
-        if ((facingDirection > 0 && transform.localScale.x < 0) ||
-            (facingDirection < 0 && transform.localScale.x > 0))
-        {
-            Flip();
+            UpdateFacingVisual();
         }
 
         rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         CheckJumpObstacle();
+        UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
     }
 
     private void CheckJumpObstacle()
@@ -249,11 +273,29 @@ public class LegEnemy : MonoBehaviour
         }
     }
 
-    private void Flip()
+    private void UpdateFacingVisual()
     {
         Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
+        float absX = Mathf.Abs(localScale.x);
+        localScale.x = facingDirection > 0f ? -absX : absX;
         transform.localScale = localScale;
+    }
+
+    private void HandlePossessionAnimationState()
+    {
+        if (wasPossessed == isPossessed)
+        {
+            return;
+        }
+
+        wasPossessed = isPossessed;
+        animationController?.TriggerStun();
+        UpdateMoveAnimation(false);
+    }
+
+    private void UpdateMoveAnimation(bool isMoving)
+    {
+        animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -293,12 +335,63 @@ public class LegEnemy : MonoBehaviour
 
     public void Attacked(float playerDamage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         enemyHp -= playerDamage;
         if (enemyHp <= 0)
         {
             Debug.Log("Stomp Enemy killed");
-            if (TryGetComponent<DropItem>(out var drop)) drop.dropItem();
-            this.gameObject.SetActive(false);
+            StartDeath();
+            return;
         }
+
+        animationController?.TriggerHit();
+    }
+
+    private void StartDeath()
+    {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
+        isAttacking = false;
+        StopAllCoroutines();
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        rb.linearVelocity = Vector2.zero;
+        UpdateMoveAnimation(false);
+
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        animationController?.TriggerDeath();
+
+        float deathDelay = animationController != null ? animationController.DeathDisableDelay : 0f;
+        if (deathDelay > 0f)
+        {
+            yield return new WaitForSeconds(deathDelay);
+        }
+
+        if (TryGetComponent<DropItem>(out var drop))
+        {
+            drop.dropItem();
+        }
+
+        gameObject.SetActive(false);
     }
 }
