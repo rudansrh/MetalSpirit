@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BodyEnemy : MonoBehaviour, IEnemyDamageReceiver
+public class BodyEnemy : Enemy
 {
     [Header("Movement & AI Settings")]
     [SerializeField] private float speed = 3f;
@@ -31,19 +31,12 @@ public class BodyEnemy : MonoBehaviour, IEnemyDamageReceiver
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
     private bool isGrounded;
-    [SerializeField] private float facingDirection = -1f;
 
     private bool isAttacking = false; // µ¹Áø ÁßÀÎÁö ¿©ºÎ
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
-    public bool isPossessed = false; //ºùÀÇ´çÇß´ÂÁö ÆÇ´Ü
-    public GameObject nearbyEnemy;
-
     private bool found = false;
-    private bool wasPossessed;
-    private bool isDying = false;
-    private EnemyAnimationController animationController;
 
     private void Start()
     {
@@ -51,17 +44,12 @@ public class BodyEnemy : MonoBehaviour, IEnemyDamageReceiver
         col = GetComponent<Collider2D>();
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
-        animationController = GetComponent<EnemyAnimationController>();
-        facingDirection = transform.localScale.x < 0f ? 1f : -1f;
-        UpdateFacingVisual();
-        wasPossessed = isPossessed;
+        InitializeEnemyBase();
     }
 
     private void FixedUpdate()
     {
         if (playerController == null) return;
-
-        HandlePossessionAnimationState();
 
         if (isDying)
         {
@@ -271,26 +259,6 @@ public class BodyEnemy : MonoBehaviour, IEnemyDamageReceiver
         }
     }
 
-    private void UpdateFacingVisual()
-    {
-        Vector3 localScale = transform.localScale;
-        float absX = Mathf.Abs(localScale.x);
-        localScale.x = facingDirection > 0f ? -absX : absX;
-        transform.localScale = localScale;
-    }
-
-    private void HandlePossessionAnimationState()
-    {
-        if (wasPossessed == isPossessed)
-        {
-            return;
-        }
-
-        wasPossessed = isPossessed;
-        animationController?.TriggerStun();
-        UpdateMoveAnimation(false);
-    }
-
     private void UpdateMoveAnimation(bool isMoving)
     {
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
@@ -338,7 +306,7 @@ public class BodyEnemy : MonoBehaviour, IEnemyDamageReceiver
         }
     }
 
-    public void Attacked(float playerDamage)
+    public override void Attacked(float playerDamage)
     {
         if (isDying)
         {

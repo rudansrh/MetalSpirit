@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
+public class LegEnemy : Enemy
 {
     [Header("Movement & AI Settings")]
     [SerializeField] private float speed = 3f;
@@ -9,12 +9,12 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
     [SerializeField] private float detectionRange = 10f;
 
     [Header("Stomp Attack Settings")]
-    [SerializeField] private float attackRange = 1.5f;       // ¹ß±¸¸£±â¸¦ ½ÃÀÛÇÒ °Å¸®
-    [SerializeField] private float attackCooldown = 2.5f;    // °ø°Ý ÄðÅ¸ÀÓ
-    [SerializeField] private float attackDelay = 0.6f;       // ´Ù¸®¸¦ À§·Î ¿Ã¸®°í ÀÖ´Â ´ë±â ½Ã°£
+    [SerializeField] private float attackRange = 1.5f;       // ¹ß±¸¸£±â¸¦ ½Ã??ÛÇÒ °Å¸®
+    [SerializeField] private float attackCooldown = 2.5f;    // °ø°Ý ÄðÅ¸??Ó
+    [SerializeField] private float attackDelay = 0.6f;       // ´Ù¸®¸¦ ??§·Î ¿Ã¸®°í ??Ö´Â ´ë±â ½Ã°£
     [SerializeField] private float stompDamage = 15f;        // ¹â±â µ¥¹ÌÁö
     [SerializeField] private float stompWidth = 1.0f;        // ¹â±â ÆÇÁ¤ ³Êºñ
-    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // ¸öÃ¼ Áß½É ±âÁØ ¹â´Â ´Ù¸®ÀÇ À§Ä¡
+    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // ¸öÃ¼ Áß½É ±âÁØ ¹â´Â ´Ù¸®??Ç ??§Ä¡
 
     [Header("Detection (Raycast) Settings")]
     [SerializeField] private float wallCheckDistance = 1f;
@@ -32,19 +32,13 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
     private bool isGrounded;
-    [SerializeField] private float facingDirection = -1f;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
-    // ºùÀÇ °ü·Ã º¯¼ö[cite: 24]
-    public bool isPossessed = false;
-    public GameObject nearbyEnemy;
+    // ºù??Ç °ü·Ã º¯¼ö[cite: 24]
     private bool found = false;
-    private bool wasPossessed;
-    private bool isDying = false;
-    private EnemyAnimationController animationController;
 
     private void Start()
     {
@@ -52,17 +46,12 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
         col = GetComponent<Collider2D>();
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
-        animationController = GetComponent<EnemyAnimationController>();
-        facingDirection = transform.localScale.x < 0f ? 1f : -1f;
-        UpdateFacingVisual();
-        wasPossessed = isPossessed;
+        InitializeEnemyBase();
     }
 
     private void FixedUpdate()
     {
         if (playerController == null) return;
-
-        HandlePossessionAnimationState();
 
         if (isDying)
         {
@@ -98,7 +87,7 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "????��");
                 }
                 found = true;
                 break;
@@ -162,11 +151,11 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         animationController?.TriggerAttack();
 
-        Debug.Log("다리 올림! (발구르기 준비)");
+        Debug.Log("?���? ?���?! (발구르기 �?�?)");
 
         yield return new WaitForSeconds(attackDelay);
 
-        Debug.Log("쿵! (내리찍기)");
+        Debug.Log("�?! (?��리찍�?)");
 
         Vector2 stompPos = (Vector2)transform.position + new Vector2(legOffset.x * facingDirection, legOffset.y);
 
@@ -180,11 +169,11 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
             {
                 damageable.TakeDamage(stompDamage, DamageType.Normal);
                 hitPlayer = true;
-                Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
+                Debug.Log($"발구르기 ?���?! ?��미�??: {stompDamage}");
             }
         }
 
-        if (!hitPlayer) Debug.Log("발구르기 빗나감!");
+        if (!hitPlayer) Debug.Log("발구르기 빗나�?!");
 
         yield return new WaitForSeconds(0.4f);
 
@@ -273,26 +262,6 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
         }
     }
 
-    private void UpdateFacingVisual()
-    {
-        Vector3 localScale = transform.localScale;
-        float absX = Mathf.Abs(localScale.x);
-        localScale.x = facingDirection > 0f ? -absX : absX;
-        transform.localScale = localScale;
-    }
-
-    private void HandlePossessionAnimationState()
-    {
-        if (wasPossessed == isPossessed)
-        {
-            return;
-        }
-
-        wasPossessed = isPossessed;
-        animationController?.TriggerStun();
-        UpdateMoveAnimation(false);
-    }
-
     private void UpdateMoveAnimation(bool isMoving)
     {
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
@@ -333,7 +302,7 @@ public class LegEnemy : MonoBehaviour, IEnemyDamageReceiver
         }
     }
 
-    public void Attacked(float playerDamage)
+    public override void Attacked(float playerDamage)
     {
         if (isDying)
         {

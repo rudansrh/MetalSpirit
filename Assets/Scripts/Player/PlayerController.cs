@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float highAttackDamage = 10f;
 
     [Header("Possession Settings")]
-    private SimpleEnemy targetEnemyToPossess = null;
+    private Enemy targetEnemyToPossess = null;
     public PossessGauge possessGauge;
 
     [Header("Interaction Settings")]
@@ -597,7 +597,7 @@ public class PlayerController : MonoBehaviour
         {
             if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
-                SimpleEnemy targetEnemy = targetEnemyToPossess;
+                Enemy targetEnemy = targetEnemyToPossess;
                 possessGauge.target = targetEnemy.transform;
                 possessGauge.possessGaugeShow();
 
@@ -607,7 +607,7 @@ public class PlayerController : MonoBehaviour
                 rigid.linearVelocity = Vector3.zero;
                 cameraFollow.Instance.SetTarget(targetEnemy.transform);
 
-                targetEnemy.isPossessed = true;
+                targetEnemy.SetPossessed(true);
                 spriteRenderer.enabled = false;
                 col.enabled = false;
                 col = targetEnemy.GetComponent<Collider2D>();
@@ -636,7 +636,11 @@ public class PlayerController : MonoBehaviour
                 transform.position = rigid.GetComponent<Transform>().position;
                 cameraFollow.Instance.SetTarget(transform);
                 rigid.linearVelocity = Vector3.zero;
-                rigid.GetComponent<SimpleEnemy>().isPossessed = false;
+                Enemy controlledEnemy = rigid.GetComponent<Enemy>();
+                if (controlledEnemy != null)
+                {
+                    controlledEnemy.SetPossessed(false);
+                }
 
                 rigid = GetComponent<Rigidbody2D>();
                 rigid.linearVelocity = Vector3.zero;
@@ -678,13 +682,21 @@ public class PlayerController : MonoBehaviour
         {
             nearbyInteractable.Interact(this.gameObject);
         }
-        else if (isPossessing && !isTalking && rigid.GetComponent<SimpleEnemy>().nearbyEnemy != null) 
-        { 
+        else
+        {
+            Enemy controlledEnemy = isPossessing && !isTalking ? rigid.GetComponent<Enemy>() : null;
+            if (controlledEnemy == null || controlledEnemy.nearbyEnemy == null)
+            {
+                canInteractUI.hideInterectUI();
+                rigid.linearVelocity = Vector2.zero;
+                return;
+            }
+
             transform.position = rigid.GetComponent<Transform>().position;
             canMove = false;
             rigid.linearVelocity = Vector3.zero;
             Debug.Log("대화시작");
-            rigid.GetComponent<SimpleEnemy>().nearbyEnemy.GetComponent<NPC>().Talk();
+            controlledEnemy.nearbyEnemy.GetComponent<NPC>().Talk();
         }
         canInteractUI.hideInterectUI();
         rigid.linearVelocity = Vector2.zero;
@@ -696,7 +708,7 @@ public class PlayerController : MonoBehaviour
         // 빙의 대상 감지 로직
         if (IsSoulForm() && abilityManager.canPossess)
         {
-            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            if (collision.TryGetComponent<Enemy>(out var enemy))
             {
                 targetEnemyToPossess = enemy;
                 canInteractUI.showInterectUI(collision.transform, "v", "빙의");
@@ -716,7 +728,7 @@ public class PlayerController : MonoBehaviour
         // 빙의 대상 해제 로직
         if (IsSoulForm())
         {
-            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            if (collision.TryGetComponent<Enemy>(out var enemy))
             {
                 if (targetEnemyToPossess == enemy)
                 {

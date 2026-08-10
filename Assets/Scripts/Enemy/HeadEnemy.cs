@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
+public class HeadEnemy : Enemy
 {
     [Header("Flight & AI Settings")]
     [SerializeField] private float flySpeed = 2.5f;
@@ -26,17 +26,10 @@ public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
 
-    [SerializeField] private float facingDirection = -1f;
-
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
 
-    public bool isPossessed = false;
-    public GameObject nearbyEnemy;
     private bool found = false;
-    private bool wasPossessed;
-    private bool isDying = false;
-    private EnemyAnimationController animationController;
 
     private void Start()
     {
@@ -46,10 +39,7 @@ public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
 
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
-        animationController = GetComponent<EnemyAnimationController>();
-        facingDirection = transform.localScale.x < 0f ? 1f : -1f;
-        UpdateFacingVisual();
-        wasPossessed = isPossessed;
+        InitializeEnemyBase();
 
         rb.gravityScale = 0f;
 
@@ -60,8 +50,6 @@ public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
     private void FixedUpdate()
     {
         if (playerController == null) return;
-
-        HandlePossessionAnimationState();
 
         if (isDying)
         {
@@ -218,29 +206,9 @@ public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
         UpdateMoveAnimation(false);
     }
 
-    private void HandlePossessionAnimationState()
-    {
-        if (wasPossessed == isPossessed)
-        {
-            return;
-        }
-
-        wasPossessed = isPossessed;
-        animationController?.TriggerStun();
-        UpdateMoveAnimation(false);
-    }
-
     private void UpdateMoveAnimation(bool isMoving)
     {
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
-    }
-
-    private void UpdateFacingVisual()
-    {
-        Vector3 localScale = transform.localScale;
-        float absX = Mathf.Abs(localScale.x);
-        localScale.x = facingDirection > 0f ? -absX : absX;
-        transform.localScale = localScale;
     }
 
     private void OnDrawGizmosSelected()
@@ -267,7 +235,7 @@ public class HeadEnemy : MonoBehaviour, IEnemyDamageReceiver
         }
     }
 
-    public void Attacked(float playerDamage)
+    public override void Attacked(float playerDamage)
     {
         if (isDying)
         {

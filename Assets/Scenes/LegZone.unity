@@ -1300,6 +1300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -1312,9 +1315,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &311372585
 Rigidbody2D:
   serializedVersion: 5
@@ -2644,6 +2644,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -2656,9 +2659,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &536799879
 Rigidbody2D:
   serializedVersion: 5
@@ -4122,6 +4122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421ebba564b218e4eb5bdc53ebe4d777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   flySpeed: 4
   detectionRange: 12
   hoverDistance: 3
@@ -4132,9 +4135,6 @@ MonoBehaviour:
   attackDelay: 0.8
   headOffset: {x: 0, y: 0.5}
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!120 &957166986
 LineRenderer:
   serializedVersion: 3
@@ -4700,6 +4700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -4712,9 +4715,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &1077583397
 Rigidbody2D:
   serializedVersion: 5
@@ -5204,6 +5204,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -5216,9 +5219,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &1121395675
 Rigidbody2D:
   serializedVersion: 5
@@ -6318,6 +6318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b7f057ba4fcb345b05ee42c81c769d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChargeEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 12
   detectionRange: 5
@@ -6331,9 +6334,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!114 &1340305754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10953,6 +10953,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6609d58a756e76c4eb0ed379d3f46b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 12
   detectionRange: 5
@@ -10967,9 +10970,6 @@ MonoBehaviour:
   bodyDamage: 10
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!114 &2030345506
 MonoBehaviour:
   m_ObjectHideFlags: 0
