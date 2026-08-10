@@ -2605,7 +2605,7 @@ GameObject:
   - component: {fileID: 536799881}
   - component: {fileID: 536799880}
   - component: {fileID: 536799879}
-  - component: {fileID: 536799878}
+  - component: {fileID: 536799886}
   - component: {fileID: 536799882}
   - component: {fileID: 536799883}
   - component: {fileID: 536799885}
@@ -2627,38 +2627,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.92, y: -9.91, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1127181872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &536799878
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536799876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
-  speed: 3
-  jumpForce: 3
-  detectionRange: 5
-  attackRange: 1.5
-  attackCooldown: 2
-  attackDelay: 0.3
-  attackBoxSize: {x: 1.5, y: 1}
-  wallCheckDistance: 0
-  pitCheckDistance: 1
-  damage: 15
-  knockbackForce: 7
-  enemyHp: 30
 --- !u!50 &536799879
 Rigidbody2D:
   serializedVersion: 5
@@ -2724,13 +2697,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1.52, y: 0.96}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &536799881
 SpriteRenderer:
@@ -2781,7 +2754,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2829,7 +2802,7 @@ Animator:
   m_GameObject: {fileID: 536799876}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1741b3149f1404378a2875f885ab64b2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2853,8 +2826,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb4a081ec0364f4a9b7f162f8f49621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
-  animator: {fileID: 0}
+  animator: {fileID: 536799884}
   deathDisableDelay: 1
+--- !u!114 &536799886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536799876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6609d58a756e76c4eb0ed379d3f46b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
+  speed: 3
+  jumpForce: 12
+  detectionRange: 10
+  attackRange: 1.5
+  attackCooldown: 2.5
+  attackDelay: 0.6
+  stompDamage: 15
+  stompWidth: 1
+  legOffset: {x: 0.5, y: -0.5}
+  wallCheckDistance: 1
+  pitCheckDistance: 2
+  bodyDamage: 10
+  knockbackForce: 7
+  enemyHp: 30
 --- !u!1 &558551620
 GameObject:
   m_ObjectHideFlags: 0
@@ -4676,7 +4678,7 @@ GameObject:
   - component: {fileID: 1077583399}
   - component: {fileID: 1077583398}
   - component: {fileID: 1077583397}
-  - component: {fileID: 1077583396}
+  - component: {fileID: 1077583405}
   - component: {fileID: 1077583401}
   - component: {fileID: 1077583402}
   - component: {fileID: 1077583404}
@@ -4688,33 +4690,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1077583396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1077583395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
-  speed: 3
-  jumpForce: 3
-  detectionRange: 5
-  attackRange: 1.5
-  attackCooldown: 2
-  attackDelay: 0.3
-  attackBoxSize: {x: 1.5, y: 1}
-  wallCheckDistance: 0
-  pitCheckDistance: 1
-  damage: 15
-  knockbackForce: 7
-  enemyHp: 30
 --- !u!50 &1077583397
 Rigidbody2D:
   serializedVersion: 5
@@ -4780,13 +4755,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1.52, y: 0.96}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1077583399
 SpriteRenderer:
@@ -4837,7 +4812,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4857,7 +4832,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 8.44, y: -2.02, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1127181872}
@@ -4900,7 +4875,7 @@ Animator:
   m_GameObject: {fileID: 1077583395}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1741b3149f1404378a2875f885ab64b2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -4924,8 +4899,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb4a081ec0364f4a9b7f162f8f49621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
-  animator: {fileID: 0}
+  animator: {fileID: 1077583403}
   deathDisableDelay: 1
+--- !u!114 &1077583405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077583395}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6609d58a756e76c4eb0ed379d3f46b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
+  facingDirection: -1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
+  speed: 3
+  jumpForce: 12
+  detectionRange: 10
+  attackRange: 1.5
+  attackCooldown: 2.5
+  attackDelay: 0.6
+  stompDamage: 15
+  stompWidth: 1
+  legOffset: {x: 0.5, y: -0.5}
+  wallCheckDistance: 1
+  pitCheckDistance: 2
+  bodyDamage: 10
+  knockbackForce: 7
+  enemyHp: 30
 --- !u!1 &1087157654
 GameObject:
   m_ObjectHideFlags: 0
@@ -5165,7 +5169,7 @@ GameObject:
   - component: {fileID: 1121395677}
   - component: {fileID: 1121395676}
   - component: {fileID: 1121395675}
-  - component: {fileID: 1121395674}
+  - component: {fileID: 1121395682}
   - component: {fileID: 1121395678}
   - component: {fileID: 1121395679}
   - component: {fileID: 1121395681}
@@ -5187,38 +5191,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.3, y: -9.91, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1127181872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1121395674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1121395672}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
-  speed: 3
-  jumpForce: 3
-  detectionRange: 5
-  attackRange: 1.5
-  attackCooldown: 2
-  attackDelay: 0.3
-  attackBoxSize: {x: 1.5, y: 1}
-  wallCheckDistance: 0
-  pitCheckDistance: 1
-  damage: 15
-  knockbackForce: 7
-  enemyHp: 30
 --- !u!50 &1121395675
 Rigidbody2D:
   serializedVersion: 5
@@ -5284,13 +5261,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 2}
+    oldSize: {x: 1.52, y: 0.96}
     newSize: {x: 1, y: 2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 1.5, y: 1}
   m_EdgeRadius: 0
 --- !u!212 &1121395677
 SpriteRenderer:
@@ -5341,7 +5318,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5389,7 +5366,7 @@ Animator:
   m_GameObject: {fileID: 1121395672}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1741b3149f1404378a2875f885ab64b2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5413,8 +5390,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb4a081ec0364f4a9b7f162f8f49621, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
-  animator: {fileID: 0}
+  animator: {fileID: 1121395680}
   deathDisableDelay: 1
+--- !u!114 &1121395682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1121395672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6609d58a756e76c4eb0ed379d3f46b7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
+  facingDirection: -1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
+  speed: 3
+  jumpForce: 12
+  detectionRange: 10
+  attackRange: 1.5
+  attackCooldown: 2.5
+  attackDelay: 0.6
+  stompDamage: 15
+  stompWidth: 1
+  legOffset: {x: 0.5, y: -0.5}
+  wallCheckDistance: 1
+  pitCheckDistance: 2
+  bodyDamage: 10
+  knockbackForce: 7
+  enemyHp: 30
 --- !u!1 &1127181871
 GameObject:
   m_ObjectHideFlags: 0
@@ -9045,7 +9051,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 0.92}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 0.92}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -9128,15 +9134,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 701804405629523170, guid: 4362912297e204ac9b265f1b9c8a964d, type: 3}
+  m_Sprite: {fileID: 701804405629523170, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 0.92}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!4 &1738328931
 Transform:

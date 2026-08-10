@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerAbilityManager : MonoBehaviour
 {
+    [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerProgressionManager progressionManager;
 
     [Header("State")]
@@ -23,6 +24,11 @@ public class PlayerAbilityManager : MonoBehaviour
         {
             progressionManager = GetComponent<PlayerProgressionManager>();
         }
+
+        if (playerController == null)
+        {
+            playerController = GetComponent<PlayerController>();
+        }
     }
 
     public void PossessBody()
@@ -35,6 +41,8 @@ public class PlayerAbilityManager : MonoBehaviour
         {
             isSoul = false;
         }
+
+        playerController.isWallAttatching = false;
 
         Debug.Log("Possess body.");
     }

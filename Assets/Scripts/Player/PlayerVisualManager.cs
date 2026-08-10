@@ -38,29 +38,17 @@ public class PlayerVisualManager : MonoBehaviour
     private int dashingHash;
     private int wallClimbHash;
     private int soulHash;
+    private bool isInitialized;
 
     private void Awake()
     {
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-
-        if (spriteRenderer == null)
-        {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-        }
-
-        if (progressionManager == null)
-        {
-            progressionManager = GetComponent<PlayerProgressionManager>();
-        }
-
-        CacheParameterHashes();
+        EnsureInitialized();
     }
 
     public void ApplyCurrentVisual()
     {
+        EnsureInitialized();
+
         if (progressionManager == null)
         {
             return;
@@ -71,12 +59,16 @@ public class PlayerVisualManager : MonoBehaviour
 
     public void ApplyVisualStage(PlayerStage stage)
     {
+        EnsureInitialized();
+
         PlayerStageVisualSet visualSet = FindVisualSet(stage);
+        bool controllerChanged = false;
 
         if (visualSet != null)
         {
             if (animator != null && visualSet.animatorController != null)
             {
+                controllerChanged = animator.runtimeAnimatorController != visualSet.animatorController;
                 animator.runtimeAnimatorController = visualSet.animatorController;
             }
 
@@ -89,12 +81,20 @@ public class PlayerVisualManager : MonoBehaviour
         if (animator != null)
         {
             animator.SetInteger(stageHash, (int)stage);
+
+            if (controllerChanged)
+            {
+                animator.Rebind();
+                animator.Update(0f);
+            }
         }
     }
 
     public void UpdateAnimationState(float speed, bool isGrounded, float yVelocity, bool isDashing, bool isWallClimbing, bool isSoul)
     {
-        if (animator == null)
+        EnsureInitialized();
+
+        if (animator == null || animator.runtimeAnimatorController == null)
         {
             return;
         }
@@ -109,6 +109,8 @@ public class PlayerVisualManager : MonoBehaviour
 
     public void UpdateFacingDirection(float horizontalDirection)
     {
+        EnsureInitialized();
+
         if (spriteRenderer == null || Mathf.Abs(horizontalDirection) < 0.01f)
         {
             return;
@@ -127,6 +129,40 @@ public class PlayerVisualManager : MonoBehaviour
         dashingHash = Animator.StringToHash(dashingParameter);
         wallClimbHash = Animator.StringToHash(wallClimbParameter);
         soulHash = Animator.StringToHash(soulParameter);
+    }
+
+    private void EnsureInitialized()
+    {
+        if (isInitialized)
+        {
+            return;
+        }
+
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+        }
+
+        if (progressionManager == null)
+        {
+            progressionManager = GetComponent<PlayerProgressionManager>();
+        }
+
+        if (string.IsNullOrWhiteSpace(stageParameter)) stageParameter = "Stage";
+        if (string.IsNullOrWhiteSpace(speedParameter)) speedParameter = "Speed";
+        if (string.IsNullOrWhiteSpace(groundedParameter)) groundedParameter = "IsGrounded";
+        if (string.IsNullOrWhiteSpace(yVelocityParameter)) yVelocityParameter = "YVelocity";
+        if (string.IsNullOrWhiteSpace(dashingParameter)) dashingParameter = "IsDashing";
+        if (string.IsNullOrWhiteSpace(wallClimbParameter)) wallClimbParameter = "IsWallClimbing";
+        if (string.IsNullOrWhiteSpace(soulParameter)) soulParameter = "IsSoul";
+
+        CacheParameterHashes();
+        isInitialized = true;
     }
 
     private PlayerStageVisualSet FindVisualSet(PlayerStage stage)

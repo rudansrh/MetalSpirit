@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
     int TouchingWallCnt = 0;
     float wallClimbDetachDirection = 0f;
 
+    public bool isWallAttatching = false;
+
     Vector2 moveInput;
 
     public bool canMove = true;
@@ -552,6 +554,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            isWallAttatching = true;
+
             TouchingWallCnt++;
             UpdateWallClimbDetachDirection(collision);
         }
@@ -561,6 +565,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            // isWallAttatching = true;
+
             UpdateWallClimbDetachDirection(collision);
             foreach (ContactPoint2D contact in collision.contacts)
             {
@@ -577,6 +583,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            isWallAttatching = false;
+
             TouchingWallCnt--;
             if (TouchingWallCnt <= 0)
             {
@@ -774,7 +782,7 @@ public class PlayerController : MonoBehaviour
 
         float animationSpeed = canMove && moveInput.sqrMagnitude > 0.01f ? 1f : 0f;
 
-        bool isGrounded = !IsSoulForm() && TouchingWallCnt > 0;
+        bool isGrounded = !IsSoulForm() && isWallAttatching;
 
         visualManager.UpdateAnimationState(
             animationSpeed,
