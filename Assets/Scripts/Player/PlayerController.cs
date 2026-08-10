@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public bool isJump = false;
     bool isWallClimbing = false;
     int TouchingWallCnt = 0;
+    [SerializeField]int insideWall = 0;
     float wallClimbDetachDirection = 0f;
 
     public bool isWallAttatching = false;
@@ -629,6 +630,8 @@ public class PlayerController : MonoBehaviour
             }
             else //영혼 -> 물질상태
             {
+                if (insideWall > 0) return;
+
                 rigid.linearVelocity = Vector3.zero;
                 abilityManager.PossessBody();
                 UpdateFormState();
@@ -729,6 +732,8 @@ public class PlayerController : MonoBehaviour
             nearbyInteractable = interactable;
             canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
         }
+
+        if (collision.CompareTag("Wall")) insideWall++;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -756,6 +761,9 @@ public class PlayerController : MonoBehaviour
             }
             canInteractUI.hideInterectUI();
         }
+
+        if (collision.CompareTag("Wall")) insideWall--;
+        insideWall = Math.Clamp(insideWall, 0, 10);
     }
 
     public void StopMovement()

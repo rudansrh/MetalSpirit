@@ -433,6 +433,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1075,6 +1083,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 2
   jumpForce: 12
   detectionRange: 10
@@ -1087,9 +1098,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &422638096
 Rigidbody2D:
   serializedVersion: 5
@@ -1389,6 +1397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::cameraFollow
   target: {fileID: 0}
   normalOffset: {x: 0, y: 0, z: -10}
+  followTarget: 1
 --- !u!1 &536864504 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4501016142820843232, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
@@ -2494,6 +2503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 2
   jumpForce: 12
   detectionRange: 10
@@ -2506,9 +2518,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &1077583397
 Rigidbody2D:
   serializedVersion: 5
@@ -3824,6 +3833,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
   visualManager: {fileID: 0}
   abilityManager: {fileID: 1738328934}
+  progressionManager: {fileID: 0}
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
@@ -3845,10 +3855,14 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 0.6
   highAttackDamage: 10
+  possessGauge: {fileID: 0}
   isJump: 0
+  isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
   isPlayingMinigame: 0
+  isTalking: 0
+  isUIopen: 0
   canInteractUI: {fileID: 0}
 --- !u!114 &1738328933
 MonoBehaviour:
@@ -3916,6 +3930,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae28185ba300be4e87d9ffed835752e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
+  playerController: {fileID: 0}
+  progressionManager: {fileID: 0}
   isSoul: 1
   canPossess: 1
   canDash: 1

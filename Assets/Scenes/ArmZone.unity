@@ -931,6 +931,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1518,6 +1526,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421ebba564b218e4eb5bdc53ebe4d777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingLaserEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   flySpeed: 2.5
   detectionRange: 12
   hoverDistance: 4
@@ -1528,9 +1539,6 @@ MonoBehaviour:
   attackDelay: 0.8
   headOffset: {x: 0, y: 0.5}
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!222 &580969610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2045,6 +2053,7 @@ MonoBehaviour:
   possessGauge: {fileID: 170067872}
   background: {fileID: 958740376}
   possessionLimitTime: 15
+  isInfinityPossess: 1
   target: {fileID: 0}
 --- !u!224 &797346951
 RectTransform:
@@ -2319,6 +2328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae28185ba300be4e87d9ffed835752e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
+  playerController: {fileID: 0}
   progressionManager: {fileID: 0}
   isSoul: 1
   canPossess: 1
@@ -2439,8 +2449,10 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 1
   highAttackDamage: 10
-  possessionLimitTime: 30
+  possessGauge: {fileID: 0}
   isJump: 0
+  insideWall: 0
+  isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
   isPlayingMinigame: 0
@@ -2577,7 +2589,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1062613360
 Transform:
@@ -3425,6 +3437,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1383768369}
   - component: {fileID: 1383768373}
+  - component: {fileID: 1383768374}
   m_Layer: 0
   m_Name: mapCollider
   m_TagString: Wall
@@ -3484,56 +3497,68 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -12.708686, y: 12.414743}
-  - {x: 16.461884, y: 12.369207}
-  - {x: 16.442743, y: 7.8599143}
-  - {x: 12.10545, y: 7.883953}
-  - {x: 12.063853, y: 5.085346}
-  - {x: 16.40913, y: 5.107072}
-  - {x: 16.376099, y: 0.6991041}
-  - {x: 16.37307, y: 0.6915179}
-  - {x: 12.074317, y: 0.7047415}
-  - {x: 12.060233, y: -2.1919847}
-  - {x: 9.189028, y: -2.1864552}
-  - {x: 9.1870575, y: -3.5787473}
-  - {x: 16.405611, y: -3.5915866}
-  - {x: 16.388603, y: -5.049081}
-  - {x: -5.2198076, y: -5.0298767}
-  - {x: -5.2277107, y: -6.4554963}
-  - {x: 16.40537, y: -6.4323673}
-  - {x: 16.383839, y: -12.287675}
-  - {x: 13.446413, y: -12.266064}
-  - {x: 13.451891, y: -10.84789}
-  - {x: 1.983064, y: -10.825082}
-  - {x: 1.9737082, y: -12.250896}
-  - {x: -3.846884, y: -12.283139}
-  - {x: -3.8304098, y: -10.816539}
-  - {x: -12.493369, y: -10.812048}
-  - {x: -12.479947, y: -7.910199}
-  - {x: -8.156836, y: -7.8723464}
-  - {x: -8.15794, y: -2.147595}
-  - {x: 4.814189, y: -2.1210213}
-  - {x: 4.809764, y: -0.6960141}
-  - {x: 9.13669, y: -0.7029265}
-  - {x: 9.137019, y: 0.7151072}
-  - {x: 3.4539254, y: 0.69663787}
-  - {x: 3.4445994, y: -0.7621212}
-  - {x: -3.8372138, y: -0.74897385}
-  - {x: -3.8381603, y: 0.6838808}
-  - {x: -9.588263, y: 0.70409894}
-  - {x: -9.585013, y: 5.0641937}
-  - {x: 9.142514, y: 5.0425835}
-  - {x: 9.145638, y: 7.9030266}
-  - {x: 3.4029584, y: 7.9096327}
-  - {x: 3.4102132, y: 6.4661217}
-  - {x: -2.3815274, y: 6.4643116}
-  - {x: -2.3796628, y: 7.8914065}
-  - {x: -12.475563, y: 7.854398}
-  - {x: -12.470087, y: 12.382011}
+  - {x: -12.7, y: 12.4}
+  - {x: 16.46, y: 12.4}
+  - {x: 16.46, y: 7.85}
+  - {x: 12.1, y: 7.85}
+  - {x: 12.1, y: 5.1}
+  - {x: 16.4, y: 5.1}
+  - {x: 16.37, y: 0.7}
+  - {x: 16.37, y: 0.7}
+  - {x: 12.1, y: 0.7}
+  - {x: 12.06, y: -2.19}
+  - {x: 9.18, y: -2.19}
+  - {x: 9.18, y: -3.59}
+  - {x: 16.4, y: -3.59}
+  - {x: 16.4, y: -5.04}
+  - {x: -5.22, y: -5.04}
+  - {x: -5.22, y: -6.45}
+  - {x: 16.4, y: -6.45}
+  - {x: 16.4, y: -12.26}
+  - {x: 13.45, y: -12.26}
+  - {x: 13.45, y: -10.82}
+  - {x: 1.98, y: -10.82}
+  - {x: 1.98, y: -12.28}
+  - {x: -3.84, y: -12.28}
+  - {x: -3.84, y: -10.81}
+  - {x: -12.47, y: -10.81}
+  - {x: -12.47, y: -7.91}
+  - {x: -8.15, y: -7.91}
+  - {x: -8.15, y: -2.14}
+  - {x: 4.81, y: -2.14}
+  - {x: 4.81, y: -0.7}
+  - {x: 9.13, y: -0.7}
+  - {x: 9.13, y: 0.7}
+  - {x: 3.45, y: 0.69}
+  - {x: 3.45, y: -0.76}
+  - {x: -3.83, y: -0.76}
+  - {x: -3.83, y: 0.7}
+  - {x: -9.58, y: 0.7}
+  - {x: -9.58, y: 5.06}
+  - {x: 9.14, y: 5.06}
+  - {x: 9.14, y: 7.9}
+  - {x: 3.4, y: 7.9}
+  - {x: 3.4, y: 6.46}
+  - {x: -2.38, y: 6.46}
+  - {x: -2.38, y: 7.89}
+  - {x: -12.47, y: 7.89}
+  - {x: -12.47, y: 12.4}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &1383768374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383768368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ff1f28c395f4ef7ae8bf4b7a7f25ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBounds2D
 --- !u!1 &1419438181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4223,6 +4248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 421ebba564b218e4eb5bdc53ebe4d777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   flySpeed: 2.5
   detectionRange: 12
   hoverDistance: 4
@@ -4233,9 +4261,6 @@ MonoBehaviour:
   attackDelay: 0.8
   headOffset: {x: 0, y: 0.5}
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!120 &1540145425
 LineRenderer:
   serializedVersion: 3
@@ -4743,6 +4768,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41b7f057ba4fcb345b05ee42c81c769d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChargeEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 12
   detectionRange: 10
@@ -4756,9 +4784,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!1 &1729493464
 GameObject:
   m_ObjectHideFlags: 0
@@ -4821,6 +4846,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -4833,9 +4861,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &1729493468
 Rigidbody2D:
   serializedVersion: 5
@@ -5378,6 +5403,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6609d58a756e76c4eb0ed379d3f46b7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 12
   detectionRange: 10
@@ -5392,9 +5420,6 @@ MonoBehaviour:
   bodyDamage: 10
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!1 &2010404654
 GameObject:
   m_ObjectHideFlags: 0
