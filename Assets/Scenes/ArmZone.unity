@@ -1967,7 +1967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemImages:
-  - {fileID: -4133987407653480563, guid: ca0f3460a7421fe428282683776de142, type: 3}
+  - {fileID: -2410919893335871942, guid: ea89f332b0dedb44db19c35517edaac9, type: 3}
   - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
   - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}

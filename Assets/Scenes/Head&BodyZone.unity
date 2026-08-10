@@ -3586,6 +3586,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5295,9 +5303,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemImages:
-  - {fileID: 6789968099899059853, guid: 11ee991c9f6a9514f8c8ce1278bcac77, type: 3}
-  - {fileID: 8321054283358096505, guid: c2526da8320d42d4ebab200fcd612506, type: 3}
-  - {fileID: 2359353007929579522, guid: caed557f5bf6656428ee8549919da938, type: 3}
+  - {fileID: -2410919893335871942, guid: ea89f332b0dedb44db19c35517edaac9, type: 3}
+  - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
+  - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}
   slotParent: {fileID: 1278038785}
 --- !u!114 &1346522990
