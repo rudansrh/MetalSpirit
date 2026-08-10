@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c2526da8320d42d4ebab200fcd612506
+guid: ea89f332b0dedb44db19c35517edaac9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8321054283358096505
-    second: Item_Hp_0
+      213: -2410919893335871942
+    second: Invisible_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Item_Hp_0
+      name: Invisible_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 678
-        height: 678
+        width: 130
+        height: 130
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 97c4d4ca8c25a7370800000000000000
-      internalID: 8321054283358096505
+      spriteID: a3eeacf6121ba8ed0800000000000000
+      internalID: -2410919893335871942
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Item_Hp_0: 8321054283358096505
+      Invisible_0: -2410919893335871942
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

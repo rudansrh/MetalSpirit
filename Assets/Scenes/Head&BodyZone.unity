@@ -2283,6 +2283,7 @@ MonoBehaviour:
   possessGauge: {fileID: 481313702}
   background: {fileID: 887066215}
   possessionLimitTime: 15
+  isInfinityPossess: 1
   target: {fileID: 0}
 --- !u!224 &504720693
 RectTransform:
@@ -3165,6 +3166,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 2044598307031719290, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3172,6 +3177,10 @@ PrefabInstance:
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4420948472870870763, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_Pivot.x
@@ -4161,6 +4170,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 3
   jumpForce: 3
   detectionRange: 5
@@ -4173,9 +4185,6 @@ MonoBehaviour:
   damage: 15
   knockbackForce: 7
   enemyHp: 30
-  facingDirection: 1
-  isPossessed: 0
-  nearbyEnemy: {fileID: 0}
 --- !u!50 &1077583397
 Rigidbody2D:
   serializedVersion: 5
@@ -6577,7 +6586,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1738328931
 Transform:
@@ -6630,8 +6639,10 @@ MonoBehaviour:
   lowAttackDamage: 10
   highAttackCoolTime: 1
   highAttackDamage: 10
-  possessionLimitTime: 5
+  possessGauge: {fileID: 0}
   isJump: 0
+  insideWall: 0
+  isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
   isPlayingMinigame: 0
@@ -6704,6 +6715,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae28185ba300be4e87d9ffed835752e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
+  playerController: {fileID: 0}
   progressionManager: {fileID: 0}
   isSoul: 1
   canPossess: 1

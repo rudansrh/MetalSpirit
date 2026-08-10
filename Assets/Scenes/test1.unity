@@ -2357,9 +2357,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemImages:
-  - {fileID: 6789968099899059853, guid: 11ee991c9f6a9514f8c8ce1278bcac77, type: 3}
-  - {fileID: 8321054283358096505, guid: c2526da8320d42d4ebab200fcd612506, type: 3}
-  - {fileID: 2359353007929579522, guid: caed557f5bf6656428ee8549919da938, type: 3}
+  - {fileID: -4133987407653480563, guid: ca0f3460a7421fe428282683776de142, type: 3}
+  - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
+  - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}
   slotParent: {fileID: 73071725}
 --- !u!114 &925857804
@@ -3857,6 +3857,7 @@ MonoBehaviour:
   highAttackDamage: 10
   possessGauge: {fileID: 0}
   isJump: 0
+  insideWall: 0
   isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
@@ -4644,10 +4645,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1985438170}
+    - target: {fileID: 2044598307031719290, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1985438170}
+    - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4420948472870870763, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

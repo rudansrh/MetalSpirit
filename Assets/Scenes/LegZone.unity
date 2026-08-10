@@ -5094,6 +5094,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 2044598307031719290, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -5101,6 +5105,10 @@ PrefabInstance:
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4420948472870870763, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_Pivot.x
@@ -8671,23 +8679,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 368
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8719,11 +8715,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -960.26404
+      value: -960.26416
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -541.3861
+      value: -541.38654
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8754,20 +8750,12 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 50
+      value: 184
       objectReference: {fileID: 0}
     - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50.000004
+      value: -80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10001,6 +9989,7 @@ MonoBehaviour:
   highAttackDamage: 10
   possessGauge: {fileID: 0}
   isJump: 0
+  insideWall: 0
   isWallAttatching: 0
   canMove: 1
   isInvincibility: 0

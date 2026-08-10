@@ -708,6 +708,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 2044598307031719290, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -715,6 +719,10 @@ PrefabInstance:
     - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnClickSlot
+      objectReference: {fileID: 0}
+    - target: {fileID: 2312294780392998740, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4420948472870870763, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_Pivot.x
@@ -1075,11 +1083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 368
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1132,34 +1140,6 @@ PrefabInstance:
     - target: {fileID: 6398709279005677020, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_Name
       value: Bubble
-      objectReference: {fileID: 0}
-    - target: {fileID: 6398709279005677020, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -50.000004
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1987,9 +1967,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemImages:
-  - {fileID: 6789968099899059853, guid: 11ee991c9f6a9514f8c8ce1278bcac77, type: 3}
-  - {fileID: 8321054283358096505, guid: c2526da8320d42d4ebab200fcd612506, type: 3}
-  - {fileID: 2359353007929579522, guid: caed557f5bf6656428ee8549919da938, type: 3}
+  - {fileID: -4133987407653480563, guid: ca0f3460a7421fe428282683776de142, type: 3}
+  - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
+  - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}
   slotParent: {fileID: 1469971377}
 --- !u!114 &694770019

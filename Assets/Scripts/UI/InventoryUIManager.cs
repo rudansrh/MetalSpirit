@@ -32,7 +32,18 @@ public class InventoryUIManager : MonoBehaviour
 
         for (int i = 0; i < inventoryManager.maxSlotCount; i++)
         {
-            slots[i].GetComponent<Image>().sprite = itemImages[(int)items[i].type];
+            Image[] childImages = slots[i].GetComponentsInChildren<Image>();
+            foreach (Image img in childImages)
+            {
+                if (img.gameObject == slots[i])
+                {
+                    continue;
+                }
+
+                //자기 자신을 제외한 collider
+                img.sprite = itemImages[(int)items[i].type];
+                break;
+            }
             slots[i].GetComponentInChildren<Text>().text = items[i].type==ItemType.Empty ? "" : "X" + items[i].count;
         }
     }
