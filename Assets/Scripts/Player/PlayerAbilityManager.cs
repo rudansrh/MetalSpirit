@@ -12,8 +12,10 @@ public class PlayerAbilityManager : MonoBehaviour
     [Header("Abilities")]
     public bool canDash = false;
     public bool canWallJump = false;
-    public bool canLowAttack = false;
-    public bool canHighAttack = false;
+    public bool canLegAttack = false;
+    public bool canArmAttack = false;
+    public bool canBodyAttack = false;
+    public bool canHeadAttack = false;
 
     [Header("Inventory")]
     public bool canUseInventory = false;
@@ -65,22 +67,28 @@ public class PlayerAbilityManager : MonoBehaviour
         bool soulState,
         bool dashEnabled,
         bool wallJumpEnabled,
-        bool lowAttackEnabled,
-        bool highAttackEnabled,
+        bool legAttackEnabled,
+        bool armAttackEnabled,
+        bool bodyAttackEnabled,
+        bool headAttackEnabled,
         bool inventoryEnabled)
     {
         bool changed = isSoul != soulState
             || canDash != dashEnabled
             || canWallJump != wallJumpEnabled
-            || canLowAttack != lowAttackEnabled
-            || canHighAttack != highAttackEnabled
+            || canLegAttack != legAttackEnabled
+            || canArmAttack != armAttackEnabled
+            || canBodyAttack != bodyAttackEnabled
+            || canHeadAttack != headAttackEnabled
             || canUseInventory != inventoryEnabled;
 
         isSoul = soulState;
         canDash = dashEnabled;
         canWallJump = wallJumpEnabled;
-        canLowAttack = lowAttackEnabled;
-        canHighAttack = highAttackEnabled;
+        canLegAttack = legAttackEnabled;
+        canArmAttack = armAttackEnabled;
+        canBodyAttack = bodyAttackEnabled;
+        canHeadAttack = headAttackEnabled;
         canUseInventory = inventoryEnabled;
 
         return changed;

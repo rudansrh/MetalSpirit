@@ -1,8 +1,9 @@
 using System;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -43,14 +44,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
     [SerializeField] float cobwebMaxFallSpeed = 0.1f;
 
+
     [Header("Attack Settings")]
     bool isAttacking = false;
-    float curTime_low = 0f;
-    [SerializeField] float lowAttackCoolTime = 0.6f;
-    [SerializeField] float lowAttackDamage = 10f;
-    float curTime_high = 0f;
-    [SerializeField] float highAttackCoolTime = 0.6f;
-    [SerializeField] float highAttackDamage = 10f;
+    float curTime_leg = 0f;
+    [SerializeField] float legAttackCoolTime = 0.1f;
+    [SerializeField] float legAttackDamage = 30f;
+    float curTime_arm = 0f;
+    [SerializeField] float armAttackCoolTime = 0.1f;
+    [SerializeField] float armAttackDamage = 50f;
+    float curTime_body = 0f;
+    [SerializeField] float bodyAttackCoolTime = 0.1f;
+    [SerializeField] float bodyAttackDamage = 70f;
+    [SerializeField] float bodyAttackRange = 2f;
+    [SerializeField] float bodyAttackDuration = 0.15f;
+    float curTime_head = 0f;
+    [SerializeField] float headAttackCoolTime = 0.1f;
+    [SerializeField] float headAttackDamage = 100f;
+    [SerializeField] float headAttackRange = 5f;
+    [SerializeField] float headAttackThickness = 0.15f;
+    [SerializeField] float headAttackVisualDuration = 0.15f;
+    [SerializeField] Vector2 headAttackOffset = new Vector2(0.4f, 0f);
+    [SerializeField] LineRenderer headAttackLineRenderer;
 
     [Header("Possession Settings")]
     private Enemy targetEnemyToPossess = null;
@@ -104,6 +119,18 @@ public class PlayerController : MonoBehaviour
             stamina = GetComponent<Stamina>();
             col = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
+
+            if (headAttackLineRenderer == null)
+            {
+                headAttackLineRenderer = GetComponent<LineRenderer>();
+            }
+
+            if (headAttackLineRenderer != null)
+            {
+                headAttackLineRenderer.enabled = false;
+                headAttackLineRenderer.positionCount = 2;
+            }
+
             if (abilityManager == null)
             {
                 abilityManager = GetComponent<PlayerAbilityManager>();
@@ -179,11 +206,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        curTime_high += Time.deltaTime;
-        curTime_low += Time.deltaTime;
+        curTime_leg += Time.deltaTime;
+        curTime_arm += Time.deltaTime;
+        curTime_body += Time.deltaTime;
+        curTime_head += Time.deltaTime;
 
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
+        {
+            rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
+            ClampControlledBodyToBounds();
+            return;
+        }
+
+        if (isAttacking)
         {
             rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
             ClampControlledBodyToBounds();
@@ -267,14 +303,14 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Attack
-    //적 공격 (발차기)
-    public void OnLowAttack(InputValue value)
+    // Leg 공격 (발차기)
+    public void OnLegAttack(InputValue value)
     {
         if (isUIopen) return;
 
-        if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low || isPossessing) return;
+        if (!abilityManager.canLegAttack || legAttackCoolTime > curTime_leg || isPossessing) return;
 
-        curTime_low = 0f;
+        curTime_leg = 0f;
         Vector2 pos = transform.position + transform.up * transform.localScale.y * 0.2f + transform.right * facingDirection;
         Vector2 size = new Vector2(1.0f, 0.1f);
         Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
@@ -287,19 +323,19 @@ public class PlayerController : MonoBehaviour
                 if (enemy == null) continue;
 
                 Debug.Log("발차기 공격");
-                enemy.Attacked(lowAttackDamage);
+                enemy.Attacked(legAttackDamage);
             }
         }
     }
 
-    //적 공격 (주먹)
-    public void OnHighAttack(InputValue value)
+    // Arm공격 (주먹)
+    public void OnArmAttack(InputValue value)
     {
         if (isUIopen) return;
 
-        if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high || isPossessing) return;
+        if (!abilityManager.canArmAttack || armAttackCoolTime > curTime_arm || isPossessing) return;
 
-        curTime_high = 0f;
+        curTime_arm = 0f;
         Vector2 pos = transform.position + transform.up * transform.localScale.y * -0.2f + transform.right * facingDirection;
         Vector2 size = new Vector2(1.0f, 0.1f);
         Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
@@ -312,8 +348,124 @@ public class PlayerController : MonoBehaviour
                 if (enemy == null) continue;
 
                 Debug.Log("주먹 공격");
-                enemy.Attacked(highAttackDamage);
+                enemy.Attacked(armAttackDamage);
             }
+        }
+    }
+
+    public void OnBodyAttack(InputValue value)
+    {
+        if (isUIopen) return;
+
+        if (!abilityManager.canBodyAttack || bodyAttackCoolTime > curTime_body || isPossessing || isDashing || isAttacking || !canMove) return;
+
+        curTime_body = 0f;
+        StartCoroutine(BodyAttackRoutine());
+    }
+
+    public void OnHeadAttack(InputValue value)
+    {
+        if (isUIopen) return;
+
+        if (!abilityManager.canHeadAttack || headAttackCoolTime > curTime_head || isPossessing || isDashing || isAttacking || !canMove) return;
+
+        curTime_head = 0f;
+        StartCoroutine(HeadAttackRoutine());
+    }
+
+    IEnumerator BodyAttackRoutine()
+    {
+        isAttacking = true;
+
+        Vector2 direction = new Vector2(facingDirection, 0f);
+        ApplyDamageAlongBoxCast(direction, bodyAttackRange, bodyAttackDamage);
+
+        float bodyAttackSpeed = bodyAttackRange / Mathf.Max(bodyAttackDuration, 0.01f);
+        float elapsed = 0f;
+
+        while (elapsed < bodyAttackDuration)
+        {
+            rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
+                direction.x * bodyAttackSpeed,
+                rigid.linearVelocity.y));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        rigid.linearVelocity = new Vector2(0f, rigid.linearVelocity.y);
+        isAttacking = false;
+    }
+
+    IEnumerator HeadAttackRoutine()
+    {
+        isAttacking = true;
+        rigid.linearVelocity = Vector2.zero;
+
+        Vector2 start = (Vector2)transform.position + new Vector2(headAttackOffset.x * facingDirection, headAttackOffset.y);
+        Vector2 direction = new Vector2(facingDirection, 0f);
+        Vector2 end = start + direction * headAttackRange;
+
+        if (headAttackLineRenderer != null)
+        {
+            headAttackLineRenderer.enabled = true;
+            headAttackLineRenderer.positionCount = 2;
+            headAttackLineRenderer.startWidth = headAttackThickness;
+            headAttackLineRenderer.endWidth = headAttackThickness;
+            headAttackLineRenderer.SetPosition(0, start);
+            headAttackLineRenderer.SetPosition(1, end);
+        }
+
+        ApplyDamageAlongLaser(start, direction, headAttackRange, headAttackThickness, headAttackDamage);
+
+        yield return new WaitForSeconds(headAttackVisualDuration);
+
+        if (headAttackLineRenderer != null)
+        {
+            headAttackLineRenderer.enabled = false;
+        }
+
+        isAttacking = false;
+    }
+
+    void ApplyDamageAlongBoxCast(Vector2 direction, float distance, float damage)
+    {
+        if (col == null)
+        {
+            return;
+        }
+
+        Vector2 hitboxSize = new Vector2(
+            Mathf.Max(col.bounds.size.x, 0.5f),
+            Mathf.Max(col.bounds.size.y, 0.5f));
+        RaycastHit2D[] hits = Physics2D.BoxCastAll(col.bounds.center, hitboxSize, 0f, direction, distance);
+        ApplyDamageToHits(hits, damage);
+    }
+
+    void ApplyDamageAlongLaser(Vector2 start, Vector2 direction, float distance, float thickness, float damage)
+    {
+        float radius = Mathf.Max(thickness * 0.5f, 0.01f);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(start, radius, direction, distance);
+        ApplyDamageToHits(hits, damage);
+    }
+
+    void ApplyDamageToHits(RaycastHit2D[] hits, float damage)
+    {
+        HashSet<IEnemyDamageReceiver> damagedEnemies = new HashSet<IEnemyDamageReceiver>();
+
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null || !hit.collider.CompareTag("Enemy"))
+            {
+                continue;
+            }
+
+            IEnemyDamageReceiver enemy = hit.collider.GetComponent<IEnemyDamageReceiver>();
+            if (enemy == null || !damagedEnemies.Add(enemy))
+            {
+                continue;
+            }
+
+            enemy.Attacked(damage);
         }
     }
     #endregion

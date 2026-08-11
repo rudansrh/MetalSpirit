@@ -250,6 +250,7 @@ public class HeadEnemy : Enemy
             return;
         }
 
+        PlayHitFlash();
         animationController?.TriggerHit();
     }
 
@@ -262,6 +263,7 @@ public class HeadEnemy : Enemy
 
         isDying = true;
         isAttacking = false;
+        CancelHitFlash();
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

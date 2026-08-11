@@ -150,6 +150,8 @@ public class PlayerProgressionManager : MonoBehaviour
                 false,
                 false,
                 false,
+                false,
+                false,
                 false);
         }
 
@@ -166,6 +168,8 @@ public class PlayerProgressionManager : MonoBehaviour
             EffectiveUnlockedStage >= PlayerStage.Legs,
             EffectiveUnlockedStage >= PlayerStage.Legs,
             EffectiveUnlockedStage >= PlayerStage.Legs,
+            EffectiveUnlockedStage >= PlayerStage.Arms,
+            EffectiveUnlockedStage >= PlayerStage.FullBody,
             EffectiveUnlockedStage >= PlayerStage.FullBody,
             EffectiveUnlockedStage >= PlayerStage.Arms);
     }

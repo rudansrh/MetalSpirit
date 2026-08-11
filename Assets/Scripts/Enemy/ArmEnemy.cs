@@ -319,6 +319,7 @@ public class ArmEnemy : Enemy
             return;
         }
 
+        PlayHitFlash();
         animationController?.TriggerHit();
     }
 
@@ -331,6 +332,7 @@ public class ArmEnemy : Enemy
 
         isDying = true;
         isAttacking = false;
+        CancelHitFlash();
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

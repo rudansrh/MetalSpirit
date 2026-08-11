@@ -321,6 +321,7 @@ public class BodyEnemy : Enemy
             return;
         }
 
+        PlayHitFlash();
         animationController?.TriggerHit();
     }
 
@@ -333,6 +334,7 @@ public class BodyEnemy : Enemy
 
         isDying = true;
         isAttacking = false;
+        CancelHitFlash();
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

@@ -9,19 +9,19 @@ public class LegEnemy : Enemy
     [SerializeField] private float detectionRange = 10f;
 
     [Header("Stomp Attack Settings")]
-    [SerializeField] private float attackRange = 1.5f;       // ¹ß±¸¸£±â¸¦ ½Ã??ÛÇÒ °Å¸®
-    [SerializeField] private float attackCooldown = 2.5f;    // °ø°Ý ÄðÅ¸??Ó
-    [SerializeField] private float attackDelay = 0.6f;       // ´Ù¸®¸¦ ??§·Î ¿Ã¸®°í ??Ö´Â ´ë±â ½Ã°£
-    [SerializeField] private float stompDamage = 15f;        // ¹â±â µ¥¹ÌÁö
-    [SerializeField] private float stompWidth = 1.0f;        // ¹â±â ÆÇÁ¤ ³Êºñ
-    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // ¸öÃ¼ Áß½É ±âÁØ ¹â´Â ´Ù¸®??Ç ??§Ä¡
+    [SerializeField] private float attackRange = 1.5f;       // 발구르기 시작 거리
+    [SerializeField] private float attackCooldown = 2.5f;    // 공격 쿨타임
+    [SerializeField] private float attackDelay = 0.6f;       // 발구르기 전 준비 시간
+    [SerializeField] private float stompDamage = 15f;        // 발구르기 데미지
+    [SerializeField] private float stompWidth = 1.0f;        // 발구르기 판정 너비
+    [SerializeField] private Vector2 legOffset = new Vector2(0.5f, -0.5f); // 몸체 중심 기준 발 위치 오프셋
 
     [Header("Detection (Raycast) Settings")]
     [SerializeField] private float wallCheckDistance = 1f;
     [SerializeField] private float pitCheckDistance = 2f;
 
     [Header("Damage Settings")]
-    [SerializeField] private float bodyDamage = 10f;         // Á¢ÃË µ¥¹ÌÁö
+    [SerializeField] private float bodyDamage = 10f;         // 접촉 데미지
     [SerializeField] private float knockbackForce = 7f;
 
     [Header("Enemy Hp")]
@@ -37,7 +37,7 @@ public class LegEnemy : Enemy
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
-    // ºù??Ç °ü·Ã º¯¼ö[cite: 24]
+    // 빙의 상태 대화 감지용 플래그
     private bool found = false;
 
     private void Start()
@@ -87,7 +87,7 @@ public class LegEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "????��");
+                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
                 }
                 found = true;
                 break;
@@ -143,7 +143,7 @@ public class LegEnemy : Enemy
         }
     }
 
-    // ¹ß±¸¸£±â °ø°Ý ÄÚ·çÆ¾
+    // 발구르기 공격 코루틴
     private IEnumerator StompRoutine()
     {
         isAttacking = true;
@@ -151,11 +151,11 @@ public class LegEnemy : Enemy
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         animationController?.TriggerAttack();
 
-        Debug.Log("?���? ?���?! (발구르기 �?�?)");
+        Debug.Log("다리 올리기! (발구르기 준비)");
 
         yield return new WaitForSeconds(attackDelay);
 
-        Debug.Log("�?! (?��리찍�?)");
+        Debug.Log("쿵! (내려찍기)");
 
         Vector2 stompPos = (Vector2)transform.position + new Vector2(legOffset.x * facingDirection, legOffset.y);
 
@@ -169,11 +169,11 @@ public class LegEnemy : Enemy
             {
                 damageable.TakeDamage(stompDamage, DamageType.Normal);
                 hitPlayer = true;
-                Debug.Log($"발구르기 ?���?! ?��미�??: {stompDamage}");
+                Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
             }
         }
 
-        if (!hitPlayer) Debug.Log("발구르기 빗나�?!");
+        if (!hitPlayer) Debug.Log("발구르기 빗나감!");
 
         yield return new WaitForSeconds(0.4f);
 
@@ -317,6 +317,7 @@ public class LegEnemy : Enemy
             return;
         }
 
+        PlayHitFlash();
         animationController?.TriggerHit();
     }
 
@@ -329,6 +330,7 @@ public class LegEnemy : Enemy
 
         isDying = true;
         isAttacking = false;
+        CancelHitFlash();
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }
