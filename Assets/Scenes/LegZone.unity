@@ -1301,6 +1301,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -2841,6 +2844,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -4181,6 +4187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   flySpeed: 4
@@ -4970,6 +4979,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
   facingDirection: -1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -5469,6 +5481,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
   facingDirection: -1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -6389,6 +6404,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChargeEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -9797,6 +9815,7 @@ GameObject:
   - component: {fileID: 1738328938}
   - component: {fileID: 1738328940}
   - component: {fileID: 1738328939}
+  - component: {fileID: 1738328943}
   - component: {fileID: 1738328942}
   m_Layer: 9
   m_Name: Player
@@ -9967,6 +9986,7 @@ MonoBehaviour:
   visualManager: {fileID: 1738328940}
   abilityManager: {fileID: 1738328934}
   progressionManager: {fileID: 1738328939}
+  combatManager: {fileID: 1738328943}
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
@@ -9984,21 +10004,6 @@ MonoBehaviour:
   slowEffectCount: 0
   cobwebMaxRiseSpeed: 2.5
   cobwebMaxFallSpeed: 1.5
-  legAttackCoolTime: 0.6
-  legAttackDamage: 10
-  armAttackCoolTime: 0.6
-  armAttackDamage: 10
-  bodyAttackCoolTime: 0.6
-  bodyAttackDamage: 10
-  bodyAttackRange: 2
-  bodyAttackDuration: 0.15
-  headAttackCoolTime: 0.6
-  headAttackDamage: 10
-  headAttackRange: 5
-  headAttackThickness: 0.15
-  headAttackVisualDuration: 1
-  headAttackOffset: {x: 0.4, y: 0}
-  headAttackLineRenderer: {fileID: 1738328942}
   possessGauge: {fileID: 0}
   isJump: 0
   insideWall: 0
@@ -10322,6 +10327,43 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1738328943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738328927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b24541c3f7c4df8a5a5900d2d0f7641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombatManager
+  playerController: {fileID: 1738328932}
+  abilityManager: {fileID: 1738328934}
+  headAttackLineRenderer: {fileID: 1738328942}
+  isAttackVisualize: 1
+  legAttackCoolTime: 0.6
+  legAttackDamage: 10
+  legAttackOffset: {x: 1, y: 0.2}
+  legAttackSize: {x: 1, y: 0.1}
+  armAttackCoolTime: 0.6
+  armAttackDamage: 10
+  armAttackOffset: {x: 1, y: -0.2}
+  armAttackSize: {x: 1, y: 0.1}
+  bodyAttackCoolTime: 0.6
+  bodyAttackDamage: 10
+  bodyAttackRange: 2
+  bodyAttackDuration: 0.15
+  headAttackCoolTime: 0.6
+  headAttackDamage: 10
+  headAttackRange: 5
+  headAttackThickness: 0.15
+  headAttackVisualDuration: 0.15
+  headAttackOffset: {x: 0.4, y: 0}
+  attackVisualDuration: 0.2
+  attackVisualLineWidth: 0.04
+  attackVisualColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &1762241983
 GameObject:
   m_ObjectHideFlags: 0
@@ -11879,6 +11921,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3

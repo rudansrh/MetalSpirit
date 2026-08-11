@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -15,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] PlayerVisualManager visualManager;
     [SerializeField] PlayerAbilityManager abilityManager;
     [SerializeField] PlayerProgressionManager progressionManager;
+    [SerializeField] PlayerCombatManager combatManager;
 
     //스태미나 컴포넌트 참조 추가
     Stamina stamina;
@@ -43,29 +43,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int slowEffectCount = 0;    // 느려지는 효과 중첩 카운트
     [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
     [SerializeField] float cobwebMaxFallSpeed = 0.1f;
-
-
-    [Header("Attack Settings")]
-    bool isAttacking = false;
-    float curTime_leg = 0f;
-    [SerializeField] float legAttackCoolTime = 0.1f;
-    [SerializeField] float legAttackDamage = 30f;
-    float curTime_arm = 0f;
-    [SerializeField] float armAttackCoolTime = 0.1f;
-    [SerializeField] float armAttackDamage = 50f;
-    float curTime_body = 0f;
-    [SerializeField] float bodyAttackCoolTime = 0.1f;
-    [SerializeField] float bodyAttackDamage = 70f;
-    [SerializeField] float bodyAttackRange = 2f;
-    [SerializeField] float bodyAttackDuration = 0.15f;
-    float curTime_head = 0f;
-    [SerializeField] float headAttackCoolTime = 0.1f;
-    [SerializeField] float headAttackDamage = 100f;
-    [SerializeField] float headAttackRange = 5f;
-    [SerializeField] float headAttackThickness = 0.15f;
-    [SerializeField] float headAttackVisualDuration = 0.15f;
-    [SerializeField] Vector2 headAttackOffset = new Vector2(0.4f, 0f);
-    [SerializeField] LineRenderer headAttackLineRenderer;
 
     [Header("Possession Settings")]
     private Enemy targetEnemyToPossess = null;
@@ -120,17 +97,6 @@ public class PlayerController : MonoBehaviour
             col = GetComponent<Collider2D>();
             spriteRenderer = GetComponent<SpriteRenderer>();
 
-            if (headAttackLineRenderer == null)
-            {
-                headAttackLineRenderer = GetComponent<LineRenderer>();
-            }
-
-            if (headAttackLineRenderer != null)
-            {
-                headAttackLineRenderer.enabled = false;
-                headAttackLineRenderer.positionCount = 2;
-            }
-
             if (abilityManager == null)
             {
                 abilityManager = GetComponent<PlayerAbilityManager>();
@@ -144,6 +110,16 @@ public class PlayerController : MonoBehaviour
             if (progressionManager == null)
             {
                 progressionManager = GetComponent<PlayerProgressionManager>();
+            }
+
+            if (combatManager == null)
+            {
+                combatManager = GetComponent<PlayerCombatManager>();
+            }
+
+            if (combatManager == null)
+            {
+                combatManager = gameObject.AddComponent<PlayerCombatManager>();
             }
 
             SubscribeToProgressionState();
@@ -206,11 +182,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        curTime_leg += Time.deltaTime;
-        curTime_arm += Time.deltaTime;
-        curTime_body += Time.deltaTime;
-        curTime_head += Time.deltaTime;
-
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
         {
@@ -219,7 +190,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (isAttacking)
+        if (IsAttackInProgress)
         {
             rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
             ClampControlledBodyToBounds();
@@ -301,174 +272,6 @@ public class PlayerController : MonoBehaviour
 
         return rigid != null ? rigid.GetComponent<Collider2D>() : null;
     }
-
-    #region Attack
-    // Leg 공격 (발차기)
-    public void OnLegAttack(InputValue value)
-    {
-        if (isUIopen) return;
-
-        if (!abilityManager.canLegAttack || legAttackCoolTime > curTime_leg || isPossessing) return;
-
-        curTime_leg = 0f;
-        Vector2 pos = transform.position + transform.up * transform.localScale.y * 0.2f + transform.right * facingDirection;
-        Vector2 size = new Vector2(1.0f, 0.1f);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Enemy"))
-            {
-                IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
-                if (enemy == null) continue;
-
-                Debug.Log("발차기 공격");
-                enemy.Attacked(legAttackDamage);
-            }
-        }
-    }
-
-    // Arm공격 (주먹)
-    public void OnArmAttack(InputValue value)
-    {
-        if (isUIopen) return;
-
-        if (!abilityManager.canArmAttack || armAttackCoolTime > curTime_arm || isPossessing) return;
-
-        curTime_arm = 0f;
-        Vector2 pos = transform.position + transform.up * transform.localScale.y * -0.2f + transform.right * facingDirection;
-        Vector2 size = new Vector2(1.0f, 0.1f);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Enemy"))
-            {
-                IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
-                if (enemy == null) continue;
-
-                Debug.Log("주먹 공격");
-                enemy.Attacked(armAttackDamage);
-            }
-        }
-    }
-
-    public void OnBodyAttack(InputValue value)
-    {
-        if (isUIopen) return;
-
-        if (!abilityManager.canBodyAttack || bodyAttackCoolTime > curTime_body || isPossessing || isDashing || isAttacking || !canMove) return;
-
-        curTime_body = 0f;
-        StartCoroutine(BodyAttackRoutine());
-    }
-
-    public void OnHeadAttack(InputValue value)
-    {
-        if (isUIopen) return;
-
-        if (!abilityManager.canHeadAttack || headAttackCoolTime > curTime_head || isPossessing || isDashing || isAttacking || !canMove) return;
-
-        curTime_head = 0f;
-        StartCoroutine(HeadAttackRoutine());
-    }
-
-    IEnumerator BodyAttackRoutine()
-    {
-        isAttacking = true;
-
-        Vector2 direction = new Vector2(facingDirection, 0f);
-        ApplyDamageAlongBoxCast(direction, bodyAttackRange, bodyAttackDamage);
-
-        float bodyAttackSpeed = bodyAttackRange / Mathf.Max(bodyAttackDuration, 0.01f);
-        float elapsed = 0f;
-
-        while (elapsed < bodyAttackDuration)
-        {
-            rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
-                direction.x * bodyAttackSpeed,
-                rigid.linearVelocity.y));
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        rigid.linearVelocity = new Vector2(0f, rigid.linearVelocity.y);
-        isAttacking = false;
-    }
-
-    IEnumerator HeadAttackRoutine()
-    {
-        isAttacking = true;
-        rigid.linearVelocity = Vector2.zero;
-
-        Vector2 start = (Vector2)transform.position + new Vector2(headAttackOffset.x * facingDirection, headAttackOffset.y);
-        Vector2 direction = new Vector2(facingDirection, 0f);
-        Vector2 end = start + direction * headAttackRange;
-
-        if (headAttackLineRenderer != null)
-        {
-            headAttackLineRenderer.enabled = true;
-            headAttackLineRenderer.positionCount = 2;
-            headAttackLineRenderer.startWidth = headAttackThickness;
-            headAttackLineRenderer.endWidth = headAttackThickness;
-            headAttackLineRenderer.SetPosition(0, start);
-            headAttackLineRenderer.SetPosition(1, end);
-        }
-
-        ApplyDamageAlongLaser(start, direction, headAttackRange, headAttackThickness, headAttackDamage);
-
-        yield return new WaitForSeconds(headAttackVisualDuration);
-
-        if (headAttackLineRenderer != null)
-        {
-            headAttackLineRenderer.enabled = false;
-        }
-
-        isAttacking = false;
-    }
-
-    void ApplyDamageAlongBoxCast(Vector2 direction, float distance, float damage)
-    {
-        if (col == null)
-        {
-            return;
-        }
-
-        Vector2 hitboxSize = new Vector2(
-            Mathf.Max(col.bounds.size.x, 0.5f),
-            Mathf.Max(col.bounds.size.y, 0.5f));
-        RaycastHit2D[] hits = Physics2D.BoxCastAll(col.bounds.center, hitboxSize, 0f, direction, distance);
-        ApplyDamageToHits(hits, damage);
-    }
-
-    void ApplyDamageAlongLaser(Vector2 start, Vector2 direction, float distance, float thickness, float damage)
-    {
-        float radius = Mathf.Max(thickness * 0.5f, 0.01f);
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(start, radius, direction, distance);
-        ApplyDamageToHits(hits, damage);
-    }
-
-    void ApplyDamageToHits(RaycastHit2D[] hits, float damage)
-    {
-        HashSet<IEnemyDamageReceiver> damagedEnemies = new HashSet<IEnemyDamageReceiver>();
-
-        foreach (RaycastHit2D hit in hits)
-        {
-            if (hit.collider == null || !hit.collider.CompareTag("Enemy"))
-            {
-                continue;
-            }
-
-            IEnemyDamageReceiver enemy = hit.collider.GetComponent<IEnemyDamageReceiver>();
-            if (enemy == null || !damagedEnemies.Add(enemy))
-            {
-                continue;
-            }
-
-            enemy.Attacked(damage);
-        }
-    }
-    #endregion
 
     public void OnMove(InputValue value)
     {
@@ -556,7 +359,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsSoulForm() || !canMove || isUIopen) return;
 
-        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
+        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !IsAttackInProgress)
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
@@ -1010,5 +813,19 @@ public class PlayerController : MonoBehaviour
 
         progressionManager.StateChanged -= HandleProgressionStateChanged;
         isSubscribedToProgressionState = false;
+    }
+
+    public Rigidbody2D CurrentRigidbody => rigid;
+    public Collider2D CurrentCollider => GetActiveControlledCollider();
+    public PlayerAbilityManager AbilityManager => abilityManager;
+    public float FacingDirection => facingDirection;
+    public bool IsUiOpen => isUIopen;
+    public bool IsPossessing => isPossessing;
+    public bool IsDashing => isDashing;
+    public bool IsAttackInProgress => combatManager != null && combatManager.IsAttacking;
+
+    public Vector2 FilterVelocityForBounds(Vector2 desiredVelocity)
+    {
+        return FilterVelocityAgainstBounds(desiredVelocity);
     }
 }
