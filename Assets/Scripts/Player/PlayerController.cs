@@ -61,9 +61,8 @@ public class PlayerController : MonoBehaviour
     //벽점프 관련 변수
     public bool isJump = false;
     bool isWallClimbing = false;
-    int TouchingWallCnt = 0;
-    [SerializeField]int insideWall = 0;
-    float wallClimbDetachDirection = 0f;
+    int insideWall = 0;
+    [SerializeField]float wallClimbDetachDirection = 0f;
 
     public bool isWallAttatching = false;
 
@@ -447,6 +446,7 @@ public class PlayerController : MonoBehaviour
     {
         return abilityManager.canWallJump
             && !IsSoulForm()
+            && isWallAttatching
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
@@ -512,7 +512,6 @@ public class PlayerController : MonoBehaviour
         {
             isWallAttatching = true;
 
-            TouchingWallCnt++;
             UpdateWallClimbDetachDirection(collision);
         }
     }
@@ -540,14 +539,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             isWallAttatching = false;
-
-            TouchingWallCnt--;
-            if (TouchingWallCnt <= 0)
-            {
-                TouchingWallCnt = 0;
-                wallClimbDetachDirection = 0f;
-                StopWallClimb();
-            }
         }
     }
 
