@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
   - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
-  Items: {fileID: 0}
+  Items: {fileID: 558551621}
 --- !u!114 &311372583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4513,7 +4513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
   - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
-  Items: {fileID: 0}
+  Items: {fileID: 558551621}
 --- !u!114 &957166988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6623,7 +6623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
   - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
-  Items: {fileID: 0}
+  Items: {fileID: 558551621}
 --- !u!114 &1340305755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7167,7 +7167,7 @@ GameObject:
   - component: {fileID: 1383768396}
   - component: {fileID: 1383768395}
   - component: {fileID: 1383768397}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: mapCollider
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -10193,7 +10193,7 @@ MonoBehaviour:
   cobwebMaxFallSpeed: 1.5
   possessGauge: {fileID: 0}
   isJump: 0
-  insideWall: 0
+  wallClimbDetachDirection: 0
   isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
@@ -10327,6 +10327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d698e09a10815394483a7d7defa290f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  maxSlotCount: 0
   inventoryUI: {fileID: 0}
 --- !u!114 &1738328939
 MonoBehaviour:
@@ -12447,7 +12448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
   - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
-  Items: {fileID: 0}
+  Items: {fileID: 558551621}
 --- !u!114 &2030345507
 MonoBehaviour:
   m_ObjectHideFlags: 0

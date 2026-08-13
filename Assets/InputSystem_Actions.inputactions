@@ -124,6 +124,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UseSlot5",
+                    "type": "Button",
+                    "id": "c6887814-c023-4456-8829-03f937d82609",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Next",
                     "type": "Button",
                     "id": "fe938fc9-713c-41ee-acb1-9a85bf37f05c",
@@ -327,6 +336,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseSlot4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "300678af-e51c-45e2-b1ac-c16ac73eebc0",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseSlot5",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

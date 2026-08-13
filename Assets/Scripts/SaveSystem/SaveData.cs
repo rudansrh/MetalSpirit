@@ -13,6 +13,10 @@ public class SaveData
     // 플레이어 상태
     public float playerHp;
     public float playerStamina;
+    public PlayerStage currentPlayerStage;
     public bool isSoulState;
+
+    //인벤토리 저장
+    public InventoryItem[] inventoryItems;
 
 }

@@ -16,10 +16,7 @@ public class InventoryUIManager : MonoBehaviour
     {
         inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
         inventoryManager.inventoryUI = this;
-        if(PlayerController.Instance.GetComponent<PlayerAbilityManager>().canUseInventory)
-        {
-            UpdateInventoryUI(inventoryManager.items);
-        }
+        UpdateInventoryUI(inventoryManager.items);
     }
 
     public void UpdateInventoryUI(InventoryItem[] items) //인벤토리 UI 업데이트

@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            // DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);
 
             rigid = GetComponent<Rigidbody2D>();
             originalGravity = rigid.gravityScale;

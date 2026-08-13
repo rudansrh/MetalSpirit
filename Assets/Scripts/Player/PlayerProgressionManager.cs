@@ -29,6 +29,9 @@ public class PlayerProgressionManager : MonoBehaviour
     private bool hasAppliedState = false;
     private bool lastAppliedSoulState = true;
 
+    private PossessGauge possess;
+    private InventoryManager inventory;
+
     private void Awake()
     {
         if (abilityManager == null)
@@ -47,6 +50,11 @@ public class PlayerProgressionManager : MonoBehaviour
         SyncState(forceVisualRefresh: true);
     }
 
+    private void Start()
+    {
+        possess = PlayerController.Instance.possessGauge;
+        inventory = PlayerController.Instance.GetComponent<InventoryManager>();
+    }
     private void Update()
     {
         if (!useDebugOverride && abilityManager != null && abilityManager.isSoul != runtimeSoulState)
@@ -155,13 +163,32 @@ public class PlayerProgressionManager : MonoBehaviour
                 false);
         }
 
-        PossessGauge possess = PlayerController.Instance.possessGauge;
-
+        //빙의 제한시간 결정 + 인벤토리 칸수 결정
         possess.isInfinityPossess = false;
-        if (unlockedStage == PlayerStage.Soul) possess.isInfinityPossess = true;
-        else if (unlockedStage == PlayerStage.Legs) possess.possessionLimitTime = 60;
-        else if (unlockedStage == PlayerStage.Arms) possess.possessionLimitTime = 30;
-        else if (unlockedStage == PlayerStage.FullBody) possess.possessionLimitTime = 5;
+        if (unlockedStage == PlayerStage.Soul)
+            possess.isInfinityPossess = true;
+        else if (unlockedStage == PlayerStage.Legs)
+            possess.possessionLimitTime = 60;
+        else if (unlockedStage == PlayerStage.Arms)
+        {
+            possess.possessionLimitTime = 30;
+            if (inventory.maxSlotCount != 3)
+            {
+                abilityManager.canUseInventory = true;
+                inventory.AddSlot(3 - inventory.maxSlotCount);
+                Debug.Log("슬롯칸수 변경3");
+            }
+        }
+        else if (unlockedStage == PlayerStage.FullBody)
+        {
+            possess.possessionLimitTime = 5;
+            if (inventory.maxSlotCount != 5)
+            {
+                abilityManager.canUseInventory = true;
+                inventory.AddSlot(5 - inventory.maxSlotCount);
+                Debug.Log("슬롯칸수 변경5");
+            }
+        }
 
         return abilityManager.ApplyResolvedState(
             false,
