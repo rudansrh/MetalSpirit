@@ -9,6 +9,7 @@ public class PlayerCombatManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerAbilityManager abilityManager;
+    [SerializeField] private PlayerVisualManager visualManager;
     [SerializeField] private LineRenderer headAttackLineRenderer;
 
     [Header("Attack Settings")]
@@ -59,6 +60,11 @@ public class PlayerCombatManager : MonoBehaviour
             abilityManager = GetComponent<PlayerAbilityManager>();
         }
 
+        if (visualManager == null)
+        {
+            visualManager = GetComponent<PlayerVisualManager>();
+        }
+
         if (headAttackLineRenderer == null)
         {
             headAttackLineRenderer = GetComponent<LineRenderer>();
@@ -104,6 +110,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (abilityManager == null || !abilityManager.canLegAttack || legAttackCoolTime > curTime_leg) return;
 
         curTime_leg = 0f;
+        visualManager?.PlayLegAttackAnimation();
 
         Vector2 center = GetAttackCenter(legAttackOffset);
         ApplyDamageInBox(center, legAttackSize, legAttackDamage);
@@ -116,6 +123,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (abilityManager == null || !abilityManager.canArmAttack || armAttackCoolTime > curTime_arm) return;
 
         curTime_arm = 0f;
+        visualManager?.PlayArmAttackAnimation();
 
         Vector2 center = GetAttackCenter(armAttackOffset);
         ApplyDamageInBox(center, armAttackSize, armAttackDamage);
@@ -129,6 +137,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (playerController.IsDashing || !playerController.canMove) return;
 
         curTime_body = 0f;
+        visualManager?.PlayBodyAttackAnimation();
         StartCoroutine(BodyAttackRoutine());
     }
 
@@ -139,6 +148,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (playerController.IsDashing || !playerController.canMove) return;
 
         curTime_head = 0f;
+        visualManager?.PlayHeadAttackAnimation();
         StartCoroutine(HeadAttackRoutine());
     }
 
