@@ -135,7 +135,7 @@ TextureImporter:
         width: 32
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -157,7 +157,7 @@ TextureImporter:
         width: 33
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -179,7 +179,7 @@ TextureImporter:
         width: 33
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -197,33 +197,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 144
-        y: 6
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a66e354fa900f3ce0800000000000000
-      internalID: -1423418291701684630
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player3_attack2_4
-      rect:
-        serializedVersion: 2
-        x: 157
         y: 0
-        width: 26
+        width: 39
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -237,37 +215,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player3_attack2_5
+      name: player3_attack2_4
       rect:
         serializedVersion: 2
         x: 191
-        y: 6
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a8d765bebb5063650800000000000000
-      internalID: 6212159040669515146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player3_attack2_6
-      rect:
-        serializedVersion: 2
-        x: 205
         y: 0
-        width: 26
+        width: 40
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -281,37 +237,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player3_attack2_7
+      name: player3_attack2_5
       rect:
         serializedVersion: 2
         x: 240
-        y: 6
-        width: 13
-        height: 11
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5f6160182cff6a250800000000000000
-      internalID: 5955728768097457909
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: player3_attack2_8
-      rect:
-        serializedVersion: 2
-        x: 253
         y: 0
-        width: 26
+        width: 39
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -325,7 +259,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player3_attack2_9
+      name: player3_attack2_6
       rect:
         serializedVersion: 2
         x: 294
@@ -333,7 +267,7 @@ TextureImporter:
         width: 33
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -350,7 +284,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 40ebc4cb99a1b49cd9a8c26630850ce5
     internalID: 0
     vertices: []
     indices: 
@@ -363,13 +297,11 @@ TextureImporter:
       player3_attack2_0: 8893862881029003790
       player3_attack2_1: 6021443273547287679
       player3_attack2_2: 8619469525067533634
-      player3_attack2_3: -1423418291701684630
-      player3_attack2_4: -6161094391265825206
-      player3_attack2_5: 6212159040669515146
-      player3_attack2_6: 8365921424996069761
+      player3_attack2_3: -6161094391265825206
+      player3_attack2_4: 8365921424996069761
+      player3_attack2_5: 4393835123802021634
+      player3_attack2_6: -982333683902831923
       player3_attack2_7: 5955728768097457909
-      player3_attack2_8: 4393835123802021634
-      player3_attack2_9: -982333683902831923
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

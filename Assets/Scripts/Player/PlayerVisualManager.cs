@@ -27,6 +27,10 @@ public class PlayerVisualManager : MonoBehaviour
     [SerializeField] private string dashingParameter = "IsDashing";
     [SerializeField] private string wallClimbParameter = "IsWallClimbing";
     [SerializeField] private string soulParameter = "IsSoul";
+    [SerializeField] private string legAttackTriggerParameter = "doLegAtk";
+    [SerializeField] private string armAttackTriggerParameter = "doArmAtk";
+    [SerializeField] private string bodyAttackTriggerParameter = "doBodyAtk";
+    [SerializeField] private string headAttackTriggerParameter = "doHeadAtk";
 
     [Header("Facing Settings")]
     [SerializeField] private bool facesLeftByDefault = true;
@@ -38,6 +42,10 @@ public class PlayerVisualManager : MonoBehaviour
     private int dashingHash;
     private int wallClimbHash;
     private int soulHash;
+    private int legAttackTriggerHash;
+    private int armAttackTriggerHash;
+    private int bodyAttackTriggerHash;
+    private int headAttackTriggerHash;
     private bool isInitialized;
 
     private void Awake()
@@ -120,6 +128,26 @@ public class PlayerVisualManager : MonoBehaviour
         spriteRenderer.flipX = facesLeftByDefault ? faceRight : !faceRight;
     }
 
+    public void PlayLegAttackAnimation()
+    {
+        TriggerAnimation(legAttackTriggerHash);
+    }
+
+    public void PlayArmAttackAnimation()
+    {
+        TriggerAnimation(armAttackTriggerHash);
+    }
+
+    public void PlayBodyAttackAnimation()
+    {
+        TriggerAnimation(bodyAttackTriggerHash);
+    }
+
+    public void PlayHeadAttackAnimation()
+    {
+        TriggerAnimation(headAttackTriggerHash);
+    }
+
     private void CacheParameterHashes()
     {
         stageHash = Animator.StringToHash(stageParameter);
@@ -129,6 +157,10 @@ public class PlayerVisualManager : MonoBehaviour
         dashingHash = Animator.StringToHash(dashingParameter);
         wallClimbHash = Animator.StringToHash(wallClimbParameter);
         soulHash = Animator.StringToHash(soulParameter);
+        legAttackTriggerHash = Animator.StringToHash(legAttackTriggerParameter);
+        armAttackTriggerHash = Animator.StringToHash(armAttackTriggerParameter);
+        bodyAttackTriggerHash = Animator.StringToHash(bodyAttackTriggerParameter);
+        headAttackTriggerHash = Animator.StringToHash(headAttackTriggerParameter);
     }
 
     private void EnsureInitialized()
@@ -160,9 +192,25 @@ public class PlayerVisualManager : MonoBehaviour
         if (string.IsNullOrWhiteSpace(dashingParameter)) dashingParameter = "IsDashing";
         if (string.IsNullOrWhiteSpace(wallClimbParameter)) wallClimbParameter = "IsWallClimbing";
         if (string.IsNullOrWhiteSpace(soulParameter)) soulParameter = "IsSoul";
+        if (string.IsNullOrWhiteSpace(legAttackTriggerParameter)) legAttackTriggerParameter = "doLegAtk";
+        if (string.IsNullOrWhiteSpace(armAttackTriggerParameter)) armAttackTriggerParameter = "doArmAtk";
+        if (string.IsNullOrWhiteSpace(bodyAttackTriggerParameter)) bodyAttackTriggerParameter = "doBodyAtk";
+        if (string.IsNullOrWhiteSpace(headAttackTriggerParameter)) headAttackTriggerParameter = "doHeadAtk";
 
         CacheParameterHashes();
         isInitialized = true;
+    }
+
+    private void TriggerAnimation(int triggerHash)
+    {
+        EnsureInitialized();
+
+        if (animator == null || animator.runtimeAnimatorController == null)
+        {
+            return;
+        }
+
+        animator.SetTrigger(triggerHash);
     }
 
     private PlayerStageVisualSet FindVisualSet(PlayerStage stage)
