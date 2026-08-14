@@ -16,7 +16,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LowAttack",
+                    "name": "LegAttack",
                     "type": "Button",
                     "id": "6c2ab1b8-8984-453a-af3d-a3c78ae1679a",
                     "expectedControlType": "",
@@ -25,9 +25,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "HighAttack",
+                    "name": "ArmAttack",
                     "type": "Button",
                     "id": "e1298f75-7d8e-4ced-bf5e-fbf47dd979f3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BodyAttack",
+                    "type": "Button",
+                    "id": "0c9c6214-05d7-4bc4-8d5b-dda9d7e035a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "HeadAttack",
+                    "type": "Button",
+                    "id": "58c1027e-a1db-4641-9a87-42dc7988087b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -106,9 +124,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UseSlot5",
+                    "type": "Button",
+                    "id": "c6887814-c023-4456-8829-03f937d82609",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Next",
                     "type": "Button",
                     "id": "fe938fc9-713c-41ee-acb1-9a85bf37f05c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Map",
+                    "type": "Button",
+                    "id": "5beba6ea-1395-4d40-aa01-01d7d09b92b6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -178,17 +214,39 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "LowAttack",
+                    "action": "LegAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89a121e3-6d14-4c53-afd0-a2288f0fc8a3",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "eb40bb66-4559-4dfa-9a2f-820438abb426",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c38d13b-7186-48dd-b84b-06f6938ee503",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -211,7 +269,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HighAttack",
+                    "action": "ArmAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -283,6 +341,17 @@
                 },
                 {
                     "name": "",
+                    "id": "300678af-e51c-45e2-b1ac-c16ac73eebc0",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseSlot5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a6024860-8776-4354-b163-881df5c4e74c",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -300,6 +369,39 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Next",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b009056-a2ad-4b5d-b97f-3534aced5c3a",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0c77ea62-ce59-48e8-8626-6fd7be3f897a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "BodyAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "73265c92-32cc-4f29-9fbe-7138e6f2865b",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "HeadAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
