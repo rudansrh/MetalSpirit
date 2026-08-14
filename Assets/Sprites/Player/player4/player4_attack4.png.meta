@@ -1,19 +1,28 @@
 fileFormatVersion: 2
-guid: ca0f3460a7421fe428282683776de142
+guid: f0a66fba4f3bb4987994c913cee7ac63
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8281827865236376425
-    second: legzone03_0
+      213: 5093122289863873079
+    second: player4_attack4_0
   - first:
-      213: -5564886667933240142
-    second: legzone03_1
+      213: 8927520869270579752
+    second: player4_attack4_1
   - first:
-      213: -4133987407653480563
-    second: legzone03_2
+      213: 7690274731031664732
+    second: player4_attack4_2
   - first:
-      213: -6282123851553828915
-    second: legzone03_3
+      213: -5142704042763286828
+    second: player4_attack4_3
+  - first:
+      213: -481586529662119035
+    second: player4_attack4_4
+  - first:
+      213: -9017602255743189268
+    second: player4_attack4_5
+  - first:
+      213: -8018297300472295158
+    second: player4_attack4_6
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +69,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,13 +118,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: legzone03_0
+      name: player4_attack4_0
       rect:
         serializedVersion: 2
-        x: 81
-        y: 680
-        width: 222
-        height: 151
+        x: 6
+        y: 0
+        width: 30
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +133,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 96b885e7096fee270800000000000000
-      internalID: 8281827865236376425
+      spriteID: 732d5f4fcb76ea640800000000000000
+      internalID: 5093122289863873079
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: legzone03_1
+      name: player4_attack4_1
       rect:
         serializedVersion: 2
-        x: 611
-        y: 683
-        width: 250
-        height: 145
+        x: 54
+        y: 0
+        width: 30
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b4388e3f0d85c2b0800000000000000
-      internalID: -5564886667933240142
+      spriteID: 82a62c93eece4eb70800000000000000
+      internalID: 8927520869270579752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: legzone03_2
+      name: player4_attack4_2
       rect:
         serializedVersion: 2
-        x: 442
-        y: 156
-        width: 253
-        height: 252
+        x: 102
+        y: 0
+        width: 30
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -168,20 +177,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8750e40b5021a6c0800000000000000
-      internalID: -4133987407653480563
+      spriteID: c581e408f1859ba60800000000000000
+      internalID: 7690274731031664732
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: legzone03_3
+      name: player4_attack4_3
       rect:
         serializedVersion: 2
-        x: 577
-        y: 392
-        width: 250
-        height: 250
+        x: 150
+        y: 0
+        width: 30
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -190,8 +199,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dcf002124a961d8a0800000000000000
-      internalID: -6282123851553828915
+      spriteID: 4d6012a9be171a8b0800000000000000
+      internalID: -5142704042763286828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player4_attack4_4
+      rect:
+        serializedVersion: 2
+        x: 198
+        y: 0
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58350e25a9f0159f0800000000000000
+      internalID: -481586529662119035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player4_attack4_5
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 0
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cee7aa4968a0bd280800000000000000
+      internalID: -9017602255743189268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player4_attack4_6
+      rect:
+        serializedVersion: 2
+        x: 294
+        y: 0
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a0110e5861949b090800000000000000
+      internalID: -8018297300472295158
       vertices: []
       indices: 
       edges: []
@@ -210,10 +285,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      legzone03_0: 8281827865236376425
-      legzone03_1: -5564886667933240142
-      legzone03_2: -4133987407653480563
-      legzone03_3: -6282123851553828915
+      player4_attack4_0: 5093122289863873079
+      player4_attack4_1: 8927520869270579752
+      player4_attack4_2: 7690274731031664732
+      player4_attack4_3: -5142704042763286828
+      player4_attack4_4: -481586529662119035
+      player4_attack4_5: -9017602255743189268
+      player4_attack4_6: -8018297300472295158
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

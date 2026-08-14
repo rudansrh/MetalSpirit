@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d870f696dd8999542848814850067ae5
+guid: 9d1a43aacf8de44f09e77a268cfb3f06
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6003793527965004733
-    second: legzone02_0
+      213: -6491693281750801459
+    second: object_poster3_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 50
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: legzone02_0
+      name: object_poster3_0
       rect:
         serializedVersion: 2
-        x: 95
-        y: 95
-        width: 903
-        height: 722
+        x: 0
+        y: 0
+        width: 30
+        height: 38
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 34c4bd4889d3eaca0800000000000000
-      internalID: -6003793527965004733
+      spriteID: dc3247eca5fd8e5a0800000000000000
+      internalID: -6491693281750801459
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      legzone02_0: -6003793527965004733
+      object_poster3_0: -6491693281750801459
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -922,7 +922,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d1a2fa5a4b4f7c8d8a1a4b9b2e6c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BgmZoneTrigger
-  bgmClip: {fileID: 8300000, guid: 516fd3d2a7f5e4808babf52c0653230b, type: 3}
+  bgmClip: {fileID: 8300000, guid: 3c50dd3ac3b44495bb3e9b10f861d6df, type: 3}
   priority: 1
 --- !u!1 &120652601
 GameObject:
@@ -6847,7 +6847,7 @@ Transform:
   m_GameObject: {fileID: 1738328927}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.67, y: 3.24, z: 0}
+  m_LocalPosition: {x: 36.15, y: 2.2, z: 0}
   m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8718,7 +8718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d1a2fa5a4b4f7c8d8a1a4b9b2e6c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BgmZoneTrigger
-  bgmClip: {fileID: 8300000, guid: 3c50dd3ac3b44495bb3e9b10f861d6df, type: 3}
+  bgmClip: {fileID: 8300000, guid: 516fd3d2a7f5e4808babf52c0653230b, type: 3}
   priority: 3
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
