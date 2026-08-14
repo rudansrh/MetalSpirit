@@ -40,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1868478924781545202}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.32, y: -1.08, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.75, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 701804405629523170, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -285,7 +285,7 @@ Animator:
   m_GameObject: {fileID: 1868478924781545202}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b4f92e5ac48674561a76acb7704ab36c, type: 2}
+  m_Controller: {fileID: 22100000, guid: bca4d92d88bde49098cce03f7b1703d6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -313,13 +313,13 @@ MonoBehaviour:
   progressionManager: {fileID: 4984105835560708788}
   isSoul: 1
   canPossess: 1
-  canDash: 1
-  canWallJump: 1
+  canDash: 0
+  canWallJump: 0
   canLegAttack: 0
   canArmAttack: 0
   canBodyAttack: 0
   canHeadAttack: 0
-  canUseInventory: 1
+  canUseInventory: 0
 --- !u!114 &5817687315087925102
 MonoBehaviour:
   m_ObjectHideFlags: 0

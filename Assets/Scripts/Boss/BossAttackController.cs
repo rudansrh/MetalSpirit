@@ -17,7 +17,7 @@ public class BossAttackDefinition
     [Header("Charge Only")]
     public Transform chargeStartPoint;                  // 돌진 시작 위치
     public Transform chargeEndPoint;                    // 돌진 종료 위치
-    public float chargeDuration = 0.75f;                // 돌진 시간
+    public float chargeDuration = 0.5f;                 // 돌진 시간
 }
 
 public class BossAttackController : MonoBehaviour
@@ -29,20 +29,36 @@ public class BossAttackController : MonoBehaviour
     [SerializeField] Vector3 basicPosition;                     // 돌진 후 돌아갈 기본 위치
     [SerializeField] float returnDuration = 0.75f;              // 돌진 후 기본 위치로 돌아가는 시간
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] string leftPunchTriggerParameter = "doPunchL";
+    [SerializeField] string rightPunchTriggerParameter = "doPunchR";
+    [SerializeField] string chargeRightToLeftTriggerParameter = "doDashRL";
+    [SerializeField] string chargeLeftToRightTriggerParameter = "doDashLR";
+
     [Header("Phase 1 Attacks")]
-    [SerializeField] BossAttackDefinition leftPunchAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition leftPunchAttack = new BossAttackDefinition
     {
         attackType = BossAttackType.LeftPunch,
         displayName = "Left Punch"
     };
-    [SerializeField] BossAttackDefinition rightPunchAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition rightPunchAttack = new BossAttackDefinition
     {
         attackType = BossAttackType.RightPunch,
         displayName = "Right Punch"
     };
 
     [Header("Phase 2 Attacks")]
-    [SerializeField] BossAttackDefinition chargeAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition chargeAttackRL = new BossAttackDefinition
+    {
+        attackType = BossAttackType.Charge,
+        displayName = "Charge"
+    };
+    [SerializeField]
+    BossAttackDefinition chargeAttackLR = new BossAttackDefinition
     {
         attackType = BossAttackType.Charge,
         displayName = "Charge"
@@ -50,6 +66,20 @@ public class BossAttackController : MonoBehaviour
 
     BossController bossController;
     Coroutine attackLoopCoroutine;
+    int leftPunchTriggerHash;
+    int rightPunchTriggerHash;
+    int chargeRightToLeftTriggerHash;
+    int chargeLeftToRightTriggerHash;
+
+    void Awake()
+    {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        CacheAnimationHashes();
+    }
 
     public void Begin(BossController controller)
     {
@@ -68,7 +98,8 @@ public class BossAttackController : MonoBehaviour
 
         SetIndicators(leftPunchAttack, false, false);
         SetIndicators(rightPunchAttack, false, false);
-        SetIndicators(chargeAttack, false, false);
+        SetIndicators(chargeAttackRL, false, false);
+        SetIndicators(chargeAttackLR, false, false);
     }
 
     IEnumerator AttackLoopRoutine()
@@ -101,15 +132,17 @@ public class BossAttackController : MonoBehaviour
             return Random.value < 0.5f ? leftPunchAttack : rightPunchAttack;
         }
 
-        int attackIndex = Random.Range(0, 3);
+        int attackIndex = Random.Range(0, 4);
         switch (attackIndex)
         {
             case 0:
                 return leftPunchAttack;
             case 1:
                 return rightPunchAttack;
+            case 2:
+                return chargeAttackRL;
             default:
-                return chargeAttack;
+                return chargeAttackLR;
         }
     }
 
@@ -119,6 +152,8 @@ public class BossAttackController : MonoBehaviour
         SetIndicators(attack, true, false);
         Debug.Log($"Boss telegraph: {attack.displayName}");
         yield return new WaitForSeconds(telegraphDuration);
+
+        PlayAttackAnimation(attack);
 
         bossController.SetState(BossState.Attack);
         SetIndicators(attack, false, true);
@@ -236,7 +271,8 @@ public class BossAttackController : MonoBehaviour
     {
         DrawAttackGizmo(leftPunchAttack, Color.red);
         DrawAttackGizmo(rightPunchAttack, Color.blue);
-        DrawAttackGizmo(chargeAttack, Color.yellow);
+        DrawAttackGizmo(chargeAttackRL, Color.yellow);
+        DrawAttackGizmo(chargeAttackLR, Color.green);
     }
 
     void DrawAttackGizmo(BossAttackDefinition attack, Color color)
@@ -249,5 +285,55 @@ public class BossAttackController : MonoBehaviour
         Vector3 center = attack.attackOrigin != null ? attack.attackOrigin.position : transform.position;
         Gizmos.color = color;
         Gizmos.DrawWireCube(center, attack.hitboxSize);
+    }
+    
+
+    void PlayAttackAnimation(BossAttackDefinition attack)
+    {
+        if (animator == null || animator.runtimeAnimatorController == null || attack == null)
+        {
+            return;
+        }
+
+        if (ReferenceEquals(attack, leftPunchAttack))
+        {
+            animator.SetTrigger(leftPunchTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, rightPunchAttack))
+        {
+            animator.SetTrigger(rightPunchTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackRL))
+        {
+            animator.SetTrigger(chargeRightToLeftTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackLR))
+        {
+            animator.SetTrigger(chargeLeftToRightTriggerHash);
+        }
+    }
+
+    void CacheAnimationHashes()
+    {
+        if (string.IsNullOrWhiteSpace(leftPunchTriggerParameter)) leftPunchTriggerParameter = "doPunchL";
+        if (string.IsNullOrWhiteSpace(rightPunchTriggerParameter)) rightPunchTriggerParameter = "doPunchR";
+        if (string.IsNullOrWhiteSpace(chargeRightToLeftTriggerParameter)) chargeRightToLeftTriggerParameter = "doDashRL";
+        if (string.IsNullOrWhiteSpace(chargeLeftToRightTriggerParameter)) chargeLeftToRightTriggerParameter = "doDashLR";
+
+        leftPunchTriggerHash = Animator.StringToHash(leftPunchTriggerParameter);
+        rightPunchTriggerHash = Animator.StringToHash(rightPunchTriggerParameter);
+        chargeRightToLeftTriggerHash = Animator.StringToHash(chargeRightToLeftTriggerParameter);
+        chargeLeftToRightTriggerHash = Animator.StringToHash(chargeLeftToRightTriggerParameter);
+    }
+
+    void OnValidate()
+    {
+        CacheAnimationHashes();
     }
 }

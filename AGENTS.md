@@ -2,7 +2,7 @@
 - Project name: MetalSpirit
 - Unity version: Unity 6000.4.9f1
 - Active scene:
-  - Name: LegZone
+  - Name: BossPhase1
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor
   - Layers:
