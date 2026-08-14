@@ -1083,11 +1083,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 368
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 160
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 926019154554144553, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1140,6 +1140,22 @@ PrefabInstance:
     - target: {fileID: 6398709279005677020, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
       propertyPath: m_Name
       value: Bubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8875524434649067319, guid: 0fc8ea6244416074693221e8d3d22ee2, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1507,6 +1523,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlyingLaserEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   flySpeed: 2.5
@@ -1920,6 +1939,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &641319536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 641319538}
+  - component: {fileID: 641319537}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &641319537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641319536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebac5a78185d4e34b315f06334c6091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  bgmClip: {fileID: 8300000, guid: 02d1e58826f524e6e84698fb6a237533, type: 3}
+  Bvolume: 1
+  sfxClips: []
+  Svolume: 1
+  Schannels: 8
+  defaultCooldown: 0.05
+--- !u!4 &641319538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641319536}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &694770015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2258,6 +2327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d698e09a10815394483a7d7defa290f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  maxSlotCount: 0
   inventoryUI: {fileID: 0}
 --- !u!114 &1062613350
 MonoBehaviour:
@@ -2314,8 +2384,10 @@ MonoBehaviour:
   canPossess: 1
   canDash: 1
   canWallJump: 1
-  canLowAttack: 1
-  canHighAttack: 1
+  canLegAttack: 0
+  canArmAttack: 0
+  canBodyAttack: 0
+  canHeadAttack: 0
   canUseInventory: 1
 --- !u!95 &1062613354
 Animator:
@@ -2408,6 +2480,7 @@ MonoBehaviour:
   visualManager: {fileID: 0}
   abilityManager: {fileID: 1062613353}
   progressionManager: {fileID: 0}
+  combatManager: {fileID: 0}
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
@@ -2425,13 +2498,9 @@ MonoBehaviour:
   slowEffectCount: 0
   cobwebMaxRiseSpeed: 2.5
   cobwebMaxFallSpeed: 1.5
-  lowAttackCoolTime: 1
-  lowAttackDamage: 10
-  highAttackCoolTime: 1
-  highAttackDamage: 10
   possessGauge: {fileID: 0}
   isJump: 0
-  insideWall: 0
+  wallClimbDetachDirection: 0
   isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
@@ -4229,6 +4298,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeadEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   flySpeed: 2.5
@@ -4749,6 +4821,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChargeEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -4827,6 +4902,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -5384,6 +5462,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LegEnemy
   facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
   speed: 3
@@ -5626,3 +5707,4 @@ SceneRoots:
   - {fileID: 1713644115}
   - {fileID: 2010404658}
   - {fileID: 2079927404}
+  - {fileID: 641319538}
