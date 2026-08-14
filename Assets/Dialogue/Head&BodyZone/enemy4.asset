@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
+  m_Name: enemy4
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 1
+    textElements:
+    - text: "\uB108\uB294 \uB208101 \uC5C6\uAD6C11101."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    textElements:
+    - text: "\uC751?"
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\uBCFC \uC218 \uC788\uB294 \uAC78 \uBABB \uBCF41111111 \uC788\uC73C\uB2C8."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    textElements:
+    - text: "\u20261\uB2C8, 1\uBB34\uAC83\uB3C4 1\uB2C8\uC57C."
+      bold: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}

@@ -481,28 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
---- !u!114 &38637828 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5705922277571211305, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
-  m_PrefabInstance: {fileID: 38637824}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
---- !u!114 &38637829 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3446236878464721461, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
-  m_PrefabInstance: {fileID: 38637824}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Slider
 --- !u!1 &50276937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1506,56 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &278667620
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 278667622}
+  - component: {fileID: 278667621}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &278667621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278667620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebac5a78185d4e34b315f06334c6091, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  bgmClip: {fileID: 8300000, guid: dc20cf592e00f4be69101922f8a49faa, type: 3}
+  Bvolume: 1
+  sfxClips: []
+  Svolume: 1
+  Schannels: 8
+  defaultCooldown: 0.05
+--- !u!4 &278667622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278667620}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &295070139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,7 +1790,6 @@ MonoBehaviour:
   - {fileID: 2065752469}
   - {fileID: 244882530}
   - {fileID: 1908879315}
-  bonusPlatforms: []
   debrisObjectPrefab: {fileID: 686599660}
   debrisSpawnInterval: 5
   debrisWarningDuration: 1
@@ -1871,7 +1898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 10, y: 56}
+  m_AnchoredPosition: {x: 0, y: 100}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &500357585
@@ -3443,9 +3470,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUIManager
   itemImages:
-  - {fileID: 6789968099899059853, guid: 11ee991c9f6a9514f8c8ce1278bcac77, type: 3}
-  - {fileID: 8321054283358096505, guid: c2526da8320d42d4ebab200fcd612506, type: 3}
-  - {fileID: 2359353007929579522, guid: caed557f5bf6656428ee8549919da938, type: 3}
+  - {fileID: -2410919893335871942, guid: ea89f332b0dedb44db19c35517edaac9, type: 3}
+  - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
+  - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}
   slotParent: {fileID: 500357584}
 --- !u!114 &1440883204
@@ -3461,9 +3488,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatsUIManager
   healthSlider: {fileID: 38637827}
-  staminaSlider: {fileID: 38637829}
+  staminaSlider: {fileID: 0}
   healthValueText: {fileID: 38637826}
-  staminaValueText: {fileID: 38637828}
+  staminaValueText: {fileID: 0}
+  health: {fileID: 0}
+  stamina: {fileID: 0}
 --- !u!4 &1440883205
 Transform:
   m_ObjectHideFlags: 0
@@ -3705,6 +3734,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61a167934d5a15b4090c6604799f2d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SimpleEnemy
+  facingDirection: 1
+  hitFlashRenderers: []
+  hitFlashColor: {r: 0.7882353, g: 0.74509805, b: 0.6745098, a: 0.5882353}
+  hitFlashDuration: 0.2
+  isPossessed: 0
+  nearbyEnemy: {fileID: 0}
   speed: 2
   jumpForce: 12
   detectionRange: 10
@@ -4475,6 +4510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d698e09a10815394483a7d7defa290f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+  maxSlotCount: 0
   inventoryUI: {fileID: 0}
 --- !u!114 &1835547480
 MonoBehaviour:
@@ -4525,12 +4561,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae28185ba300be4e87d9ffed835752e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
+  playerController: {fileID: 0}
+  progressionManager: {fileID: 0}
   isSoul: 1
   canPossess: 1
   canDash: 1
   canWallJump: 1
-  canLowAttack: 1
-  canHighAttack: 1
+  canLegAttack: 0
+  canArmAttack: 0
+  canBodyAttack: 0
+  canHeadAttack: 0
   canUseInventory: 1
 --- !u!114 &1835547484
 MonoBehaviour:
@@ -4598,7 +4638,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95cce3ec16a653f4aa41c7ca7c33e1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMove
+  visualManager: {fileID: 0}
   abilityManager: {fileID: 1835547483}
+  progressionManager: {fileID: 0}
+  combatManager: {fileID: 0}
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
@@ -4616,12 +4659,16 @@ MonoBehaviour:
   slowEffectCount: 0
   cobwebMaxRiseSpeed: 2.5
   cobwebMaxFallSpeed: 1.5
-  lowAttackCoolTime: 0.6
-  lowAttackDamage: 10
-  highAttackCoolTime: 0.6
-  highAttackDamage: 10
+  possessGauge: {fileID: 0}
+  isJump: 0
+  wallClimbDetachDirection: 0
+  isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
+  isPlayingMinigame: 0
+  isTalking: 0
+  isUIopen: 0
+  canInteractUI: {fileID: 0}
 --- !u!61 &1835547486
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5648,3 +5695,4 @@ SceneRoots:
   - {fileID: 27851487}
   - {fileID: 1540500310}
   - {fileID: 359229487}
+  - {fileID: 278667622}

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -15,8 +16,8 @@ public class PlayerStatsUIManager : MonoBehaviour
     [SerializeField] Text healthValueText;
     [SerializeField] Text staminaValueText;
 
-    Health health;
-    Stamina stamina;
+    [SerializeField]Health health;
+    [SerializeField]Stamina stamina;
 
     // 싱글톤 패턴을 사용하여 UIManager 초기화하고, Scene이 로드될 때마다 UI를 갱신하도록 설정
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -33,7 +34,7 @@ public class PlayerStatsUIManager : MonoBehaviour
     }
 
     void OnEnable()
-    {
+    { 
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
@@ -50,7 +51,9 @@ public class PlayerStatsUIManager : MonoBehaviour
 
     void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        BindToScene();
+        CacheUiReferences();
+        SubscribeToStats();
+        RefreshAll();
     }
 
     void BindToScene()
@@ -76,6 +79,12 @@ public class PlayerStatsUIManager : MonoBehaviour
     {
         health = FindAnyObjectByType<Health>();
         stamina = FindAnyObjectByType<Stamina>();
+
+        if(health != null && stamina != null)
+        {
+            SubscribeToStats();
+            RefreshAll();
+        }
     }
 
     // Stats 이벤트에 구독
@@ -118,6 +127,7 @@ public class PlayerStatsUIManager : MonoBehaviour
     {
         if (health == null)
         {
+            CacheStatReferences();
             return;
         }
 
@@ -129,6 +139,7 @@ public class PlayerStatsUIManager : MonoBehaviour
     {
         if (stamina == null)
         {
+            CacheStatReferences();
             return;
         }
 

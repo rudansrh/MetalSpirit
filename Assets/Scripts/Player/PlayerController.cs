@@ -1,14 +1,20 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    private static PlayerController instance;
+
     Rigidbody2D rigid;
     Collider2D col;
+    SpriteRenderer spriteRenderer;
+    [SerializeField] PlayerVisualManager visualManager;
     [SerializeField] PlayerAbilityManager abilityManager;
+    [SerializeField] PlayerProgressionManager progressionManager;
+    [SerializeField] PlayerCombatManager combatManager;
 
     //스태미나 컴포넌트 참조 추가
     Stamina stamina;
@@ -38,17 +44,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float cobwebMaxRiseSpeed = 2.5f;
     [SerializeField] float cobwebMaxFallSpeed = 0.1f;
 
-    [Header("Attack Settings")]
-    bool isAttacking = false;
-    float curTime_low = 0f;
-    [SerializeField] float lowAttackCoolTime = 0.6f;
-    [SerializeField] float lowAttackDamage = 10f;
-    float curTime_high = 0f;
-    [SerializeField] float highAttackCoolTime = 0.6f;
-    [SerializeField] float highAttackDamage = 10f;
-
     [Header("Possession Settings")]
-    private SimpleEnemy targetEnemyToPossess = null;
+    private Enemy targetEnemyToPossess = null;
+    public PossessGauge possessGauge;
+
     [Header("Interaction Settings")]
     private IInteractable nearbyInteractable = null; // 근처에 있는 상호작용 객체
 
@@ -56,55 +55,108 @@ public class PlayerController : MonoBehaviour
     bool isDashing = false;
     bool canDashAgain = true;
     Coroutine DashCoroutine;
-    float facingDirection = 1f; // 바라보는 방향 (기본값: 오른쪽 1)
+    float facingDirection = -1f; // 현재 기본 애니메이션이 왼쪽을 바라보므로 초기 방향도 왼쪽
     float originalGravity = 1f;
 
     //벽점프 관련 변수
-    bool isJump = false;
+    public bool isJump = false;
     bool isWallClimbing = false;
-    int TouchingWallCnt = 0;
-    float wallClimbDetachDirection = 0f;
+    int insideWall = 0;
+    [SerializeField]float wallClimbDetachDirection = 0f;
+
+    public bool isWallAttatching = false;
 
     Vector2 moveInput;
 
     public bool canMove = true;
     public bool isInvincibility = false;
 
-    public static PlayerController Instance { get; private set; }
+    public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
+
+    public bool isPlayingMinigame = false;
+    public bool isTalking = false;
+    public bool isUIopen = false;
+
+    public CanInteractUI canInteractUI;
+    public static PlayerController Instance => instance == null ? null : instance;
+
+    bool isSubscribedToProgressionState = false;
+    readonly PlayerMovementBoundsController movementBoundsController = new PlayerMovementBoundsController();
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
 
             rigid = GetComponent<Rigidbody2D>();
             originalGravity = rigid.gravityScale;
             stamina = GetComponent<Stamina>();
             col = GetComponent<Collider2D>();
+            spriteRenderer = GetComponent<SpriteRenderer>();
+
+            if (abilityManager == null)
+            {
+                abilityManager = GetComponent<PlayerAbilityManager>();
+            }
+
+            if (visualManager == null)
+            {
+                visualManager = GetComponent<PlayerVisualManager>();
+            }
+
+            if (progressionManager == null)
+            {
+                progressionManager = GetComponent<PlayerProgressionManager>();
+            }
+
+            if (combatManager == null)
+            {
+                combatManager = GetComponent<PlayerCombatManager>();
+            }
+
+            if (combatManager == null)
+            {
+                combatManager = gameObject.AddComponent<PlayerCombatManager>();
+            }
+
+            SubscribeToProgressionState();
             UpdateFormState();
+            UpdateFacingVisual();
+            UpdateAnimationState();
+
+            cameraFollow.Instance.SetTarget(transform);
         }
-        else if (Instance != this)
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
     }
 
-    /*void Start()
+    void OnDestroy()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        originalGravity = rigid.gravityScale;
+        UnsubscribeFromProgressionState();
 
-        stamina = GetComponent<Stamina>();
+        if (instance == this)
+        {
+            instance = null;
+        }
+    }
 
-        col = GetComponent<Collider2D>();
-        UpdateFormState();
-    }*/
+    void OnEnable()
+    {
+        SubscribeToProgressionState();
+    }
+
+    void OnDisable()
+    {
+        UnsubscribeFromProgressionState();
+    }
 
     void UpdateFormState()
     {
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
             rigid.gravityScale = 0f;
             col.isTrigger = true;
@@ -114,20 +166,38 @@ public class PlayerController : MonoBehaviour
             rigid.gravityScale = originalGravity;
             col.isTrigger = false;
         }
+
+        if (visualManager != null)
+        {
+            visualManager.ApplyCurrentVisual();
+        }
+    }
+
+    void Update()
+    {
+        UpdateAnimationState();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        curTime_high += Time.deltaTime;
-        curTime_low += Time.deltaTime;
-
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
+        {
+            rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
+            ClampControlledBodyToBounds();
             return;
+        }
+
+        if (IsAttackInProgress)
+        {
+            rigid.linearVelocity = FilterVelocityAgainstBounds(rigid.linearVelocity);
+            ClampControlledBodyToBounds();
+            return;
+        }
 
         // 영혼 상태일 때의 이동
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
             Vector2 soulMoveDir = moveInput;
             if (soulMoveDir.magnitude > 1f)
@@ -135,74 +205,95 @@ public class PlayerController : MonoBehaviour
                 soulMoveDir.Normalize();
             }
 
-            rigid.linearVelocity = soulMoveDir * soulSpeed;
+            rigid.linearVelocity = FilterVelocityAgainstBounds(soulMoveDir * soulSpeed);
+            ClampControlledBodyToBounds();
             return;
         }
 
         // 빙의 상태일 때
         if (UpdateWallClimbState())
         {
+            ClampControlledBodyToBounds();
             return;
         }
 
         ApplyCobwebVerticalLimit();
-        rigid.linearVelocityX = moveInput.x * speed * speedMultiplier;
+        Vector2 desiredVelocity = rigid.linearVelocity;
+        desiredVelocity.x = moveInput.x * speed * speedMultiplier;
+        rigid.linearVelocity = FilterVelocityAgainstBounds(desiredVelocity);
+        ClampControlledBodyToBounds();
     }
 
-    //적 공격 (발차기)
-    public void OnLowAttack(InputValue value)
+    #region Movement Bounds
+    public void SetMovementBounds(Collider2D boundsCollider)
     {
-        if (!abilityManager.canLowAttack || lowAttackCoolTime > curTime_low) return;
-
-        curTime_low = 0f;
-        Vector2 pos = transform.position + transform.up*transform.localScale.y*0.2f + transform.right*facingDirection;
-        Vector2 size = new Vector2(1.0f, 0.1f);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Enemy"))
-            {
-                Debug.Log("발차기 공격");
-                hit.GetComponent<SimpleEnemy>().Attacked(lowAttackDamage);
-            }
-        }
+        movementBoundsController.SetMovementBounds(boundsCollider);
+        ClampControlledBodyToBounds();
     }
 
-    //적 공격 (주먹)
-    public void OnHighAttack(InputValue value) 
+    public void ClearMovementBounds(Collider2D boundsCollider)
     {
-        if (!abilityManager.canHighAttack || highAttackCoolTime > curTime_high) return;
-
-        curTime_high = 0f;
-        Vector2 pos = transform.position + transform.up * transform.localScale.y * -0.2f + transform.right * facingDirection;
-        Vector2 size = new Vector2(1.0f, 0.1f);
-        Collider2D[] hits = Physics2D.OverlapBoxAll(pos, size, 0);
-
-        foreach (var hit in hits)
-        {
-            if (hit.CompareTag("Enemy"))
-            {
-                Debug.Log("주먹 공격");
-                hit.GetComponent<SimpleEnemy>().Attacked(highAttackDamage);
-            }
-        }
+        movementBoundsController.ClearMovementBounds(boundsCollider);
     }
+
+    void ClampControlledBodyToBounds()
+    {
+        if (!ShouldApplyMovementBounds())
+        {
+            return;
+        }
+
+        movementBoundsController.ClampControlledBodyToBounds(rigid, GetActiveControlledCollider());
+    }
+
+    Vector2 FilterVelocityAgainstBounds(Vector2 desiredVelocity)
+    {
+        if (!ShouldApplyMovementBounds())
+        {
+            return desiredVelocity;
+        }
+
+        return movementBoundsController.FilterVelocityAgainstBounds(rigid, GetActiveControlledCollider(), desiredVelocity);
+    }
+    #endregion
+
+    bool ShouldApplyMovementBounds()
+    {
+        return IsSoulForm();
+    }
+
+    Collider2D GetActiveControlledCollider()
+    {
+        if (col != null && col.enabled)
+        {
+            return col;
+        }
+
+        return rigid != null ? rigid.GetComponent<Collider2D>() : null;
+    }
+
     public void OnMove(InputValue value)
     {
+        if (isUIopen)
+        {
+            moveInput = Vector2.zero;
+            return;
+        }
+
         Vector2 input = value.Get<Vector2>();
         moveInput = new Vector2(
             input.x,
-            abilityManager.isSoul || wallClimbDetachDirection != 0 ? input.y : 0f);
+            IsSoulForm() || wallClimbDetachDirection != 0 ? input.y : 0f);
 
         // 바라보는 방향을 업데이트
         if (moveInput.x != 0)
         {
             facingDirection = Mathf.Sign(moveInput.x);
+            UpdateFacingVisual();
         }
     }
 
-#region Cobweb Slow Effect
+    #region Cobweb Slow Effect
     public void SetSpeedMultiplier(float multiplier)
     {
         slowEffectCount++;
@@ -237,13 +328,15 @@ public class PlayerController : MonoBehaviour
 
         rigid.linearVelocity = new Vector2(rigid.linearVelocity.x, clampedY);
     }
-#endregion
+    #endregion
 
 
     public void OnJump(InputValue value)
     {
+        if (isUIopen) return;
+
         // 점프 불가
-        if (isDashing || abilityManager.isSoul) return;
+        if (isDashing || IsSoulForm() || !canMove) return;
 
         if (value.isPressed && !isJump)
         {
@@ -255,6 +348,7 @@ public class PlayerController : MonoBehaviour
             StopWallClimb();
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            transform.Translate(new Vector3(0,0.01f,0));
             isJump = true;
         }
     }
@@ -262,10 +356,9 @@ public class PlayerController : MonoBehaviour
     // 대쉬 액션
     public void OnDash(InputValue value)
     {
+        if (IsSoulForm() || !canMove || isUIopen) return;
 
-        if (abilityManager.isSoul) return;
-
-        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !isAttacking)
+        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !IsAttackInProgress)
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
@@ -274,15 +367,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnMap(InputValue value)
+    {
+        if (!value.isPressed) return;
+        if (isPlayingMinigame || isTalking) return;
+
+        bool isMapOpen = MapUIManager.Instance != null && MapUIManager.Instance.IsOpen;
+        if (isUIopen && !isMapOpen) return;
+
+        MapUIManager.Instance?.ToggleMap();
+    }
+
     IEnumerator DashRoutine()
     {
-       
+
         canDashAgain = false;
         isDashing = true;
         rigid.gravityScale = 0f;
 
-        rigid.linearVelocityX = facingDirection * dashSpeed * speedMultiplier;
-        rigid.linearVelocityY = 0.0000001f; 
+        rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
+            facingDirection * dashSpeed * speedMultiplier,
+            0.0000001f));
 
         yield return new WaitForSeconds(dashDuration);
 
@@ -298,12 +403,13 @@ public class PlayerController : MonoBehaviour
         if (DashCoroutine == null) return;
 
         StopCoroutine(DashCoroutine);
-        rigid.gravityScale = originalGravity;
+        UpdateFormState();
         isDashing = false;
         canDashAgain = true;
+        DashCoroutine = null;
     }
 
-#region Wall Climb
+    #region Wall Climb
     // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
@@ -329,7 +435,9 @@ public class PlayerController : MonoBehaviour
 
         isWallClimbing = true;
         rigid.gravityScale = 0f;
-        rigid.linearVelocity = new Vector2(-wallClimbDetachDirection, isMovingVertically ? climbInput * wallClimbSpeed : 0f);
+        rigid.linearVelocity = FilterVelocityAgainstBounds(new Vector2(
+            -wallClimbDetachDirection,
+            isMovingVertically ? climbInput * wallClimbSpeed : 0f));
         return true;
     }
 
@@ -337,10 +445,12 @@ public class PlayerController : MonoBehaviour
     bool CanWallClimb()
     {
         return abilityManager.canWallJump
-            && !abilityManager.isSoul
+            && !IsSoulForm()
+            && isWallAttatching
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
+            && !isPossessing
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
@@ -387,27 +497,21 @@ public class PlayerController : MonoBehaviour
         {
             if (Mathf.Abs(contact.normal.x) > 0.1f)
             {
+                if (abilityManager.canWallJump) isJump = false;
+
                 wallClimbDetachDirection = Mathf.Sign(contact.normal.x);
                 return;
             }
         }
     }
-#endregion
+    #endregion
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Wall")
         {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if (Mathf.Abs(contact.normal.x) > 0.1f || contact.normal.y > 0.1f)
-                {
-                    isJump = false;
-                    return;
-                }
-            }
+            isWallAttatching = true;
 
-            TouchingWallCnt++;
             UpdateWallClimbDetachDirection(collision);
         }
     }
@@ -416,7 +520,17 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
+            // isWallAttatching = true;
+
             UpdateWallClimbDetachDirection(collision);
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.1f)
+                {
+                    isJump = false;
+                    return;
+                }
+            }
         }
     }
 
@@ -424,41 +538,86 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            TouchingWallCnt--;
-            if (TouchingWallCnt <= 0)
-            {
-                TouchingWallCnt = 0;
-                wallClimbDetachDirection = 0f;
-                StopWallClimb();
-            }
+            isWallAttatching = false;
         }
     }
 
     public void OnPossess(InputValue value)
     {
-        if (!value.isPressed) return;
+        if (isUIopen || isPlayingMinigame || isTalking) return;
 
-        //영혼 -> 빙의
-        if (abilityManager.isSoul && abilityManager.canPossess)
+        //if (!value.isPressed) return;
+
+        if (IsSoulForm() && abilityManager.canPossess)
         {
-            if (targetEnemyToPossess != null)
+            if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
             {
-                transform.position = targetEnemyToPossess.transform.position;
-                Destroy(targetEnemyToPossess.gameObject);
+                Enemy targetEnemy = targetEnemyToPossess;
+                possessGauge.target = targetEnemy.transform;
+                possessGauge.possessGaugeShow();
+
+                isPossessing = true;
+                rigid.linearVelocity = Vector3.zero;
+                rigid = targetEnemy.GetComponent<Rigidbody2D>();
+                rigid.linearVelocity = Vector3.zero;
+                cameraFollow.Instance.SetTarget(targetEnemy.transform);
+
+                targetEnemy.SetPossessed(true);
+                spriteRenderer.enabled = false;
+                col.enabled = false;
+                col = targetEnemy.GetComponent<Collider2D>();
 
                 abilityManager.PossessBody();
                 UpdateFormState();
+                isJump = false;
+                ClampControlledBodyToBounds();
 
                 targetEnemyToPossess = null;
             }
-        }
-        //빙의 -> 영혼
-        else if (!abilityManager.isSoul)
-        {
-            abilityManager.DepossessBody();
-            UpdateFormState();
+            else //영혼 -> 물질상태
+            {
+                if (insideWall > 0) return;
 
-            if (isDashing) StopDash();
+                rigid.linearVelocity = Vector3.zero;
+                abilityManager.PossessBody();
+                UpdateFormState();
+                ClampControlledBodyToBounds();
+            }
+        }
+        else if (!IsSoulForm())
+        {
+            if (isPossessing) //빙의 -> 영혼
+            {
+                isPossessing = false;
+                possessGauge.possessGaugeHide();
+                transform.position = rigid.GetComponent<Transform>().position;
+                cameraFollow.Instance.SetTarget(transform);
+                rigid.linearVelocity = Vector3.zero;
+                Enemy controlledEnemy = rigid.GetComponent<Enemy>();
+                if (controlledEnemy != null)
+                {
+                    controlledEnemy.SetPossessed(false);
+                }
+
+                rigid = GetComponent<Rigidbody2D>();
+                rigid.linearVelocity = Vector3.zero;
+                spriteRenderer.enabled = true;
+                col = GetComponent<Collider2D>();
+                col.enabled = true;
+
+                abilityManager.DepossessBody();
+                UpdateFormState();
+                ClampControlledBodyToBounds();
+
+                if (isDashing) StopDash();
+            }
+            else //물질 -> 영혼
+            {
+                rigid.linearVelocity = Vector3.zero;
+                abilityManager.DepossessBody();
+                UpdateFormState();
+                ClampControlledBodyToBounds();
+            }
         }
     }
 
@@ -467,23 +626,49 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("E키 입력 감지됨!");
 
+        if (value.isPressed && PasswordUIManager.IsUiOpen)
+        {
+            PasswordUIManager.Instance.Close();
+            return;
+        }
+
+        if (!value.isPressed) return;
+
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
-        if (value.isPressed && nearbyInteractable != null && !abilityManager.isSoul)
+        if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
-            nearbyInteractable = null;
         }
+        else
+        {
+            Enemy controlledEnemy = isPossessing && !isTalking ? rigid.GetComponent<Enemy>() : null;
+            if (controlledEnemy == null || controlledEnemy.nearbyEnemy == null)
+            {
+                canInteractUI.hideInterectUI();
+                rigid.linearVelocity = Vector2.zero;
+                return;
+            }
+
+            transform.position = rigid.GetComponent<Transform>().position;
+            canMove = false;
+            rigid.linearVelocity = Vector3.zero;
+            Debug.Log("대화시작");
+            controlledEnemy.nearbyEnemy.GetComponent<NPC>().Talk();
+        }
+        canInteractUI.hideInterectUI();
+        rigid.linearVelocity = Vector2.zero;
     }
 
     // 트리거 감지 로직
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 빙의 대상 감지 로직
-        if (abilityManager.isSoul && abilityManager.canPossess)
+        if (IsSoulForm() && abilityManager.canPossess)
         {
-            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            if (collision.TryGetComponent<Enemy>(out var enemy))
             {
                 targetEnemyToPossess = enemy;
+                canInteractUI.showInterectUI(collision.transform, "v", "빙의");
             }
         }
 
@@ -491,20 +676,24 @@ public class PlayerController : MonoBehaviour
         if (collision.TryGetComponent<IInteractable>(out var interactable))
         {
             nearbyInteractable = interactable;
+            canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
         }
+
+        if (collision.CompareTag("Wall")) insideWall++;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         // 빙의 대상 해제 로직
-        if (abilityManager.isSoul)
+        if (IsSoulForm())
         {
-            if (collision.TryGetComponent<SimpleEnemy>(out var enemy))
+            if (collision.TryGetComponent<Enemy>(out var enemy))
             {
                 if (targetEnemyToPossess == enemy)
                 {
                     targetEnemyToPossess = null;
                 }
+                canInteractUI.hideInterectUI();
             }
         }
 
@@ -516,6 +705,118 @@ public class PlayerController : MonoBehaviour
             {
                 nearbyInteractable = null;
             }
+            canInteractUI.hideInterectUI();
         }
+
+        if (collision.CompareTag("Wall")) insideWall--;
+        insideWall = Math.Clamp(insideWall, 0, 10);
+    }
+
+    public void StopMovement()
+    {
+        if (rigid != null)
+        {
+            if (abilityManager != null && IsSoulForm())
+            {
+                rigid.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                rigid.linearVelocity = new Vector2(0f, rigid.linearVelocity.y);
+            }
+        }
+    }
+
+    void UpdateAnimationState()
+    {
+        if (visualManager == null || rigid == null || abilityManager == null)
+        {
+            return;
+        }
+
+        float animationSpeed = canMove && moveInput.sqrMagnitude > 0.01f ? 1f : 0f;
+
+        bool isGrounded = !IsSoulForm() && isWallAttatching;
+
+        visualManager.UpdateAnimationState(
+            animationSpeed,
+            isGrounded,
+            rigid.linearVelocity.y,
+            isDashing,
+            isWallClimbing,
+            IsSoulForm());
+    }
+
+    void UpdateFacingVisual()
+    {
+        if (visualManager == null)
+        {
+            return;
+        }
+
+        visualManager.UpdateFacingDirection(facingDirection);
+    }
+
+    void HandleProgressionStateChanged()
+    {
+        UpdateFormState();
+        UpdateFacingVisual();
+        UpdateAnimationState();
+    }
+
+    bool IsSoulForm()
+    {
+        if (progressionManager != null)
+        {
+            return progressionManager.EffectiveIsSoul;
+        }
+
+        return abilityManager != null && abilityManager.isSoul;
+    }
+
+    void SubscribeToProgressionState()
+    {
+        if (isSubscribedToProgressionState)
+        {
+            return;
+        }
+
+        if (progressionManager == null)
+        {
+            progressionManager = GetComponent<PlayerProgressionManager>();
+        }
+
+        if (progressionManager == null)
+        {
+            return;
+        }
+
+        progressionManager.StateChanged += HandleProgressionStateChanged;
+        isSubscribedToProgressionState = true;
+    }
+
+    void UnsubscribeFromProgressionState()
+    {
+        if (!isSubscribedToProgressionState || progressionManager == null)
+        {
+            return;
+        }
+
+        progressionManager.StateChanged -= HandleProgressionStateChanged;
+        isSubscribedToProgressionState = false;
+    }
+
+    public Rigidbody2D CurrentRigidbody => rigid;
+    public Collider2D CurrentCollider => GetActiveControlledCollider();
+    public PlayerAbilityManager AbilityManager => abilityManager;
+    public float FacingDirection => facingDirection;
+    public bool IsUiOpen => isUIopen;
+    public bool IsPossessing => isPossessing;
+    public bool IsDashing => isDashing;
+    public bool IsAttackInProgress => combatManager != null && combatManager.IsAttacking;
+
+    public Vector2 FilterVelocityForBounds(Vector2 desiredVelocity)
+    {
+        return FilterVelocityAgainstBounds(desiredVelocity);
     }
 }
