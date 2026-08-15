@@ -2,20 +2,20 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
-public class HeadEnemy : MonoBehaviour
+public class HeadEnemy : Enemy
 {
     [Header("Flight & AI Settings")]
     [SerializeField] private float flySpeed = 2.5f;
     [SerializeField] private float detectionRange = 12f;
-    [SerializeField] private float hoverDistance = 4f; // ÇÃ·¹ÀÌ¾î¿Í À¯ÁöÇÏ·Á´Â ÃÖ¼Ò °Å¸®
+    [SerializeField] private float hoverDistance = 4f; // Ã‡ÃƒÂ·Â¹Ã€ÃŒÂ¾Ã®Â¿Ã Ã€Â¯ÃÃ¶Ã‡ÃÂ·ÃÂ´Ã‚ ÃƒÃ–Â¼Ã’ Â°Ã…Â¸Â®
 
     [Header("Laser Attack Settings")]
-    [SerializeField] private float laserRange = 5f;       // °ø°İ ¹üÀ§
-    [SerializeField] private float laserDamage = 50f;     // µ¥¹ÌÁö
-    [SerializeField] private float laserThickness = 1f;   // ·¹ÀÌÀú µÎ²²
-    [SerializeField] private float attackCooldown = 3f;   // °ø°İ ÄğÅ¸ÀÓ
-    [SerializeField] private float attackDelay = 0.8f;    // ¹ß»ç Àü °æ°í ½Ã°£
-    [SerializeField] private Vector2 headOffset = new Vector2(0f, 0.5f); // ¸Ó¸® À§Ä¡ ¿ÀÇÁ¼Â
+    [SerializeField] private float laserRange = 5f;       // Â°Ã¸Â°Ã Â¹Ã¼Ã€Â§
+    [SerializeField] private float laserDamage = 50f;     // ÂµÂ¥Â¹ÃŒÃÃ¶
+    [SerializeField] private float laserThickness = 1f;   // Â·Â¹Ã€ÃŒÃ€Ãº ÂµÃÂ²Â²
+    [SerializeField] private float attackCooldown = 3f;   // Â°Ã¸Â°Ã Ã„Ã°Ã…Â¸Ã€Ã“
+    [SerializeField] private float attackDelay = 0.8f;    // Â¹ÃŸÂ»Ã§ Ã€Ã¼ Â°Ã¦Â°Ã­ Â½ÃƒÂ°Â£
+    [SerializeField] private Vector2 headOffset = new Vector2(0f, 0.5f); // Â¸Ã“Â¸Â® Ã€Â§Ã„Â¡ Â¿Ã€Ã‡ÃÂ¼Ã‚
 
     [Header("Enemy Hp")]
     [SerializeField] private float enemyHp = 30f;
@@ -26,13 +26,9 @@ public class HeadEnemy : MonoBehaviour
     private PlayerController playerController;
     private PlayerAbilityManager playerAbility;
 
-    [SerializeField] private float facingDirection = 1f;
-
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
 
-    public bool isPossessed = false;
-    public GameObject nearbyEnemy;
     private bool found = false;
 
     private void Start()
@@ -43,6 +39,7 @@ public class HeadEnemy : MonoBehaviour
 
         playerController = PlayerController.Instance;
         playerAbility = playerController.GetComponent<PlayerAbilityManager>();
+        InitializeEnemyBase();
 
         rb.gravityScale = 0f;
 
@@ -54,12 +51,24 @@ public class HeadEnemy : MonoBehaviour
     {
         if (playerController == null) return;
 
+        if (isDying)
+        {
+            rb.linearVelocity = Vector2.zero;
+            UpdateMoveAnimation(false);
+            return;
+        }
+
         if (isPossessed)
         {
             if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
             else if (rb.linearVelocityX < -0.1f) facingDirection = -1f;
+            UpdateFacingVisual();
 
-            if (playerController.isTalking) return;
+            if (playerController.isTalking)
+            {
+                UpdateMoveAnimation(false);
+                return;
+            }
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
@@ -70,7 +79,7 @@ public class HeadEnemy : MonoBehaviour
                 if (hit.collider.gameObject == gameObject) continue;
 
                 nearbyEnemy = hit.collider.gameObject;
-                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "´ëÈ­");
+                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "ëŒ€í™”");
                 found = true;
                 break;
             }
@@ -80,18 +89,22 @@ public class HeadEnemy : MonoBehaviour
                 nearbyEnemy = null;
                 playerController.canInteractUI.hideInterectUI();
             }
+
+            UpdateMoveAnimation(rb.linearVelocity.sqrMagnitude > 0.01f);
             return;
         }
 
         if (playerAbility.isSoul)
         {
             rb.linearVelocity = Vector2.zero;
+            UpdateMoveAnimation(false);
             return;
         }
 
         if (isAttacking)
         {
             rb.linearVelocity = Vector2.zero;
+            UpdateMoveAnimation(false);
             return;
         }
 
@@ -101,6 +114,7 @@ public class HeadEnemy : MonoBehaviour
         if (distanceToPlayer <= laserRange && !playerController.isPossessing)
         {
             rb.linearVelocity = Vector2.zero;
+            UpdateMoveAnimation(false);
 
             if (Time.time >= lastAttackTime + attackCooldown)
             {
@@ -114,6 +128,7 @@ public class HeadEnemy : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
+            UpdateMoveAnimation(false);
         }
     }
 
@@ -121,23 +136,22 @@ public class HeadEnemy : MonoBehaviour
     {
         Vector2 direction = (playerPos - (Vector2)transform.position).normalized;
         rb.linearVelocity = direction * flySpeed;
+        UpdateMoveAnimation(rb.linearVelocity.sqrMagnitude > 0.01f);
 
         if (Mathf.Abs(direction.x) > 0.1f)
         {
             facingDirection = Mathf.Sign(direction.x);
-            if ((facingDirection > 0 && transform.localScale.x < 0) || (facingDirection < 0 && transform.localScale.x > 0))
-            {
-                Flip();
-            }
+            UpdateFacingVisual();
         }
     }
 
-    // ·¹ÀÌÀú ¹ß»ç ÄÚ·çÆ¾
+    // Â·Â¹Ã€ÃŒÃ€Ãº Â¹ÃŸÂ»Ã§ Ã„ÃšÂ·Ã§Ã†Â¾
     private IEnumerator LaserRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
         rb.linearVelocity = Vector2.zero;
+        animationController?.TriggerAttack();
 
         Vector2 firePoint = (Vector2)transform.position + new Vector2(headOffset.x * facingDirection, headOffset.y);
         Vector2 playerCenter = playerController.transform.position;
@@ -153,7 +167,7 @@ public class HeadEnemy : MonoBehaviour
         lineRenderer.SetPosition(0, firePoint);
         lineRenderer.SetPosition(1, firePoint + aimDirection * laserRange);
 
-        Debug.Log("·¹ÀÌÀú Á¶ÁØ Áß...");
+        Debug.Log("ë ˆì´ì € ì¡°ì¤€ ì¤‘...");
 
         yield return new WaitForSeconds(attackDelay);
 
@@ -178,23 +192,23 @@ public class HeadEnemy : MonoBehaviour
                 {
                     damageable.TakeDamage(laserDamage, DamageType.Normal);
                     hitPlayer = true;
-                    Debug.Log("·¹ÀÌÀú ÀûÁß! µ¥¹ÌÁö: 50");
+                    Debug.Log("ë ˆì´ì € ì ì¤‘! ë°ë¯¸ì§€: 50");
                 }
             }
         }
 
-        if (!hitPlayer) Debug.Log("·¹ÀÌÀú ºø³ª°¨");
+        if (!hitPlayer) Debug.Log("ë ˆì´ì € ë¹—ë‚˜ê°");
 
         yield return new WaitForSeconds(0.3f);
 
         lineRenderer.enabled = false;
         isAttacking = false;
+        UpdateMoveAnimation(false);
     }
-    private void Flip()
+
+    private void UpdateMoveAnimation(bool isMoving)
     {
-        Vector3 localScale = transform.localScale;
-        localScale.x *= -1f;
-        transform.localScale = localScale;
+        animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
     private void OnDrawGizmosSelected()
@@ -221,14 +235,68 @@ public class HeadEnemy : MonoBehaviour
         }
     }
 
-    public void Attacked(float playerDamage)
+    public override void Attacked(float playerDamage)
     {
+        if (isDying)
+        {
+            return;
+        }
+
         enemyHp -= playerDamage;
         if (enemyHp <= 0)
         {
             Debug.Log("Flying Laser Enemy killed");
-            if (TryGetComponent<DropItem>(out var drop)) drop.dropItem();
-            this.gameObject.SetActive(false);
+            StartDeath();
+            return;
         }
+
+        PlayHitFlash();
+        animationController?.TriggerHit();
+    }
+
+    private void StartDeath()
+    {
+        if (isDying)
+        {
+            return;
+        }
+
+        isDying = true;
+        isAttacking = false;
+        CancelHitFlash();
+        StopAllCoroutines();
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        rb.linearVelocity = Vector2.zero;
+        UpdateMoveAnimation(false);
+        lineRenderer.enabled = false;
+
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+
+        if (rb != null)
+        {
+            rb.simulated = false;
+        }
+
+        animationController?.TriggerDeath();
+
+        float deathDelay = animationController != null ? animationController.DeathDisableDelay : 0f;
+        if (deathDelay > 0f)
+        {
+            yield return new WaitForSeconds(deathDelay);
+        }
+
+        if (TryGetComponent<DropItem>(out var drop))
+        {
+            drop.dropItem();
+        }
+
+        gameObject.SetActive(false);
     }
 }

@@ -17,7 +17,7 @@ public class BossAttackDefinition
     [Header("Charge Only")]
     public Transform chargeStartPoint;                  // 돌진 시작 위치
     public Transform chargeEndPoint;                    // 돌진 종료 위치
-    public float chargeDuration = 0.75f;                // 돌진 시간
+    public float chargeDuration = 0.5f;                 // 돌진 시간
 }
 
 public class BossAttackController : MonoBehaviour
@@ -29,20 +29,41 @@ public class BossAttackController : MonoBehaviour
     [SerializeField] Vector3 basicPosition;                     // 돌진 후 돌아갈 기본 위치
     [SerializeField] float returnDuration = 0.75f;              // 돌진 후 기본 위치로 돌아가는 시간
 
+    [Header("Animation")]
+    [SerializeField] Animator animator;
+    [SerializeField] SpriteRenderer bossSpriteRenderer;
+    [SerializeField] string leftPunchTriggerParameter = "doPunchL";
+    [SerializeField] string rightPunchTriggerParameter = "doPunchR";
+    [SerializeField] string chargeRightToLeftTriggerParameter = "doDashRL";
+    [SerializeField] string chargeLeftToRightTriggerParameter = "doDashLR";
+
+    [Header("Charge Telegraph Visuals")]
+    [SerializeField] Sprite chargeTelegraphMoveLeftSprite;
+    [SerializeField] Sprite chargeTelegraphMoveRightSprite;
+
     [Header("Phase 1 Attacks")]
-    [SerializeField] BossAttackDefinition leftPunchAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition leftPunchAttack = new BossAttackDefinition
     {
         attackType = BossAttackType.LeftPunch,
         displayName = "Left Punch"
     };
-    [SerializeField] BossAttackDefinition rightPunchAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition rightPunchAttack = new BossAttackDefinition
     {
         attackType = BossAttackType.RightPunch,
         displayName = "Right Punch"
     };
 
     [Header("Phase 2 Attacks")]
-    [SerializeField] BossAttackDefinition chargeAttack = new BossAttackDefinition
+    [SerializeField]
+    BossAttackDefinition chargeAttackRL = new BossAttackDefinition
+    {
+        attackType = BossAttackType.Charge,
+        displayName = "Charge"
+    };
+    [SerializeField]
+    BossAttackDefinition chargeAttackLR = new BossAttackDefinition
     {
         attackType = BossAttackType.Charge,
         displayName = "Charge"
@@ -50,6 +71,19 @@ public class BossAttackController : MonoBehaviour
 
     BossController bossController;
     Coroutine attackLoopCoroutine;
+    int leftPunchTriggerHash;
+    int rightPunchTriggerHash;
+    int chargeRightToLeftTriggerHash;
+    int chargeLeftToRightTriggerHash;
+    bool isUsingChargeTelegraphMoveVisual;
+    bool cachedAnimatorEnabled;
+    Sprite cachedBossSprite;
+
+    void Awake()
+    {
+        CacheComponentReferences();
+        CacheAnimationHashes();
+    }
 
     public void Begin(BossController controller)
     {
@@ -66,9 +100,11 @@ public class BossAttackController : MonoBehaviour
             attackLoopCoroutine = null;
         }
 
+        EndChargeTelegraphMoveVisual();
         SetIndicators(leftPunchAttack, false, false);
         SetIndicators(rightPunchAttack, false, false);
-        SetIndicators(chargeAttack, false, false);
+        SetIndicators(chargeAttackRL, false, false);
+        SetIndicators(chargeAttackLR, false, false);
     }
 
     IEnumerator AttackLoopRoutine()
@@ -101,15 +137,17 @@ public class BossAttackController : MonoBehaviour
             return Random.value < 0.5f ? leftPunchAttack : rightPunchAttack;
         }
 
-        int attackIndex = Random.Range(0, 3);
+        int attackIndex = Random.Range(0, 4);
         switch (attackIndex)
         {
             case 0:
                 return leftPunchAttack;
             case 1:
                 return rightPunchAttack;
+            case 2:
+                return chargeAttackRL;
             default:
-                return chargeAttack;
+                return chargeAttackLR;
         }
     }
 
@@ -118,7 +156,19 @@ public class BossAttackController : MonoBehaviour
         bossController.SetState(BossState.Telegraph);
         SetIndicators(attack, true, false);
         Debug.Log($"Boss telegraph: {attack.displayName}");
-        yield return new WaitForSeconds(telegraphDuration);
+
+        if (attack.attackType == BossAttackType.Charge && attack.chargeStartPoint != null)
+        {
+            BeginChargeTelegraphMoveVisual(attack, attack.chargeStartPoint.position);
+            yield return MoveToPositionRoutine(attack.chargeStartPoint.position, telegraphDuration);
+        }
+        else
+        {
+            yield return new WaitForSeconds(telegraphDuration);
+        }
+
+        EndChargeTelegraphMoveVisual();
+        PlayAttackAnimation(attack);
 
         bossController.SetState(BossState.Attack);
         SetIndicators(attack, false, true);
@@ -146,11 +196,6 @@ public class BossAttackController : MonoBehaviour
         Transform endPoint = attack.chargeEndPoint != null ? attack.chargeEndPoint : transform;
         HashSet<Collider2D> damagedTargets = new HashSet<Collider2D>();
 
-        if (attack.chargeStartPoint != null)
-        {
-            yield return MoveToPositionRoutine(attack.chargeStartPoint.position);
-        }
-
         float elapsed = 0f;
         float duration = Mathf.Max(0.01f, attack.chargeDuration);
 
@@ -168,8 +213,13 @@ public class BossAttackController : MonoBehaviour
 
     IEnumerator MoveToPositionRoutine(Vector3 targetPosition)
     {
+        yield return MoveToPositionRoutine(targetPosition, returnDuration);
+    }
+
+    IEnumerator MoveToPositionRoutine(Vector3 targetPosition, float moveDuration)
+    {
         float elapsed = 0f;
-        float duration = Mathf.Max(0.01f, returnDuration);
+        float duration = Mathf.Max(0.01f, moveDuration);
         Vector3 startPosition = transform.position;
 
         while (elapsed < duration)
@@ -236,7 +286,8 @@ public class BossAttackController : MonoBehaviour
     {
         DrawAttackGizmo(leftPunchAttack, Color.red);
         DrawAttackGizmo(rightPunchAttack, Color.blue);
-        DrawAttackGizmo(chargeAttack, Color.yellow);
+        DrawAttackGizmo(chargeAttackRL, Color.yellow);
+        DrawAttackGizmo(chargeAttackLR, Color.green);
     }
 
     void DrawAttackGizmo(BossAttackDefinition attack, Color color)
@@ -249,5 +300,149 @@ public class BossAttackController : MonoBehaviour
         Vector3 center = attack.attackOrigin != null ? attack.attackOrigin.position : transform.position;
         Gizmos.color = color;
         Gizmos.DrawWireCube(center, attack.hitboxSize);
+    }
+    
+
+    void PlayAttackAnimation(BossAttackDefinition attack)
+    {
+        EndChargeTelegraphMoveVisual();
+
+        if (animator == null || animator.runtimeAnimatorController == null || attack == null)
+        {
+            return;
+        }
+
+        if (ReferenceEquals(attack, leftPunchAttack))
+        {
+            animator.SetTrigger(leftPunchTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, rightPunchAttack))
+        {
+            animator.SetTrigger(rightPunchTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackRL))
+        {
+            animator.SetTrigger(chargeRightToLeftTriggerHash);
+            return;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackLR))
+        {
+            animator.SetTrigger(chargeLeftToRightTriggerHash);
+        }
+    }
+
+    void CacheComponentReferences()
+    {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        if (bossSpriteRenderer == null)
+        {
+            bossSpriteRenderer = GetComponent<SpriteRenderer>();
+        }
+    }
+
+    void CacheAnimationHashes()
+    {
+        if (string.IsNullOrWhiteSpace(leftPunchTriggerParameter)) leftPunchTriggerParameter = "doPunchL";
+        if (string.IsNullOrWhiteSpace(rightPunchTriggerParameter)) rightPunchTriggerParameter = "doPunchR";
+        if (string.IsNullOrWhiteSpace(chargeRightToLeftTriggerParameter)) chargeRightToLeftTriggerParameter = "doDashRL";
+        if (string.IsNullOrWhiteSpace(chargeLeftToRightTriggerParameter)) chargeLeftToRightTriggerParameter = "doDashLR";
+
+        leftPunchTriggerHash = Animator.StringToHash(leftPunchTriggerParameter);
+        rightPunchTriggerHash = Animator.StringToHash(rightPunchTriggerParameter);
+        chargeRightToLeftTriggerHash = Animator.StringToHash(chargeRightToLeftTriggerParameter);
+        chargeLeftToRightTriggerHash = Animator.StringToHash(chargeLeftToRightTriggerParameter);
+    }
+
+    void BeginChargeTelegraphMoveVisual(BossAttackDefinition attack, Vector3 targetPosition)
+    {
+        if (bossSpriteRenderer == null)
+        {
+            CacheComponentReferences();
+        }
+
+        if (bossSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite telegraphMoveSprite = GetChargeTelegraphMoveSprite(attack, targetPosition);
+        if (telegraphMoveSprite == null)
+        {
+            return;
+        }
+
+        cachedBossSprite = bossSpriteRenderer.sprite;
+        cachedAnimatorEnabled = animator != null && animator.enabled;
+
+        if (cachedAnimatorEnabled)
+        {
+            animator.enabled = false;
+        }
+
+        bossSpriteRenderer.sprite = telegraphMoveSprite;
+        isUsingChargeTelegraphMoveVisual = true;
+    }
+
+    void EndChargeTelegraphMoveVisual()
+    {
+        if (!isUsingChargeTelegraphMoveVisual)
+        {
+            return;
+        }
+
+        if (cachedAnimatorEnabled && animator != null)
+        {
+            animator.enabled = true;
+            animator.Update(0f);
+        }
+        else if (bossSpriteRenderer != null && cachedBossSprite != null)
+        {
+            bossSpriteRenderer.sprite = cachedBossSprite;
+        }
+
+        isUsingChargeTelegraphMoveVisual = false;
+        cachedAnimatorEnabled = false;
+        cachedBossSprite = null;
+    }
+
+    Sprite GetChargeTelegraphMoveSprite(BossAttackDefinition attack, Vector3 targetPosition)
+    {
+        if (ReferenceEquals(attack, chargeAttackRL) && chargeTelegraphMoveRightSprite != null)
+        {
+            return chargeTelegraphMoveRightSprite;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackLR) && chargeTelegraphMoveLeftSprite != null)
+        {
+            return chargeTelegraphMoveLeftSprite;
+        }
+
+        float deltaX = targetPosition.x - transform.position.x;
+        if (deltaX < 0f)
+        {
+            return chargeTelegraphMoveLeftSprite;
+        }
+
+        if (deltaX > 0f)
+        {
+            return chargeTelegraphMoveRightSprite;
+        }
+
+        return chargeTelegraphMoveRightSprite != null ? chargeTelegraphMoveRightSprite : chargeTelegraphMoveLeftSprite;
+    }
+
+    void OnValidate()
+    {
+        CacheComponentReferences();
+        CacheAnimationHashes();
     }
 }

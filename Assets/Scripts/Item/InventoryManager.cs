@@ -4,13 +4,15 @@ using UnityEngine.InputSystem;
 
 public class InventoryManager : MonoBehaviour
 {
-    public int maxSlotCount { get; private set; } = 2;
+    public int maxSlotCount = 0;
     public InventoryItem[] items { get; private set; }
 
     public InventoryUIManager inventoryUI;
 
     private void Awake()
     {
+        if (items != null) return;
+
         items = new InventoryItem[maxSlotCount];
         for (int i = 0; i < maxSlotCount; i++)
         {
@@ -65,6 +67,10 @@ public class InventoryManager : MonoBehaviour
     {
         UseItem(3, gameObject);
     }
+    public void OnUseSlot5(InputValue value)
+    {
+        UseItem(4, gameObject);
+    }
     #endregion
 
     public void UseItem(int index, GameObject player)
@@ -103,5 +109,20 @@ public class InventoryManager : MonoBehaviour
 
         items = newItems;
         inventoryUI.UpdateInventoryUI(items);
+    }
+
+    public void LoadInventory(InventoryItem[] savedItems)
+    {
+        if (savedItems == null || savedItems.Length == 0) return;
+
+        items = savedItems;
+        maxSlotCount = savedItems.Length;
+
+        if (inventoryUI != null)
+        {
+            inventoryUI.UpdateInventoryUI(items);
+        }
+
+        Debug.Log("인벤토리 로드");
     }
 }

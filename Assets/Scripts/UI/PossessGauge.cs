@@ -7,9 +7,11 @@ public class PossessGauge : MonoBehaviour
 
     [SerializeField] Image possessGauge;
     [SerializeField] Image background;
-    [SerializeField] private float possessionLimitTime;
+    public float possessionLimitTime = 60;
+
     private float currentPossessTime;
     private bool gaugeShowing = false;
+    public bool isInfinityPossess = true;
     private RectTransform rectTransform;
 
     public Transform target;
@@ -21,48 +23,26 @@ public class PossessGauge : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    /*void LateUpdate()
+    void LateUpdate()
     {
         if (!gaugeShowing) return;
 
         if (!playerController.isTalking) currentPossessTime -= Time.deltaTime;
-        if (currentPossessTime < 0)
+        if (currentPossessTime < 0 && !isInfinityPossess)
         {
             playerController.OnPossess(null);
         }
 
         possessGauge.fillAmount = currentPossessTime / possessionLimitTime;
         rectTransform.position = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1f);
-    }*/
-    private void LateUpdate()
-    {
-        if (!gaugeShowing)
-            return;
-
-        if (!playerController.isTalking)
-            currentPossessTime -= Time.deltaTime;
-
-        if (currentPossessTime < 0)
-        {
-            playerController.OnPossess(null);
-        }
-
-        possessGauge.fillAmount =
-            currentPossessTime / possessionLimitTime;
-
-        Vector3 worldPosition =
-            target.position + Vector3.up * 1f;
-
-        Vector3 screenPosition =
-            Camera.main.WorldToScreenPoint(worldPosition);
-
-        rectTransform.position = screenPosition;
     }
 
     public void possessGaugeShow()
     {
         currentPossessTime = possessionLimitTime;
         gaugeShowing = true;
+
+        if (isInfinityPossess) return;
         possessGauge.gameObject.SetActive(true);
         background.gameObject.SetActive(true);
     }

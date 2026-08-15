@@ -25,11 +25,13 @@ public class DialogueUI : MonoBehaviour
         bubble.gameObject.SetActive(false);
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (target == null) return;
 
-        bubble.position = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1f);
+        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1.5f);
+        targetPos.x += (Mathf.Max(0, text.rectTransform.rect.width - 268) / 2 + 80) * bubble.localScale.x; //말풍선 꼬리위치 고정코드 수정 필요(하드코딩)
+        bubble.position = targetPos;
     }
 
     public void Show(string message, Transform targetTransform)
