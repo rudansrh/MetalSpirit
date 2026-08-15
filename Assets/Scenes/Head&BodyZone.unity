@@ -2173,8 +2173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db23cb2b1e21a34448b15e6176db004a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScenePortal
-  targetSceneName: BossPhase1
-  spawnPointID: Point_B
+  targetSceneName: BossPhase
+  spawnPointID: Point_Z
 --- !u!61 &430973160
 BoxCollider2D:
   m_ObjectHideFlags: 0
