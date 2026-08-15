@@ -2,11 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [DefaultExecutionOrder(-100)]
 public class BossEncounterSequence : MonoBehaviour
 {
     const float Phase2CameraZ = -10f;
+    const string SceneFadeOverlayName = "BossSceneFadeOverlay";
 
     [Header("References")]
     [SerializeField] BossController bossController;
@@ -48,6 +50,10 @@ public class BossEncounterSequence : MonoBehaviour
     [SerializeField] float elevatorRideDuration = 3f;
     [SerializeField] string elevatorExitSceneName = "Landfill";
 
+    [Header("Scene Fade")]
+    [SerializeField] float sceneFadeOutDuration = 1f;
+    [SerializeField] int sceneFadeSortingOrder = 1000;
+
     [Header("Player Control")]
     [SerializeField] bool lockPlayerDuringSequence = true;
 
@@ -69,6 +75,8 @@ public class BossEncounterSequence : MonoBehaviour
     bool phase2Started;
     SpriteRenderer[] cachedBossSpriteRenderers;
     Color[] cachedBossSpriteColors;
+    Canvas sceneFadeCanvas;
+    Image sceneFadeImage;
 
     void Reset()
     {
@@ -79,6 +87,8 @@ public class BossEncounterSequence : MonoBehaviour
     {
         CacheReferences();
         PrepareEncounterState();
+        EnsureSceneFadeOverlay();
+        SetSceneFadeAlpha(0f);
     }
 
     void OnEnable()
@@ -471,7 +481,7 @@ public class BossEncounterSequence : MonoBehaviour
 
         if (!string.IsNullOrWhiteSpace(elevatorExitSceneName))
         {
-            SceneManager.LoadScene(elevatorExitSceneName);
+            yield return FadeOutToScene(elevatorExitSceneName);
         }
 
         elevatorEscapeCoroutine = null;
@@ -646,5 +656,122 @@ public class BossEncounterSequence : MonoBehaviour
             color.a = baseColor.a * clampedAlpha;
             spriteRenderer.color = color;
         }
+    }
+
+    IEnumerator FadeOutToScene(string sceneName)
+    {
+        if (string.IsNullOrWhiteSpace(sceneName))
+        {
+            yield break;
+        }
+
+        if (sceneFadeOutDuration > 0f)
+        {
+            yield return FadeSceneOverlay(0f, 1f, sceneFadeOutDuration);
+        }
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    IEnumerator FadeSceneOverlay(float startAlpha, float endAlpha, float duration)
+    {
+        if (duration <= 0f)
+        {
+            SetSceneFadeAlpha(endAlpha);
+            yield break;
+        }
+
+        EnsureSceneFadeOverlay();
+        if (sceneFadeImage == null)
+        {
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float alpha = Mathf.Lerp(startAlpha, endAlpha, progress);
+            UpdateSceneFadeOverlayTransform(Camera.main);
+            SetSceneFadeAlpha(alpha);
+            yield return null;
+        }
+
+        UpdateSceneFadeOverlayTransform(Camera.main);
+        SetSceneFadeAlpha(endAlpha);
+    }
+
+    void EnsureSceneFadeOverlay()
+    {
+        if (sceneFadeCanvas != null && sceneFadeImage != null)
+        {
+            return;
+        }
+
+        Transform existingOverlay = transform.Find(SceneFadeOverlayName);
+        if (existingOverlay != null)
+        {
+            sceneFadeCanvas = existingOverlay.GetComponent<Canvas>();
+            sceneFadeImage = existingOverlay.GetComponentInChildren<Image>(true);
+        }
+
+        if (sceneFadeCanvas == null)
+        {
+            GameObject overlayObject = new GameObject(SceneFadeOverlayName);
+            overlayObject.transform.SetParent(transform, false);
+            sceneFadeCanvas = overlayObject.AddComponent<Canvas>();
+            sceneFadeCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            sceneFadeCanvas.sortingOrder = sceneFadeSortingOrder;
+
+            CanvasScaler scaler = overlayObject.AddComponent<CanvasScaler>();
+            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            scaler.referenceResolution = new Vector2(1920f, 1080f);
+
+            overlayObject.AddComponent<GraphicRaycaster>();
+
+            GameObject imageObject = new GameObject("FadeImage");
+            imageObject.transform.SetParent(overlayObject.transform, false);
+            sceneFadeImage = imageObject.AddComponent<Image>();
+
+            RectTransform imageRect = sceneFadeImage.rectTransform;
+            imageRect.anchorMin = Vector2.zero;
+            imageRect.anchorMax = Vector2.one;
+            imageRect.offsetMin = Vector2.zero;
+            imageRect.offsetMax = Vector2.zero;
+        }
+
+        if (sceneFadeCanvas == null || sceneFadeImage == null)
+        {
+            return;
+        }
+
+        sceneFadeCanvas.sortingOrder = sceneFadeSortingOrder;
+        sceneFadeImage.color = new Color(0f, 0f, 0f, 0f);
+        sceneFadeCanvas.gameObject.SetActive(false);
+    }
+
+    void UpdateSceneFadeOverlayTransform(Camera targetCamera)
+    {
+        if (sceneFadeCanvas != null)
+        {
+            sceneFadeCanvas.worldCamera = targetCamera;
+        }
+    }
+
+    void SetSceneFadeAlpha(float alpha)
+    {
+        if (sceneFadeCanvas == null || sceneFadeImage == null)
+        {
+            return;
+        }
+
+        Color color = sceneFadeImage.color;
+        color.r = 0f;
+        color.g = 0f;
+        color.b = 0f;
+        color.a = Mathf.Clamp01(alpha);
+        sceneFadeImage.color = color;
+        sceneFadeCanvas.gameObject.SetActive(color.a > 0f);
     }
 }
