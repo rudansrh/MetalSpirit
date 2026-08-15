@@ -10,25 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
-  m_Name: enemy8
+  m_Name: player ending
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
-  - speaker: 1
+  - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uC5B4\uB5BB\uAC8C \uC628 \uAC70\uC9C0?"
-      bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
-    text: 
-    textBold: 0
-    color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
-    portraitSprite: {fileID: 0}
-    textElements:
-    - text: "\uC794\uD574"
-      bold: 1
-      color: {r: 1, g: 1, b: 1, a: 1}
-    - text: "\uAC00 \uC313\uC5EC\uC788\uC5C8\uC744\uD150\uB370."
+    - text: .......
       bold: 0
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
@@ -37,52 +25,52 @@ MonoBehaviour:
   - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: "...\uCE58\uC6E0\uB2E4."
+    - text: "\uADF8\uB7F0\uAC00, \uB098\uB294..."
       bold: 0
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
+  - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: ...
+    - text: "\uC544\uB2C8, \uADF8\uB7F0 \uAC74 \uC911\uC694\uD558\uC9C0 \uC54A\uC9C0."
       bold: 0
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
+  - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uBC11\uC5D0\uC11C "
-      bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
-    - text: "\uC0C1\uC790 "
-      bold: 1
-      color: {r: 1, g: 1, b: 1, a: 1}
-    - text: "\uC8FC\uBCC0\uC744 \uCC3E\uC544\uBD10\uB77C."
+    - text: "\uC911\uC694\uD55C \uAC74..."
       bold: 0
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
+  - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uADF8\uB9AC\uACE0 \uC6D0\uD558\uB294 \uAC78 "
+    - text: .....
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
-    - text: "\uC5BB\uACE0"
-      bold: 1
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
-  - speaker: 1
+  - speaker: 0
     portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uB2F9\uC7A5 \uB098\uAC00."
+    - text: "\uC88B\uC544 \uADF8\uB7FC,"
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uAC00\uC790."
       bold: 1
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 

@@ -14,16 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: 1
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: 101001
       bold: 0
       color: {r: 1, g: 0, b: 0, a: 1}
     - text: 10010101
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

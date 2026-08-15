@@ -14,76 +14,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC5B4\uB51C \uAC00\uB294 \uAC70\uC9C0?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uBC11\uC73C\uB85C \uAC00\uB824\uACE0 \uD55C\uB2E4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uADF8\uB807\uB2E4\uBA74 "
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uB2E4\uB9AC"
       bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uB97C "
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uC870\uC2EC"
       bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uD558\uB294 \uAC8C \uC88B\uC744\uAC70\uC57C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uB2E4\uB9AC?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC5B4, \uADF8\uCABD\uC744 "
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uD655\uC778"
       bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     - text: "\uD558\uB824 \uAC00\uB294 \uAC8C \uC544\uB2CC\uAC00?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC544, \uB9DE\uC544."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uACE0\uB9D9\uAD70."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
