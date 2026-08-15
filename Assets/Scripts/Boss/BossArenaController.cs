@@ -94,6 +94,12 @@ public class BossArenaController : MonoBehaviour
         ResetShakePosition();
     }
 
+    public void SetAllPlatformsActive(bool isActive)
+    {
+        SetPlatformGroup(platformSetA, isActive);
+        SetPlatformGroup(platformSetB, isActive);
+    }
+
     void HandlePhaseChanged(BossPhase phase)
     {
         if (phase == BossPhase.Phase2)

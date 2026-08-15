@@ -187,6 +187,21 @@ public class BossController : MonoBehaviour
         StopBattle();
     }
 
+    public void SetBossHealthUiVisible(bool isVisible)
+    {
+        if (bossHealthSlider == null)
+        {
+            CacheUiReferences();
+        }
+
+        if (bossHealthSlider == null)
+        {
+            return;
+        }
+
+        bossHealthSlider.gameObject.SetActive(isVisible);
+    }
+
     public void SetState(BossState nextState)
     {
         if (CurrentState == nextState) return;

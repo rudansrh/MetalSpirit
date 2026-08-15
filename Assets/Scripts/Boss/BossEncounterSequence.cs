@@ -7,8 +7,10 @@ public class BossEncounterSequence : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] BossController bossController;
+    [SerializeField] BossArenaController bossArenaController;
     [SerializeField] BossDialogueManager bossDialogueManager;
     [SerializeField] GameObject bossRoot;
+    [SerializeField] GameObject bossHealthUiObject;
     [SerializeField] DialogueData introDialogue;
     [SerializeField] Transform dialogueAnchor;
 
@@ -57,6 +59,20 @@ public class BossEncounterSequence : MonoBehaviour
             bossRoot = bossController.gameObject;
         }
 
+        if (bossHealthUiObject == null && bossController != null)
+        {
+            Transform sliderTransform = bossController.transform.root.Find("Canvas/Slider_BossHealth");
+            if (sliderTransform != null)
+            {
+                bossHealthUiObject = sliderTransform.gameObject;
+            }
+        }
+
+        if (bossArenaController == null && bossController != null)
+        {
+            bossArenaController = bossController.GetComponentInChildren<BossArenaController>(true);
+        }
+
         if (bossDialogueManager == null)
         {
             bossDialogueManager = FindFirstObjectByType<BossDialogueManager>();
@@ -78,6 +94,13 @@ public class BossEncounterSequence : MonoBehaviour
         if (hideBossOnStart && bossRoot != null)
         {
             bossRoot.SetActive(false);
+        }
+
+        SetBossHealthUiVisible(false);
+
+        if (bossArenaController != null)
+        {
+            bossArenaController.SetAllPlatformsActive(false);
         }
     }
 
@@ -112,6 +135,13 @@ public class BossEncounterSequence : MonoBehaviour
         if (bossController != null)
         {
             bossController.SuppressAutoStartBattle();
+        }
+
+        SetBossHealthUiVisible(false);
+
+        if (bossArenaController != null)
+        {
+            bossArenaController.SetAllPlatformsActive(false);
         }
 
         Transform bossTransform = dialogueAnchor != null
@@ -157,6 +187,8 @@ public class BossEncounterSequence : MonoBehaviour
         {
             bossController.StartBattle();
         }
+
+        SetBossHealthUiVisible(true);
 
         SetPlayerLocked(player, false);
         onBattleStarted?.Invoke();
@@ -211,5 +243,19 @@ public class BossEncounterSequence : MonoBehaviour
 
         player.canMove = !locked;
         player.StopMovement();
+    }
+
+    void SetBossHealthUiVisible(bool isVisible)
+    {
+        if (bossHealthUiObject != null)
+        {
+            bossHealthUiObject.SetActive(isVisible);
+            return;
+        }
+
+        if (bossController != null)
+        {
+            bossController.SetBossHealthUiVisible(isVisible);
+        }
     }
 }

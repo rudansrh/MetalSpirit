@@ -7,10 +7,11 @@ public class BossDialogueManager : MonoBehaviour
     public static BossDialogueManager Instance;
 
     [SerializeField] Transform player;
-    [SerializeField] InputAction submitAction;
+    [SerializeField] string submitActionName = "Next";
 
     DialogueData currentDialogue;
     Transform speakerTransform;
+    PlayerInput playerInput;
     int index;
     bool isTalking;
 
@@ -31,11 +32,7 @@ public class BossDialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (submitAction == null)
-        {
-            CachePlayerReferences();
-        }
-
+        InputAction submitAction = GetSubmitAction();
         if (submitAction == null)
         {
             return;
@@ -136,13 +133,21 @@ public class BossDialogueManager : MonoBehaviour
             player = PlayerController.Instance.transform;
         }
 
-        if (submitAction == null)
+        if (playerInput == null)
         {
-            PlayerInput playerInput = PlayerController.Instance.GetComponent<PlayerInput>();
-            if (playerInput != null)
-            {
-                submitAction = playerInput.actions["Next"];
-            }
+            playerInput = PlayerController.Instance.GetComponent<PlayerInput>();
         }
+    }
+
+    InputAction GetSubmitAction()
+    {
+        CachePlayerReferences();
+
+        if (playerInput == null || playerInput.actions == null || string.IsNullOrWhiteSpace(submitActionName))
+        {
+            return null;
+        }
+
+        return playerInput.actions[submitActionName];
     }
 }
