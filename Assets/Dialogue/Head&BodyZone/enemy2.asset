@@ -14,26 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC548\uB155?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: $*@(%)$*@(0
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "(\uC544\uBB34\uB798\uB3C4 \uB9D0\uC744 \uBABB\uD558\uB294 \uBAA8\uC591\uC774\uB2E4)"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

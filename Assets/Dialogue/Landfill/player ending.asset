@@ -14,42 +14,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uC774\uACF3\uC740 \uC5B4\uB514\uC9C0?"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: .......
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uB098\uB294 \uB204\uAD6C\uC9C0?"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uADF8\uB7F0\uAC00, \uB098\uB294..."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uC774 \uBAA8\uC2B5\uC740..."
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uC544\uB2C8, \uADF8\uB7F0 \uAC74 \uC911\uC694\uD558\uC9C0 \uC54A\uC9C0."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
-    - text: "\uC601\uD63C?"
-      bold: 1
-      color: {r: 0, g: 0, b: 0, a: 1}
+    - text: "\uC911\uC694\uD55C \uAC74..."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
-    - text: '!!!!!'
+    - text: .....
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uC88B\uC544 \uADF8\uB7FC,"
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uAC00\uC790."
       bold: 1
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

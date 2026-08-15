@@ -14,18 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uB108\uBB34 \uBE6811001001 \uC654\uC5B4 \uB108."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "100111111001\uAC00."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
