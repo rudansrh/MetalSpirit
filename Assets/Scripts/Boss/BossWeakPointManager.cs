@@ -185,7 +185,7 @@ public class BossWeakPointManager : MonoBehaviour
 
         weakPointText.text = currentWeakPoint == null
             ? $"{weakPointTextPrefix}: -"
-            : $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({weakPointOpenDuration:0.0}s)";
+            : $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({weakPointOpenDuration}s)";
     }
 
     string GetDisplayName(BossWeakPointType type)

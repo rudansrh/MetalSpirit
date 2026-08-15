@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum BossPhase
 {
@@ -35,6 +36,8 @@ public enum BossAttackType
 
 public class BossController : MonoBehaviour
 {
+    const string BossHealthSliderName = "Slider_BossHealth";
+
     [Header("Phase Settings")]
     [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
     [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
@@ -53,6 +56,9 @@ public class BossController : MonoBehaviour
     [SerializeField] BossWeakPointManager weakPointManager;     // 약점 포인트 Manager
     [SerializeField] BossAttackController attackController;     // 공격 Controller
     [SerializeField] BossArenaController arenaController;       // 전투 Arena Controller
+
+    [Header("UI")]
+    [SerializeField] Slider bossHealthSlider;
 
     public event Action<BossPhase> OnPhaseChanged;              // 페이즈 변경 이벤트
     public event Action<BossState> OnStateChanged;              // 상태 변경 이벤트
@@ -74,6 +80,7 @@ public class BossController : MonoBehaviour
     void Awake()
     {
         CacheReferences();
+        CacheUiReferences();
         InitializePhase(startPhase, true);
     }
 
@@ -110,6 +117,20 @@ public class BossController : MonoBehaviour
         if (arenaController == null)
         {
             arenaController = GetComponentInChildren<BossArenaController>(true);
+        }
+    }
+
+    void CacheUiReferences()
+    {
+        if (bossHealthSlider != null)
+        {
+            return;
+        }
+
+        GameObject sliderObject = GameObject.Find(BossHealthSliderName);
+        if (sliderObject != null)
+        {
+            bossHealthSlider = sliderObject.GetComponent<Slider>();
         }
     }
 
@@ -174,6 +195,7 @@ public class BossController : MonoBehaviour
 
         CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
+        RefreshBossHealthUI();
 
         Debug.Log($"Boss HP reduced by {amount:0.##}. Current Health: {CurrentHealth:0.##}/{MaxHealth:0.##}");
 
@@ -188,12 +210,30 @@ public class BossController : MonoBehaviour
         CurrentPhase = phase;
         MaxHealth = phase == BossPhase.Phase1 ? phase1MaxHealth : phase2MaxHealth;
         CurrentHealth = MaxHealth;
+        RefreshBossHealthUI();
 
         if (!silent)
         {
             OnPhaseChanged?.Invoke(CurrentPhase);
             OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
         }
+    }
+
+    void RefreshBossHealthUI()
+    {
+        if (bossHealthSlider == null)
+        {
+            CacheUiReferences();
+        }
+
+        if (bossHealthSlider == null)
+        {
+            return;
+        }
+
+        bossHealthSlider.minValue = 0f;
+        bossHealthSlider.maxValue = MaxHealth;
+        bossHealthSlider.value = CurrentHealth;
     }
 
     void HandleHealthDepleted()
@@ -222,5 +262,11 @@ public class BossController : MonoBehaviour
 
         InitializePhase(BossPhase.Phase2);
         StartBattle();
+    }
+
+    void OnValidate()
+    {
+        CacheUiReferences();
+        RefreshBossHealthUI();
     }
 }
