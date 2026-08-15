@@ -5581,13 +5581,25 @@ PrefabInstance:
       value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: telegraphDuration
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: leftPunchAttack.attackOrigin
       value: 
       objectReference: {fileID: 539150966}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeAttackLR.chargeDuration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: chargeAttackLR.chargeEndPoint
       value: 
       objectReference: {fileID: 1639588323}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeAttackRL.chargeDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: chargeAttackRL.chargeEndPoint
       value: 

@@ -151,7 +151,15 @@ public class BossAttackController : MonoBehaviour
         bossController.SetState(BossState.Telegraph);
         SetIndicators(attack, true, false);
         Debug.Log($"Boss telegraph: {attack.displayName}");
-        yield return new WaitForSeconds(telegraphDuration);
+
+        if (attack.attackType == BossAttackType.Charge && attack.chargeStartPoint != null)
+        {
+            yield return MoveToPositionRoutine(attack.chargeStartPoint.position, telegraphDuration);
+        }
+        else
+        {
+            yield return new WaitForSeconds(telegraphDuration);
+        }
 
         PlayAttackAnimation(attack);
 
@@ -181,11 +189,6 @@ public class BossAttackController : MonoBehaviour
         Transform endPoint = attack.chargeEndPoint != null ? attack.chargeEndPoint : transform;
         HashSet<Collider2D> damagedTargets = new HashSet<Collider2D>();
 
-        if (attack.chargeStartPoint != null)
-        {
-            yield return MoveToPositionRoutine(attack.chargeStartPoint.position);
-        }
-
         float elapsed = 0f;
         float duration = Mathf.Max(0.01f, attack.chargeDuration);
 
@@ -203,8 +206,13 @@ public class BossAttackController : MonoBehaviour
 
     IEnumerator MoveToPositionRoutine(Vector3 targetPosition)
     {
+        yield return MoveToPositionRoutine(targetPosition, returnDuration);
+    }
+
+    IEnumerator MoveToPositionRoutine(Vector3 targetPosition, float moveDuration)
+    {
         float elapsed = 0f;
-        float duration = Mathf.Max(0.01f, returnDuration);
+        float duration = Mathf.Max(0.01f, moveDuration);
         Vector3 startPosition = transform.position;
 
         while (elapsed < duration)
