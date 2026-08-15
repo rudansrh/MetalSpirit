@@ -5605,6 +5605,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 743135417}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeTelegraphMoveLeftSprite
+      value: 
+      objectReference: {fileID: -3672076118794270444, guid: 262dd70f68fc84b48b76e83d210b86c8, type: 3}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: rightPunchAttack.attackOrigin
       value: 
       objectReference: {fileID: 1440433017}
@@ -5616,6 +5620,10 @@ PrefabInstance:
       propertyPath: chargeAttackRL.attackIndicator
       value: 
       objectReference: {fileID: 767696785}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeTelegraphMoveRightSprite
+      value: 
+      objectReference: {fileID: -5708570539576965342, guid: bc165ca2f6ecc4e288e8ea3f9f42f5a5, type: 3}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: chargeAttackLR.chargeStartPoint
       value: 

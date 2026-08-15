@@ -31,10 +31,15 @@ public class BossAttackController : MonoBehaviour
 
     [Header("Animation")]
     [SerializeField] Animator animator;
+    [SerializeField] SpriteRenderer bossSpriteRenderer;
     [SerializeField] string leftPunchTriggerParameter = "doPunchL";
     [SerializeField] string rightPunchTriggerParameter = "doPunchR";
     [SerializeField] string chargeRightToLeftTriggerParameter = "doDashRL";
     [SerializeField] string chargeLeftToRightTriggerParameter = "doDashLR";
+
+    [Header("Charge Telegraph Visuals")]
+    [SerializeField] Sprite chargeTelegraphMoveLeftSprite;
+    [SerializeField] Sprite chargeTelegraphMoveRightSprite;
 
     [Header("Phase 1 Attacks")]
     [SerializeField]
@@ -70,14 +75,13 @@ public class BossAttackController : MonoBehaviour
     int rightPunchTriggerHash;
     int chargeRightToLeftTriggerHash;
     int chargeLeftToRightTriggerHash;
+    bool isUsingChargeTelegraphMoveVisual;
+    bool cachedAnimatorEnabled;
+    Sprite cachedBossSprite;
 
     void Awake()
     {
-        if (animator == null)
-        {
-            animator = GetComponent<Animator>();
-        }
-
+        CacheComponentReferences();
         CacheAnimationHashes();
     }
 
@@ -96,6 +100,7 @@ public class BossAttackController : MonoBehaviour
             attackLoopCoroutine = null;
         }
 
+        EndChargeTelegraphMoveVisual();
         SetIndicators(leftPunchAttack, false, false);
         SetIndicators(rightPunchAttack, false, false);
         SetIndicators(chargeAttackRL, false, false);
@@ -154,6 +159,7 @@ public class BossAttackController : MonoBehaviour
 
         if (attack.attackType == BossAttackType.Charge && attack.chargeStartPoint != null)
         {
+            BeginChargeTelegraphMoveVisual(attack, attack.chargeStartPoint.position);
             yield return MoveToPositionRoutine(attack.chargeStartPoint.position, telegraphDuration);
         }
         else
@@ -161,6 +167,7 @@ public class BossAttackController : MonoBehaviour
             yield return new WaitForSeconds(telegraphDuration);
         }
 
+        EndChargeTelegraphMoveVisual();
         PlayAttackAnimation(attack);
 
         bossController.SetState(BossState.Attack);
@@ -298,6 +305,8 @@ public class BossAttackController : MonoBehaviour
 
     void PlayAttackAnimation(BossAttackDefinition attack)
     {
+        EndChargeTelegraphMoveVisual();
+
         if (animator == null || animator.runtimeAnimatorController == null || attack == null)
         {
             return;
@@ -327,6 +336,19 @@ public class BossAttackController : MonoBehaviour
         }
     }
 
+    void CacheComponentReferences()
+    {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        if (bossSpriteRenderer == null)
+        {
+            bossSpriteRenderer = GetComponent<SpriteRenderer>();
+        }
+    }
+
     void CacheAnimationHashes()
     {
         if (string.IsNullOrWhiteSpace(leftPunchTriggerParameter)) leftPunchTriggerParameter = "doPunchL";
@@ -340,8 +362,87 @@ public class BossAttackController : MonoBehaviour
         chargeLeftToRightTriggerHash = Animator.StringToHash(chargeLeftToRightTriggerParameter);
     }
 
+    void BeginChargeTelegraphMoveVisual(BossAttackDefinition attack, Vector3 targetPosition)
+    {
+        if (bossSpriteRenderer == null)
+        {
+            CacheComponentReferences();
+        }
+
+        if (bossSpriteRenderer == null)
+        {
+            return;
+        }
+
+        Sprite telegraphMoveSprite = GetChargeTelegraphMoveSprite(attack, targetPosition);
+        if (telegraphMoveSprite == null)
+        {
+            return;
+        }
+
+        cachedBossSprite = bossSpriteRenderer.sprite;
+        cachedAnimatorEnabled = animator != null && animator.enabled;
+
+        if (cachedAnimatorEnabled)
+        {
+            animator.enabled = false;
+        }
+
+        bossSpriteRenderer.sprite = telegraphMoveSprite;
+        isUsingChargeTelegraphMoveVisual = true;
+    }
+
+    void EndChargeTelegraphMoveVisual()
+    {
+        if (!isUsingChargeTelegraphMoveVisual)
+        {
+            return;
+        }
+
+        if (cachedAnimatorEnabled && animator != null)
+        {
+            animator.enabled = true;
+            animator.Update(0f);
+        }
+        else if (bossSpriteRenderer != null && cachedBossSprite != null)
+        {
+            bossSpriteRenderer.sprite = cachedBossSprite;
+        }
+
+        isUsingChargeTelegraphMoveVisual = false;
+        cachedAnimatorEnabled = false;
+        cachedBossSprite = null;
+    }
+
+    Sprite GetChargeTelegraphMoveSprite(BossAttackDefinition attack, Vector3 targetPosition)
+    {
+        if (ReferenceEquals(attack, chargeAttackRL) && chargeTelegraphMoveRightSprite != null)
+        {
+            return chargeTelegraphMoveRightSprite;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackLR) && chargeTelegraphMoveLeftSprite != null)
+        {
+            return chargeTelegraphMoveLeftSprite;
+        }
+
+        float deltaX = targetPosition.x - transform.position.x;
+        if (deltaX < 0f)
+        {
+            return chargeTelegraphMoveLeftSprite;
+        }
+
+        if (deltaX > 0f)
+        {
+            return chargeTelegraphMoveRightSprite;
+        }
+
+        return chargeTelegraphMoveRightSprite != null ? chargeTelegraphMoveRightSprite : chargeTelegraphMoveLeftSprite;
+    }
+
     void OnValidate()
     {
+        CacheComponentReferences();
         CacheAnimationHashes();
     }
 }
