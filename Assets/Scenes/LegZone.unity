@@ -2061,7 +2061,6 @@ MonoBehaviour:
   passwordUI: {fileID: 448678143}
   inputText: {fileID: 1762241985}
   messageText: {fileID: 1134500549}
-  unlocked: 0
 --- !u!1 &486733720
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,7 +2862,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &621603924
 Transform:
   m_ObjectHideFlags: 0
