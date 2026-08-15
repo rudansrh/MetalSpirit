@@ -14,90 +14,101 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uD558\uD558\uD558\uD558! \uB4DC\uB514\uC5B4 \uAC10\uC625\uC758 \uBB38\uC774
         \uC5F4\uB838\uB2E4!"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC774\uC81C \uC6B0\uB9AC\uC758 \uC219\uC6D0\uC744 \uC774\uB8F0 \uC218
         \uC788\uACA0\uC5B4. \uACE0\uB9D9\uAD70."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "...\uC544\uB2C8, \uADF8\uAC74 \uC544\uB2C8\uC57C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uBB34\uC2A8 \uB9D0\uC744 \uD558\uB294 \uAC70\uC9C0?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC704\uC758 \uC5B4\uB9AC\uC11D\uC740 \uC790\uB4E4\uC758 \uD589\uBCF4\uB97C
         \uBCF4\uACE0\uB3C4 \uB4DC\uB294 \uC0DD\uAC01\uC774 \uC5C6\uB098?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uB2E4\uB984\uC544\uB2CC \uB124\uAC00?"
       bold: 1
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uBE44\uB85D \uC800\uB4E4\uC774 \uC6B0\uB9AC\uB97C \uADF8\uC800 \uB3C4\uAD6C
         \uCDE8\uAE09\uD55C\uB2E4\uACE0 \uD574\uB3C4"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uADF8\uB807\uC9C0 \uC54A\uC740 \uC790\uB3C4 \uC788\uC5C8\uC73C\uB2C8\uAE4C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "...\uB0B4\uAC00 \uCC29\uAC01\uD588\uAD70."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uB108\uB294 \uC6B0\uB9AC\uAC00 \uC544\uB2C8\uC57C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC801\uC774\uB2E4(1011110101110111001)."
       bold: 1
