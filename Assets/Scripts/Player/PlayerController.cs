@@ -349,6 +349,7 @@ public class PlayerController : MonoBehaviour
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             transform.Translate(new Vector3(0,0.01f,0));
+            if(IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
             isJump = true;
         }
     }
@@ -418,7 +419,7 @@ public class PlayerController : MonoBehaviour
             StopWallClimb();
             return false;
         }
-
+        
         isJump = false;
         float climbInput = moveInput.y;
         bool isMovingVertically = Mathf.Abs(climbInput) > 0.01f;
@@ -450,7 +451,6 @@ public class PlayerController : MonoBehaviour
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
-            && !isPossessing
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
@@ -484,7 +484,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // 벽과의 충돌에서 떨어지는 방향을 결정
-    void UpdateWallClimbDetachDirection(Collision2D collision)
+    public void UpdateWallClimbDetachDirection(Collision2D collision)
     {
         if (collision.contactCount <= 0)
         {

@@ -28,8 +28,6 @@ public class BodyEnemy : Enemy
 
     private Rigidbody2D rb;
     private Collider2D col;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
     private bool isGrounded;
 
     private bool isAttacking = false; // µ¹Áø ÁßÀÎÁö ¿©ºÎ
@@ -42,8 +40,6 @@ public class BodyEnemy : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
     }
 
@@ -264,8 +260,9 @@ public class BodyEnemy : Enemy
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
         {
             if (playerController.isInvincibility) return;
@@ -288,21 +285,6 @@ public class BodyEnemy : Enemy
 
             rb2d.linearVelocity = Vector2.zero;
             rb2d.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (isPossessed && playerController.isJump && collision.gameObject.tag == "Wall")
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if (contact.normal.y > 0.1f)
-                {
-                    playerController.isJump = false;
-                    return;
-                }
-            }
         }
     }
 

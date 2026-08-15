@@ -17,6 +17,15 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
     private Coroutine hitFlashCoroutine;
     private Color[] hitFlashOriginalColors;
 
+    protected PlayerController playerController;
+    protected PlayerAbilityManager playerAbility;
+
+    private void Awake()
+    {
+        playerController = PlayerController.Instance;
+        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
+    }
+
     protected void InitializeEnemyBase()
     {
         animationController = GetComponent<EnemyAnimationController>();
@@ -163,4 +172,34 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
     }
 
     public abstract void Attacked(float playerDamage);
+
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(isPossessed && collision.gameObject.tag == "Wall")
+        {
+            playerController.isWallAttatching = true;
+        }
+    }
+
+    protected virtual void OnCollisionStay2D(Collision2D collision)
+    {
+        if (isPossessed && playerController.isJump && collision.gameObject.tag == "Wall")
+        {
+            playerController.UpdateWallClimbDetachDirection(collision);
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                if (contact.normal.y > 0.1f)
+                {
+                    playerController.isJump = false;
+                    return;
+                }
+            }
+        }
+    }
+
+    protected virtual void OnCollisionExit2D(Collision2D collision)
+    {
+        if (isPossessed && collision.gameObject.tag == "Wall")
+            playerController.isWallAttatching = false;
+    }
 }
