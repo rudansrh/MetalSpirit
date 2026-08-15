@@ -161,7 +161,7 @@ public class IntroManager : MonoBehaviour
         {
             DialogueLine line = playerDialogue.lines[i];
             Transform target = ResolveSpeakerTarget(line.speaker);
-            dialogueUI.Show(line.BuildRichText(), target);
+            dialogueUI.Show(line, target);
 
             yield return WaitForAdvanceRelease();
             yield return WaitForDialogueAdvance();

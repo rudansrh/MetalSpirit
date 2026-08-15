@@ -5960,6 +5960,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
   bubble: {fileID: 1581661543}
   text: {fileID: 1581661544}
+  portraitImage: {fileID: 0}
+  portraitBackgroundImage: {fileID: 0}
+  portraitSize: {x: 150, y: 150}
+  portraitBackgroundPadding: {x: 0, y: 0}
+  portraitOffset: {x: -10, y: 0}
   typingSpeed: 0.03
 --- !u!114 &1346522991
 MonoBehaviour:

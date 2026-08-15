@@ -21,6 +21,7 @@ public class DialogueTextElement
 public class DialogueLine
 {
     public SpeakerType speaker;
+    public Sprite portraitSprite;
     public DialogueTextElement[] textElements;
 
     [HideInInspector] public string text;
