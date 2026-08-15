@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -46,13 +47,22 @@ public class Password : MonoBehaviour, IInteractable
                 isUnlocked = true;
             }
 
-            onPasswordMatched?.Invoke();
+            PasswordUIManager.Instance.unlocked = true;
+            StartCoroutine(openDoor());
+           
             return true;
         }
 
         resultMessage = failureMessage;
         Debug.Log($"{name}: {resultMessage}");
         return false;
+    }
+
+    IEnumerator openDoor()
+    {
+        yield return new WaitForSeconds(1f);
+        onPasswordMatched?.Invoke();
+        gameObject.SetActive(false);
     }
 
     [ContextMenu("Reset Unlock State")]
