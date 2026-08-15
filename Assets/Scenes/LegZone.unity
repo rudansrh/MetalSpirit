@@ -5934,6 +5934,10 @@ MonoBehaviour:
   - {fileID: -2410919893335871942, guid: ea89f332b0dedb44db19c35517edaac9, type: 3}
   - {fileID: 8907214376657186551, guid: e8a604ae8fa0747deb4a95beffbbc337, type: 3}
   - {fileID: 7720173913042860329, guid: b003ba7a5eac74b3c8a2f116486a11da, type: 3}
+  - {fileID: 6379776783011777352, guid: 3b3e062dc997941199982aba74c657bd, type: 3}
+  - {fileID: -1534792271818530478, guid: f21474f2d0c6d41dd9768dd1607fc958, type: 3}
+  - {fileID: -1374859111447736369, guid: 62b5ef9f20a6a46ca9b7197ffa358aad, type: 3}
+  - {fileID: -6387327233779280442, guid: d0492421cacd843b98512e5f3ef34815, type: 3}
   slotPrefab: {fileID: 7921902720004455693, guid: d7b9e80617afaf74ba0aa5c849460d8b, type: 3}
   slotParent: {fileID: 1278038785}
 --- !u!114 &1346522990

@@ -42,6 +42,7 @@ public class BossController : MonoBehaviour
     [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
     [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
     [SerializeField] float phase2MaxHealth = 150f;              // 페이즈 2 최대 체력
+    [SerializeField] float phase2TransitionHealthPercent = 0.5f; // 페이즈 2 전환 체력 비율
     [SerializeField] bool autoStartBattle = true;               // 자동으로 전투 시작 여부
 
     [Header("Transition Settings")]
@@ -63,6 +64,7 @@ public class BossController : MonoBehaviour
     public event Action<BossPhase> OnPhaseChanged;              // 페이즈 변경 이벤트
     public event Action<BossState> OnStateChanged;              // 상태 변경 이벤트
     public event Action<float, float> OnHealthChanged;          // 체력 변경 이벤트 (현재 체력, 최대 체력)
+    public event Action OnPhase2TransitionRequested;            // 페이즈 2 전환 요청 이벤트
     public event Action OnBossDefeated;                         // 보스 처치 이벤트
 
     public BossPhase CurrentPhase { get; private set; }                     // 현재 페이즈
@@ -71,6 +73,8 @@ public class BossController : MonoBehaviour
     public float MaxHealth { get; private set; }                            // 최대 체력
     public bool IsBattleActive { get; private set; }                        // 전투 활성화 여부
     public bool IsDefeated => CurrentState == BossState.Defeated;           // 보스 처치 여부
+
+    bool phase2TransitionTriggered;
 
     void Reset()
     {
@@ -181,6 +185,27 @@ public class BossController : MonoBehaviour
         }
     }
 
+    public void SuppressAutoStartBattle()
+    {
+        autoStartBattle = false;
+        StopBattle();
+    }
+
+    public void SetBossHealthUiVisible(bool isVisible)
+    {
+        if (bossHealthSlider == null)
+        {
+            CacheUiReferences();
+        }
+
+        if (bossHealthSlider == null)
+        {
+            return;
+        }
+
+        bossHealthSlider.gameObject.SetActive(isVisible);
+    }
+
     public void SetState(BossState nextState)
     {
         if (CurrentState == nextState) return;
@@ -199,6 +224,12 @@ public class BossController : MonoBehaviour
 
         Debug.Log($"Boss HP reduced by {amount:0.##}. Current Health: {CurrentHealth:0.##}/{MaxHealth:0.##}");
 
+        if (ShouldTriggerPhase2Transition())
+        {
+            TriggerPhase2Transition();
+            return;
+        }
+
         if (CurrentHealth <= 0f)
         {
             HandleHealthDepleted();
@@ -207,9 +238,15 @@ public class BossController : MonoBehaviour
 
     public void InitializePhase(BossPhase phase, bool silent = false)
     {
+        InitializePhase(phase, GetDefaultMaxHealthForPhase(phase), silent);
+    }
+
+    public void InitializePhase(BossPhase phase, float startingHealth, bool silent = false)
+    {
         CurrentPhase = phase;
-        MaxHealth = phase == BossPhase.Phase1 ? phase1MaxHealth : phase2MaxHealth;
-        CurrentHealth = MaxHealth;
+        MaxHealth = GetDefaultMaxHealthForPhase(phase);
+        CurrentHealth = Mathf.Clamp(startingHealth, 0f, MaxHealth);
+        phase2TransitionTriggered = phase != BossPhase.Phase1;
         RefreshBossHealthUI();
 
         if (!silent)
@@ -236,20 +273,34 @@ public class BossController : MonoBehaviour
         bossHealthSlider.value = CurrentHealth;
     }
 
+    float GetDefaultMaxHealthForPhase(BossPhase phase)
+    {
+        return phase == BossPhase.Phase1 ? phase1MaxHealth : phase2MaxHealth;
+    }
+
     void HandleHealthDepleted()
     {
         StopBattle();
 
-        if (CurrentPhase == BossPhase.Phase1)
-        {
-            SetState(BossState.Transition);
-            BeginPhase2();
-            return;
-        }
-
         SetState(BossState.Defeated);
         OnBossDefeated?.Invoke();
         Debug.Log("Boss defeated.");
+    }
+
+    bool ShouldTriggerPhase2Transition()
+    {
+        return CurrentPhase == BossPhase.Phase1
+            && !phase2TransitionTriggered
+            && phase2TransitionHealthPercent > 0f
+            && CurrentHealth <= MaxHealth * phase2TransitionHealthPercent;
+    }
+
+    void TriggerPhase2Transition()
+    {
+        phase2TransitionTriggered = true;
+        StopBattle();
+        SetState(BossState.Transition);
+        OnPhase2TransitionRequested?.Invoke();
     }
 
     void BeginPhase2()
