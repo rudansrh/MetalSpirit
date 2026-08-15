@@ -477,10 +477,13 @@ MonoBehaviour:
   basicPosition: {x: 0, y: 0, z: 0}
   returnDuration: 0.75
   animator: {fileID: 5882292886257913658}
+  bossSpriteRenderer: {fileID: 4077378670898789264}
   leftPunchTriggerParameter: doPunchL
   rightPunchTriggerParameter: doPunchR
   chargeRightToLeftTriggerParameter: doDashRL
   chargeLeftToRightTriggerParameter: doDashLR
+  chargeTelegraphMoveLeftSprite: {fileID: 2325385889075979521, guid: bc165ca2f6ecc4e288e8ea3f9f42f5a5, type: 3}
+  chargeTelegraphMoveRightSprite: {fileID: -6932268258095277976, guid: 262dd70f68fc84b48b76e83d210b86c8, type: 3}
   leftPunchAttack:
     attackType: 0
     displayName: Left Punch

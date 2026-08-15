@@ -270,7 +270,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider == null || !hit.collider.CompareTag("Enemy"))
+            if (hit.collider == null)
             {
                 continue;
             }
@@ -291,7 +291,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit == null || !hit.CompareTag("Enemy"))
+            if (hit == null)
             {
                 continue;
             }
