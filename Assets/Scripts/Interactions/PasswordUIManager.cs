@@ -1,6 +1,4 @@
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,7 +14,6 @@ public class PasswordUIManager : MonoBehaviour
     Password currentPassword;
     PlayerController currentPlayer;
     string currentInput = string.Empty;
-    public bool unlocked = false;
 
     public static bool IsUiOpen => Instance != null && Instance.passwordUI != null && Instance.passwordUI.activeSelf;
 
@@ -80,7 +77,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void InputNumber(string number)
     {
-        if (currentPassword == null || string.IsNullOrEmpty(number) || unlocked)
+        if (currentPassword == null || string.IsNullOrEmpty(number))
         {
             return;
         }
@@ -96,7 +93,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void RemoveLastNumber()
     {
-        if (string.IsNullOrEmpty(currentInput) || unlocked)
+        if (string.IsNullOrEmpty(currentInput))
         {
             return;
         }
@@ -107,7 +104,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void Submit()
     {
-        if (currentPassword == null || unlocked)
+        if (currentPassword == null)
         {
             return;
         }
