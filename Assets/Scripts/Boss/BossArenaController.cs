@@ -11,6 +11,7 @@ public class BossArenaController : MonoBehaviour
     [SerializeField] float platformCycleInterval = 5f;                          // 발판 생성/파괴 주기
     [SerializeField] bool cyclePlatformsInPhase1 = true;                        // 페이즈 1에서 발판 순환 여부
     [SerializeField] bool cyclePlatformsInPhase2 = true;                        // 페이즈 2에서 발판 순환 여부
+    [SerializeField] bool hidePlatformsInPhase2 = true;                         // 페이즈 2에서 기본 발판 숨김 여부
     [SerializeField] List<GameObject> platformSetA = new List<GameObject>();    // 발판 세트 A
     [SerializeField] List<GameObject> platformSetB = new List<GameObject>();    // 발판 세트 B
     // [SerializeField] List<GameObject> bonusPlatforms = new List<GameObject>();
@@ -100,10 +101,24 @@ public class BossArenaController : MonoBehaviour
         SetPlatformGroup(platformSetB, isActive);
     }
 
+    public void SetAllowShake(bool allow)
+    {
+        allowShake = allow;
+        if (!allowShake)
+        {
+            ResetShakePosition();
+        }
+    }
+
     void HandlePhaseChanged(BossPhase phase)
     {
         if (phase == BossPhase.Phase2)
         {
+            if (hidePlatformsInPhase2)
+            {
+                SetAllPlatformsActive(false);
+            }
+
             if (debrisCoroutine == null)
             {
                 debrisCoroutine = StartCoroutine(DebrisRoutine());
@@ -135,7 +150,15 @@ public class BossArenaController : MonoBehaviour
 
     void StartPlatformLoop()
     {
-        ApplyPlatformState(usingPlatformSetA);
+        if (bossController != null && bossController.CurrentPhase == BossPhase.Phase2 && hidePlatformsInPhase2)
+        {
+            SetAllPlatformsActive(false);
+        }
+        else
+        {
+            ApplyPlatformState(usingPlatformSetA);
+        }
+
         platformCycleCoroutine = StartCoroutine(PlatformCycleRoutine());
     }
 
@@ -143,6 +166,13 @@ public class BossArenaController : MonoBehaviour
     {
         while (bossController != null && bossController.IsBattleActive && !bossController.IsDefeated)
         {
+            if (bossController.CurrentPhase == BossPhase.Phase2 && hidePlatformsInPhase2)
+            {
+                SetAllPlatformsActive(false);
+                yield return new WaitForSeconds(platformCycleInterval);
+                continue;
+            }
+
             bool shouldCycle =
                 bossController.CurrentPhase == BossPhase.Phase1 ? cyclePlatformsInPhase1 : cyclePlatformsInPhase2;
 
