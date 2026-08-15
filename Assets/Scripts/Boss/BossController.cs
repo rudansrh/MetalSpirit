@@ -175,7 +175,7 @@ public class BossController : MonoBehaviour
         CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
-        // Debug.Log($"Boss took {amount} damage. Current Health: {CurrentHealth}/{MaxHealth}");
+        Debug.Log($"Boss HP reduced by {amount:0.##}. Current Health: {CurrentHealth:0.##}/{MaxHealth:0.##}");
 
         if (CurrentHealth <= 0f)
         {
