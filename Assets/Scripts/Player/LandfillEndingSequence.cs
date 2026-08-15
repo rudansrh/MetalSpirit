@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class LandfillEndingSequence : MonoBehaviour
 {
     const string EndingImageObjectName = "EndingImage";
+    const string FinalFadeImageObjectName = "FadeImage2";
 
     [Header("Scene References")]
     [SerializeField] Transform player;
     [SerializeField] Camera introCamera;
     [SerializeField] SpriteRenderer fadeImage;
+    [SerializeField] SpriteRenderer finalFadeImage;
     [SerializeField] DialogueData playerDialogue;
     [SerializeField] DialogueUI dialogueUI;
     [SerializeField] Transform npcTarget;
@@ -55,6 +57,13 @@ public class LandfillEndingSequence : MonoBehaviour
         playerController = PlayerController.Instance;
         initialCameraSize = introCamera.orthographicSize;
 
+        if (player != null)
+        {
+            Vector3 playerPosition = player.position;
+            playerPosition.x = 0f;
+            player.position = playerPosition;
+        }
+
         if (endingImageObject != null)
         {
             endingImageObject.SetActive(false);
@@ -63,6 +72,7 @@ public class LandfillEndingSequence : MonoBehaviour
         dialogueUI.Hide();
         SetPlayerLocked(true);
         SetFadeAlpha(1f);
+        SetFinalFadeAlpha(0f);
         UpdateFadeOverlayTransform();
         StartCoroutine(PlayEndingSequence());
     }
@@ -91,6 +101,11 @@ public class LandfillEndingSequence : MonoBehaviour
         if (fadeImage == null)
         {
             fadeImage = FindSpriteRendererByName("FadeImage");
+        }
+
+        if (finalFadeImage == null)
+        {
+            finalFadeImage = FindSpriteRendererByName(FinalFadeImageObjectName);
         }
 
         if (dialogueUI == null)
@@ -148,7 +163,7 @@ public class LandfillEndingSequence : MonoBehaviour
             yield return new WaitForSeconds(postZoomOutDelay);
         }
 
-        yield return FadeToAlpha(1f, fadeOutDuration);
+        yield return FadeFinalToAlpha(1f, fadeOutDuration);
         SceneManager.LoadScene(nextSceneName);
     }
 
@@ -265,30 +280,28 @@ public class LandfillEndingSequence : MonoBehaviour
         fadeImage.enabled = color.a > 0f;
     }
 
+    void SetFinalFadeAlpha(float alpha)
+    {
+        if (finalFadeImage == null)
+        {
+            return;
+        }
+
+        Color color = finalFadeImage.color;
+        color.a = Mathf.Clamp01(alpha);
+        finalFadeImage.color = color;
+        finalFadeImage.enabled = color.a > 0f;
+    }
+
     void UpdateFadeOverlayTransform()
     {
-        if (fadeImage == null || introCamera == null)
+        if (introCamera == null)
         {
             return;
         }
 
-        fadeImage.transform.position = new Vector3(introCamera.transform.position.x, introCamera.transform.position.y, 0f);
-
-        if (fadeImage.sprite == null)
-        {
-            return;
-        }
-
-        float worldHeight = introCamera.orthographicSize * 2f;
-        float worldWidth = worldHeight * introCamera.aspect;
-        Vector2 spriteSize = fadeImage.sprite.bounds.size;
-
-        if (spriteSize.x <= 0f || spriteSize.y <= 0f)
-        {
-            return;
-        }
-
-        fadeImage.transform.localScale = new Vector3(worldWidth / spriteSize.x, worldHeight / spriteSize.y, 1f);
+        UpdateFadeSpriteTransform(fadeImage);
+        UpdateFadeSpriteTransform(finalFadeImage);
     }
 
     IEnumerator FadeToAlpha(float targetAlpha, float duration)
@@ -313,6 +326,51 @@ public class LandfillEndingSequence : MonoBehaviour
         }
 
         SetFadeAlpha(targetAlpha);
+    }
+
+    IEnumerator FadeFinalToAlpha(float targetAlpha, float duration)
+    {
+        if (finalFadeImage == null)
+        {
+            yield break;
+        }
+
+        finalFadeImage.enabled = true;
+
+        float startAlpha = finalFadeImage.color.a;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float nextAlpha = Mathf.Lerp(startAlpha, targetAlpha, progress);
+            SetFinalFadeAlpha(nextAlpha);
+            yield return null;
+        }
+
+        SetFinalFadeAlpha(targetAlpha);
+    }
+
+    void UpdateFadeSpriteTransform(SpriteRenderer targetFadeImage)
+    {
+        if (targetFadeImage == null || introCamera == null || targetFadeImage.sprite == null)
+        {
+            return;
+        }
+
+        targetFadeImage.transform.position = new Vector3(introCamera.transform.position.x, introCamera.transform.position.y, 0f);
+
+        float worldHeight = introCamera.orthographicSize * 2f;
+        float worldWidth = worldHeight * introCamera.aspect;
+        Vector2 spriteSize = targetFadeImage.sprite.bounds.size;
+
+        if (spriteSize.x <= 0f || spriteSize.y <= 0f)
+        {
+            return;
+        }
+
+        targetFadeImage.transform.localScale = new Vector3(worldWidth / spriteSize.x, worldHeight / spriteSize.y, 1f);
     }
 
     IEnumerator WaitForDialogueAdvance()

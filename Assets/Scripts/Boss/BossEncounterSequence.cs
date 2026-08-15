@@ -443,6 +443,13 @@ public class BossEncounterSequence : MonoBehaviour
         SetPlayerLocked(player, true);
         SetBossHealthUiVisible(false);
 
+        if (player != null)
+        {
+            Vector3 playerPosition = player.transform.position;
+            playerPosition.x = 0f;
+            player.transform.position = playerPosition;
+        }
+
         Vector3 moveDirection = elevatorMoveDirection.sqrMagnitude > 0f ? elevatorMoveDirection.normalized : Vector3.up;
         Vector3 playerOffsetFromElevator = Vector3.zero;
 

@@ -4393,8 +4393,8 @@ MonoBehaviour:
   bossDefeatDelay: 2
   bossFadeOutDuration: 1
   elevatorMoveDirection: {x: 0, y: 1, z: 0}
-  elevatorMoveSpeed: 0
-  elevatorRideDuration: 0
+  elevatorMoveSpeed: 6
+  elevatorRideDuration: 3
   elevatorExitSceneName: LandfillEnding
   sceneFadeOutDuration: 1
   sceneFadeSortingOrder: 1000
@@ -6206,7 +6206,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 5, y: 2}
   m_EdgeRadius: 0
 --- !u!4 &1913811747
 Transform:
@@ -6478,7 +6478,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 5, y: 2}
   m_EdgeRadius: 0
 --- !u!114 &1960763500
 MonoBehaviour:
