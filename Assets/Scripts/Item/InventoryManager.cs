@@ -25,6 +25,42 @@ public class InventoryManager : MonoBehaviour
         return AddItem(type, amount, 1);
     }
 
+    public bool HasItem(ItemType type, int count = 1)
+    {
+        if (type == ItemType.Empty || count <= 0)
+        {
+            return false;
+        }
+
+        int slotIndex = FindItemSlotIndex(type);
+        return slotIndex >= 0 && items[slotIndex].count >= count;
+    }
+
+    public bool TryConsumeItem(ItemType type, int count = 1)
+    {
+        if (type == ItemType.Empty || count <= 0)
+        {
+            return false;
+        }
+
+        int slotIndex = FindItemSlotIndex(type);
+        if (slotIndex < 0 || items[slotIndex].count < count)
+        {
+            return false;
+        }
+
+        items[slotIndex].count -= count;
+        if (items[slotIndex].count <= 0)
+        {
+            items[slotIndex].type = ItemType.Empty;
+            items[slotIndex].amount = 0f;
+            items[slotIndex].count = 1;
+        }
+
+        RefreshInventoryUI();
+        return true;
+    }
+
     public bool AddItem(ItemType type, float amount, int count)
     {
         if (type == ItemType.Empty || count <= 0)
@@ -156,5 +192,18 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryUI.UpdateInventoryUI(items);
         }
+    }
+
+    int FindItemSlotIndex(ItemType type)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].type == type)
+            {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

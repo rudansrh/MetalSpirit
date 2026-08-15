@@ -3,7 +3,8 @@ public enum ItemType
     Empty,
     Health,
     Stamina,
-    EmergencyButton,
     Scissors,
-    Gloves
+    Gloves,
+    BinaryCode,
+    EmergencyButton
 }
