@@ -3489,11 +3489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864099236383403945, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1864099236383403945, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1915231355415862287, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3505,11 +3505,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4752459592643771166, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4783,9 +4783,9 @@ EdgeCollider2D:
   - {x: 13, y: -9.38}
   - {x: 6.94, y: -9.38}
   - {x: 6.01, y: -9.38}
-  - {x: -5.07, y: -9.38}
-  - {x: -5.07, y: -6.15}
-  - {x: -11.52, y: -6.15}
+  - {x: -5.7233887, y: -9.38}
+  - {x: -5.7233887, y: -10.872217}
+  - {x: -11.549699, y: -10.872218}
   - {x: -11.52, y: 3.32}
   - {x: -11.52, y: 10.82}
   m_AdjacentStartPoint: {x: 0, y: 0}
@@ -8183,7 +8183,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1673857273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9024,7 +9024,7 @@ GameObject:
   - component: {fileID: 1793847958}
   - component: {fileID: 1793847959}
   - component: {fileID: 1793847960}
-  - component: {fileID: 1793847962}
+  - component: {fileID: 1793847964}
   - component: {fileID: 1793847961}
   m_Layer: 0
   m_Name: PasswordObject
@@ -9137,11 +9137,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -2.15, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9151,7 +9151,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.9, y: 1}
+  m_Size: {x: 5.2, y: 3}
   m_EdgeRadius: 0
 --- !u!114 &1793847961
 MonoBehaviour:
@@ -9168,11 +9168,12 @@ MonoBehaviour:
   correctPassword: 199
   successMessage: "\uC554\uD638\uAC00 \uC77C\uCE58\uD569\uB2C8\uB2E4."
   failureMessage: "\uC554\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4."
+  reamainTime: 1.5
   stayUnlockedAfterSuccess: 1
   onPasswordMatched:
     m_PersistentCalls:
       m_Calls: []
---- !u!61 &1793847962
+--- !u!61 &1793847964
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9202,11 +9203,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -2.15, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -9216,7 +9217,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.5, y: 2}
+  m_Size: {x: 5.2, y: 3}
   m_EdgeRadius: 0
 --- !u!1 &1834984859
 GameObject:
