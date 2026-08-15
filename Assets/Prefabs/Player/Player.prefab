@@ -198,7 +198,7 @@ MonoBehaviour:
   soulSpeed: 10
   jumpForce: 8
   wallJumpDelay: 0.3
-  wallClimbSpeed: 0.25
+  wallClimbSpeed: 1
   wallClimbHoldStaminaCostPerSecond: 2
   wallClimbMoveStaminaCostPerSecond: 3
   wallClimbFallOffDistance: 0.15

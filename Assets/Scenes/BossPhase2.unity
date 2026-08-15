@@ -4825,9 +4825,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5680,6 +5680,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueUI
   bubble: {fileID: 1691890610}
   text: {fileID: 1691890611}
+  portraitImage: {fileID: 0}
+  portraitBackgroundImage: {fileID: 0}
+  portraitSize: {x: 150, y: 150}
+  portraitBackgroundPadding: {x: 0, y: 0}
+  portraitOffset: {x: -10, y: 0}
   typingSpeed: 0.03
 --- !u!114 &1976108636
 MonoBehaviour:
