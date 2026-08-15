@@ -181,6 +181,12 @@ public class BossController : MonoBehaviour
         }
     }
 
+    public void SuppressAutoStartBattle()
+    {
+        autoStartBattle = false;
+        StopBattle();
+    }
+
     public void SetState(BossState nextState)
     {
         if (CurrentState == nextState) return;
