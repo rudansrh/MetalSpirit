@@ -14,13 +14,27 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Start()
     {
-        inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
+        CacheInventoryManager();
+        if (inventoryManager == null)
+        {
+            return;
+        }
+
         inventoryManager.inventoryUI = this;
         UpdateInventoryUI(inventoryManager.items);
     }
 
     public void UpdateInventoryUI(InventoryItem[] items) //인벤토리 UI 업데이트
     {
+        if (inventoryManager == null)
+        {
+            CacheInventoryManager();
+            if (inventoryManager == null)
+            {
+                return;
+            }
+        }
+
         int t = inventoryManager.maxSlotCount - slots.Count;
         for (int i = 0; i < t; i++)
         {
@@ -42,6 +56,19 @@ public class InventoryUIManager : MonoBehaviour
                 break;
             }
             slots[i].GetComponentInChildren<Text>().text = items[i].type==ItemType.Empty ? "" : "X" + items[i].count;
+        }
+    }
+
+    void CacheInventoryManager()
+    {
+        if (PlayerController.Instance == null)
+        {
+            return;
+        }
+
+        if (inventoryManager == null)
+        {
+            inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
         }
     }
 }

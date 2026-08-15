@@ -20,12 +20,21 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        player = PlayerController.Instance.transform;
-        submitAction = PlayerController.Instance.GetComponent<PlayerInput>().actions["Next"];
+        CachePlayerReferences();
     }
 
     private void Update()
     {
+        if (submitAction == null)
+        {
+            CachePlayerReferences();
+        }
+
+        if (submitAction == null)
+        {
+            return;
+        }
+
         if (submitAction.WasPressedThisFrame())
         {
             if (DialogueUI.Instance.IsTyping)
@@ -45,7 +54,10 @@ public class DialogueManager : MonoBehaviour
         npc = npcTransform;
         isTalking = true;
         index = 0;
-        PlayerController.Instance.isTalking = true;
+        if (PlayerController.Instance != null)
+        {
+            PlayerController.Instance.isTalking = true;
+        }
 
         ShowCurrentLine();
     }
@@ -59,8 +71,11 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueUI.Instance.Hide();
             isTalking = false;
-            PlayerController.Instance.canMove = true;
-            PlayerController.Instance.isTalking = false;
+            if (PlayerController.Instance != null)
+            {
+                PlayerController.Instance.canMove = true;
+                PlayerController.Instance.isTalking = false;
+            }
             return;
         }
 
@@ -71,6 +86,28 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = currentDialogue.lines[index];
         Transform target = line.speaker == SpeakerType.Player ? player : npc;
-        DialogueUI.Instance.Show(line.BuildRichText(), target);
+        DialogueUI.Instance.Show(line, target);
+    }
+
+    void CachePlayerReferences()
+    {
+        if (PlayerController.Instance == null)
+        {
+            return;
+        }
+
+        if (player == null)
+        {
+            player = PlayerController.Instance.transform;
+        }
+
+        if (submitAction == null)
+        {
+            PlayerInput playerInput = PlayerController.Instance.GetComponent<PlayerInput>();
+            if (playerInput != null)
+            {
+                submitAction = playerInput.actions["Next"];
+            }
+        }
     }
 }
