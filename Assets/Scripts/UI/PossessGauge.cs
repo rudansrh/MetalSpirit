@@ -16,7 +16,7 @@ public class PossessGauge : MonoBehaviour
 
     public Transform target;
 
-    private void Start()
+    private void Awake()
     {
         playerController = PlayerController.Instance;
         playerController.possessGauge = this;
