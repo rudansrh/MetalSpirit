@@ -414,7 +414,7 @@ public class PlayerController : MonoBehaviour
     // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
-        if (!CanWallClimb())
+        if (!CanWallClimb() || Math.Sign(moveInput.x) == wallClimbDetachDirection)
         {
             StopWallClimb();
             return false;

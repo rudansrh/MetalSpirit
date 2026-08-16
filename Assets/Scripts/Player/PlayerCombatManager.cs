@@ -296,6 +296,11 @@ public class PlayerCombatManager : MonoBehaviour
                 continue;
             }
 
+            if(hit.TryGetComponent<ItemBox>(out var itemBox))
+            {
+                itemBox.objectDamaged();
+            }
+
             IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
             if (enemy == null || !damagedEnemies.Add(enemy))
             {

@@ -265,6 +265,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -327,6 +331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -666,6 +674,9 @@ GameObject:
   m_Component:
   - component: {fileID: 138425713}
   - component: {fileID: 138425712}
+  - component: {fileID: 138425715}
+  - component: {fileID: 138425714}
+  - component: {fileID: 138425716}
   m_Layer: 0
   m_Name: object_box_0
   m_TagString: Untagged
@@ -747,6 +758,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &138425714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138425711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  Items: {fileID: 613299391}
+--- !u!61 &138425715
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138425711}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
+--- !u!114 &138425716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138425711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
 --- !u!1 &144031627
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +1036,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -971,6 +1060,9 @@ GameObject:
   m_Component:
   - component: {fileID: 164080001}
   - component: {fileID: 164080000}
+  - component: {fileID: 164080003}
+  - component: {fileID: 164080002}
+  - component: {fileID: 164080004}
   m_Layer: 0
   m_Name: object_box_0 (1)
   m_TagString: Untagged
@@ -1052,6 +1144,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &164080002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164079999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  Items: {fileID: 613299391}
+--- !u!61 &164080003
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164079999}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
+--- !u!114 &164080004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 164079999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
 --- !u!1 &170067871
 GameObject:
   m_ObjectHideFlags: 0
@@ -2262,6 +2428,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2839,6 +3009,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3231,6 +3405,9 @@ GameObject:
   m_Component:
   - component: {fileID: 857560012}
   - component: {fileID: 857560011}
+  - component: {fileID: 857560014}
+  - component: {fileID: 857560013}
+  - component: {fileID: 857560015}
   m_Layer: 0
   m_Name: object_box_0 (2)
   m_TagString: Untagged
@@ -3312,6 +3489,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &857560013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857560010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  Items: {fileID: 613299391}
+--- !u!61 &857560014
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857560010}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
+--- !u!114 &857560015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857560010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
 --- !u!1 &958740375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3989,6 +4240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4559,6 +4814,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4621,6 +4880,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6405,6 +6668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6647,6 +6914,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7080,6 +7351,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmEnemy (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
+      propertyPath: Items
+      value: 
+      objectReference: {fileID: 613299391}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
