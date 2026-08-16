@@ -8,7 +8,7 @@ public class ScenePortal : MonoBehaviour
 
     public static string TargetSpawnPointID;
 
-    bool isActivated = false;
+    [SerializeField]bool isActivated = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

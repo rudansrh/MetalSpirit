@@ -2179,6 +2179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScenePortal
   targetSceneName: BossPhase
   spawnPointID: Point_Z
+  isActivated: 0
 --- !u!61 &430973160
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7431,6 +7432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ScenePortal
   targetSceneName: ArmZone
   spawnPointID: Point_HBE
+  isActivated: 1
 --- !u!61 &1739704458
 BoxCollider2D:
   m_ObjectHideFlags: 0
