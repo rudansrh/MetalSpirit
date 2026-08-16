@@ -14,6 +14,7 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] GameObject door;
     [SerializeField] Transform leftWall;
     [SerializeField] Transform rightWall;
+    [SerializeField] Transform ceiling;
     [SerializeField] Transform retryPoint;
 
     PlayerController player;
@@ -47,7 +48,7 @@ public class MinigameManager : MonoBehaviour
             cooltime = Random.Range(minSpawnInterval, maxSpawnInterval); //생성 쿨타임 초기화
             var prefab = Instantiate(obstaclePrefab, transform);
             prefab.GetComponent<Obstacle_Minigame>().minigameManager = this;
-            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x, rightWall.transform.position.x), 3.5f);
+            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x, rightWall.transform.position.x), ceiling.position.y);
             prefab.transform.position = fallPoint;
             prefab.GetComponent<Rigidbody2D>().AddForceY(1f, ForceMode2D.Impulse);
         }
@@ -91,14 +92,13 @@ public class MinigameManager : MonoBehaviour
         Vector3 end = (leftWall.position + rightWall.position)/2;
         end.y = start.y;
 
-        while (p_transform.position != end)
+        while (Mathf.Abs(p_transform.position.x - end.x) > 0.1f)
         {
             p_transform.position = Vector3.MoveTowards(p_transform.position, end, Time.deltaTime*3);
 
             yield return null;
         }
 
-        p_transform.position = end;
         player.canMove = true;
         door.SetActive(true);
         door.GetComponent<Door>().minigameStarted = true;

@@ -15,7 +15,6 @@ public class DropItem : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 5f, wallLayer);
             Vector2 targetPos = transform.position;
             targetPos.y -= hit.distance - item.GetComponent<SpriteRenderer>().bounds.size.y / 2;
-            Debug.Log(hit.distance);
 
             drop.transform.position = targetPos;
         }
