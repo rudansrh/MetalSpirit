@@ -23,8 +23,6 @@ public class HeadEnemy : Enemy
     private Rigidbody2D rb;
     private Collider2D col;
     private LineRenderer lineRenderer;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
@@ -36,9 +34,6 @@ public class HeadEnemy : Enemy
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         lineRenderer = GetComponent<LineRenderer>();
-
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
 
         rb.gravityScale = 0f;
@@ -72,22 +67,34 @@ public class HeadEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.gameObject == gameObject) continue;
+                if (hit.collider.gameObject == gameObject)
+                {
+                    continue;
+                }
 
                 nearbyEnemy = hit.collider.gameObject;
-                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
-                found = true;
+
+                if (!found)
+                {
+                    playerController.canTalk(hit.transform);
+                    found = true;
+                }
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(rb.linearVelocity.sqrMagnitude > 0.01f);
@@ -224,8 +231,9 @@ public class HeadEnemy : Enemy
         Gizmos.DrawSphere(firePoint, 0.2f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         if (collision.gameObject.TryGetComponent<PlayerController>(out var pc) && pc.isInvincibility) return;
         if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var pa) && pa.isSoul) return;
 

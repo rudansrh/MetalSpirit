@@ -52,7 +52,8 @@ public class InventoryUIManager : MonoBehaviour
                 }
 
                 //자기 자신을 제외한 collider
-                img.sprite = itemImages[(int)items[i].type];
+                int itemIndex = (int)items[i].type;
+                img.sprite = itemIndex >= 0 && itemIndex < itemImages.Length ? itemImages[itemIndex] : null;
                 break;
             }
             slots[i].GetComponentInChildren<Text>().text = items[i].type==ItemType.Empty ? "" : "X" + items[i].count;

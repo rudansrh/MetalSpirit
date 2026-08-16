@@ -349,6 +349,7 @@ public class PlayerController : MonoBehaviour
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             transform.Translate(new Vector3(0,0.01f,0));
+            if(IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
             isJump = true;
         }
     }
@@ -413,12 +414,12 @@ public class PlayerController : MonoBehaviour
     // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
-        if (!CanWallClimb())
+        if (!CanWallClimb() || Math.Sign(moveInput.x) == wallClimbDetachDirection)
         {
             StopWallClimb();
             return false;
         }
-
+        
         isJump = false;
         float climbInput = moveInput.y;
         bool isMovingVertically = Mathf.Abs(climbInput) > 0.01f;
@@ -450,7 +451,6 @@ public class PlayerController : MonoBehaviour
             && wallClimbDetachDirection != 0
             && !isDashing
             && canMove
-            && !isPossessing
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
                 || (Mathf.Abs(moveInput.y) > 0.01f && rigid.linearVelocityY <= 0.01f));
@@ -484,7 +484,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // 벽과의 충돌에서 떨어지는 방향을 결정
-    void UpdateWallClimbDetachDirection(Collision2D collision)
+    public void UpdateWallClimbDetachDirection(Collision2D collision)
     {
         if (collision.contactCount <= 0)
         {
@@ -675,6 +675,8 @@ public class PlayerController : MonoBehaviour
         // 아이템 등 상호작용 객체 감지 로직
         if (collision.TryGetComponent<IInteractable>(out var interactable))
         {
+            if (abilityManager.isSoul && !collision.CompareTag("Document")) return;
+
             nearbyInteractable = interactable;
             canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
         }
@@ -704,12 +706,44 @@ public class PlayerController : MonoBehaviour
             if (nearbyInteractable == interactable)
             {
                 nearbyInteractable = null;
+                canInteractUI.hideInterectUI();
             }
-            canInteractUI.hideInterectUI();
         }
 
         if (collision.CompareTag("Wall")) insideWall--;
         insideWall = Math.Clamp(insideWall, 0, 10);
+    }
+
+    //에너미 빙의 전용 상호작용 함수
+    public void touchInteractable(Collider2D collision)
+    {
+        if (collision.TryGetComponent<IInteractable>(out var interactable))
+        {
+            if (abilityManager.isSoul && !collision.CompareTag("Document")) return;
+
+            nearbyInteractable = interactable;
+            canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
+        }
+    }
+
+    public void fallFromInteractable(Collider2D collision)
+    {
+        // 상호작용 객체 해제 로직
+        if (collision.TryGetComponent<IInteractable>(out var interactable))
+        {
+            // 방금 벗어난 객체가 내가 타겟팅하던 객체라면 초기화
+            if (nearbyInteractable == interactable)
+            {
+                nearbyInteractable = null;
+                canInteractUI.hideInterectUI();
+            }
+        }
+    }
+
+    public void canTalk(Transform hit)
+    {
+        canInteractUI.showInterectUI(hit.transform, "e", "대화");
+        nearbyInteractable = null;
     }
 
     public void StopMovement()

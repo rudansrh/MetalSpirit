@@ -35,6 +35,7 @@ public class Password : MonoBehaviour, IInteractable
 
     public void Interact(GameObject interactor)
     {
+        if (PlayerController.Instance.GetComponent<PlayerAbilityManager>().isSoul) return;
         if (stayUnlockedAfterSuccess && isUnlocked)
         {
             gameObject.SetActive(false);

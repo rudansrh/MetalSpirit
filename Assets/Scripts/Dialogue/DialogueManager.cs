@@ -8,7 +8,7 @@ public class DialogueManager : MonoBehaviour
 
     DialogueData currentDialogue;
     Transform npc;
-    [SerializeField]InputAction submitAction;
+    InputAction submitAction;
 
     int index;
     bool isTalking = false;

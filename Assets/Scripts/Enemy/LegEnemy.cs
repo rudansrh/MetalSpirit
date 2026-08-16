@@ -29,8 +29,6 @@ public class LegEnemy : Enemy
 
     private Rigidbody2D rb;
     private Collider2D col;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
     private bool isGrounded;
 
     private bool isAttacking = false;
@@ -44,8 +42,6 @@ public class LegEnemy : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
     }
 
@@ -74,7 +70,7 @@ public class LegEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -87,16 +83,21 @@ public class LegEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canTalk(hit.transform);
+                    found = true;
                 }
-                found = true;
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
@@ -267,8 +268,9 @@ public class LegEnemy : Enemy
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         if (collision.gameObject.TryGetComponent<PlayerController>(out var pc) && pc.isInvincibility) return;
         if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var pa) && pa.isSoul) return;
 
@@ -286,21 +288,7 @@ public class LegEnemy : Enemy
             rb2d.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
         }
     }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (isPossessed && playerController.isJump && collision.gameObject.CompareTag("Wall"))
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if (contact.normal.y > 0.1f)
-                {
-                    playerController.isJump = false;
-                    return;
-                }
-            }
-        }
-    }
+    
 
     public override void Attacked(float playerDamage)
     {
