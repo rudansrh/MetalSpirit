@@ -4,11 +4,11 @@
 - Active scene:
   - Name: BossPhase
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
+    - Default, TransparentFX, Ignore Raycast, Water, UI
 - Active game object:
-  - Name: triggerElevatorAppear
-  - Tag: Untagged
-  - Layer: Default
+  - Name: Player
+  - Tag: Player
+  - Layer: 9
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
