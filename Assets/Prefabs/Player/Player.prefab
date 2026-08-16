@@ -448,11 +448,11 @@ MonoBehaviour:
   isAttackVisualize: 1
   legAttackCoolTime: 0.6
   legAttackDamage: 10
-  legAttackOffset: {x: 1, y: 0.2}
+  legAttackOffset: {x: 1, y: -0.2}
   legAttackSize: {x: 1, y: 0.1}
   armAttackCoolTime: 0.6
   armAttackDamage: 10
-  armAttackOffset: {x: 1, y: -0.2}
+  armAttackOffset: {x: 1, y: 0.2}
   armAttackSize: {x: 1, y: 0.1}
   bodyAttackCoolTime: 0.6
   bodyAttackDamage: 10
