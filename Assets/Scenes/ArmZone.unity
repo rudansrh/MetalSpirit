@@ -961,7 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
-  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
   Items: {fileID: 1059448246}
 --- !u!114 &138425715
 MonoBehaviour:
@@ -3915,7 +3915,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
-  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
   Items: {fileID: 1059448246}
 --- !u!114 &857560014
 MonoBehaviour:

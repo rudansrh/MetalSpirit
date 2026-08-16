@@ -672,14 +672,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // 아이템 등 상호작용 객체 감지 로직
-        if (collision.TryGetComponent<IInteractable>(out var interactable))
-        {
-            if (abilityManager.isSoul && !collision.CompareTag("Document")) return;
-
-            nearbyInteractable = interactable;
-            canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
-        }
+        touchInteractable(collision);
 
         if (collision.CompareTag("Wall")) insideWall++;
     }
@@ -699,27 +692,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // 상호작용 객체 해제 로직
-        if (collision.TryGetComponent<IInteractable>(out var interactable))
-        {
-            // 방금 벗어난 객체가 내가 타겟팅하던 객체라면 초기화
-            if (nearbyInteractable == interactable)
-            {
-                nearbyInteractable = null;
-                canInteractUI.hideInterectUI();
-            }
-        }
+        fallFromInteractable(collision);
 
         if (collision.CompareTag("Wall")) insideWall--;
         insideWall = Math.Clamp(insideWall, 0, 10);
     }
 
-    //에너미 빙의 전용 상호작용 함수
+    //상호작용 함수
     public void touchInteractable(Collider2D collision)
     {
         if (collision.TryGetComponent<IInteractable>(out var interactable))
         {
-            if (abilityManager.isSoul && !collision.CompareTag("Document")) return;
+            if (abilityManager.isSoul && !collision.CompareTag("Document") && !collision.CompareTag("Parts")) return;
 
             nearbyInteractable = interactable;
             canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
