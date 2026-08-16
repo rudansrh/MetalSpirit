@@ -8,14 +8,17 @@ public class ScenePortal : MonoBehaviour
 
     public static string TargetSpawnPointID;
 
+    bool isActivated = false;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
-        if (collision.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+        /*if (collision.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
         {
             if (playerAbility.isSoul) return;
         }
         */
+
+        if (!isActivated) return;
 
         if (collision.TryGetComponent<PlayerController>(out var player))
         {
@@ -24,5 +27,10 @@ public class ScenePortal : MonoBehaviour
             TargetSpawnPointID = spawnPointID;
             SceneManager.LoadScene(targetSceneName);
         }
+    }
+
+    public void activatePortal()
+    {
+        isActivated = true;
     }
 }

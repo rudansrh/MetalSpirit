@@ -5420,7 +5420,7 @@ EdgeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -5437,10 +5437,9 @@ EdgeCollider2D:
   - {x: 13, y: -9.38}
   - {x: 6.94, y: -9.38}
   - {x: 6.01, y: -9.38}
-  - {x: -5.7233887, y: -9.38}
-  - {x: -5.7233887, y: -10.872217}
-  - {x: -11.549699, y: -10.872218}
-  - {x: -11.52, y: 3.32}
+  - {x: -5.7, y: -9.38}
+  - {x: -5.7, y: -10.87}
+  - {x: -11.52, y: -10.87}
   - {x: -11.52, y: 10.82}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -7467,8 +7466,7 @@ EdgeCollider2D:
   - {x: -5.73, y: -9.38}
   - {x: -5.73, y: -10.83}
   - {x: -11.58, y: -10.83}
-  - {x: -11.52, y: 3.32}
-  - {x: -11.52, y: 10.82}
+  - {x: -11.58, y: 10.82}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -9990,7 +9988,19 @@ MonoBehaviour:
   stayUnlockedAfterSuccess: 1
   onPasswordMatched:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 430973159}
+        m_TargetAssemblyTypeName: ScenePortal, Assembly-CSharp
+        m_MethodName: activatePortal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &1793847964
 BoxCollider2D:
   m_ObjectHideFlags: 0
