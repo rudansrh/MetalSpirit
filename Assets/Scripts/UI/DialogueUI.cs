@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -8,8 +9,16 @@ public class DialogueUI : MonoBehaviour
 
     public RectTransform bubble;
     public TMP_Text text;
+    [SerializeField] Image portraitImage;
+    [SerializeField] Image portraitBackgroundImage;
+    [SerializeField] Vector2 portraitSize = new Vector2(96f, 96f);
+    [SerializeField] Vector2 portraitBackgroundPadding = new Vector2(20f, 20f);
+    [SerializeField] Vector2 portraitOffset = new Vector2(-24f, 0f);
 
     Transform target;
+    HorizontalLayoutGroup bubbleLayout;
+    LayoutElement portraitLayoutElement;
+    LayoutElement portraitBackgroundLayoutElement;
 
     [SerializeField] float typingSpeed = 0.03f;
     Coroutine typingCoroutine;
@@ -21,21 +30,38 @@ public class DialogueUI : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        text.richText = true;
+        ResolveReferences();
+
+        if (text != null)
+        {
+            text.richText = true;
+        }
+
+        ApplyPortrait(null);
         bubble.gameObject.SetActive(false);
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (target == null) return;
 
-        bubble.position = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1f);
+        Vector3 targetPos = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1.5f);
+        targetPos.x += (Mathf.Max(0, bubble.rect.width - 268) / 2 + 80) * bubble.localScale.x; //말풍선 꼬리위치 고정코드 수정 필요(하드코딩)
+        bubble.position = targetPos;
     }
 
-    public void Show(string message, Transform targetTransform)
+    public void Show(DialogueLine line, Transform targetTransform)
+    {
+        string message = line != null ? line.BuildRichText() : string.Empty;
+        Sprite portraitSprite = line != null ? line.portraitSprite : null;
+        Show(message, targetTransform, portraitSprite);
+    }
+
+    public void Show(string message, Transform targetTransform, Sprite portraitSprite = null)
     {
         target = targetTransform;
         bubble.gameObject.SetActive(true);
+        ApplyPortrait(portraitSprite);
 
         currentMessage = message ?? string.Empty;
 
@@ -93,7 +119,101 @@ public class DialogueUI : MonoBehaviour
         isTyping = false;
         text.text = string.Empty;
         text.maxVisibleCharacters = 0;
+        ApplyPortrait(null);
         bubble.gameObject.SetActive(false);
         target = null;
+    }
+
+    void ResolveReferences()
+    {
+        if (bubble == null)
+        {
+            return;
+        }
+
+        if (text == null)
+        {
+            text = bubble.GetComponentInChildren<TMP_Text>(true);
+        }
+
+        if (bubbleLayout == null)
+        {
+            bubbleLayout = bubble.GetComponent<HorizontalLayoutGroup>();
+        }
+
+        if (portraitImage == null)
+        {
+            Transform portraitTransform = bubble.Find("Portrait");
+            if (portraitTransform != null)
+            {
+                portraitImage = portraitTransform.GetComponent<Image>();
+            }
+        }
+
+        if (portraitBackgroundImage == null)
+        {
+            Transform portraitBackgroundTransform = bubble.Find("PortraitBackground");
+            if (portraitBackgroundTransform != null)
+            {
+                portraitBackgroundImage = portraitBackgroundTransform.GetComponent<Image>();
+            }
+        }
+
+        if (portraitImage != null)
+        {
+            portraitLayoutElement = portraitImage.GetComponent<LayoutElement>();
+            if (portraitLayoutElement == null)
+            {
+                portraitLayoutElement = portraitImage.gameObject.AddComponent<LayoutElement>();
+            }
+
+            portraitLayoutElement.ignoreLayout = true;
+        }
+
+        if (portraitBackgroundImage != null)
+        {
+            portraitBackgroundLayoutElement = portraitBackgroundImage.GetComponent<LayoutElement>();
+            if (portraitBackgroundLayoutElement == null)
+            {
+                portraitBackgroundLayoutElement = portraitBackgroundImage.gameObject.AddComponent<LayoutElement>();
+            }
+
+            portraitBackgroundLayoutElement.ignoreLayout = true;
+        }
+    }
+
+    void ApplyPortrait(Sprite portraitSprite)
+    {
+        if (portraitImage == null)
+        {
+            return;
+        }
+
+        bool hasPortrait = portraitSprite != null;
+        portraitImage.sprite = portraitSprite;
+        portraitImage.preserveAspect = true;
+        RectTransform portraitRect = portraitImage.rectTransform;
+        portraitRect.anchorMin = new Vector2(0f, 0.5f);
+        portraitRect.anchorMax = new Vector2(0f, 0.5f);
+        portraitRect.pivot = new Vector2(1f, 0.5f);
+        portraitRect.anchoredPosition = portraitOffset;
+        portraitRect.sizeDelta = portraitSize;
+        portraitImage.gameObject.SetActive(hasPortrait);
+
+        if (portraitBackgroundImage != null)
+        {
+            RectTransform portraitBackgroundRect = portraitBackgroundImage.rectTransform;
+            portraitBackgroundRect.anchorMin = portraitRect.anchorMin;
+            portraitBackgroundRect.anchorMax = portraitRect.anchorMax;
+            portraitBackgroundRect.pivot = portraitRect.pivot;
+            portraitBackgroundRect.anchoredPosition = portraitRect.anchoredPosition;
+            portraitBackgroundRect.sizeDelta = portraitSize + portraitBackgroundPadding;
+            portraitBackgroundImage.gameObject.SetActive(hasPortrait);
+        }
+
+        if (bubbleLayout != null)
+        {
+            LayoutRebuilder.ForceRebuildLayoutImmediate(bubble);
+        }
     }
 }

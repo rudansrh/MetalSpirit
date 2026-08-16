@@ -1,4 +1,4 @@
-using TMPro;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +14,8 @@ public class PasswordUIManager : MonoBehaviour
     Password currentPassword;
     PlayerController currentPlayer;
     string currentInput = string.Empty;
+    Coroutine closeAfterSuccessCoroutine;
+    bool isClosingAfterSuccess;
 
     public static bool IsUiOpen => Instance != null && Instance.passwordUI != null && Instance.passwordUI.activeSelf;
 
@@ -40,6 +42,14 @@ public class PasswordUIManager : MonoBehaviour
             return;
         }
 
+        if (closeAfterSuccessCoroutine != null)
+        {
+            StopCoroutine(closeAfterSuccessCoroutine);
+            closeAfterSuccessCoroutine = null;
+        }
+
+        isClosingAfterSuccess = false;
+
         currentPassword = password;
         currentPlayer = interactor != null ? interactor.GetComponent<PlayerController>() : null;
         currentInput = string.Empty;
@@ -56,6 +66,16 @@ public class PasswordUIManager : MonoBehaviour
 
     public void Close()
     {
+        if (isClosingAfterSuccess)
+        {
+            return;
+        }
+
+        CloseInternal();
+    }
+
+    void CloseInternal()
+    {
         if (passwordUI != null)
         {
             passwordUI.SetActive(false);
@@ -69,6 +89,8 @@ public class PasswordUIManager : MonoBehaviour
         currentPassword = null;
         currentPlayer = null;
         currentInput = string.Empty;
+        closeAfterSuccessCoroutine = null;
+        isClosingAfterSuccess = false;
         RefreshInputText();
         SetMessage(string.Empty);
 
@@ -77,7 +99,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void InputNumber(string number)
     {
-        if (currentPassword == null || string.IsNullOrEmpty(number))
+        if (isClosingAfterSuccess || currentPassword == null || string.IsNullOrEmpty(number))
         {
             return;
         }
@@ -93,7 +115,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void RemoveLastNumber()
     {
-        if (string.IsNullOrEmpty(currentInput))
+        if (isClosingAfterSuccess || string.IsNullOrEmpty(currentInput))
         {
             return;
         }
@@ -104,7 +126,7 @@ public class PasswordUIManager : MonoBehaviour
 
     public void Submit()
     {
-        if (currentPassword == null)
+        if (isClosingAfterSuccess || currentPassword == null)
         {
             return;
         }
@@ -112,10 +134,34 @@ public class PasswordUIManager : MonoBehaviour
         bool isCorrect = currentPassword.Validate(currentInput, out string message);
         SetMessage(message);
 
+        if (isCorrect)
+        {
+            closeAfterSuccessCoroutine = StartCoroutine(CloseAfterSuccess(currentPassword));
+            return;
+        }
+
         if (!isCorrect)
         {
             currentInput = string.Empty;
             RefreshInputText();
+        }
+    }
+
+    IEnumerator CloseAfterSuccess(Password solvedPassword)
+    {
+        isClosingAfterSuccess = true;
+
+        float waitTime = solvedPassword != null ? Mathf.Max(0f, solvedPassword.ReamainTime) : 0f;
+        if (waitTime > 0f)
+        {
+            yield return new WaitForSeconds(waitTime);
+        }
+
+        CloseInternal();
+
+        if (solvedPassword != null)
+        {
+            solvedPassword.CompleteSuccessfulInteraction();
         }
     }
 

@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
+  m_Name: enemy5
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  lines:
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uB108 \uAC1510001101?"
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uAC11\uC790\uAE30 \uBB34\uC2A8 \uB9D0\uC774\uC57C?"
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uC5EC\uAE30 \uBC11101 \uB9DD\uAC00\uC9C4 \uD30C\uCE20\uB4E4\uC744 \uBC8411001001\uB294
+        \uACF3101\uAC70\uB4E0."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uADF8\uB7F0\uB370 \uC785\uAD6C\uB97C \uADF8 \uC794\uD574\uB4E4\uC774
+        \uB9C91\uBC84\uB824\uC11C \uB9D0101\uC9C0."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uB4E4\uC5B41111\uB824\uBA74 \uD798101 \uC138\uC57C \uD560\uAC70\uC57C."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uC5B4? \uC5B4... \uACE0\uB9C8\uC6CC."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
