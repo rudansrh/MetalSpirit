@@ -34,13 +34,11 @@ public class PauseManager : MonoBehaviour
         if (isPaused)
         {
             pausePanel.SetActive(true);
-            PlayerController.Instance.isUIopen = true;
             Time.timeScale = 0f;
         }
         else
         {
             pausePanel.SetActive(false);
-            PlayerController.Instance.isUIopen = false;
             Time.timeScale = 1f;
         }
     }

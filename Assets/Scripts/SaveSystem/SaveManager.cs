@@ -49,24 +49,11 @@ public class SaveManager : MonoBehaviour
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
                 data.playerStamina = stamina.CurrentStamina;
-
-            if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
-                data.currentPlayerStage = progressionManager.UnlockedStage;
-
-            if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
-            {
-                if (playerAbility.canUseInventory && PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
-                {
-                    data.inventoryItems = inventory.items;
-                    Debug.Log(data.inventoryItems.Length);
-                }
-            }
         }
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
-        Debug.Log($"세이브 경로: {GetSaveFilePath(slotIndex)}");
     }
 
     //게임 불러오기 
@@ -106,16 +93,7 @@ public class SaveManager : MonoBehaviour
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
 
-            if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
-                progressionManager.SetUnlockedStage(currentLoadData.currentPlayerStage);
-
-            if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
-            {
-                if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
-                {
-                    inventory.LoadInventory(currentLoadData.inventoryItems);
-                }
-            }
+            Debug.Log(currentLoadData);
         }
         currentLoadData = null;
         SceneManager.sceneLoaded -= OnSceneLoaded;

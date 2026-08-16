@@ -23,12 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Head&BodyZone.unity
     guid: df72a800ce94b3c489911a05d546c453
-  - enabled: 1
-    path: Assets/Scenes/BossPhase.unity
-    guid: 04d20beb1c33e4f01b447e7c7fdccd5e
-  - enabled: 1
-    path: Assets/Scenes/LandfillEnding.unity
-    guid: c01b1270f64964a17ba30f547f319ee6
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a9d93e31f7ded454e883769b927b07c0, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 67717d106a030ec4891aa748250cf911, type: 3}

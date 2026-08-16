@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerAbilityManager : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerProgressionManager progressionManager;
 
     [Header("State")]
@@ -12,10 +11,8 @@ public class PlayerAbilityManager : MonoBehaviour
     [Header("Abilities")]
     public bool canDash = false;
     public bool canWallJump = false;
-    public bool canLegAttack = false;
-    public bool canArmAttack = false;
-    public bool canBodyAttack = false;
-    public bool canHeadAttack = false;
+    public bool canLowAttack = false;
+    public bool canHighAttack = false;
 
     [Header("Inventory")]
     public bool canUseInventory = false;
@@ -25,11 +22,6 @@ public class PlayerAbilityManager : MonoBehaviour
         if (progressionManager == null)
         {
             progressionManager = GetComponent<PlayerProgressionManager>();
-        }
-
-        if (playerController == null)
-        {
-            playerController = GetComponent<PlayerController>();
         }
     }
 
@@ -43,8 +35,6 @@ public class PlayerAbilityManager : MonoBehaviour
         {
             isSoul = false;
         }
-
-        playerController.isWallAttatching = false;
 
         Debug.Log("Possess body.");
     }
@@ -67,28 +57,22 @@ public class PlayerAbilityManager : MonoBehaviour
         bool soulState,
         bool dashEnabled,
         bool wallJumpEnabled,
-        bool legAttackEnabled,
-        bool armAttackEnabled,
-        bool bodyAttackEnabled,
-        bool headAttackEnabled,
+        bool lowAttackEnabled,
+        bool highAttackEnabled,
         bool inventoryEnabled)
     {
         bool changed = isSoul != soulState
             || canDash != dashEnabled
             || canWallJump != wallJumpEnabled
-            || canLegAttack != legAttackEnabled
-            || canArmAttack != armAttackEnabled
-            || canBodyAttack != bodyAttackEnabled
-            || canHeadAttack != headAttackEnabled
+            || canLowAttack != lowAttackEnabled
+            || canHighAttack != highAttackEnabled
             || canUseInventory != inventoryEnabled;
 
         isSoul = soulState;
         canDash = dashEnabled;
         canWallJump = wallJumpEnabled;
-        canLegAttack = legAttackEnabled;
-        canArmAttack = armAttackEnabled;
-        canBodyAttack = bodyAttackEnabled;
-        canHeadAttack = headAttackEnabled;
+        canLowAttack = lowAttackEnabled;
+        canHighAttack = highAttackEnabled;
         canUseInventory = inventoryEnabled;
 
         return changed;

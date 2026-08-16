@@ -14,27 +14,16 @@ public class InventoryUIManager : MonoBehaviour
 
     private void Start()
     {
-        CacheInventoryManager();
-        if (inventoryManager == null)
-        {
-            return;
-        }
-
+        inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
         inventoryManager.inventoryUI = this;
-        UpdateInventoryUI(inventoryManager.items);
+        if(PlayerController.Instance.GetComponent<PlayerAbilityManager>().canUseInventory)
+        {
+            UpdateInventoryUI(inventoryManager.items);
+        }
     }
 
     public void UpdateInventoryUI(InventoryItem[] items) //인벤토리 UI 업데이트
     {
-        if (inventoryManager == null)
-        {
-            CacheInventoryManager();
-            if (inventoryManager == null)
-            {
-                return;
-            }
-        }
-
         int t = inventoryManager.maxSlotCount - slots.Count;
         for (int i = 0; i < t; i++)
         {
@@ -43,33 +32,8 @@ public class InventoryUIManager : MonoBehaviour
 
         for (int i = 0; i < inventoryManager.maxSlotCount; i++)
         {
-            Image[] childImages = slots[i].GetComponentsInChildren<Image>();
-            foreach (Image img in childImages)
-            {
-                if (img.gameObject == slots[i])
-                {
-                    continue;
-                }
-
-                //자기 자신을 제외한 collider
-                int itemIndex = (int)items[i].type;
-                img.sprite = itemIndex >= 0 && itemIndex < itemImages.Length ? itemImages[itemIndex] : null;
-                break;
-            }
+            slots[i].GetComponent<Image>().sprite = itemImages[(int)items[i].type];
             slots[i].GetComponentInChildren<Text>().text = items[i].type==ItemType.Empty ? "" : "X" + items[i].count;
-        }
-    }
-
-    void CacheInventoryManager()
-    {
-        if (PlayerController.Instance == null)
-        {
-            return;
-        }
-
-        if (inventoryManager == null)
-        {
-            inventoryManager = PlayerController.Instance.GetComponent<InventoryManager>();
         }
     }
 }

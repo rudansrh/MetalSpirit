@@ -14,47 +14,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
-    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC800\uAE30..."
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
     textElements:
     - text: ...............
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
     textElements:
     - text: "\uC774\uBD10?"
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
     textElements:
     - text: ...............
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
     textElements:
     - text: "(\uB9D0\uC744 \uBABB\uD558\uB294 \uAC83 \uAC19\uB2E4.)"
       bold: 0
-      color: {r: 1, g: 1, b: 1, a: 1}
+      color: {r: 0, g: 0, b: 0, a: 0}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

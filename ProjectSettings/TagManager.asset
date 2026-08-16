@@ -7,7 +7,6 @@ TagManager:
   - Wall
   - Enemy
   - Floor
-  - Document
   layers:
   - Default
   - TransparentFX

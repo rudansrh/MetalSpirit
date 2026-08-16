@@ -10,12 +10,10 @@ public class ScenePortal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
         if (collision.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
         {
             if (playerAbility.isSoul) return;
         }
-        */
 
         if (collision.TryGetComponent<PlayerController>(out var player))
         {

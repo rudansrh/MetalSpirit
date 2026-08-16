@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum BossPhase
 {
@@ -36,13 +35,10 @@ public enum BossAttackType
 
 public class BossController : MonoBehaviour
 {
-    const string BossHealthSliderName = "Slider_BossHealth";
-
     [Header("Phase Settings")]
     [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
     [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
     [SerializeField] float phase2MaxHealth = 150f;              // 페이즈 2 최대 체력
-    [SerializeField] float phase2TransitionHealthPercent = 0.5f; // 페이즈 2 전환 체력 비율
     [SerializeField] bool autoStartBattle = true;               // 자동으로 전투 시작 여부
 
     [Header("Transition Settings")]
@@ -58,13 +54,9 @@ public class BossController : MonoBehaviour
     [SerializeField] BossAttackController attackController;     // 공격 Controller
     [SerializeField] BossArenaController arenaController;       // 전투 Arena Controller
 
-    [Header("UI")]
-    [SerializeField] Slider bossHealthSlider;
-
     public event Action<BossPhase> OnPhaseChanged;              // 페이즈 변경 이벤트
     public event Action<BossState> OnStateChanged;              // 상태 변경 이벤트
     public event Action<float, float> OnHealthChanged;          // 체력 변경 이벤트 (현재 체력, 최대 체력)
-    public event Action OnPhase2TransitionRequested;            // 페이즈 2 전환 요청 이벤트
     public event Action OnBossDefeated;                         // 보스 처치 이벤트
 
     public BossPhase CurrentPhase { get; private set; }                     // 현재 페이즈
@@ -74,8 +66,6 @@ public class BossController : MonoBehaviour
     public bool IsBattleActive { get; private set; }                        // 전투 활성화 여부
     public bool IsDefeated => CurrentState == BossState.Defeated;           // 보스 처치 여부
 
-    bool phase2TransitionTriggered;
-
     void Reset()
     {
         CacheReferences();
@@ -84,7 +74,6 @@ public class BossController : MonoBehaviour
     void Awake()
     {
         CacheReferences();
-        CacheUiReferences();
         InitializePhase(startPhase, true);
     }
 
@@ -121,20 +110,6 @@ public class BossController : MonoBehaviour
         if (arenaController == null)
         {
             arenaController = GetComponentInChildren<BossArenaController>(true);
-        }
-    }
-
-    void CacheUiReferences()
-    {
-        if (bossHealthSlider != null)
-        {
-            return;
-        }
-
-        GameObject sliderObject = GameObject.Find(BossHealthSliderName);
-        if (sliderObject != null)
-        {
-            bossHealthSlider = sliderObject.GetComponent<Slider>();
         }
     }
 
@@ -185,27 +160,6 @@ public class BossController : MonoBehaviour
         }
     }
 
-    public void SuppressAutoStartBattle()
-    {
-        autoStartBattle = false;
-        StopBattle();
-    }
-
-    public void SetBossHealthUiVisible(bool isVisible)
-    {
-        if (bossHealthSlider == null)
-        {
-            CacheUiReferences();
-        }
-
-        if (bossHealthSlider == null)
-        {
-            return;
-        }
-
-        bossHealthSlider.gameObject.SetActive(isVisible);
-    }
-
     public void SetState(BossState nextState)
     {
         if (CurrentState == nextState) return;
@@ -220,15 +174,8 @@ public class BossController : MonoBehaviour
 
         CurrentHealth = Mathf.Max(0f, CurrentHealth - amount);
         OnHealthChanged?.Invoke(CurrentHealth, MaxHealth);
-        RefreshBossHealthUI();
 
-        Debug.Log($"Boss HP reduced by {amount:0.##}. Current Health: {CurrentHealth:0.##}/{MaxHealth:0.##}");
-
-        if (ShouldTriggerPhase2Transition())
-        {
-            TriggerPhase2Transition();
-            return;
-        }
+        // Debug.Log($"Boss took {amount} damage. Current Health: {CurrentHealth}/{MaxHealth}");
 
         if (CurrentHealth <= 0f)
         {
@@ -238,16 +185,9 @@ public class BossController : MonoBehaviour
 
     public void InitializePhase(BossPhase phase, bool silent = false)
     {
-        InitializePhase(phase, GetDefaultMaxHealthForPhase(phase), silent);
-    }
-
-    public void InitializePhase(BossPhase phase, float startingHealth, bool silent = false)
-    {
         CurrentPhase = phase;
-        MaxHealth = GetDefaultMaxHealthForPhase(phase);
-        CurrentHealth = Mathf.Clamp(startingHealth, 0f, MaxHealth);
-        phase2TransitionTriggered = phase != BossPhase.Phase1;
-        RefreshBossHealthUI();
+        MaxHealth = phase == BossPhase.Phase1 ? phase1MaxHealth : phase2MaxHealth;
+        CurrentHealth = MaxHealth;
 
         if (!silent)
         {
@@ -256,51 +196,20 @@ public class BossController : MonoBehaviour
         }
     }
 
-    void RefreshBossHealthUI()
-    {
-        if (bossHealthSlider == null)
-        {
-            CacheUiReferences();
-        }
-
-        if (bossHealthSlider == null)
-        {
-            return;
-        }
-
-        bossHealthSlider.minValue = 0f;
-        bossHealthSlider.maxValue = MaxHealth;
-        bossHealthSlider.value = CurrentHealth;
-    }
-
-    float GetDefaultMaxHealthForPhase(BossPhase phase)
-    {
-        return phase == BossPhase.Phase1 ? phase1MaxHealth : phase2MaxHealth;
-    }
-
     void HandleHealthDepleted()
     {
         StopBattle();
 
+        if (CurrentPhase == BossPhase.Phase1)
+        {
+            SetState(BossState.Transition);
+            BeginPhase2();
+            return;
+        }
+
         SetState(BossState.Defeated);
         OnBossDefeated?.Invoke();
         Debug.Log("Boss defeated.");
-    }
-
-    bool ShouldTriggerPhase2Transition()
-    {
-        return CurrentPhase == BossPhase.Phase1
-            && !phase2TransitionTriggered
-            && phase2TransitionHealthPercent > 0f
-            && CurrentHealth <= MaxHealth * phase2TransitionHealthPercent;
-    }
-
-    void TriggerPhase2Transition()
-    {
-        phase2TransitionTriggered = true;
-        StopBattle();
-        SetState(BossState.Transition);
-        OnPhase2TransitionRequested?.Invoke();
     }
 
     void BeginPhase2()
@@ -313,11 +222,5 @@ public class BossController : MonoBehaviour
 
         InitializePhase(BossPhase.Phase2);
         StartBattle();
-    }
-
-    void OnValidate()
-    {
-        CacheUiReferences();
-        RefreshBossHealthUI();
     }
 }

@@ -10,8 +10,8 @@ public class BossWeakPointManager : MonoBehaviour
     [SerializeField] List<BossPartHitbox> weakPointHitboxes = new List<BossPartHitbox>();   // 약점 포인트 Hitbox 목록
 
     [Header("UI")]
-    [SerializeField] Text weakPointText;                // 약점 포인트 UI 텍스트
-    [SerializeField] string weakPointTextPrefix = "-";  // 약점 포인트 UI 텍스트 접두사
+    [SerializeField] Text weakPointText;                        // 약점 포인트 UI 텍스트
+    [SerializeField] string weakPointTextPrefix = "Weak Point"; // 약점 포인트 UI 텍스트 접두사
 
     BossController bossController;      // 보스 컨트롤러 참조
     BossPartHitbox currentWeakPoint;    // 현재 활성화된 약점 포인트
@@ -184,22 +184,22 @@ public class BossWeakPointManager : MonoBehaviour
         }
 
         weakPointText.text = currentWeakPoint == null
-            ? $"{weakPointTextPrefix}: -"
-            : $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({weakPointOpenDuration}s)";
+            ? $"{weakPointTextPrefix}: None"
+            : $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({weakPointOpenDuration:0.0}s)";
     }
 
     string GetDisplayName(BossWeakPointType type)
     {
         switch (type)
-        {   
-            case BossWeakPointType.UpperBody:
-                return "상체";
-            case BossWeakPointType.LowerBody:
-                return "하체";
-            case BossWeakPointType.RightArm:
-                return "오른팔";
+        {
             case BossWeakPointType.LeftArm:
-                return "왼팔";
+                return "Left Arm";
+            case BossWeakPointType.RightArm:
+                return "Right Arm";
+            case BossWeakPointType.UpperBody:
+                return "Upper Body";
+            case BossWeakPointType.LowerBody:
+                return "Lower Body";
             default:
                 return type.ToString();
         }
