@@ -363,8 +363,8 @@ Transform:
   m_GameObject: {fileID: 32847660}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.17, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 9.55, z: 1}
+  m_LocalPosition: {x: -6.17, y: 0.3, z: 0}
+  m_LocalScale: {x: 0.3, y: 10.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 12158166}
@@ -1692,8 +1692,8 @@ Transform:
   m_GameObject: {fileID: 294995046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.23, y: -0.75, z: 0}
-  m_LocalScale: {x: 0.3, y: 4.99, z: 1}
+  m_LocalPosition: {x: 6.23, y: -0.839, z: 0}
+  m_LocalScale: {x: 0.3, y: 4.8118567, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2100473735}
@@ -1816,6 +1816,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Door
   minigame: {fileID: 2100473736}
+  maxHp: 1
+  currentHp: 1
   minigameStarted: 0
 --- !u!1 &320770057
 GameObject:
@@ -4807,14 +4809,15 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 32.660206, y: -12.500855}
-  - {x: 33.59208, y: -12.531359}
+  - {x: 32.88822, y: -12.500855}
+  - {x: 32.90722, y: -12.500855}
+  - {x: 33.59208, y: -12.502856}
   - {x: 33.574497, y: -14.361972}
   - {x: 26.857912, y: -14.316509}
   - {x: 26.923632, y: -6.8255467}
   - {x: 33.46207, y: -6.773832}
   - {x: 33.5032, y: -9.556768}
-  - {x: 32.74653, y: -9.565532}
+  - {x: 32.87953, y: -9.565532}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -5194,7 +5197,7 @@ Transform:
   m_GameObject: {fileID: 1168361136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -4.73, z: 0}
+  m_LocalPosition: {x: 0.01, y: -5.15, z: 0}
   m_LocalScale: {x: 12.23, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8949,8 +8952,8 @@ Transform:
   m_GameObject: {fileID: 2015081153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.23, y: 3.24, z: 0}
-  m_LocalScale: {x: 0.3, y: 3.3, z: 1}
+  m_LocalPosition: {x: 6.23, y: 3.5399, z: 0}
+  m_LocalScale: {x: 0.3, y: 3.89994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 12158166}
@@ -9151,6 +9154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2100473735}
   - component: {fileID: 2100473736}
+  - component: {fileID: 2100473737}
   m_Layer: 0
   m_Name: MiniGameArea
   m_TagString: Untagged
@@ -9198,6 +9202,56 @@ MonoBehaviour:
   rightWall: {fileID: 2015081154}
   ceiling: {fileID: 693641121}
   retryPoint: {fileID: 1895224175}
+--- !u!68 &2100473737
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100473734}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 8.429296, y: 6.2564545}
+  - {x: 8.406197, y: 1.5557667}
+  - {x: 6.562035, y: 1.5813962}
+  - {x: 6.5364494, y: -3.2958755}
+  - {x: 8.327696, y: -3.2853172}
+  - {x: 8.384261, y: -6.4499335}
+  - {x: -8.302082, y: -6.4247203}
+  - {x: -8.291991, y: 6.251746}
+  - {x: 8.239893, y: 6.219808}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
 --- !u!1 &2101790313
 GameObject:
   m_ObjectHideFlags: 0

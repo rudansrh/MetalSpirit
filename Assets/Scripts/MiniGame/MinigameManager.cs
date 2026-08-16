@@ -69,7 +69,9 @@ public class MinigameManager : MonoBehaviour
         Debug.Log("미니게임 실패");
         cameraFollow.Instance.ReturnToNormal();
         gameStart = false;
-        door.GetComponent<Door>().minigameStarted = false;
+        Door doorScript = door.GetComponent<Door>();
+        doorScript.minigameStarted = false;
+        doorScript.currentHp = doorScript.maxHp;
         player.isPlayingMinigame = false;
         player.transform.position = retryPoint.position;
         currentTime = 0;
@@ -103,5 +105,25 @@ public class MinigameManager : MonoBehaviour
         door.SetActive(true);
         door.GetComponent<Door>().minigameStarted = true;
         gameStart = true;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
+
+        if (!collision.TryGetComponent<PlayerAbilityManager>(out var ability))
+            return;
+
+        if (!ability.isSoul) return;
+
+        Collider2D fieldCollider = GetComponent<Collider2D>();
+        ColliderDistance2D distance = fieldCollider.Distance(collision);
+
+        if (!distance.isOverlapped) return;
+
+        Rigidbody2D rb = collision.attachedRigidbody;
+
+        // 겹친 만큼 벽 바깥쪽으로 이동시켜서 벽을 통과하지 못하게 함
+        rb.position += distance.normal * Mathf.Abs(distance.distance);
     }
 }

@@ -296,9 +296,9 @@ public class PlayerCombatManager : MonoBehaviour
                 continue;
             }
 
-            if(hit.TryGetComponent<ItemBox>(out var itemBox))
+            if(hit.TryGetComponent<IBreakable>(out var breakable))
             {
-                itemBox.objectDamaged();
+                breakable.objectDamaged();
             }
 
             IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();
