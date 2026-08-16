@@ -202,4 +202,20 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
         if (isPossessed && collision.gameObject.tag == "Wall")
             playerController.isWallAttatching = false;
     }
+
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!isPossessed) return;
+
+        // 아이템 등 상호작용 객체 감지 로직
+        playerController.touchInteractable(collision);
+    }
+
+    protected virtual void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!isPossessed) return;
+
+        // 아이템 등 상호작용 객체 감지 로직
+        playerController.fallFromInteractable(collision);
+    }
 }

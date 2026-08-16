@@ -67,11 +67,11 @@ public class ArmEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.gameObject == gameObject) //자기자신(빙의된 에너미) 제외
+                if (hit.collider.gameObject == gameObject)
                 {
                     continue;
                 }
@@ -80,16 +80,21 @@ public class ArmEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canTalk(hit.transform);
+                    found = true;
                 }
-                found = true;
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);

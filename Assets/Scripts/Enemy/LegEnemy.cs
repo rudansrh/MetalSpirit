@@ -70,7 +70,7 @@ public class LegEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -83,16 +83,21 @@ public class LegEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canTalk(hit.transform);
+                    found = true;
                 }
-                found = true;
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
