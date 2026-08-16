@@ -12,4 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01cb2f5501127664091a95727d9f3314, type: 3}
   m_Name: enemy1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uC5EC\uAE30\uB294 \uBB50\uD558\uB294 \uACF3\uC774\uC57C?"
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uBCF4\uBA74 10010\uD150\uB370? \uACF5\uC7A5101\uC9C0."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uADF8\uB807\uAD6C\uB098."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 0
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uADF8\uB098\uC800\uB098 \uB108\uB294 \uB9D0\uC744 \uC2E0\uAE30\uD558\uAC8C
+        \uD558\uB124."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - speaker: 1
+    portraitSprite: {fileID: 0}
+    textElements:
+    - text: "\uC2E0\uAE30? \uAE00\uC384, 11101\uB294 \uB108\uAC00 \uC2E0\uAE30\uD55C\uAC78."
+      bold: 0
+      color: {r: 1, g: 1, b: 1, a: 1}
+    text: 
+    textBold: 0
+    color: {r: 0, g: 0, b: 0, a: 1}

@@ -10,6 +10,10 @@ public class IntroPlayerController : MonoBehaviour
     [SerializeField] private Rigidbody2D rigidbody2D;
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Sprite fallSprite;
+
+    private Vector3 simulatedRoutePosition;
+    private Sprite defaultSprite;
 
     private void Awake()
     {
@@ -58,27 +62,39 @@ public class IntroPlayerController : MonoBehaviour
             rigidbody2D.simulated = false;
         }
 
-        transform.position = new Vector3(startPoint.x, startPoint.y, transform.position.z);
+        simulatedRoutePosition = new Vector3(startPoint.x, startPoint.y, transform.position.z);
+        transform.position = simulatedRoutePosition;
+        CacheDefaultSprite();
         SetIdleAnimation();
     }
 
     public IEnumerator MoveTo(Vector3 targetPoint, float speed)
     {
-        Vector3 targetPosition = new Vector3(targetPoint.x, targetPoint.y, transform.position.z);
+        Vector3 targetPosition = new Vector3(targetPoint.x, targetPoint.y, simulatedRoutePosition.z);
+        Vector3 routeDelta = targetPosition - simulatedRoutePosition;
+        float distance = routeDelta.magnitude;
 
-        while (Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        if (distance <= 0.01f || speed <= 0f)
         {
-            Vector3 previousPosition = transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
+            simulatedRoutePosition = targetPosition;
+            SetIdleAnimation();
+            yield break;
+        }
 
-            Vector3 delta = transform.position - previousPosition;
-            float horizontal = Mathf.Abs(delta.x) > 0.001f ? Mathf.Sign(delta.x) : 0f;
+        float horizontal = Mathf.Abs(routeDelta.x) > 0.001f ? Mathf.Sign(routeDelta.x) : 0f;
+        float duration = distance / speed;
+        float elapsed = 0f;
+
+        RestoreAnimationControl();
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
             UpdateAnimation(horizontal, true, false, 0f);
-
             yield return null;
         }
 
-        transform.position = targetPosition;
+        simulatedRoutePosition = targetPosition;
         SetIdleAnimation();
     }
 
@@ -88,7 +104,7 @@ public class IntroPlayerController : MonoBehaviour
         Vector3 endPosition = startPosition + Vector3.down * distance;
         float elapsed = 0f;
 
-        PlayFallAnimation();
+        EnableFallSprite();
 
         while (elapsed < duration)
         {
@@ -97,8 +113,6 @@ public class IntroPlayerController : MonoBehaviour
             float easedProgress = progress * progress;
 
             transform.position = Vector3.Lerp(startPosition, endPosition, easedProgress);
-            UpdateFallAnimationState();
-
             yield return null;
         }
 
@@ -107,6 +121,7 @@ public class IntroPlayerController : MonoBehaviour
 
     public void SetIdleAnimation()
     {
+        RestoreAnimationControl();
         UpdateAnimation(0f, false, false, 0f);
     }
 
@@ -131,25 +146,41 @@ public class IntroPlayerController : MonoBehaviour
         }
     }
 
-    private void PlayFallAnimation()
+    private void CacheDefaultSprite()
     {
-        if (animator != null)
+        if (spriteRenderer != null && defaultSprite == null)
         {
-            animator.Play("player1_air", 0, 0f);
+            defaultSprite = spriteRenderer.sprite;
         }
     }
 
-    private void UpdateFallAnimationState()
+    private void EnableFallSprite()
     {
-        if (visualManager != null)
+        CacheDefaultSprite();
+
+        if (animator != null)
         {
-            visualManager.UpdateAnimationState(
-                0f,
-                false,
-                -8f,
-                false,
-                false,
-                abilityManager != null && abilityManager.isSoul);
+            animator.enabled = false;
+        }
+
+        if (spriteRenderer != null && fallSprite != null)
+        {
+            spriteRenderer.sprite = fallSprite;
+        }
+    }
+
+    private void RestoreAnimationControl()
+    {
+        if (animator != null && !animator.enabled)
+        {
+            animator.enabled = true;
+            animator.Rebind();
+            animator.Update(0f);
+        }
+
+        if (spriteRenderer != null && defaultSprite != null && fallSprite != null && spriteRenderer.sprite == fallSprite)
+        {
+            spriteRenderer.sprite = defaultSprite;
         }
     }
 }

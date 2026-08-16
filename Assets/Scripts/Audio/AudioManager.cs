@@ -16,7 +16,9 @@ public class AudioManager : MonoBehaviour
     public int Schannels = 8;
     private AudioSource[] sfxPlayers;
 
+    private readonly List<BgmZoneTrigger> activeBgmZones = new List<BgmZoneTrigger>();
     private readonly Dictionary<Sfx, float> lastPlayTime = new Dictionary<Sfx, float>();
+    private AudioClip sceneBgmClip;
     private int channelIdx;
     private bool initialized;
 
@@ -94,6 +96,8 @@ public class AudioManager : MonoBehaviour
             source.bypassListenerEffects = true;
             sfxPlayers[i] = source;
         }
+
+        ApplyAudioSourceVolumes();
     }
 
     /* private void SubscribeToSettings()
@@ -148,34 +152,26 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        Bvolume = Mathf.Clamp01(source.Bvolume);
+        Svolume = Mathf.Clamp01(source.Svolume);
+
         if (source.sfxClips != null && source.sfxClips.Length > 0)
         {
             sfxClips = source.sfxClips;
         }
 
         defaultCooldown = source.defaultCooldown;
+        activeBgmZones.Clear();
+        ApplyAudioSourceVolumes();
 
         if (source.bgmClip == null)
         {
+            ApplyResolvedBgm();
             return;
         }
 
-        bool clipChanged = bgmPlayer == null || bgmPlayer.clip != source.bgmClip;
-        bgmClip = source.bgmClip;
-
-        if (bgmPlayer == null)
-        {
-            return;
-        }
-
-        bgmPlayer.clip = bgmClip;
-
-        if (clipChanged)
-        {
-            bgmPlayer.Stop();
-        }
-
-        PlayBgm();
+        sceneBgmClip = source.bgmClip;
+        ApplyResolvedBgm();
     }
 
     public void PlayBgm()
@@ -197,6 +193,160 @@ public class AudioManager : MonoBehaviour
         if (bgmPlayer != null && bgmPlayer.isPlaying)
         {
             bgmPlayer.Stop();
+        }
+    }
+
+    public void EnterBgmZone(BgmZoneTrigger zone)
+    {
+        if (zone == null)
+        {
+            return;
+        }
+
+        if (activeBgmZones.Contains(zone))
+        {
+            return;
+        }
+
+        activeBgmZones.Add(zone);
+        ApplyResolvedBgm();
+    }
+
+    public void ExitBgmZone(BgmZoneTrigger zone)
+    {
+        if (zone == null)
+        {
+            return;
+        }
+
+        if (activeBgmZones.Remove(zone))
+        {
+            ApplyResolvedBgm();
+        }
+    }
+
+    public void SetSceneBgm(AudioClip clip)
+    {
+        sceneBgmClip = clip;
+        activeBgmZones.Clear();
+        ApplyResolvedBgm();
+    }
+
+    public void SetBgmVolume(float volume)
+    {
+        Bvolume = Mathf.Clamp01(volume);
+        ApplyAudioSourceVolumes();
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        Svolume = Mathf.Clamp01(volume);
+        ApplyAudioSourceVolumes();
+    }
+
+    private void OnValidate()
+    {
+        Bvolume = Mathf.Clamp01(Bvolume);
+        Svolume = Mathf.Clamp01(Svolume);
+        ApplyAudioSourceVolumes();
+    }
+
+    private void ApplyAudioSourceVolumes()
+    {
+        if (bgmPlayer != null)
+        {
+            bgmPlayer.volume = Bvolume;
+        }
+
+        if (sfxPlayers == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < sfxPlayers.Length; i++)
+        {
+            if (sfxPlayers[i] != null)
+            {
+                sfxPlayers[i].volume = Svolume;
+            }
+        }
+    }
+
+    private void ApplyResolvedBgm()
+    {
+        AudioClip targetClip = sceneBgmClip;
+        BgmZoneTrigger activeZone = GetActiveBgmZone();
+        if (activeZone != null && activeZone.BgmClip != null)
+        {
+            targetClip = activeZone.BgmClip;
+        }
+
+        SetResolvedBgm(targetClip);
+    }
+
+    private BgmZoneTrigger GetActiveBgmZone()
+    {
+        for (int i = activeBgmZones.Count - 1; i >= 0; i--)
+        {
+            if (activeBgmZones[i] == null)
+            {
+                activeBgmZones.RemoveAt(i);
+            }
+        }
+
+        BgmZoneTrigger selectedZone = null;
+        int highestPriority = int.MinValue;
+        int selectedIndex = -1;
+
+        for (int i = 0; i < activeBgmZones.Count; i++)
+        {
+            BgmZoneTrigger zone = activeBgmZones[i];
+            if (zone == null)
+            {
+                continue;
+            }
+
+            if (zone.Priority > highestPriority || (zone.Priority == highestPriority && i > selectedIndex))
+            {
+                highestPriority = zone.Priority;
+                selectedIndex = i;
+                selectedZone = zone;
+            }
+        }
+
+        return selectedZone;
+    }
+
+    private void SetResolvedBgm(AudioClip clip)
+    {
+        bgmClip = clip;
+
+        if (bgmPlayer == null)
+        {
+            return;
+        }
+
+        if (clip == null)
+        {
+            bgmPlayer.Stop();
+            bgmPlayer.clip = null;
+            return;
+        }
+
+        bool clipChanged = bgmPlayer.clip != clip;
+        if (clipChanged)
+        {
+            bgmPlayer.Stop();
+            bgmPlayer.clip = clip;
+        }
+        else if (bgmPlayer.clip == null)
+        {
+            bgmPlayer.clip = clip;
+        }
+
+        if (!bgmPlayer.isPlaying)
+        {
+            bgmPlayer.Play();
         }
     }
 
