@@ -16,6 +16,7 @@ public class PlayerAbilityManager : MonoBehaviour
     public bool canArmAttack = false;
     public bool canBodyAttack = false;
     public bool canHeadAttack = false;
+    public bool canBeSoul = true;
 
     [Header("Inventory")]
     public bool canUseInventory = false;
@@ -51,6 +52,12 @@ public class PlayerAbilityManager : MonoBehaviour
 
     public void DepossessBody()
     {
+        if (!canBeSoul)
+        {
+            isSoul = false;
+            PossessBody();
+            return;
+        }
         if (progressionManager != null)
         {
             progressionManager.SetSoulState(true);
@@ -90,6 +97,7 @@ public class PlayerAbilityManager : MonoBehaviour
         canBodyAttack = bodyAttackEnabled;
         canHeadAttack = headAttackEnabled;
         canUseInventory = inventoryEnabled;
+        canBeSoul = !canDash;
 
         return changed;
     }
