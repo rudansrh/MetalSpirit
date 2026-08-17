@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC800\uAE30, \uC774 \uC544\uB798\uC5D0\uB294 \uBB50\uAC00 \uC788\uC5B4?"
       bold: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uAE00\uC3BC, "
       bold: 1
@@ -41,7 +41,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uD070 \uC7A5\uC18C?"
       bold: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uADF8\uB798, \uC880 \uB354 \uD06C\uACE0 "
       bold: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uC790\uC138\uD55C "
       bold: 1
@@ -77,7 +77,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uC5B4\uCC28\uD53C \uB10C "
       bold: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uADF8\uAC70 "
       bold: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uC61B\uB0A0\uC758 "
       bold: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uB9D1\uACE0 \uAE68\uB057\uD55C "
       bold: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uD558\uC9C0\uB9CC "
       bold: 0
@@ -83,7 +83,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uC544, \uADF8\uB54C\uB294 "
       bold: 0
@@ -98,7 +98,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: ...
       bold: 0
@@ -107,7 +107,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: -6473648388156617187, guid: 045a6d4d4004a4a1a982f0765ee33645, type: 3}
     textElements:
     - text: "\uADF8\uAC70 "
       bold: 0

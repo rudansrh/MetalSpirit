@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC800\uAE30..."
       bold: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 932425714525011378, guid: 0b5bd80de5ec346109c7141de6a1c8ee, type: 3}
     textElements:
     - text: ...............
       bold: 0
@@ -32,7 +32,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC774\uBD10?"
       bold: 0
@@ -41,7 +41,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 932425714525011378, guid: 0b5bd80de5ec346109c7141de6a1c8ee, type: 3}
     textElements:
     - text: ...............
       bold: 0
@@ -50,7 +50,7 @@ MonoBehaviour:
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "(\uB9D0\uC744 \uBABB\uD558\uB294 \uAC83 \uAC19\uB2E4.)"
       bold: 0

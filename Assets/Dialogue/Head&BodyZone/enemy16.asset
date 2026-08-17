@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
-    portraitSprite: {fileID: 0}
+    portraitSprite: {fileID: 7293070935020972602, guid: d6e87216e75e54287b299ad2b6053ec2, type: 3}
     textElements:
     - text: $&@^*!
       bold: 0
