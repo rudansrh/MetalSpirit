@@ -78,6 +78,8 @@ public class PlayerController : MonoBehaviour
     public bool isUIopen = false;
     bool isHeadEnemy = false;
 
+    public int lastSavedSlot = 0;
+
     public CanInteractUI canInteractUI;
     public GameObject possessChecker;
     public static PlayerController Instance => instance == null ? null : instance;
