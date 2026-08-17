@@ -379,6 +379,17 @@ public class PlayerController : MonoBehaviour
         MapUIManager.Instance?.ToggleMap();
     }
 
+    public void OnTutorial(InputValue value)
+    {
+        if (!value.isPressed) return;
+        if (isPlayingMinigame || isTalking) return;
+
+        bool isTutorialOpen = TurotialUIManager.Instance != null && TurotialUIManager.Instance.IsOpen;
+        if (isUIopen && !isTutorialOpen) return;
+
+        TurotialUIManager.Instance?.ToggleTutorial();
+    }
+
     IEnumerator DashRoutine()
     {
 
