@@ -120,7 +120,7 @@ public class ArmEnemy : Enemy
         playerPos = playerController.transform.position;
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
+        if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             UpdateMoveAnimation(false);
@@ -130,7 +130,7 @@ public class ArmEnemy : Enemy
                 StartCoroutine(AttackRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             ChasePlayer(playerPos);
         }
@@ -169,6 +169,7 @@ public class ArmEnemy : Enemy
                 if (hit.gameObject == this.gameObject) continue;
 
                 damageReceiver.Attacked(damage);
+                hit.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
                 Debug.Log($"발구르기 적중! 데미지: {damage}");
             }
         }

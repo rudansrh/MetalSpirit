@@ -126,7 +126,7 @@ public class BodyEnemy : Enemy
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
         // °ø°Ý ¹üÀ§ ³»¿¡ µé¾î¿À¸é µ¹Áø ÁØºñ
-        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
+        if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             UpdateMoveAnimation(false);
@@ -136,7 +136,7 @@ public class BodyEnemy : Enemy
                 StartCoroutine(ChargeRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             ChasePlayer(playerPos);
         }
@@ -316,6 +316,7 @@ public class BodyEnemy : Enemy
         if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
         {
             damageReceiver.Attacked(damage);
+            collision.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
         }
 
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb2d))

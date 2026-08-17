@@ -119,7 +119,7 @@ public class HeadEnemy : Enemy
         Vector2 playerPos = playerController.transform.position;
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        if (distanceToPlayer <= laserRange && !playerController.isPossessing)
+        if (distanceToPlayer <= laserRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = Vector2.zero;
             UpdateMoveAnimation(false);
@@ -129,7 +129,7 @@ public class HeadEnemy : Enemy
                 StartCoroutine(LaserRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && distanceToPlayer > hoverDistance && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && distanceToPlayer > hoverDistance && (!playerController.isPossessing || isAttackingPossessed))
         {
             FlyTowardsPlayer(playerPos);
         }
@@ -230,6 +230,7 @@ public class HeadEnemy : Enemy
                 if (hit.collider.gameObject == this.gameObject) continue;
 
                 damageReceiver.Attacked(laserDamage);
+                hit.collider.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
                 hitPlayer = true;
                 Debug.Log("레이저 적중! 데미지: 50");
                 break;
