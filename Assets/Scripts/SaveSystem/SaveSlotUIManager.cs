@@ -72,7 +72,7 @@ public class SaveSlotUIManager : MonoBehaviour
     {
         if (SaveManager.Instance != null)
         {
-            SaveManager.Instance.StartNewGame("LegZone");
+            SaveManager.Instance.StartNewGame("Landfill");
         }
     }
 

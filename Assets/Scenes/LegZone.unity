@@ -526,6 +526,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.03
@@ -2464,6 +2468,9 @@ GameObject:
   m_Component:
   - component: {fileID: 534741273}
   - component: {fileID: 534741272}
+  - component: {fileID: 534741274}
+  - component: {fileID: 534741275}
+  - component: {fileID: 534741276}
   m_Layer: 0
   m_Name: object_box_0
   m_TagString: Untagged
@@ -2545,6 +2552,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534741274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534741271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  Items: {fileID: 694665053}
+--- !u!114 &534741275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534741271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
+--- !u!61 &534741276
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534741271}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
 --- !u!1 &593496480
 GameObject:
   m_ObjectHideFlags: 0
@@ -4250,6 +4331,7 @@ GameObject:
   - component: {fileID: 1003299600}
   - component: {fileID: 1003299599}
   - component: {fileID: 1003299601}
+  - component: {fileID: 1003299602}
   m_Layer: 6
   m_Name: BreakableDoor
   m_TagString: Wall
@@ -4377,6 +4459,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.62, y: 0.26}
   m_EdgeRadius: 0
+--- !u!114 &1003299602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003299598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62d3d749a6a9034fb943ae05a534c63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakableDoor
 --- !u!1001 &1036295297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4814,6 +4908,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.14
@@ -5322,7 +5420,7 @@ EdgeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -5339,10 +5437,9 @@ EdgeCollider2D:
   - {x: 13, y: -9.38}
   - {x: 6.94, y: -9.38}
   - {x: 6.01, y: -9.38}
-  - {x: -5.7233887, y: -9.38}
-  - {x: -5.7233887, y: -10.872217}
-  - {x: -11.549699, y: -10.872218}
-  - {x: -11.52, y: 3.32}
+  - {x: -5.7, y: -9.38}
+  - {x: -5.7, y: -10.87}
+  - {x: -11.52, y: -10.87}
   - {x: -11.52, y: 10.82}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
@@ -7369,8 +7466,7 @@ EdgeCollider2D:
   - {x: -5.73, y: -9.38}
   - {x: -5.73, y: -10.83}
   - {x: -11.58, y: -10.83}
-  - {x: -11.52, y: 3.32}
-  - {x: -11.52, y: 10.82}
+  - {x: -11.58, y: 10.82}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
@@ -9253,6 +9349,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1720966234}
   - component: {fileID: 1720966233}
+  - component: {fileID: 1720966235}
+  - component: {fileID: 1720966236}
+  - component: {fileID: 1720966237}
   m_Layer: 0
   m_Name: object_box_0 (2)
   m_TagString: Untagged
@@ -9334,6 +9433,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1720966235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720966232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  Items: {fileID: 694665053}
+--- !u!114 &1720966236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720966232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
+--- !u!61 &1720966237
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1720966232}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
 --- !u!1 &1730842775
 GameObject:
   m_ObjectHideFlags: 0
@@ -9344,6 +9517,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1730842777}
   - component: {fileID: 1730842776}
+  - component: {fileID: 1730842778}
+  - component: {fileID: 1730842779}
+  - component: {fileID: 1730842780}
   m_Layer: 0
   m_Name: object_box_0 (1)
   m_TagString: Untagged
@@ -9425,6 +9601,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1730842778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730842775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DropItem
+  ItemPrefabs:
+  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
+  Items: {fileID: 694665053}
+--- !u!114 &1730842779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730842775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
+  hp: 1
+--- !u!61 &1730842780
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730842775}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.56, y: 0.38}
+    newSize: {x: 0.56, y: 0.38}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.56, y: 0.38}
+  m_EdgeRadius: 0
 --- !u!4 &1738328931 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8943573642785184300, guid: 58710a02e509c48dd997843ec9e1467b, type: 3}
@@ -9521,6 +9771,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.03
@@ -9734,7 +9988,19 @@ MonoBehaviour:
   stayUnlockedAfterSuccess: 1
   onPasswordMatched:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 430973159}
+        m_TargetAssemblyTypeName: ScenePortal, Assembly-CSharp
+        m_MethodName: activatePortal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &1793847964
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10956,6 +11222,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.72
