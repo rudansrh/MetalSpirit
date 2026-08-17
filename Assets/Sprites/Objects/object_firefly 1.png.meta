@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 729b85293d8b84e5097dbe7371b16d28
+guid: 6d46133b9dc2c4579916716973707910
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -160,10 +160,10 @@ TextureImporter:
       name: object_firefly_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 8
+        y: 20
+        width: 5
+        height: 5
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

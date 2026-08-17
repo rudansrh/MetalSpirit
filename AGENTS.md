@@ -2,12 +2,13 @@
 - Project name: MetalSpirit
 - Unity version: Unity 6000.4.9f1
 - Active scene:
+  - Name: DocumentPanel
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document, Parts
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: keyBubble
+  - Name: Scroll View
   - Tag: Untagged
   - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
