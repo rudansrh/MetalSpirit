@@ -145,7 +145,7 @@ public class LegEnemy : Enemy
     }
 
     // 발구르기 공격 코루틴
-    private IEnumerator StompRoutine()
+    public IEnumerator StompRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -170,6 +170,13 @@ public class LegEnemy : Enemy
             {
                 damageable.TakeDamage(stompDamage, DamageType.Normal);
                 hitPlayer = true;
+                Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
+            }
+            else if(isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.gameObject == this.gameObject) continue; 
+                
+                damageReceiver.Attacked(stompDamage);
                 Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
             }
         }

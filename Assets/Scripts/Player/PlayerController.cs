@@ -272,6 +272,26 @@ public class PlayerController : MonoBehaviour
         return rigid != null ? rigid.GetComponent<Collider2D>() : null;
     }
 
+    public void enemyAttack() // 빙의상태로 공격
+    {
+        if(rigid.TryGetComponent<LegEnemy>(out var legEnemy))
+        {
+            StartCoroutine(legEnemy.StompRoutine());
+        }
+        else if(rigid.TryGetComponent<ArmEnemy>(out var armEnemy))
+        {
+            StartCoroutine(armEnemy.AttackRoutine());
+        }
+        else if (rigid.TryGetComponent<HeadEnemy>(out var headEnemy))
+        {
+            StartCoroutine(headEnemy.LaserRoutine());
+        }
+        else if (rigid.TryGetComponent<BodyEnemy>(out var bodyEnemy))
+        {
+            StartCoroutine(bodyEnemy.ChargeRoutine());
+        }
+    }
+
     public void OnMove(InputValue value)
     {
         if (isUIopen)
@@ -359,7 +379,7 @@ public class PlayerController : MonoBehaviour
     {
         if (IsSoulForm() || !canMove || isUIopen) return;
 
-        if (abilityManager.canDash && canDashAgain && !isDashing && canMove && !IsAttackInProgress)
+        if ((abilityManager.canDash || IsPossessing) && canDashAgain && !isDashing && canMove && !IsAttackInProgress)
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
@@ -445,7 +465,7 @@ public class PlayerController : MonoBehaviour
     // 벽 타기 가능 여부
     bool CanWallClimb()
     {
-        return abilityManager.canWallJump
+        return (abilityManager.canWallJump || IsPossessing)
             && !IsSoulForm()
             && isWallAttatching
             && wallClimbDetachDirection != 0

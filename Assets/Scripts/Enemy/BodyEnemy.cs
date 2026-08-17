@@ -145,7 +145,7 @@ public class BodyEnemy : Enemy
     }
 
     // µ¹Áø °ø°Ý ÄÚ·çÆ¾
-    private IEnumerator ChargeRoutine()
+    public IEnumerator ChargeRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;

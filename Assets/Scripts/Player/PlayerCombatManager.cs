@@ -104,9 +104,15 @@ public class PlayerCombatManager : MonoBehaviour
         }
     }
 
-    public void OnLegAttack(InputValue value)
+    public void OnLegAttack(InputValue value) //다리공격 + 빙의 공격
     {
-        if (!value.isPressed || !CanStartCommonAttack()) return;
+        if (!value.isPressed || playerController == null || playerController.IsUiOpen) return;
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack();
+            return;
+        }
+
         if (abilityManager == null || !abilityManager.canLegAttack || legAttackCoolTime > curTime_leg) return;
 
         curTime_leg = 0f;

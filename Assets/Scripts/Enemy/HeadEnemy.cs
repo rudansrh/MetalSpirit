@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -153,7 +154,7 @@ public class HeadEnemy : Enemy
     }
 
     // ·¹ÀÌÀú ¹ß»ç ÄÚ·çÆ¾
-    private IEnumerator LaserRoutine()
+    public IEnumerator LaserRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -162,6 +163,28 @@ public class HeadEnemy : Enemy
 
         Vector2 firePoint = (Vector2)transform.position + new Vector2(headOffset.x * facingDirection, headOffset.y);
         Vector2 playerCenter = playerController.transform.position;
+
+        if (isPossessed)
+        {
+            playerCenter = new Vector2(-1000, -1000);
+            Collider2D[] findEnemys = Physics2D.OverlapBoxAll(firePoint, new Vector2(10,10), 0);
+            foreach (var hit in findEnemys)
+            {
+                if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+                {
+                    if (hit.gameObject == this.gameObject || Vector2.Distance(firePoint, playerCenter) < Vector2.Distance(firePoint, hit.transform.position)) continue;
+
+                    playerCenter = hit.transform.position;
+                    Debug.Log(hit.name);
+                }
+            }
+
+            if(playerCenter.x == -1000)
+            {
+                Debug.Log("조준실패");
+                yield break;
+            }
+        }
 
         Vector2 aimDirection = (playerCenter - firePoint).normalized;
 
@@ -201,6 +224,15 @@ public class HeadEnemy : Enemy
                     hitPlayer = true;
                     Debug.Log("레이저 적중! 데미지: 50");
                 }
+            }
+            else if (isPossessed && hit.collider.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.collider.gameObject == this.gameObject) continue;
+
+                damageReceiver.Attacked(laserDamage);
+                hitPlayer = true;
+                Debug.Log("레이저 적중! 데미지: 50");
+                break;
             }
         }
 
