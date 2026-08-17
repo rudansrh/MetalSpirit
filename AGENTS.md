@@ -4,11 +4,11 @@
 - Active scene:
   - Name: BossPhase
   - Tags:
-    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document
+    - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document, Parts
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI
+    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: Player
-  - Tag: Player
-  - Layer: 9
+  - Name: CTelegraphIndicator
+  - Tag: Untagged
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
