@@ -1521,6 +1521,160 @@ PrefabInstance:
       value: "\uC774\uACF3\uC5D0 \uBCF4\uACE0\uC11C\uB098 \uBB38\uC11C\uC758 \uB0B4\uC6A9\uC744
         \uC785\uB825\uD558\uC138\uC694. \uB2E4\uB9AC \uBA38\uB9AC \uAD6C\uC5ED"
       objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.size
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[0].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[0].text
+      value: "<\uB85C\uBCF4\uC2A4\uD53C\uB9BF \uD504\uB85C\uC81D\uD2B8>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[1].text
+      value: "\r\n\uD604\uC7AC \uB9AC\uBC14\uB85C \uC2DC\uD2F0\uC758 \uCD1D \uAC00\uAD6C
+        \uC218: \u25A0\u25A0\u25A0\uB9CC \uAC00\uAD6C\r\n\uCD08\uAE30 \uBC30\uD3EC\uB41C
+        \uB85C\uBD07 \uC218: \u25A0\u25A0\u25A0\u25A0\uB9CC \uAE30\r\n\uD3D0\uAE30\uB41C
+        \uB85C\uBD07 \uC218: \u25A0\u25A0\u25A0\u25A0\uC5B5 \uAE30\r\n\uB85C\uBD07
+        \uD3D0\uAE30\uC7A5\uC758 \uBE44\uC728: \uCD08\uAE30 \u25A0% -> \u25A0\u25A0\u25A0%\r\n\uC2DC\uBBFC\uB4E4\uC758
+        \uD3D0\uAE30 \uC774\uC720: \uAE30\uC2A4 \uD558\uB098, \uC2A4\uD06C\uB798\uCE58
+        \uD558\uB098, \uC6C0\uC9C1\uC784\uC774 \uB9C8\uC74C\uC5D0 \uC548 \uB4E4\uC5B4\uC11C,
+        \uAD00\uC808\uC774 \uC2DC\uB044\uB7EC\uC6CC\uC11C, \uB4F1\r\n\r\n\uC774\uCC98\uB7FC
+        \uC0AC\uC18C\uD55C \uC774\uC720\uB85C \uD3D0\uAE30\uB418\uB294 \uB85C\uBD07\uB4E4\uC758
+        \uC0C1\uD669\uC744 \uD1B5\uD574 \uB9AC\uBC14\uB85C \uC2DC\uD2F0\uC758 \uC774\uC0C1\uC131\uC774
+        \uD30C\uC545\uB418\uACE0, \uC774\uB7F0 \uC774\uC0C1\uC131\uC744 \uD1B5\uD574
+        \uB85C\uBD07\uC5D0\uAC8C\uC11C \uC21C\uC218\uD55C \uC601\uD63C\uC758 \uC874\uC7AC\uB97C
+        \uD30C\uC545\uD560 \uC218 \uC788\uB2E4\uACE0 \uD310\uB2E8\uB41C\uB2E4. \uC774\uB85C
+        \uC778\uD574 \u25A0-\u25A0 \uD3D0\uAE30\uC7A5 \uC9C0\uD558\uC5D0 L.U.R.D\uB97C
+        \uC138\uC6B0\uACE0 \uD3D0\uAE30\uC7A5\uC758 \uBD80\uD488\uB4E4\uB85C \uC2E4\uD5D8\uC744
+        \uC9C4\uD589\uD558\uAE30\uB85C \uD55C\uB2E4.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[2].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[2].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[3].text
+      value: "\uD3D0\uAE30\uC7A5\uC5D0 \uBC84\uB824\uC9C4 \uB85C\uBD07 \uC911 \uC628\uC804\uD55C
+        \uB85C\uBD07\uB4E4\uC744 \uCC3D\uACE0\uC5D0 \uBC30\uCE58. \r\n\uBA38\uB9AC\uB97C
+        \uC5F4\uC5B4 \uBA54\uBAA8\uB9AC, \uC2E0\uACBD \uD68C\uB85C, \u25A0\u25A0\u25A0,
+        \u25A0\u25A0\u25A0\u25A0\uB97C \uD30C\uC545.\r\n\uC804\uAE30\uB97C \uD758\uB824
+        \uBC18\uC751\uC744 \uD655\uC778\uD588\uC73C\uB098 \uBCC4\uB2E4\uB978 \uC774\uC0C1
+        \uC5C6\uC74C.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[4].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[4].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[5].text
+      value: "\u25A0\u25A0\uAE30\uC758 \uB85C\uBD07\uC744 \uB3D9\uC2DC\uC5D0 \uC790\uADF9.\r\n\uCD08\uBC18\uC5D0\uB294
+        \uBAA8\uB450 \uB3D9\uC77C\uD55C \uBC18\uC751\uC744 \uBCF4\uC774\uB2E4\uAC00,
+        \u25A0\u25A0\uBD84 \uB4A4  \u25A0\uAE30\uB9CC \uB2E4\uB978 \uBC18\uC751\uC744
+        \uBCF4\uC784.\r\n\uB2E8\uC21C\uD55C \uC624\uB958\uC778\uC9C0, \uD504\uB85C\uADF8\uB7A8\uC744
+        \uB118\uC5B4\uC120  \uBC18\uC751\uC778\uC9C0 \uBD84\uC11D \uD544\uC694.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[6].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[6].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[7].text
+      value: "\uB0A0\uC774 \uAC08\uC218\uB85D \uB73B\uC744 \uD568\uAED8\uD558\uB294
+        \uC790\uB294 \uB298\uC5B4\uB098\uB294\uB370 \uC2E4\uD5D8\uC5D0\uB294 \uC9C4\uC804\uC774
+        \uC5C6\uB2E4.\r\n\uB9AC\uBC14\uB85C \uC2DC\uD2F0\uB294 \uC624\uB298\uB3C4
+        \uBB34\uC218\uD55C \uB85C\uBD07\uC744 \uBC84\uB9AC\uACE0 \uC788\uB2E4.\r\n\uB0B4\uAC00
+        \uD558\uACE0 \uC788\uB294 \uAC8C \uC758\uBBF8\uAC00 \uC788\uB294 \uAC74\uAC00?\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[8].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[8].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[9].text
+      value: "\uD587\uBE5B\uC744 \uBABB \uBCF8\uC9C0 \uBC8C\uC368 \u25A0\u25A0\u25A0\uC77C
+        \uC9F8.\r\n\uC2E4\uD5D8\uC740 \uC5EC\uC804\uD788 \uC81C\uC790\uB9AC \uAC78\uC74C\uC774\uB2E4.\r\n\uB3C4\uC2DC\uB3C4
+        \uC5EC\uC804\uD788 \uB85C\uBD07\uC744 \uBC84\uB9B0\uB2E4.\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[10].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[10].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[11].text
+      value: "\uD558\uD558\uD558\uD558\uD558\uD558! \uADF8\uB798, \uADF8 \uC0DD\uAC01\uC744
+        \uC65C \uBABB \uD588\uC9C0?\r\n\uB85C\uBD07\uC5D0\uAC8C\uC11C \u25A0\uD63C\uC744
+        \uCC3E\uC744 \uD544\uC694\uAC00 \uC5C6\uC796\uC544?\r\n\uB85C\uBD07\uC5D0\uAC8C
+        \uC601\u25A0\uC744 \uB123\uC73C\uBA74 \uB418\uB294\uB370!\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[12].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[12].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[13].text
+      value: "\uC2E4\uD328\uC2E4\u25A0\uC2E4\uD328\u25A0\uD328\u25A0\u25A0\uC2E4\uD328\uC2E4\u25A0\uC2E4\uD328\uC2E4\uD328\r\n\uC774\uC81C
+        \uC774 \uC2DC\uC124 \uC548\uC5D0 \uC0B4\uC544\uC788\uB294 \uC874\uC7AC\uB294
+        \u25A0\uBA85\r\n\uAD1C\uCC2E\uC544 \uC544\uC9C1 \uAE30\u25A0\uB294 \uB9CE\uC544\r\n\uBC18\uB4DC\uC2DC
+        \uC774 \uB3C4\uC2DC\uC5D0 \u25A0\uC218\uD574\uC8FC\uACA0\uC5B4\r\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[14].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[14].text
+      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0>"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[15].text
+      value: "\uC131\uACF5, \uC131\uACF5\uC774\uB2E4! \uC6C0\uC9C1\uC778\uB2E4, \uC6C0\uC9C1\uC778\uB2E4\uACE0!\r\n\uC790,
+        \uC774\uC81C \uB0A8\uC740 \uAC74 \u25A0\uBFD0\uC774\uC57C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[16].bold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[16].text
+      value: "\uC774\uB9AC\uC640\uADF8\uB798\uBE68\uB9AC\u25A0\uB97C\u2014---- (\uC774\uD6C4\uB294
+        \uCC22\uACA8\uC11C \uBCF4\uC774\uC9C0 \uC54A\uB294\uB2E4)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[16].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[16].color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
       value: 
