@@ -9,6 +9,8 @@ public class TurotialUIManager : MonoBehaviour
     [SerializeField] private GameObject tutorialPanel;
     [SerializeField] private Text contentText;
     [SerializeField] private Text[] pages;
+    [SerializeField] private GameObject prevButton;
+    [SerializeField] private GameObject nextButton;
 
     private int totalPages;
     private int currentPageIndex = 0;
@@ -44,6 +46,15 @@ public class TurotialUIManager : MonoBehaviour
         {
             currentPageIndex--;
             contentText.text = pages[currentPageIndex].text;
+
+            if (currentPageIndex == 0)
+            {
+                prevButton.SetActive(false);
+            }
+            else
+            {
+                nextButton.SetActive(true);
+            }
         }
     }
 
@@ -53,6 +64,15 @@ public class TurotialUIManager : MonoBehaviour
         {
             currentPageIndex++;
             contentText.text = pages[currentPageIndex].text;
+
+            if (currentPageIndex == totalPages - 1)
+            {
+                nextButton.SetActive(false);
+            }
+            else
+            {
+                prevButton.SetActive(true);
+            }
         }
     }
 
@@ -72,6 +92,8 @@ public class TurotialUIManager : MonoBehaviour
     {
         currentPageIndex = 0;
         contentText.text = pages[0].text;
+        prevButton.SetActive(false);
+        nextButton.SetActive(true);
 
         gameObject.SetActive(true);
         if (PlayerController.Instance != null)
