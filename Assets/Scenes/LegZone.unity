@@ -3631,7 +3631,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[0].text
-      value: rsererer
+      value: "\uB85C\uBD07\uC744 \uD1B5\uD574 \uC790\uC720\uB97C \uC5BB\uC73C\uC138\uC694!\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[1].bold
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[1].text
@@ -3642,7 +3646,7 @@ PrefabInstance:
         1\uC778 1\uB85C\uBD07\uC744 \uBB34\uC0C1 \uBC30\uD3EC, \uBB34\uC0C1 \uAD50\uCCB4\uB97C
         \uD574\uB4DC\uB9AC\uACE0 \uC788\uC2B5\uB2C8\uB2E4!\r\n \r\n\uAFC8\uC758 \uB3C4\uC2DC,
         \uB85C\uBD07\uC758 \uB3C4\uC2DC, \uC790\uC720\uC758 \uB3C4\uC2DC\r\n\uB9AC\uBC14\uB85C
-        \uC2DC\uD2F0\uB85C \uC5B4\uC11C\uC624\uC138\uC694!\r\n "
+        \uC2DC\uD2F0\uB85C \uC5B4\uC11C\uC624\uC138\uC694!\r\n\n "
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[2].bold
@@ -3654,6 +3658,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[0].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[1].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[2].color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
@@ -6061,7 +6073,7 @@ PrefabInstance:
         \uBC1C\uACAC\uD558\uC2E0 \uC2DC\uBBFC\uBD84\uB4E4\uC740 \uAD6D\uBC88\uC5C6\uC774
         123\uC73C\uB85C \uC5F0\uB77D\uC8FC\uC138\uC694!\r\n\uB610\uD55C \uB85C\uBD07
         \uBCF8\uCCB4 \uBC0F \uBD80\uD488\uB4E4\uC740 \uC815\uD488 \uD45C\uC2DD\uC774
-        \uC788\uB294 \uAC83\uB4E4\uB9CC \uC815\uD488\uC774\uB2C8 \uC720\uC758 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4!\r\n "
+        \uC788\uB294 \uAC83\uB4E4\uB9CC \uC815\uD488\uC774\uB2C8 \uC720\uC758 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4!\r\n\n "
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[1].bold
