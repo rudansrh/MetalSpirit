@@ -42,16 +42,17 @@ public class BossController : MonoBehaviour
     [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
     [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
     [SerializeField] float phase2MaxHealth = 150f;              // 페이즈 2 최대 체력
-    [SerializeField] float phase2TransitionHealthPercent = 0.5f; // 페이즈 2 전환 체력 비율
+    [SerializeField] float phase2TransitionHealthPercent = 0.5f;// 페이즈 2 전환 체력 비율
     [SerializeField] bool autoStartBattle = true;               // 자동으로 전투 시작 여부
-
-    [Header("Transition Settings")]
-    [SerializeField] bool loadPhase2SceneOnTransition = true;   // 페이즈 2로 전환 시 씬 로드 여부
-    [SerializeField] string phase2SceneName = "BossPhase2";     // 페이즈 2 씬 이름
 
     [Header("Combat Test Settings")]
     [SerializeField] bool usePassiveTestDamage = true;          // 테스트용 지속 피해 사용 여부
     [SerializeField] float passiveDamagePerSecond = 10f;        // 테스트용 지속 피해량 (초당)
+
+    [Header("Visuals")]
+    [SerializeField] Animator animator;
+    [SerializeField] RuntimeAnimatorController phase1AnimatorController;
+    [SerializeField] RuntimeAnimatorController phase2AnimatorController;
 
     [Header("Component References")]
     [SerializeField] BossWeakPointManager weakPointManager;     // 약점 포인트 Manager
@@ -108,6 +109,11 @@ public class BossController : MonoBehaviour
 
     void CacheReferences()
     {
+        if (animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
+
         if (weakPointManager == null)
         {
             weakPointManager = GetComponentInChildren<BossWeakPointManager>(true);
@@ -247,6 +253,7 @@ public class BossController : MonoBehaviour
         MaxHealth = GetDefaultMaxHealthForPhase(phase);
         CurrentHealth = Mathf.Clamp(startingHealth, 0f, MaxHealth);
         phase2TransitionTriggered = phase != BossPhase.Phase1;
+        ApplyPhaseVisual(phase);
         RefreshBossHealthUI();
 
         if (!silent)
@@ -298,25 +305,47 @@ public class BossController : MonoBehaviour
     void TriggerPhase2Transition()
     {
         phase2TransitionTriggered = true;
+        ApplyPhaseVisual(BossPhase.Phase2);
         StopBattle();
         SetState(BossState.Transition);
         OnPhase2TransitionRequested?.Invoke();
     }
 
-    void BeginPhase2()
+    void ApplyPhaseVisual(BossPhase phase)
     {
-        if (loadPhase2SceneOnTransition && !string.IsNullOrWhiteSpace(phase2SceneName))
+        if (animator == null)
         {
-            SceneManager.LoadScene(phase2SceneName);
+            CacheReferences();
+        }
+
+        if (animator == null)
+        {
             return;
         }
 
-        InitializePhase(BossPhase.Phase2);
-        StartBattle();
+        RuntimeAnimatorController nextController = phase == BossPhase.Phase1
+            ? phase1AnimatorController
+            : phase2AnimatorController;
+
+        if (nextController == null)
+        {
+            return;
+        }
+
+        bool controllerChanged = animator.runtimeAnimatorController != nextController;
+        animator.runtimeAnimatorController = nextController;
+
+        if (controllerChanged)
+        {
+            animator.Rebind();
+        }
+
+        animator.Update(0f);
     }
 
     void OnValidate()
     {
+        CacheReferences();
         CacheUiReferences();
         RefreshBossHealthUI();
     }

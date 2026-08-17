@@ -424,7 +424,7 @@ Animator:
   m_GameObject: {fileID: 3478986148955999085}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7e5220b4c72864a65a426932d4d6eabe, type: 2}
+  m_Controller: {fileID: 22100000, guid: 4c5c95bf11cb4e1d90a26e560f5f4d4d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -456,6 +456,9 @@ MonoBehaviour:
   phase2SceneName: BossPhase2
   usePassiveTestDamage: 1
   passiveDamagePerSecond: 0
+  animator: {fileID: 5882292886257913658}
+  phase1AnimatorController: {fileID: 22100000, guid: 4c5c95bf11cb4e1d90a26e560f5f4d4d, type: 2}
+  phase2AnimatorController: {fileID: 22100000, guid: 912df7f32b144fa7a3c2c5c3fca9c8a1, type: 2}
   weakPointManager: {fileID: 0}
   attackController: {fileID: 0}
   arenaController: {fileID: 0}
@@ -484,6 +487,8 @@ MonoBehaviour:
   chargeLeftToRightTriggerParameter: doDashLR
   chargeTelegraphMoveLeftSprite: {fileID: 2325385889075979521, guid: bc165ca2f6ecc4e288e8ea3f9f42f5a5, type: 3}
   chargeTelegraphMoveRightSprite: {fileID: -6932268258095277976, guid: 262dd70f68fc84b48b76e83d210b86c8, type: 3}
+  chargeTelegraphMoveLeftSprite2: {fileID: -1894276928936127127, guid: 63c9630fe60af4e1fba0941a50f47a7f, type: 3}
+  chargeTelegraphMoveRightSprite2: {fileID: -3256380717824306248, guid: 86c4f26542113440fb14d0e019b7f555, type: 3}
   leftPunchAttack:
     attackType: 0
     displayName: Left Punch

@@ -1,31 +1,31 @@
 fileFormatVersion: 2
-guid: 4760c44b68c3a45a396f7f7b214fa7a1
+guid: 63c9630fe60af4e1fba0941a50f47a7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1881752081722461712
-    second: enemy_boss_attackR_0
+      213: 4166706714001391579
+    second: enemy_boss2_dashR_0
   - first:
-      213: 6599977366094158421
-    second: enemy_boss_attackR_1
+      213: -1639892640908306613
+    second: enemy_boss2_dashR_1
   - first:
-      213: 6792207374286157945
-    second: enemy_boss_attackR_2
+      213: -5600883215223525688
+    second: enemy_boss2_dashR_2
   - first:
-      213: 1730093538312916142
-    second: enemy_boss_attackR_3
+      213: 2751606533954451882
+    second: enemy_boss2_dashR_3
   - first:
-      213: -9014157991404099833
-    second: enemy_boss_attackR_4
+      213: -1894276928936127127
+    second: enemy_boss2_dashR_4
   - first:
-      213: -3055435118600557213
-    second: enemy_boss_attackR_5
+      213: 6124427398003042293
+    second: enemy_boss2_dashR_5
   - first:
-      213: 6292039348297410903
-    second: enemy_boss_attackR_6
+      213: 6418021540421905273
+    second: enemy_boss2_dashR_6
   - first:
-      213: 239057842951703953
-    second: enemy_boss_attackR_7
+      213: 1978330877169451670
+    second: enemy_boss2_dashR_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -58,7 +58,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -121,7 +121,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: enemy_boss_attackR_0
+      name: enemy_boss2_dashR_0
       rect:
         serializedVersion: 2
         x: 51
@@ -136,19 +136,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 01e4b626c835d1a10800000000000000
-      internalID: 1881752081722461712
+      spriteID: bdfb9432ead13d930800000000000000
+      internalID: 4166706714001391579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_1
+      name: enemy_boss2_dashR_1
       rect:
         serializedVersion: 2
         x: 483
         y: 3
-        width: 330
+        width: 329
         height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -158,19 +158,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 55a19af3274d79b50800000000000000
-      internalID: 6599977366094158421
+      spriteID: b4712e4e45eed39e0800000000000000
+      internalID: -1639892640908306613
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_2
+      name: enemy_boss2_dashR_2
       rect:
         serializedVersion: 2
         x: 915
         y: 3
-        width: 330
+        width: 325
         height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -180,19 +180,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9787d19ce94c24e50800000000000000
-      internalID: 6792207374286157945
+      spriteID: 8ce6728f36aa542b0800000000000000
+      internalID: -5600883215223525688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_3
+      name: enemy_boss2_dashR_3
       rect:
         serializedVersion: 2
         x: 1347
         y: 3
-        width: 330
+        width: 324
         height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -202,41 +202,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eac075b18e6820810800000000000000
-      internalID: 1730093538312916142
+      spriteID: aa9bff1609baf2620800000000000000
+      internalID: 2751606533954451882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_4
+      name: enemy_boss2_dashR_4
       rect:
         serializedVersion: 2
-        x: 1779
+        x: 1919
         y: 3
-        width: 349
-        height: 232
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7072c1dd01747e280800000000000000
-      internalID: -9014157991404099833
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: enemy_boss_attackR_5
-      rect:
-        serializedVersion: 2
-        x: 2211
-        y: 3
-        width: 346
+        width: 239
         height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -246,19 +224,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 36d6f81b2f9e895d0800000000000000
-      internalID: -3055435118600557213
+      spriteID: 9655b806b2d26b5e0800000000000000
+      internalID: -1894276928936127127
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_6
+      name: enemy_boss2_dashR_5
       rect:
         serializedVersion: 2
-        x: 2643
+        x: 2311
         y: 3
-        width: 340
+        width: 282
         height: 189
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -268,17 +246,17 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7592c0c5370d15750800000000000000
-      internalID: 6292039348297410903
+      spriteID: 5f724a615465ef450800000000000000
+      internalID: 6124427398003042293
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: enemy_boss_attackR_7
+      name: enemy_boss2_dashR_6
       rect:
         serializedVersion: 2
-        x: 3075
+        x: 2649
         y: 3
         width: 330
         height: 189
@@ -290,8 +268,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 19d48e177dd415300800000000000000
-      internalID: 239057842951703953
+      spriteID: 97b27ad3694611950800000000000000
+      internalID: 6418021540421905273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_dashR_7
+      rect:
+        serializedVersion: 2
+        x: 3076
+        y: 3
+        width: 330
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6924fdd7371747b10800000000000000
+      internalID: 1978330877169451670
       vertices: []
       indices: 
       edges: []
@@ -310,14 +310,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      enemy_boss_attackR_0: 1881752081722461712
-      enemy_boss_attackR_1: 6599977366094158421
-      enemy_boss_attackR_2: 6792207374286157945
-      enemy_boss_attackR_3: 1730093538312916142
-      enemy_boss_attackR_4: -9014157991404099833
-      enemy_boss_attackR_5: -3055435118600557213
-      enemy_boss_attackR_6: 6292039348297410903
-      enemy_boss_attackR_7: 239057842951703953
+      enemy_boss2_dashR_0: 4166706714001391579
+      enemy_boss2_dashR_1: -1639892640908306613
+      enemy_boss2_dashR_2: -5600883215223525688
+      enemy_boss2_dashR_3: 2751606533954451882
+      enemy_boss2_dashR_4: -1894276928936127127
+      enemy_boss2_dashR_5: 6124427398003042293
+      enemy_boss2_dashR_6: 6418021540421905273
+      enemy_boss2_dashR_7: 1978330877169451670
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -27,6 +27,7 @@ public class LandfillEndingSequence : MonoBehaviour
     [SerializeField] float endingImageFlashDuration = 1f;
 
     [Header("Ending Timing")]
+    [SerializeField] float firstFadeInStartDelay = 2f;
     [SerializeField] float dialogueStartDelay = 3f;
     [SerializeField] float postDialogueDelay = 0.2f;
     [SerializeField] float postFlashDelay = 0.2f;
@@ -135,6 +136,8 @@ public class LandfillEndingSequence : MonoBehaviour
 
     IEnumerator PlayEndingSequence()
     {
+        yield return new WaitForSeconds(firstFadeInStartDelay);
+
         yield return FadeToAlpha(0f, fadeInDuration);
 
         if (dialogueStartDelay > 0f)

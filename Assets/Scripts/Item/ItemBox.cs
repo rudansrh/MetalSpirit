@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class ItemBox : MonoBehaviour
+public class ItemBox : MonoBehaviour, IBreakable
 {
     [SerializeField] int hp = 1;
     public void objectDamaged()

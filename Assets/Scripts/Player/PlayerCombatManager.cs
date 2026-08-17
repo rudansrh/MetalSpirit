@@ -16,11 +16,11 @@ public class PlayerCombatManager : MonoBehaviour
     public bool isAttackVisualize = false;
     [SerializeField] private float legAttackCoolTime = 0.1f;
     [SerializeField] private float legAttackDamage = 30f;
-    [SerializeField] private Vector2 legAttackOffset = new Vector2(1f, 0.2f);
+    [SerializeField] private Vector2 legAttackOffset = new Vector2(1f, -0.2f);
     [SerializeField] private Vector2 legAttackSize = new Vector2(1f, 0.1f);
     [SerializeField] private float armAttackCoolTime = 0.1f;
     [SerializeField] private float armAttackDamage = 50f;
-    [SerializeField] private Vector2 armAttackOffset = new Vector2(1f, -0.2f);
+    [SerializeField] private Vector2 armAttackOffset = new Vector2(1f, 0.2f);
     [SerializeField] private Vector2 armAttackSize = new Vector2(1f, 0.1f);
     [SerializeField] private float bodyAttackCoolTime = 0.1f;
     [SerializeField] private float bodyAttackDamage = 70f;
@@ -296,9 +296,9 @@ public class PlayerCombatManager : MonoBehaviour
                 continue;
             }
 
-            if(hit.TryGetComponent<ItemBox>(out var itemBox))
+            if(hit.TryGetComponent<IBreakable>(out var breakable))
             {
-                itemBox.objectDamaged();
+                breakable.objectDamaged();
             }
 
             IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();

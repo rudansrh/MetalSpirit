@@ -7,6 +7,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("BGM")]
     public AudioClip bgmClip;
+    [SerializeField] private bool playSceneBgmOnAwake = true;
     [Range(0f, 1f)] public float Bvolume = 1f;
     private AudioSource bgmPlayer;
 
@@ -35,29 +36,31 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
-            instance.AbsorbSceneAudio(this);
-            Destroy(gameObject);
-            return;
+            Debug.LogWarning("Multiple AudioManager instances detected in the same scene. Replacing the previous instance.");
         }
 
         instance = this;
 
-        if (transform.parent != null)
-        {
-            transform.SetParent(null);
-        }
-
-        gameObject.name = "AudioManager [Persistent]";
-        DontDestroyOnLoad(gameObject);
-
         Init();
-        AbsorbSceneAudio(this);
-        // SubscribeToSettings();
+        sceneBgmClip = bgmClip;
+        activeBgmZones.Clear();
+        ApplyResolvedBgm();
     }
 
     private void Start()
     {
-        PlayBgm();
+        if (playSceneBgmOnAwake)
+        {
+            PlayBgm();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
+        }
     }
 
     /* private void OnDestroy()
@@ -144,35 +147,6 @@ public class AudioManager : MonoBehaviour
         HandleBgmVolumeChanged(bgmVolume);
         HandleSfxVolumeChanged(sfxVolume);
     } */
-
-    private void AbsorbSceneAudio(AudioManager source)
-    {
-        if (source == null)
-        {
-            return;
-        }
-
-        Bvolume = Mathf.Clamp01(source.Bvolume);
-        Svolume = Mathf.Clamp01(source.Svolume);
-
-        if (source.sfxClips != null && source.sfxClips.Length > 0)
-        {
-            sfxClips = source.sfxClips;
-        }
-
-        defaultCooldown = source.defaultCooldown;
-        activeBgmZones.Clear();
-        ApplyAudioSourceVolumes();
-
-        if (source.bgmClip == null)
-        {
-            ApplyResolvedBgm();
-            return;
-        }
-
-        sceneBgmClip = source.bgmClip;
-        ApplyResolvedBgm();
-    }
 
     public void PlayBgm()
     {
@@ -333,6 +307,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        bool wasPlaying = bgmPlayer.isPlaying;
         bool clipChanged = bgmPlayer.clip != clip;
         if (clipChanged)
         {
@@ -344,7 +319,8 @@ public class AudioManager : MonoBehaviour
             bgmPlayer.clip = clip;
         }
 
-        if (!bgmPlayer.isPlaying)
+        bool shouldAutoPlay = playSceneBgmOnAwake || wasPlaying;
+        if (shouldAutoPlay && !bgmPlayer.isPlaying)
         {
             bgmPlayer.Play();
         }
