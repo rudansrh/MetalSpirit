@@ -4,23 +4,31 @@ public class ReadableDocument : MonoBehaviour, IInteractable
 {
     [Header("Document Settings")]
     [TextArea(5, 10)]
-    public string documentContent = "ÀÌ°÷¿¡ º¸°í¼­³ª ¹®¼­ÀÇ ³»¿ëÀ» ÀÔ·ÂÇÏ¼¼¿ä.";
+    public string documentContent = "ì´ê³³ì— ë³´ê³ ì„œë‚˜ ë¬¸ì„œì˜ ë‚´ìš©ì„ ì…ë ¥í•˜ì„¸ìš”.";
+    public DialogueTextElement[] documentTextElements;
 
     public void Interact(GameObject interactor)
     {
-        if (DocumentUIManager.Instance == null) return;
+        if (DocumentUIManager.Instance == null)
+        {
+            return;
+        }
 
-        // ÀÌ¹Ì ¹®¼­ Ã¢ÀÌ ¿­·ÁÀÖÀ¸¸é ´İ±â
         if (DocumentUIManager.Instance.isOpen)
         {
             DocumentUIManager.Instance.CloseDocument();
-            PlayerController.Instance.isUIopen = false;
+            if (PlayerController.Instance != null)
+            {
+                PlayerController.Instance.isUIopen = false;
+            }
         }
-        // ´İÇôÀÖÀ¸¸é ¹®¼­ ³»¿ë ¶ç¿ì±â
         else
         {
-            DocumentUIManager.Instance.ShowDocument(documentContent);
-            PlayerController.Instance.isUIopen = true;
+            DocumentUIManager.Instance.ShowDocument(documentContent, documentTextElements);
+            if (PlayerController.Instance != null)
+            {
+                PlayerController.Instance.isUIopen = true;
+            }
         }
     }
 }

@@ -2898,19 +2898,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentContent
-      value: "\uB85C\uBD07\uC744 \uD1B5\uD55C \uC790\uC720\uAC00 \uC544\uB2CC \uB85C\uBD07\uC744
-        \uC704\uD55C \uC790\uC720\uB97C \uB2EC\uB77C!\r\n\uB85C\uBD07\uB3C4 \uC778\uAC04\uCC98\uB7FC
-        \uC601\uD63C\uC774 \uC788\uB2E4!\r\n\uC601\uD63C\uC774 \uC788\uB294 \uC874\uC7AC\uB97C
-        \uD568\uBD80\uB85C \uB2E4\uB8E8\uB294 \uAC8C \uB9D0\uC774 \uB418\uB294\uAC00?\r\n\uC774
-        \uB3C4\uC2DC\uC758 \uC808\uBC18\uC740 \uADF8\uB7F0 \uD3D0\uAE30\uC7A5\uC774\uBA70,
-        \uC9C0\uAE08\uB3C4 \uCEE4\uC9C0\uACE0 \uC788\uB2E4!\r\n\uACF5\uB3D9\uBB18\uC9C0\uB97C
-        \uC6B8\uD0C0\uB9AC \uC0BC\uC544 \uC778\uAC04\uC744 \uAC00\uB450\uB294 \uC774
-        \uB3C4\uC2DC\uAC00 \uC815\uB155 \uC633\uC740 \uAC83\uC778\uAC00?\r\n\uAC01\uC131\uD574\uB77C
-        \uC2DC\uBBFC\uB4E4\uC774\uC5EC!\r\n\uAC01\uC131\uD574\uB77C \uB85C\uBD07\uB4E4\uC774\uC5EC!\r\n\uB85C\uBD07\uC740
-        \uADF8\uC800 \uC18C\uBAA8\uD488\uC774 \uC544\uB2CC \uC6B0\uB9AC\uC640 \uAC19\uC740
-        \uC874\uC7AC\uB2E4!\r\n\uBA38\uC9C0\uC54A\uC544 \uBAA8\uB450\uAC00 \uC774\uB97C
-        \uC54C\uAC8C \uB420 \uD130\uC774\uB2C8 \uADF8\uB0A0\uC744 \uACE0\uB300\uD558\uB77C.\r\n
-        \r\n- L.U.R.D. (Libaro Underground Robo-spirit Division)"
+      value: "\uC774\uACF3\uC5D0 \uBCF4\uACE0\uC11C\uB098 \uBB38\uC11C\uC758 \uB0B4\uC6A9\uC744
+        \uC785\uB825\uD558\uC138\uC694. 3"
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
@@ -3534,16 +3523,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentContent
-      value: "\uB85C\uBD07\uC744 \uD1B5\uD574 \uC790\uC720\uB97C \uC5BB\uC73C\uC138\uC694!\r\n
-        \r\n\uB2F9\uC2E0\uC774 \uC6D0\uD558\uB294 \uACBD\uAD00\r\n\uB2F9\uC2E0\uC774
-        \uC6D0\uD558\uB294 \uBB34\uB825\r\n\uB2F9\uC2E0\uC774 \uC6D0\uD558\uB294
-        \uBAA8\uB4E0 \uAC83\uB4E4\uC774 \uB9AC\uBC14\uB85C(Liberty by Robot) \uC2DC\uD2F0\uC5D0\uC120
-        \uAC00\uB2A5\uD569\uB2C8\uB2E4!\r\n \r\n\uBAA8\uB4E0 \uC2DC\uBBFC\uB4E4\uC5D0\uAC90
-        1\uC778 1\uB85C\uBD07\uC744 \uBB34\uC0C1 \uBC30\uD3EC, \uBB34\uC0C1 \uAD50\uCCB4\uB97C
-        \uD574\uB4DC\uB9AC\uACE0 \uC788\uC2B5\uB2C8\uB2E4!\r\n \r\n\uAFC8\uC758 \uB3C4\uC2DC,
-        \uB85C\uBD07\uC758 \uB3C4\uC2DC, \uC790\uC720\uC758 \uB3C4\uC2DC\r\n\uB9AC\uBC14\uB85C
-        \uC2DC\uD2F0\uB85C \uC5B4\uC11C\uC624\uC138\uC694!\r\n \r\n\u2748\uBC30\uD3EC
-        \uB85C\uBD07 \uAE30\uC885: 1\uC138\uB300 B-1 "
+      value: "\uC774\uACF3\uC5D0 \uBCF4\uACE0\uC11C\uB098 \uBB38\uC11C\uC758 \uB0B4\uC6A9\uC744
+        \uC785\uB825\uD558\uC138\uC694. 1"
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
@@ -3901,11 +3882,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentContent
-      value: "\uC6D0\uC608 \uB85C\uBD07 GH7 \uCCAB \uBC1C\uB9E4!\r\n \r\n\uB2E8\uB2E8\uD55C
-        \uBAB8\uCCB4\uC640 \uD654\uB824\uD55C \uC190\uB180\uB9BC\uC774 \uD2B9\uC9D5\uC785\uB2C8\uB2E4!\r\n
-        \r\n12\uC6D4 25\uC77C\uAE4C\uC9C0 \uD55C\uC815 \uC138\uC77C \uBC0F \uC6D0\uC608\uC6A9
-        \uAC00\uC704\uAE4C\uC9C0 \uC81C\uACF5!\r\n \r\n\uD76C\uB300\uC758 \uAE30\uD68C\uB97C
-        \uB193\uCE58\uC9C0 \uB9C8\uC138\uC694!"
+      value: "\uC774\uACF3\uC5D0 \uBCF4\uACE0\uC11C\uB098 \uBB38\uC11C\uC758 \uB0B4\uC6A9\uC744
+        \uC785\uB825\uD558\uC138\uC694. 4"
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
@@ -5812,16 +5790,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentContent
-      value: "\uC2A4\uCE90\uBE48\uC800 \uC2E0\uACE0\uB294 123!\r\n \r\n\uB85C\uBD07
-        \uD3D0\uAE30\uC7A5\uC758 \uC218\uAC00 \uB298\uC5B4\uB0A8\uC5D0 \uB530\uB77C
-        \uC2A4\uCE90\uBE48\uC800 \uC870\uC9C1\uACFC \uBD88\uBC95 \uBD80\uD488\uB4E4\uC774
-        \uC720\uD1B5\uB418\uACE0 \uC788\uC2B5\uB2C8\uB2E4!\r\n\uC2A4\uCE90\uBE48\uC800\uB97C
-        \uBC1C\uACAC\uD558\uC2E0 \uC2DC\uBBFC\uBD84\uB4E4\uC740 \uAD6D\uBC88\uC5C6\uC774
-        123\uC73C\uB85C \uC5F0\uB77D\uC8FC\uC138\uC694!\r\n\uB610\uD55C \uB85C\uBD07
-        \uBCF8\uCCB4 \uBC0F \uBD80\uD488\uB4E4\uC740 \uC815\uD488 \uD45C\uC2DD\uC774
-        \uC788\uB294 \uAC83\uB4E4\uB9CC \uC815\uD488\uC774\uB2C8 \uC720\uC758 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4!\r\n
-        \r\n\uCD5C\uADFC \uAC80\uAC70 \uD604\uD669: \uD3D0\uAE30\uC7A5 1-23, \uD3D0\uAE30\uC7A5
-        12-3"
+      value: "\uC774\uACF3\uC5D0 \uBCF4\uACE0\uC11C\uB098 \uBB38\uC11C\uC758 \uB0B4\uC6A9\uC744
+        \uC785\uB825\uD558\uC138\uC694. 2"
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
@@ -7263,103 +7233,6 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1730842778
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730842775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7c466fe44cfee488e745edc75a741f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DropItem
-  ItemPrefabs:
-  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
-  Items: {fileID: 694665053}
---- !u!114 &1730842779
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730842775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2ddca54f7627a4bae6d7b487e5d75a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ItemBox
-  hp: 1
---- !u!61 &1730842780
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730842775}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.56, y: 0.38}
-    newSize: {x: 0.56, y: 0.38}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 0.56, y: 0.38}
-  m_EdgeRadius: 0
---- !u!4 &1738328931 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8943573642785184300, guid: 58710a02e509c48dd997843ec9e1467b, type: 3}
-  m_PrefabInstance: {fileID: 34120735328635321}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1762241983
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1762241984}
-  - component: {fileID: 1762241986}
-  - component: {fileID: 1762241985}
-  m_Layer: 5
-  m_Name: InputText
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1762241984
-RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
