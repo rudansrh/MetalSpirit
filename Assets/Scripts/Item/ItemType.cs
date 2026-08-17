@@ -6,5 +6,6 @@ public enum ItemType
     Scissors,
     Gloves,
     BinaryCode,
-    EmergencyButton
+    EmergencyButton,
+    None
 }

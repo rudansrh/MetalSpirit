@@ -1,0 +1,533 @@
+fileFormatVersion: 2
+guid: 3c9486c4141964537adbe21dc206b74f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4488328453217253911
+    second: enemy_boss2_death_0
+  - first:
+      213: -6442085056099105572
+    second: enemy_boss2_death_1
+  - first:
+      213: -3608089224725648982
+    second: enemy_boss2_death_2
+  - first:
+      213: -6959189299447567207
+    second: enemy_boss2_death_3
+  - first:
+      213: 758483100832629244
+    second: enemy_boss2_death_4
+  - first:
+      213: -4922011542292502484
+    second: enemy_boss2_death_5
+  - first:
+      213: 6785678261450242464
+    second: enemy_boss2_death_6
+  - first:
+      213: -632337600843448035
+    second: enemy_boss2_death_7
+  - first:
+      213: -5209290549861113797
+    second: enemy_boss2_death_8
+  - first:
+      213: -3635674021285704423
+    second: enemy_boss2_death_9
+  - first:
+      213: 8686357915168103762
+    second: enemy_boss2_death_10
+  - first:
+      213: 2245210731121646777
+    second: enemy_boss2_death_11
+  - first:
+      213: 121046417021654818
+    second: enemy_boss2_death_12
+  - first:
+      213: 4940091719005388080
+    second: enemy_boss2_death_13
+  - first:
+      213: -533788539796312894
+    second: enemy_boss2_death_14
+  - first:
+      213: -886613259998430268
+    second: enemy_boss2_death_15
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 50
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: enemy_boss2_death_0
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 3
+        width: 330
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e505be4d0146b1c0800000000000000
+      internalID: -4488328453217253911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_1
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 2
+        width: 330
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd44c5ae5cd1996a0800000000000000
+      internalID: -6442085056099105572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_2
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 1
+        width: 330
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa9205277fd7dedc0800000000000000
+      internalID: -3608089224725648982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_3
+      rect:
+        serializedVersion: 2
+        x: 1347
+        y: 0
+        width: 330
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99c6ab9143efb6f90800000000000000
+      internalID: -6959189299447567207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_4
+      rect:
+        serializedVersion: 2
+        x: 1779
+        y: 0
+        width: 330
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf104419c5ca68a00800000000000000
+      internalID: 758483100832629244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_5
+      rect:
+        serializedVersion: 2
+        x: 2211
+        y: 0
+        width: 330
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c286849849081bbb0800000000000000
+      internalID: -4922011542292502484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_6
+      rect:
+        serializedVersion: 2
+        x: 2638
+        y: 10
+        width: 210
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a9f4dd3d629b2e50800000000000000
+      internalID: 6785678261450242464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_7
+      rect:
+        serializedVersion: 2
+        x: 2765
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d118a936d4c7937f0800000000000000
+      internalID: -632337600843448035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_8
+      rect:
+        serializedVersion: 2
+        x: 3056
+        y: 0
+        width: 210
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b30aabb48d1e4b7b0800000000000000
+      internalID: -5209290549861113797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_9
+      rect:
+        serializedVersion: 2
+        x: 3197
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d46228dbd7b8dc0800000000000000
+      internalID: -3635674021285704423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_10
+      rect:
+        serializedVersion: 2
+        x: 3486
+        y: 0
+        width: 210
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d5f7560842c8870800000000000000
+      internalID: 8686357915168103762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_11
+      rect:
+        serializedVersion: 2
+        x: 3629
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bc966aa347982f10800000000000000
+      internalID: 2245210731121646777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_12
+      rect:
+        serializedVersion: 2
+        x: 3917
+        y: 0
+        width: 210
+        height: 177
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 227d8ef231b0ea100800000000000000
+      internalID: 121046417021654818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_13
+      rect:
+        serializedVersion: 2
+        x: 4061
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03d3a25ae3bbe8440800000000000000
+      internalID: 4940091719005388080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_14
+      rect:
+        serializedVersion: 2
+        x: 4493
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc2444b62a9798f0800000000000000
+      internalID: -533788539796312894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy_boss2_death_15
+      rect:
+        serializedVersion: 2
+        x: 4925
+        y: 0
+        width: 208
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cb74a000fd12b3f0800000000000000
+      internalID: -886613259998430268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      enemy_boss2_death_0: -4488328453217253911
+      enemy_boss2_death_1: -6442085056099105572
+      enemy_boss2_death_10: 8686357915168103762
+      enemy_boss2_death_11: 2245210731121646777
+      enemy_boss2_death_12: 121046417021654818
+      enemy_boss2_death_13: 4940091719005388080
+      enemy_boss2_death_14: -533788539796312894
+      enemy_boss2_death_15: -886613259998430268
+      enemy_boss2_death_2: -3608089224725648982
+      enemy_boss2_death_3: -6959189299447567207
+      enemy_boss2_death_4: 758483100832629244
+      enemy_boss2_death_5: -4922011542292502484
+      enemy_boss2_death_6: 6785678261450242464
+      enemy_boss2_death_7: -632337600843448035
+      enemy_boss2_death_8: -5209290549861113797
+      enemy_boss2_death_9: -3635674021285704423
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

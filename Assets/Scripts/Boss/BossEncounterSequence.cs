@@ -12,6 +12,7 @@ public class BossEncounterSequence : MonoBehaviour
 
     [Header("References")]
     [SerializeField] BossController bossController;
+    [SerializeField] BossAttackController bossAttackController;
     [SerializeField] BossArenaController bossArenaController;
     [SerializeField] BossDialogueManager bossDialogueManager;
     [SerializeField] GameObject bossRoot;
@@ -31,6 +32,7 @@ public class BossEncounterSequence : MonoBehaviour
     [SerializeField] float postDialogueDelay = 0.2f;
 
     [Header("Phase 2 Transition")]
+    [SerializeField] AudioClip phase2BgmClip;
     [SerializeField] Transform phase2FocusTarget;
     [SerializeField] Vector3 phase2FocusPosition = Vector3.zero;
     [SerializeField] float phase2ZoomSize = 3f;
@@ -134,6 +136,11 @@ public class BossEncounterSequence : MonoBehaviour
         if (bossArenaController == null && bossController != null)
         {
             bossArenaController = bossController.GetComponentInChildren<BossArenaController>(true);
+        }
+
+        if (bossAttackController == null && bossController != null)
+        {
+            bossAttackController = bossController.GetComponentInChildren<BossAttackController>(true);
         }
 
         if (bossDialogueManager == null)
@@ -242,6 +249,8 @@ public class BossEncounterSequence : MonoBehaviour
         {
             bossRoot.SetActive(true);
         }
+
+        AudioManager.instance?.PlayBgm();
 
         SetBossVisualAlpha(1f);
 
@@ -385,6 +394,12 @@ public class BossEncounterSequence : MonoBehaviour
 
         float carriedHealth = bossController != null ? bossController.CurrentHealth : 0f;
 
+        if (phase2BgmClip != null)
+        {
+            AudioManager.instance?.SetSceneBgm(phase2BgmClip);
+            AudioManager.instance?.PlayBgm();
+        }
+
         yield return PlayPhase2CameraSequence();
 
         if (bossArenaController != null)
@@ -418,7 +433,15 @@ public class BossEncounterSequence : MonoBehaviour
             yield return new WaitForSeconds(bossDefeatDelay);
         }
 
-        yield return FadeBossOutSequence();
+        if (bossAttackController != null)
+        {
+            bossAttackController.PlayDeathAnimation();
+        }
+
+        if (bossFadeOutDuration > 0f)
+        {
+            yield return new WaitForSeconds(bossFadeOutDuration);
+        }
 
         if (bossRoot != null)
         {
@@ -612,31 +635,6 @@ public class BossEncounterSequence : MonoBehaviour
         }
 
         targetCamera.transform.position = basePosition;
-    }
-
-    IEnumerator FadeBossOutSequence()
-    {
-        if (bossRoot == null)
-        {
-            yield break;
-        }
-
-        if (bossFadeOutDuration <= 0f)
-        {
-            SetBossVisualAlpha(0f);
-            yield break;
-        }
-
-        float elapsed = 0f;
-        while (elapsed < bossFadeOutDuration)
-        {
-            elapsed += Time.deltaTime;
-            float progress = Mathf.Clamp01(elapsed / bossFadeOutDuration);
-            SetBossVisualAlpha(Mathf.Lerp(1f, 0f, progress));
-            yield return null;
-        }
-
-        SetBossVisualAlpha(0f);
     }
 
     void SetBossVisualAlpha(float alpha)

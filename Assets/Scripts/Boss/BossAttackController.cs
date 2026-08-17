@@ -36,10 +36,13 @@ public class BossAttackController : MonoBehaviour
     [SerializeField] string rightPunchTriggerParameter = "doPunchR";
     [SerializeField] string chargeRightToLeftTriggerParameter = "doDashRL";
     [SerializeField] string chargeLeftToRightTriggerParameter = "doDashLR";
+    [SerializeField] string deathParameter = "doDie";
 
     [Header("Charge Telegraph Visuals")]
     [SerializeField] Sprite chargeTelegraphMoveLeftSprite;
     [SerializeField] Sprite chargeTelegraphMoveRightSprite;
+    [SerializeField] Sprite chargeTelegraphMoveLeftSprite2;
+    [SerializeField] Sprite chargeTelegraphMoveRightSprite2;
 
     [Header("Phase 1 Attacks")]
     [SerializeField]
@@ -75,6 +78,7 @@ public class BossAttackController : MonoBehaviour
     int rightPunchTriggerHash;
     int chargeRightToLeftTriggerHash;
     int chargeLeftToRightTriggerHash;
+    int deathTriggerHash;
     bool isUsingChargeTelegraphMoveVisual;
     bool cachedAnimatorEnabled;
     Sprite cachedBossSprite;
@@ -105,6 +109,31 @@ public class BossAttackController : MonoBehaviour
         SetIndicators(rightPunchAttack, false, false);
         SetIndicators(chargeAttackRL, false, false);
         SetIndicators(chargeAttackLR, false, false);
+    }
+
+    public void PlayDeathAnimation()
+    {
+        EndChargeTelegraphMoveVisual();
+        SetIndicators(leftPunchAttack, false, false);
+        SetIndicators(rightPunchAttack, false, false);
+        SetIndicators(chargeAttackRL, false, false);
+        SetIndicators(chargeAttackLR, false, false);
+
+        if (animator == null)
+        {
+            CacheComponentReferences();
+        }
+
+        if (animator == null || animator.runtimeAnimatorController == null)
+        {
+            return;
+        }
+
+        animator.ResetTrigger(leftPunchTriggerHash);
+        animator.ResetTrigger(rightPunchTriggerHash);
+        animator.ResetTrigger(chargeRightToLeftTriggerHash);
+        animator.ResetTrigger(chargeLeftToRightTriggerHash);
+        animator.SetTrigger(deathTriggerHash);
     }
 
     IEnumerator AttackLoopRoutine()
@@ -301,7 +330,7 @@ public class BossAttackController : MonoBehaviour
         Gizmos.color = color;
         Gizmos.DrawWireCube(center, attack.hitboxSize);
     }
-    
+
 
     void PlayAttackAnimation(BossAttackDefinition attack)
     {
@@ -355,11 +384,13 @@ public class BossAttackController : MonoBehaviour
         if (string.IsNullOrWhiteSpace(rightPunchTriggerParameter)) rightPunchTriggerParameter = "doPunchR";
         if (string.IsNullOrWhiteSpace(chargeRightToLeftTriggerParameter)) chargeRightToLeftTriggerParameter = "doDashRL";
         if (string.IsNullOrWhiteSpace(chargeLeftToRightTriggerParameter)) chargeLeftToRightTriggerParameter = "doDashLR";
+        if (string.IsNullOrWhiteSpace(deathParameter)) deathParameter = "doDie";
 
         leftPunchTriggerHash = Animator.StringToHash(leftPunchTriggerParameter);
         rightPunchTriggerHash = Animator.StringToHash(rightPunchTriggerParameter);
         chargeRightToLeftTriggerHash = Animator.StringToHash(chargeRightToLeftTriggerParameter);
         chargeLeftToRightTriggerHash = Animator.StringToHash(chargeLeftToRightTriggerParameter);
+        deathTriggerHash = Animator.StringToHash(deathParameter);
     }
 
     void BeginChargeTelegraphMoveVisual(BossAttackDefinition attack, Vector3 targetPosition)
@@ -416,28 +447,44 @@ public class BossAttackController : MonoBehaviour
 
     Sprite GetChargeTelegraphMoveSprite(BossAttackDefinition attack, Vector3 targetPosition)
     {
-        if (ReferenceEquals(attack, chargeAttackRL) && chargeTelegraphMoveRightSprite != null)
+        Sprite leftSprite = chargeTelegraphMoveLeftSprite;
+        Sprite rightSprite = chargeTelegraphMoveRightSprite;
+
+        if (bossController != null && bossController.CurrentPhase == BossPhase.Phase2)
         {
-            return chargeTelegraphMoveRightSprite;
+            if (chargeTelegraphMoveLeftSprite2 != null)
+            {
+                leftSprite = chargeTelegraphMoveLeftSprite2;
+            }
+
+            if (chargeTelegraphMoveRightSprite2 != null)
+            {
+                rightSprite = chargeTelegraphMoveRightSprite2;
+            }
         }
 
-        if (ReferenceEquals(attack, chargeAttackLR) && chargeTelegraphMoveLeftSprite != null)
+        if (ReferenceEquals(attack, chargeAttackRL) && rightSprite != null)
         {
-            return chargeTelegraphMoveLeftSprite;
+            return rightSprite;
+        }
+
+        if (ReferenceEquals(attack, chargeAttackLR) && leftSprite != null)
+        {
+            return leftSprite;
         }
 
         float deltaX = targetPosition.x - transform.position.x;
         if (deltaX < 0f)
         {
-            return chargeTelegraphMoveLeftSprite;
+            return leftSprite;
         }
 
         if (deltaX > 0f)
         {
-            return chargeTelegraphMoveRightSprite;
+            return rightSprite;
         }
 
-        return chargeTelegraphMoveRightSprite != null ? chargeTelegraphMoveRightSprite : chargeTelegraphMoveLeftSprite;
+        return rightSprite != null ? rightSprite : leftSprite;
     }
 
     void OnValidate()

@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   bgmClip: {fileID: 8300000, guid: 250280b46285e4048be7d60b9cc18e64, type: 3}
+  playSceneBgmOnAwake: 1
   Bvolume: 1
   sfxClips: []
   Svolume: 1
