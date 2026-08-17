@@ -3634,6 +3634,10 @@ PrefabInstance:
       value: "\uB85C\uBD07\uC744 \uD1B5\uD574 \uC790\uC720\uB97C \uC5BB\uC73C\uC138\uC694!"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[1].bold
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[1].text
       value: "\r\n\uB2F9\uC2E0\uC774 \uC6D0\uD558\uB294 \uACBD\uAD00\r\n\uB2F9\uC2E0\uC774
         \uC6D0\uD558\uB294 \uBB34\uB825\r\n\uB2F9\uC2E0\uC774 \uC6D0\uD558\uB294
@@ -3653,19 +3657,15 @@ PrefabInstance:
       value: "\u2748\uBC30\uD3EC \uB85C\uBD07 \uAE30\uC885: 1\uC138\uB300 B-1"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
-      propertyPath: documentTextElements.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
-      propertyPath: documentTextElements.Array.data[0].bold
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
-      propertyPath: documentTextElements.Array.data[0].text
-      value: rsererer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[0].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[1].color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[2].color.a
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
