@@ -1297,7 +1297,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.22, y: 0.36}
+  m_Size: {x: 0.22, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &166369747
 MonoBehaviour:
@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryPickupItem
   itemType: 6
   itemAmount: 1
-  itemCount: 2
+  itemCount: 1
   requireInventoryAbility: 1
   destroyOnPickup: 1
 --- !u!1 &216915394
@@ -3713,6 +3713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   bgmClip: {fileID: 8300000, guid: 83be5fdb0d2bd41b09f9bcedb635a20e, type: 3}
+  playSceneBgmOnAwake: 0
   Bvolume: 1
   sfxClips: []
   Svolume: 1
@@ -4344,6 +4345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossEncounterSequence
   bossController: {fileID: 2153464765801661878}
+  bossAttackController: {fileID: 0}
   bossArenaController: {fileID: 359229488}
   bossDialogueManager: {fileID: 870903975}
   bossRoot: {fileID: 55045138}
@@ -4382,6 +4384,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   preDialogueDelay: 0.2
   postDialogueDelay: 0.2
+  phase2BgmClip: {fileID: 8300000, guid: dc20cf592e00f4be69101922f8a49faa, type: 3}
   phase2FocusTarget: {fileID: 0}
   phase2FocusPosition: {x: 0, y: -1, z: -10}
   phase2ZoomSize: 3
@@ -4393,8 +4396,8 @@ MonoBehaviour:
   bossDefeatDelay: 2
   bossFadeOutDuration: 1
   elevatorMoveDirection: {x: 0, y: 1, z: 0}
-  elevatorMoveSpeed: 0
-  elevatorRideDuration: 0
+  elevatorMoveSpeed: 5
+  elevatorRideDuration: 3
   elevatorExitSceneName: LandfillEnding
   sceneFadeOutDuration: 1
   sceneFadeSortingOrder: 1000
@@ -6235,8 +6238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
-  requiredItemType: 6
-  requiredItemCount: 1
+  requiredItemType: 0
+  requiredItemCount: 0
   consumeItemOnResolve: 1
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
@@ -7016,6 +7019,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 767696785}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeTelegraphMoveLeftSprite2
+      value: 
+      objectReference: {fileID: -5600883215223525688, guid: 63c9630fe60af4e1fba0941a50f47a7f, type: 3}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: chargeTelegraphMoveRightSprite
       value: 
       objectReference: {fileID: -5708570539576965342, guid: bc165ca2f6ecc4e288e8ea3f9f42f5a5, type: 3}
@@ -7027,6 +7034,10 @@ PrefabInstance:
       propertyPath: chargeAttackRL.chargeStartPoint
       value: 
       objectReference: {fileID: 1639588323}
+    - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
+      propertyPath: chargeTelegraphMoveRightSprite2
+      value: 
+      objectReference: {fileID: 5068477576279646084, guid: 86c4f26542113440fb14d0e019b7f555, type: 3}
     - target: {fileID: 4419126542604415138, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: leftPunchAttack.attackIndicator
       value: 
