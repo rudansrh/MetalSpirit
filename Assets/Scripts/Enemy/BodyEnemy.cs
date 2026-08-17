@@ -122,7 +122,7 @@ public class BodyEnemy : Enemy
             return;
         }
 
-        playerPos = playerController.transform.position;
+        playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
         // °ø°Ý ¹üÀ§ ³»¿¡ µé¾î¿À¸é µ¹Áø ÁØºñ
@@ -179,6 +179,8 @@ public class BodyEnemy : Enemy
 
             this.gameObject.layer = 0;
         }
+
+        if(isAttackingPossessed) this.gameObject.layer = 0;
 
         float dirX = playerCenter.x - transform.position.x;
         if (Mathf.Abs(dirX) > 0.1f)
@@ -298,9 +300,9 @@ public class BodyEnemy : Enemy
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
+        if (collision.gameObject.TryGetComponent<PlayerController>(out var player))
         {
-            if (playerController.isInvincibility) return;
+            if (player.isInvincibility) return;
         }
 
         if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
@@ -312,11 +314,14 @@ public class BodyEnemy : Enemy
         {
             damageable.TakeDamage(damage, DamageType.Normal);
         }
-
-        if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+        else if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver) && isPossessed)
         {
             damageReceiver.Attacked(damage);
             collision.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
+        }
+        else if (playerController.IsPossessing && collision.gameObject.CompareTag("Enemy") && !isPossessed && isAttackingPossessed)
+        {
+            playerController.GetComponent<IDamageable>().TakeDamage(damage, DamageType.Normal);
         }
 
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb2d))

@@ -641,6 +641,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public Vector2 GetPossessedEnemyPosition()
+    {
+        return rigid.transform.position;
+    }
+
     //E키 상호작용
     public void OnInteract(InputValue value)
     {

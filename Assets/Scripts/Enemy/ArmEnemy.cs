@@ -117,7 +117,7 @@ public class ArmEnemy : Enemy
             return;
         }
 
-        playerPos = playerController.transform.position;
+        playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
         if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
@@ -171,6 +171,10 @@ public class ArmEnemy : Enemy
                 damageReceiver.Attacked(damage);
                 hit.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
                 Debug.Log($"발구르기 적중! 데미지: {damage}");
+            }
+            else if (playerController.IsPossessing && hit.CompareTag("Enemy"))
+            {
+                playerController.GetComponent<IDamageable>().TakeDamage(damage, DamageType.Normal);
             }
         }
 
