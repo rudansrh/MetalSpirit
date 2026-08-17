@@ -4,6 +4,8 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    private const string BgmVolumePrefKey = "AudioManager.BgmVolume";
+    private const string SfxVolumePrefKey = "AudioManager.SfxVolume";
 
     [Header("BGM")]
     public AudioClip bgmClip;
@@ -41,6 +43,7 @@ public class AudioManager : MonoBehaviour
 
         instance = this;
 
+        LoadSavedVolumes();
         Init();
         sceneBgmClip = bgmClip;
         activeBgmZones.Clear();
@@ -209,12 +212,14 @@ public class AudioManager : MonoBehaviour
     public void SetBgmVolume(float volume)
     {
         Bvolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat(BgmVolumePrefKey, Bvolume);
         ApplyAudioSourceVolumes();
     }
 
     public void SetSfxVolume(float volume)
     {
         Svolume = Mathf.Clamp01(volume);
+        PlayerPrefs.SetFloat(SfxVolumePrefKey, Svolume);
         ApplyAudioSourceVolumes();
     }
 
@@ -243,6 +248,19 @@ public class AudioManager : MonoBehaviour
             {
                 sfxPlayers[i].volume = Svolume;
             }
+        }
+    }
+
+    private void LoadSavedVolumes()
+    {
+        if (PlayerPrefs.HasKey(BgmVolumePrefKey))
+        {
+            Bvolume = Mathf.Clamp01(PlayerPrefs.GetFloat(BgmVolumePrefKey));
+        }
+
+        if (PlayerPrefs.HasKey(SfxVolumePrefKey))
+        {
+            Svolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SfxVolumePrefKey));
         }
     }
 
