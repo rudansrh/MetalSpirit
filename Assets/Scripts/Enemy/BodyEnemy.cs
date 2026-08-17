@@ -35,12 +35,15 @@ public class BodyEnemy : Enemy
     private Vector2 playerPos;
 
     private bool found = false;
+    private int thisLayer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         InitializeEnemyBase();
+
+        thisLayer = this.gameObject.layer;
     }
 
     private void FixedUpdate()
@@ -151,15 +154,41 @@ public class BodyEnemy : Enemy
         lastAttackTime = Time.time;
         animationController?.TriggerAttack();
 
-        float dirX = playerPos.x - transform.position.x;
+        Vector2 playerCenter = playerPos;
+
+        if (isPossessed)
+        {
+            playerCenter = new Vector2(-1000, -1000);
+            Collider2D[] findEnemys = Physics2D.OverlapBoxAll((Vector2)transform.position, new Vector2(10, 10), 0);
+            foreach (var hit in findEnemys)
+            {
+                if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+                {
+                    if (hit.gameObject == this.gameObject || Vector2.Distance((Vector2)transform.position, playerCenter) < Vector2.Distance((Vector2)transform.position, hit.transform.position)) continue;
+
+                    playerCenter = hit.transform.position;
+                    Debug.Log(hit.name);
+                }
+            }
+
+            if (playerCenter.x == -1000)
+            {
+                Debug.Log("조준실패");
+                yield break;
+            }
+
+            this.gameObject.layer = 0;
+        }
+
+        float dirX = playerCenter.x - transform.position.x;
         if (Mathf.Abs(dirX) > 0.1f)
         {
             facingDirection = Mathf.Sign(dirX);
             UpdateFacingVisual();
         }
 
+        if (isPossessed) playerController.canMove = false;
         Debug.Log("적 돌진 준비!");
-
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         yield return new WaitForSeconds(attackDelay);
 
@@ -171,12 +200,13 @@ public class BodyEnemy : Enemy
             rb.linearVelocity = new Vector2(facingDirection * chargeSpeed, rb.linearVelocity.y);
             currentChargeTime += Time.deltaTime;
 
-
             yield return null;
         }
 
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         Debug.Log("돌진 종료");
+        this.gameObject.layer = thisLayer;
+        if (isPossessed) playerController.canMove = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -281,6 +311,11 @@ public class BodyEnemy : Enemy
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(damage, DamageType.Normal);
+        }
+
+        if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+        {
+            damageReceiver.Attacked(damage);
         }
 
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb2d))
