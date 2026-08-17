@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Collections;
 
 
 public class MinigameManager : MonoBehaviour
@@ -14,7 +15,9 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] GameObject door;
     [SerializeField] Transform leftWall;
     [SerializeField] Transform rightWall;
+    [SerializeField] Transform ceiling;
     [SerializeField] Transform retryPoint;
+    [SerializeField] float offsetX;
 
     PlayerController player;
     Transform p_transform;
@@ -47,7 +50,7 @@ public class MinigameManager : MonoBehaviour
             cooltime = Random.Range(minSpawnInterval, maxSpawnInterval); //생성 쿨타임 초기화
             var prefab = Instantiate(obstaclePrefab, transform);
             prefab.GetComponent<Obstacle_Minigame>().minigameManager = this;
-            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x, rightWall.transform.position.x), 3.5f);
+            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x + offsetX, rightWall.transform.position.x - offsetX), ceiling.position.y);
             prefab.transform.position = fallPoint;
             prefab.GetComponent<Rigidbody2D>().AddForceY(1f, ForceMode2D.Impulse);
         }
@@ -68,7 +71,9 @@ public class MinigameManager : MonoBehaviour
         Debug.Log("미니게임 실패");
         cameraFollow.Instance.ReturnToNormal();
         gameStart = false;
-        door.GetComponent<Door>().minigameStarted = false;
+        Door doorScript = door.GetComponent<Door>();
+        doorScript.minigameStarted = false;
+        doorScript.currentHp = doorScript.maxHp;
         player.isPlayingMinigame = false;
         player.transform.position = retryPoint.position;
         currentTime = 0;
@@ -91,17 +96,36 @@ public class MinigameManager : MonoBehaviour
         Vector3 end = (leftWall.position + rightWall.position)/2;
         end.y = start.y;
 
-        while (p_transform.position != end)
+        while (Mathf.Abs(p_transform.position.x - end.x) > 0.1f)
         {
             p_transform.position = Vector3.MoveTowards(p_transform.position, end, Time.deltaTime*3);
 
             yield return null;
         }
 
-        p_transform.position = end;
         player.canMove = true;
         door.SetActive(true);
         door.GetComponent<Door>().minigameStarted = true;
         gameStart = true;
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.CompareTag("Player")) return;
+
+        if (!collision.TryGetComponent<PlayerAbilityManager>(out var ability))
+            return;
+
+        if (!ability.isSoul) return;
+
+        Collider2D fieldCollider = GetComponent<Collider2D>();
+        ColliderDistance2D distance = fieldCollider.Distance(collision);
+
+        if (!distance.isOverlapped) return;
+
+        Rigidbody2D rb = collision.attachedRigidbody;
+
+        // 겹친 만큼 벽 바깥쪽으로 이동시켜서 벽을 통과하지 못하게 함
+        rb.position += distance.normal * Mathf.Abs(distance.distance);
     }
 }

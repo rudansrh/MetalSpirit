@@ -14,112 +14,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uBC14\uAE65\uC758 \uC790\uAE30\uC7A5\uC740 \uC5EC\uC804\uD558\uAD70."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: ...
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uBB34\uC2A8 \uC77C\uC774\uC9C0?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC790\uAE30\uC7A5\uC774... \uBB34\uC5C7\uC778\uAC00?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uC790\uAE30\uC7A5\uC744 \uBAA8\uB974\uB2E4\uB2C8, \uD639\uC2DC \uBA54\uBAA8\uB9AC\uC5D0
         \uC774\uC0C1\uC774 \uC0DD\uACBC\uB098?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "...\uC544\uBB34\uB798\uB3C4 \uADF8\uB7F0 \uAC83 \uAC19\uB2E4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uC790\uAE30\uC7A5\uC740 \uB85C\uBD07, \uC778\uAC04, \uC601\uD63C\uC774
         \uBC14\uAE65\uC73C\uB85C \uB098\uAC00\uB294 \uAC78 \uB9C9\uB294\uB2E4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uB098\uAC00\uB294 \uAC78 \uB9C9\uB294\uAC70\uBA74, \uB4E4\uC5B4\uC624\uB294
         \uAC74 \uAC00\uB2A5\uD55C\uAC00?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uADF8\uB807\uB2E4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uC790\uAE30\uC7A5\uC740 \uC6B0\uB9AC\uB97C \uAC00\uB450\uB294 \uAC10\uC625\uC774\uB2C8\uAE4C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uB098\uAC08 \uC218 \uC788\uB294 \uBC29\uBC95\uC740 \uB354 \uC9C0\uD558\uC5D0
         \uC788\uB294 \uC5D8\uB9AC\uBCA0\uC774\uD130\uC774\uC9C0\uB9CC"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uC774 \uAD6C\uC5ED\uC758 \uC6B0\uB9AC\uB4E4\uC740 \uC5B4\uCC28\uD53C
         \uAC08 \uC218 \uC5C6\uB2E4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
     - text: "\uC544\uBB34\uB9AC \uBA54\uBAA8\uB9AC\uAC00 \uACE0\uC7A5\uB0AC\uC5B4\uB3C4
         \uC774\uAC74 \uC774\uD574\uD558\uACA0\uC9C0."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

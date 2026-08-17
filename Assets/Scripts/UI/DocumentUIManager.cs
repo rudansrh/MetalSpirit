@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Text;
 
 public class DocumentUIManager : MonoBehaviour
 {
@@ -28,11 +29,22 @@ public class DocumentUIManager : MonoBehaviour
 
     public void ShowDocument(string content)
     {
+        ShowDocument(content, null);
+    }
+
+    public void ShowDocument(string fallbackContent, DialogueTextElement[] textElements)
+    {
+        string content = BuildRichText(textElements);
+        if (string.IsNullOrEmpty(content))
+        {
+            content = fallbackContent ?? string.Empty;
+        }
+
         documentText.text = content;
         documentPanel.SetActive(true);
         isOpen = true;
 
-        // ¹®¼­¸¦ ÀĞ´Â µ¿¾È ÇÃ·¹ÀÌ¾î Á¶ÀÛ ¸·±â
+        // ë¬¸ì„œë¥¼ ì½ëŠ” ë™ì•ˆ í”Œë ˆì´ì–´ ì¡°ì‘ ë§‰ê¸°
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.canMove = false;
@@ -46,7 +58,7 @@ public class DocumentUIManager : MonoBehaviour
         documentPanel.SetActive(false);
         isOpen = false;
 
-        // ÇÃ·¹ÀÌ¾î Á¶ÀÛ ´Ù½Ã È°¼ºÈ­
+        // í”Œë ˆì´ì–´ ì¡°ì‘ ë‹¤ì‹œ í™œì„±í™”
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.canMove = true;
@@ -59,5 +71,56 @@ public class DocumentUIManager : MonoBehaviour
         {
             CloseDocument();
         }
+    }
+
+    static string BuildRichText(DialogueTextElement[] textElements)
+    {
+        if (textElements == null || textElements.Length == 0)
+        {
+            return string.Empty;
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        foreach (DialogueTextElement element in textElements)
+        {
+            if (element == null)
+            {
+                continue;
+            }
+
+            builder.Append("<color=#");
+            builder.Append(ColorUtility.ToHtmlStringRGBA(element.color));
+            builder.Append(">");
+
+            if (element.bold)
+            {
+                builder.Append("<b>");
+            }
+
+            builder.Append(EscapeRichText(element.text));
+
+            if (element.bold)
+            {
+                builder.Append("</b>");
+            }
+
+            builder.Append("</color>");
+        }
+
+        return builder.ToString();
+    }
+
+    static string EscapeRichText(string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            return string.Empty;
+        }
+
+        return value
+            .Replace("&", "&amp;")
+            .Replace("<", "&lt;")
+            .Replace(">", "&gt;");
     }
 }

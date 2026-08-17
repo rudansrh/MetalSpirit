@@ -9,17 +9,18 @@ public class PlayerCombatManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerController playerController;
     [SerializeField] private PlayerAbilityManager abilityManager;
+    [SerializeField] private PlayerVisualManager visualManager;
     [SerializeField] private LineRenderer headAttackLineRenderer;
 
     [Header("Attack Settings")]
     public bool isAttackVisualize = false;
     [SerializeField] private float legAttackCoolTime = 0.1f;
     [SerializeField] private float legAttackDamage = 30f;
-    [SerializeField] private Vector2 legAttackOffset = new Vector2(1f, 0.2f);
+    [SerializeField] private Vector2 legAttackOffset = new Vector2(1f, -0.2f);
     [SerializeField] private Vector2 legAttackSize = new Vector2(1f, 0.1f);
     [SerializeField] private float armAttackCoolTime = 0.1f;
     [SerializeField] private float armAttackDamage = 50f;
-    [SerializeField] private Vector2 armAttackOffset = new Vector2(1f, -0.2f);
+    [SerializeField] private Vector2 armAttackOffset = new Vector2(1f, 0.2f);
     [SerializeField] private Vector2 armAttackSize = new Vector2(1f, 0.1f);
     [SerializeField] private float bodyAttackCoolTime = 0.1f;
     [SerializeField] private float bodyAttackDamage = 70f;
@@ -57,6 +58,11 @@ public class PlayerCombatManager : MonoBehaviour
         if (abilityManager == null)
         {
             abilityManager = GetComponent<PlayerAbilityManager>();
+        }
+
+        if (visualManager == null)
+        {
+            visualManager = GetComponent<PlayerVisualManager>();
         }
 
         if (headAttackLineRenderer == null)
@@ -98,12 +104,19 @@ public class PlayerCombatManager : MonoBehaviour
         }
     }
 
-    public void OnLegAttack(InputValue value)
+    public void OnLegAttack(InputValue value) //다리공격 + 빙의 공격
     {
-        if (!value.isPressed || !CanStartCommonAttack()) return;
+        if (!value.isPressed || playerController == null || playerController.IsUiOpen) return;
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack();
+            return;
+        }
+
         if (abilityManager == null || !abilityManager.canLegAttack || legAttackCoolTime > curTime_leg) return;
 
         curTime_leg = 0f;
+        visualManager?.PlayLegAttackAnimation();
 
         Vector2 center = GetAttackCenter(legAttackOffset);
         ApplyDamageInBox(center, legAttackSize, legAttackDamage);
@@ -116,6 +129,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (abilityManager == null || !abilityManager.canArmAttack || armAttackCoolTime > curTime_arm) return;
 
         curTime_arm = 0f;
+        visualManager?.PlayArmAttackAnimation();
 
         Vector2 center = GetAttackCenter(armAttackOffset);
         ApplyDamageInBox(center, armAttackSize, armAttackDamage);
@@ -129,6 +143,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (playerController.IsDashing || !playerController.canMove) return;
 
         curTime_body = 0f;
+        visualManager?.PlayBodyAttackAnimation();
         StartCoroutine(BodyAttackRoutine());
     }
 
@@ -139,6 +154,7 @@ public class PlayerCombatManager : MonoBehaviour
         if (playerController.IsDashing || !playerController.canMove) return;
 
         curTime_head = 0f;
+        visualManager?.PlayHeadAttackAnimation();
         StartCoroutine(HeadAttackRoutine());
     }
 
@@ -260,7 +276,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         foreach (RaycastHit2D hit in hits)
         {
-            if (hit.collider == null || !hit.collider.CompareTag("Enemy"))
+            if (hit.collider == null)
             {
                 continue;
             }
@@ -281,9 +297,14 @@ public class PlayerCombatManager : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            if (hit == null || !hit.CompareTag("Enemy"))
+            if (hit == null)
             {
                 continue;
+            }
+
+            if(hit.TryGetComponent<IBreakable>(out var breakable))
+            {
+                breakable.objectDamaged();
             }
 
             IEnemyDamageReceiver enemy = hit.GetComponent<IEnemyDamageReceiver>();

@@ -14,50 +14,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uCC3E\uACE0 \uC788\uB294 \uAC70\uB77C1001111?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC544\uB2C8, \uADF8\uB0E5 \uB458\uB7EC\uBCF4\uACE0 \uC788\uC5B4."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uADF8\uB7FC \uADF8\uB0E5 \uB3CC1\uAC00\uB294 \uD3B8101 \uC88B\uC544."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uC5EC\uAE34 1\uBB34\uAC831001111 \uC5C6\uAC70\uB4E0."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uADF8\uB798?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uAC70\uC9D3\uB9D0101\uC57C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

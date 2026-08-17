@@ -28,8 +28,6 @@ public class BodyEnemy : Enemy
 
     private Rigidbody2D rb;
     private Collider2D col;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
     private bool isGrounded;
 
     private bool isAttacking = false; // µ¹Áø ÁßÀÎÁö ¿©ºÎ
@@ -37,14 +35,15 @@ public class BodyEnemy : Enemy
     private Vector2 playerPos;
 
     private bool found = false;
+    private int thisLayer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
+
+        thisLayer = this.gameObject.layer;
     }
 
     private void FixedUpdate()
@@ -73,7 +72,7 @@ public class BodyEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
@@ -86,16 +85,21 @@ public class BodyEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canTalk(hit.transform);
+                    found = true;
                 }
-                found = true;
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
@@ -144,21 +148,47 @@ public class BodyEnemy : Enemy
     }
 
     // µ¹Áø °ø°Ý ÄÚ·çÆ¾
-    private IEnumerator ChargeRoutine()
+    public IEnumerator ChargeRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
         animationController?.TriggerAttack();
 
-        float dirX = playerPos.x - transform.position.x;
+        Vector2 playerCenter = playerPos;
+
+        if (isPossessed)
+        {
+            playerCenter = new Vector2(-1000, -1000);
+            Collider2D[] findEnemys = Physics2D.OverlapBoxAll((Vector2)transform.position, new Vector2(10, 10), 0);
+            foreach (var hit in findEnemys)
+            {
+                if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+                {
+                    if (hit.gameObject == this.gameObject || Vector2.Distance((Vector2)transform.position, playerCenter) < Vector2.Distance((Vector2)transform.position, hit.transform.position)) continue;
+
+                    playerCenter = hit.transform.position;
+                    Debug.Log(hit.name);
+                }
+            }
+
+            if (playerCenter.x == -1000)
+            {
+                Debug.Log("조준실패");
+                yield break;
+            }
+
+            this.gameObject.layer = 0;
+        }
+
+        float dirX = playerCenter.x - transform.position.x;
         if (Mathf.Abs(dirX) > 0.1f)
         {
             facingDirection = Mathf.Sign(dirX);
             UpdateFacingVisual();
         }
 
+        if (isPossessed) playerController.canMove = false;
         Debug.Log("적 돌진 준비!");
-
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         yield return new WaitForSeconds(attackDelay);
 
@@ -170,12 +200,13 @@ public class BodyEnemy : Enemy
             rb.linearVelocity = new Vector2(facingDirection * chargeSpeed, rb.linearVelocity.y);
             currentChargeTime += Time.deltaTime;
 
-
             yield return null;
         }
 
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         Debug.Log("돌진 종료");
+        this.gameObject.layer = thisLayer;
+        if (isPossessed) playerController.canMove = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -264,8 +295,9 @@ public class BodyEnemy : Enemy
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
         {
             if (playerController.isInvincibility) return;
@@ -281,6 +313,11 @@ public class BodyEnemy : Enemy
             damageable.TakeDamage(damage, DamageType.Normal);
         }
 
+        if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+        {
+            damageReceiver.Attacked(damage);
+        }
+
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb2d))
         {
             Vector2 knockbackDir = collision.transform.position - transform.position;
@@ -288,21 +325,6 @@ public class BodyEnemy : Enemy
 
             rb2d.linearVelocity = Vector2.zero;
             rb2d.AddForce(knockbackDir * knockbackForce, ForceMode2D.Impulse);
-        }
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (isPossessed && playerController.isJump && collision.gameObject.tag == "Wall")
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if (contact.normal.y > 0.1f)
-                {
-                    playerController.isJump = false;
-                    return;
-                }
-            }
         }
     }
 

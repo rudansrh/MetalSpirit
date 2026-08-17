@@ -14,67 +14,75 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uB1081001111 \uBE59\uAE00\uBE59\uAE00 \uB3CC\uB824\uACE0 \uC654\uB2C8?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC751."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uADF8\uB798? \uADF8\uB7EC\uBA74 \uC870\uAE08\uB9CC \uB3CC\uACE0 1001\uC2DC
         \uB0B4\uB824\uAC00."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC65C?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "101\uACF3\uC740 \uADF8\uC800 \uB3CC\uC544\uAC08 \uBFD0\uC77411101001\uAE4C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: ...
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uB098\uB294 \uB2E4\uB974\uAC8C \uC0DD\uAC01\uD558\uAE34 \uD558\uC9C0\uB9CC."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uCDA9\uACE0 \uACE0\uB9C8\uC6CC."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

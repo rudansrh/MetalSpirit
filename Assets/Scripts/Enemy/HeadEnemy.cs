@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -23,8 +24,6 @@ public class HeadEnemy : Enemy
     private Rigidbody2D rb;
     private Collider2D col;
     private LineRenderer lineRenderer;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
 
     private bool isAttacking = false;
     private float lastAttackTime = 0f;
@@ -36,9 +35,6 @@ public class HeadEnemy : Enemy
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         lineRenderer = GetComponent<LineRenderer>();
-
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
 
         rb.gravityScale = 0f;
@@ -72,22 +68,34 @@ public class HeadEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.gameObject == gameObject) continue;
+                if (hit.collider.gameObject == gameObject)
+                {
+                    continue;
+                }
 
                 nearbyEnemy = hit.collider.gameObject;
-                if (!found) playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
-                found = true;
+
+                if (!found)
+                {
+                    playerController.canTalk(hit.transform);
+                    found = true;
+                }
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(rb.linearVelocity.sqrMagnitude > 0.01f);
@@ -146,7 +154,7 @@ public class HeadEnemy : Enemy
     }
 
     // ·¹ÀÌÀú ¹ß»ç ÄÚ·çÆ¾
-    private IEnumerator LaserRoutine()
+    public IEnumerator LaserRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -155,6 +163,28 @@ public class HeadEnemy : Enemy
 
         Vector2 firePoint = (Vector2)transform.position + new Vector2(headOffset.x * facingDirection, headOffset.y);
         Vector2 playerCenter = playerController.transform.position;
+
+        if (isPossessed)
+        {
+            playerCenter = new Vector2(-1000, -1000);
+            Collider2D[] findEnemys = Physics2D.OverlapBoxAll(firePoint, new Vector2(10,10), 0);
+            foreach (var hit in findEnemys)
+            {
+                if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+                {
+                    if (hit.gameObject == this.gameObject || Vector2.Distance(firePoint, playerCenter) < Vector2.Distance(firePoint, hit.transform.position)) continue;
+
+                    playerCenter = hit.transform.position;
+                    Debug.Log(hit.name);
+                }
+            }
+
+            if(playerCenter.x == -1000)
+            {
+                Debug.Log("조준실패");
+                yield break;
+            }
+        }
 
         Vector2 aimDirection = (playerCenter - firePoint).normalized;
 
@@ -195,6 +225,15 @@ public class HeadEnemy : Enemy
                     Debug.Log("레이저 적중! 데미지: 50");
                 }
             }
+            else if (isPossessed && hit.collider.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.collider.gameObject == this.gameObject) continue;
+
+                damageReceiver.Attacked(laserDamage);
+                hitPlayer = true;
+                Debug.Log("레이저 적중! 데미지: 50");
+                break;
+            }
         }
 
         if (!hitPlayer) Debug.Log("레이저 빗나감");
@@ -224,8 +263,9 @@ public class HeadEnemy : Enemy
         Gizmos.DrawSphere(firePoint, 0.2f);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         if (collision.gameObject.TryGetComponent<PlayerController>(out var pc) && pc.isInvincibility) return;
         if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var pa) && pa.isSoul) return;
 

@@ -14,52 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   lines:
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uB108 \uAC1510001101?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uAC11\uC790\uAE30 \uBB34\uC2A8 \uB9D0\uC774\uC57C?"
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uC5EC\uAE30 \uBC11101 \uB9DD\uAC00\uC9C4 \uD30C\uCE20\uB4E4\uC744 \uBC8411001001\uB294
         \uACF3101\uAC70\uB4E0."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uADF8\uB7F0\uB370 \uC785\uAD6C\uB97C \uADF8 \uC794\uD574\uB4E4\uC774
         \uB9C91\uBC84\uB824\uC11C \uB9D0101\uC9C0."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 1
+    portraitSprite: {fileID: 5672399106232801592, guid: f31c09efcb94142a49bd62627c9b7ae3, type: 3}
     textElements:
     - text: "\uB4E4\uC5B41111\uB824\uBA74 \uD798101 \uC138\uC57C \uD560\uAC70\uC57C."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}
   - speaker: 0
+    portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
     - text: "\uC5B4? \uC5B4... \uACE0\uB9C8\uC6CC."
       bold: 0
-      color: {r: 0, g: 0, b: 0, a: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
     text: 
     textBold: 0
     color: {r: 0, g: 0, b: 0, a: 1}

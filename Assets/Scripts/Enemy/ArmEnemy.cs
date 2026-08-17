@@ -27,8 +27,6 @@ public class ArmEnemy : Enemy
 
     private Rigidbody2D rb;
     private Collider2D col;
-    private PlayerController playerController;
-    private PlayerAbilityManager playerAbility;
     private bool isGrounded;
 
     private bool isAttacking = false;
@@ -41,8 +39,6 @@ public class ArmEnemy : Enemy
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
-        playerController = PlayerController.Instance;
-        playerAbility = playerController.GetComponent<PlayerAbilityManager>();
         InitializeEnemyBase();
     }
 
@@ -71,11 +67,11 @@ public class ArmEnemy : Enemy
 
             LayerMask enemyLayer = LayerMask.GetMask("Enemy");
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, Vector2.right * facingDirection, 2f, enemyLayer);
-            found = false;
+            bool thisFrameFound = false;
 
             foreach (RaycastHit2D hit in hits)
             {
-                if (hit.collider.gameObject == gameObject) //자기자신(빙의된 에너미) 제외
+                if (hit.collider.gameObject == gameObject)
                 {
                     continue;
                 }
@@ -84,16 +80,21 @@ public class ArmEnemy : Enemy
 
                 if (!found)
                 {
-                    playerController.canInteractUI.showInterectUI(hit.transform, "e", "대화");
+                    playerController.canTalk(hit.transform);
+                    found = true;
                 }
-                found = true;
+                thisFrameFound = true;
                 break;
             }
 
-            if (!found)
+            if (!thisFrameFound)
             {
+                if (found)
+                {
+                    playerController.canInteractUI.hideInterectUI();
+                    found = false;
+                }
                 nearbyEnemy = null;
-                if (!found) playerController.canInteractUI.hideInterectUI();
             }
 
             UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
@@ -141,7 +142,7 @@ public class ArmEnemy : Enemy
     }
 
     // 공격 코루틴
-    private IEnumerator AttackRoutine()
+    public IEnumerator AttackRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -162,6 +163,13 @@ public class ArmEnemy : Enemy
                 damageable.TakeDamage(damage, DamageType.Normal);
                 hitPlayer = true;
                 Debug.Log("적 공격 적중");
+            }
+            else if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.gameObject == this.gameObject) continue;
+
+                damageReceiver.Attacked(damage);
+                Debug.Log($"발구르기 적중! 데미지: {damage}");
             }
         }
 
@@ -257,8 +265,9 @@ public class ArmEnemy : Enemy
         animationController?.SetMove(isMoving && !isAttacking && !isDying);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
         // 영혼 상태, 무적 상태일 때 충돌 무시
         if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
         {
@@ -287,21 +296,6 @@ public class ArmEnemy : Enemy
         }
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        //빙의시 점프 판정 처리
-        if (isPossessed && playerController.isJump && collision.gameObject.tag == "Wall")
-        {
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                if (contact.normal.y > 0.1f)
-                {
-                    playerController.isJump = false;
-                    return;
-                }
-            }
-        }
-    }
 
     public override void Attacked(float playerDamage)
     {
