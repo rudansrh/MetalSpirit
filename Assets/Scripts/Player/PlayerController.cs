@@ -390,6 +390,17 @@ public class PlayerController : MonoBehaviour
         TurotialUIManager.Instance?.ToggleTutorial();
     }
 
+    public void OnSetting(InputValue value)
+    {
+        if (!value.isPressed) return;
+        if (isPlayingMinigame || isTalking) return;
+
+        bool isSettingOpen = SettingUIManager.Instance != null && SettingUIManager.Instance.IsOpen;
+        if (isUIopen && !isSettingOpen) return;
+
+        SettingUIManager.Instance?.ToggleSetting();
+    }
+
     IEnumerator DashRoutine()
     {
 

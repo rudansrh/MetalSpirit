@@ -160,7 +160,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Settings",
+                    "name": "Setting",
                     "type": "Button",
                     "id": "d1958e6d-283e-4ca7-b2c6-3ed18ee556a6",
                     "expectedControlType": "",
@@ -437,11 +437,11 @@
                 {
                     "name": "",
                     "id": "9d50552e-ceaa-46c4-ac0f-d113a69ce4f9",
-                    "path": "<Keyboard>/escape",
+                    "path": "<Keyboard>/u",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Settings",
+                    "action": "Setting",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
