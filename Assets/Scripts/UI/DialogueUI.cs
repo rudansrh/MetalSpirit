@@ -46,7 +46,7 @@ public class DialogueUI : MonoBehaviour
         if (target == null) return;
 
         Vector3 targetPos = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1.5f);
-        targetPos.x += (Mathf.Max(0, bubble.rect.width - 268) / 2 + 80) * bubble.localScale.x; //말풍선 꼬리위치 고정코드 수정 필요(하드코딩)
+        targetPos.x += (Mathf.Max(0, bubble.rect.width - 268 - portraitSize.x) / 2 + 80) * bubble.localScale.x; 
         bubble.position = targetPos;
     }
 
