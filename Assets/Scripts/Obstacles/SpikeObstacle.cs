@@ -7,6 +7,8 @@ public class SpikeObstacle : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (!collision.CompareTag("Player")) return;
+
         //영혼상태, 무적상태일때 충돌 무시
         if (collision.TryGetComponent<PlayerController>(out var playerController))
         {
