@@ -2270,7 +2270,6 @@ GameObject:
   - component: {fileID: 300771093}
   - component: {fileID: 300771094}
   - component: {fileID: 300771096}
-  - component: {fileID: 300771095}
   - component: {fileID: 300771097}
   m_Layer: 0
   m_Name: object_moss2
@@ -2353,18 +2352,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &300771095
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300771092}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229b82569551b994e915643bd3c90b0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MossObstacle
 --- !u!61 &300771096
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2424,8 +2411,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
-  requiredItemCount: 0
-  consumeItemOnResolve: 1
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -2449,6 +2436,7 @@ GameObject:
   m_Component:
   - component: {fileID: 316539116}
   - component: {fileID: 316539115}
+  - component: {fileID: 316539118}
   - component: {fileID: 316539117}
   m_Layer: 0
   m_Name: object_moss1_0
@@ -2544,8 +2532,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
-  requiredItemCount: 0
-  consumeItemOnResolve: 1
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -2559,6 +2547,52 @@ MonoBehaviour:
   onFailed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!61 &316539118
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316539114}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.68, y: 1.12}
+    newSize: {x: 1.68, y: 1.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.68, y: 1.12}
+  m_EdgeRadius: 0
 --- !u!1001 &378370462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4363,6 +4397,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2567301256407390163, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
   m_PrefabInstance: {fileID: 748948232}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &752912436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5588872401859130026, guid: 58710a02e509c48dd997843ec9e1467b, type: 3}
+  m_PrefabInstance: {fileID: 1794128380}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d698e09a10815394483a7d7defa290f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
 --- !u!1 &797346949
 GameObject:
   m_ObjectHideFlags: 0
@@ -5011,7 +5056,8 @@ Transform:
   m_LocalPosition: {x: 13.24, y: -8.67, z: 0}
   m_LocalScale: {x: 1.5002857, y: 4.5, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1529061959}
   m_Father: {fileID: 1318778425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1058990483
@@ -5026,7 +5072,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d93bd0191504c3eae8cea1e95459be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Password
-  correctPassword: 123
+  correctPassword: 720
+  defaultMessage: "\uC554\uD638\uB97C \uC785\uB825\uD558\uC138\uC694. (E / ESC \uB2EB\uAE30)"
   successMessage: "\uC554\uD638\uAC00 \uC77C\uCE58\uD569\uB2C8\uB2E4."
   failureMessage: "\uC554\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4."
   reamainTime: 1.5
@@ -5034,9 +5081,9 @@ MonoBehaviour:
   onPasswordMatched:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ScenePortal, Assembly-CSharp
-        m_MethodName: activatePortal
+      - m_Target: {fileID: 752912436}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: RemoveScissors
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5817,6 +5864,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205086941}
   - component: {fileID: 1205086940}
+  - component: {fileID: 1205086943}
   - component: {fileID: 1205086942}
   m_Layer: 0
   m_Name: object_moss1_0 (1)
@@ -5912,8 +5960,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
-  requiredItemCount: 0
-  consumeItemOnResolve: 1
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -5927,6 +5975,52 @@ MonoBehaviour:
   onFailed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!61 &1205086943
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205086939}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.68, y: 1.12}
+    newSize: {x: 1.68, y: 1.12}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.68, y: 1.12}
+  m_EdgeRadius: 0
 --- !u!1 &1228963419
 GameObject:
   m_ObjectHideFlags: 0
@@ -6673,7 +6767,6 @@ Transform:
   - {fileID: 215326878}
   - {fileID: 383489661}
   - {fileID: 1058990482}
-  - {fileID: 1529061959}
   - {fileID: 1665609141}
   - {fileID: 1286891412}
   - {fileID: 1383768369}
@@ -6926,7 +7019,6 @@ GameObject:
   - component: {fileID: 1359775179}
   - component: {fileID: 1359775180}
   - component: {fileID: 1359775182}
-  - component: {fileID: 1359775181}
   - component: {fileID: 1359775183}
   m_Layer: 0
   m_Name: object_moss1
@@ -7009,18 +7101,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1359775181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359775178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229b82569551b994e915643bd3c90b0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MossObstacle
 --- !u!61 &1359775182
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7080,8 +7160,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
-  requiredItemCount: 0
-  consumeItemOnResolve: 1
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -7905,7 +7985,7 @@ GameObject:
   - component: {fileID: 1529061959}
   - component: {fileID: 1529061962}
   m_Layer: 0
-  m_Name: PasswordObject (1)
+  m_Name: PasswordImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7920,11 +8000,11 @@ Transform:
   m_GameObject: {fileID: 1529061958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.44, y: -9.44, z: 0}
-  m_LocalScale: {x: 1.9047619, y: 1.9047619, z: 0.95238096}
+  m_LocalPosition: {x: -0.53323126, y: -0.171111, z: 0}
+  m_LocalScale: {x: 1.2695993, y: 0.4232804, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1318778425}
+  m_Father: {fileID: 1058990482}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1529061962
 SpriteRenderer:
@@ -8402,7 +8482,7 @@ GameObject:
   - component: {fileID: 1733799010}
   - component: {fileID: 1733799011}
   - component: {fileID: 1733799013}
-  - component: {fileID: 1733799012}
+  - component: {fileID: 1733799014}
   m_Layer: 0
   m_Name: object_moss3
   m_TagString: Untagged
@@ -8484,18 +8564,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &1733799012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1733799009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 229b82569551b994e915643bd3c90b0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MossObstacle
 --- !u!61 &1733799013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8542,6 +8610,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.24, y: 1.12}
   m_EdgeRadius: 0
+--- !u!114 &1733799014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733799009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1741667821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8837,6 +8933,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1817798586}
   - component: {fileID: 1817798585}
+  - component: {fileID: 1817798588}
+  - component: {fileID: 1817798587}
   m_Layer: 0
   m_Name: object_moss2_0
   m_TagString: Untagged
@@ -8931,8 +9029,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
-  requiredItemCount: 0
-  consumeItemOnResolve: 1
+  requiredItemCount: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -8946,6 +9044,52 @@ MonoBehaviour:
   onFailed:
     m_PersistentCalls:
       m_Calls: []
+--- !u!61 &1817798588
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817798584}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.44, y: 0.9}
+    newSize: {x: 1.44, y: 0.9}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.44, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!1 &1818647957
 GameObject:
   m_ObjectHideFlags: 0
@@ -10706,3 +10850,4 @@ SceneRoots:
   - {fileID: 1647325552}
   - {fileID: 2066036796}
   - {fileID: 107504137}
+  - {fileID: 2079927404}

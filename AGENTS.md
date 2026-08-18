@@ -6,9 +6,9 @@
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document, Parts
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
+    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy, Box, PlayerChild
 - Active game object:
-  - Name: arm
-  - Tag: Parts
-  - Layer: Default
+  - Name: PasswordObject
+  - Tag: Wall
+  - Layer: Water
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
