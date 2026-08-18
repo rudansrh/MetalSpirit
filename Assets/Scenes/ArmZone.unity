@@ -2089,6 +2089,7 @@ GameObject:
   - component: {fileID: 300771094}
   - component: {fileID: 300771096}
   - component: {fileID: 300771095}
+  - component: {fileID: 300771097}
   m_Layer: 0
   m_Name: object_moss2
   m_TagString: Untagged
@@ -2228,6 +2229,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.44, y: 0.9}
   m_EdgeRadius: 0
+--- !u!114 &300771097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300771092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &316539114
 GameObject:
   m_ObjectHideFlags: 0
@@ -2238,6 +2267,7 @@ GameObject:
   m_Component:
   - component: {fileID: 316539116}
   - component: {fileID: 316539115}
+  - component: {fileID: 316539117}
   m_Layer: 0
   m_Name: object_moss1_0
   m_TagString: Untagged
@@ -2319,6 +2349,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2068274890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &316539117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316539114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &378370462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5675,6 +5733,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205086941}
   - component: {fileID: 1205086940}
+  - component: {fileID: 1205086942}
   m_Layer: 0
   m_Name: object_moss1_0 (1)
   m_TagString: Untagged
@@ -5756,6 +5815,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2068274890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1205086942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205086939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1228963419
 GameObject:
   m_ObjectHideFlags: 0
@@ -6746,6 +6833,7 @@ GameObject:
   - component: {fileID: 1359775180}
   - component: {fileID: 1359775182}
   - component: {fileID: 1359775181}
+  - component: {fileID: 1359775183}
   m_Layer: 0
   m_Name: object_moss1
   m_TagString: Untagged
@@ -6885,6 +6973,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.68, y: 1.12}
   m_EdgeRadius: 0
+--- !u!114 &1359775183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359775178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1374736472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8122,6 +8238,7 @@ GameObject:
   - component: {fileID: 1733799011}
   - component: {fileID: 1733799013}
   - component: {fileID: 1733799012}
+  - component: {fileID: 1733799014}
   m_Layer: 0
   m_Name: object_moss3
   m_TagString: Untagged
@@ -8261,6 +8378,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.24, y: 1.12}
   m_EdgeRadius: 0
+--- !u!114 &1733799014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1733799009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1741667821
 GameObject:
   m_ObjectHideFlags: 0
@@ -8499,6 +8644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1817798586}
   - component: {fileID: 1817798585}
+  - component: {fileID: 1817798587}
   m_Layer: 0
   m_Name: object_moss2_0
   m_TagString: Untagged
@@ -8580,6 +8726,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2068274890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1817798587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817798584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e1899d504b2491da3a2529e5060898, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
+  requiredItemType: 3
+  requiredItemCount: 0
+  consumeItemOnResolve: 1
+  requireInventoryAbility: 1
+  resolveOnlyOnce: 1
+  destroyOnResolve: 0
+  targetToResolve: {fileID: 0}
+  successLogMessage: Target resolved.
+  missingItemLogMessage: Required item is missing.
+  inventoryLockedLogMessage: Inventory use is not available yet.
+  onResolved:
+    m_PersistentCalls:
+      m_Calls: []
+  onFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1818647957
 GameObject:
   m_ObjectHideFlags: 0
@@ -9558,78 +9732,6 @@ Transform:
   - {fileID: 1205086941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2079927403
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2079927404}
-  - component: {fileID: 2079927406}
-  - component: {fileID: 2079927405}
-  m_Layer: 5
-  m_Name: Renderer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2079927404
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079927403}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
-  m_Pivot: {x: 1, y: 1}
---- !u!114 &2079927405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079927403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.RawImage
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Texture: {fileID: 8400000, guid: 0fd6703bda7a545b1a2d78f3bce05905, type: 2}
-  m_UVRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
---- !u!222 &2079927406
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2079927403}
-  m_CullTransparentMesh: 1
 --- !u!1 &2119254369
 GameObject:
   m_ObjectHideFlags: 0
@@ -9804,7 +9906,6 @@ SceneRoots:
   - {fileID: 986946430}
   - {fileID: 1110217729}
   - {fileID: 2119254373}
-  - {fileID: 2079927404}
   - {fileID: 641319538}
   - {fileID: 1170327679}
   - {fileID: 138425713}
