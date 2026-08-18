@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
     public GameObject nearbyEnemy;
 
     protected bool isDying = false;
+    public bool isAttackingPossessed = false;
     protected EnemyAnimationController animationController;
     private Coroutine hitFlashCoroutine;
     private Color[] hitFlashOriginalColors;
