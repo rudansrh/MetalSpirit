@@ -6811,6 +6811,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5311403931054829113, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6048413187971212490, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -8029,6 +8033,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 430973159}
+        m_TargetAssemblyTypeName: ScenePortal, Assembly-CSharp
+        m_MethodName: activatePortal
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11359,6 +11375,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Password
   correctPassword: 285
+  defaultMessage: "\uC8FC\uBCC0\uC744 \uC798 \uC0B4\uD3B4\uB77C"
   successMessage: "\uC554\uD638\uAC00 \uC77C\uCE58\uD569\uB2C8\uB2E4."
   failureMessage: "\uC554\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4."
   reamainTime: 1.5
@@ -11410,6 +11427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Password
   correctPassword: 495
+  defaultMessage: "\uBD99\uC774\uAE30 & \uBD84\uB9AC"
   successMessage: "\uC554\uD638\uAC00 \uC77C\uCE58\uD569\uB2C8\uB2E4."
   failureMessage: "\uC554\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4."
   reamainTime: 1.5
@@ -11692,6 +11710,10 @@ PrefabInstance:
     - target: {fileID: 6524815442766631538, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_Name
       value: DocumentPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524815442766631538, guid: 16136226647be024a814ab3b9117b636, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6671273970380548455, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_Pivot.x
@@ -12926,6 +12948,10 @@ PrefabInstance:
     - target: {fileID: 7328416716821118272, guid: 6ce5cd328d3ad4c06a6d206b6fc69019, type: 3}
       propertyPath: m_Name
       value: TutorialPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 7328416716821118272, guid: 6ce5cd328d3ad4c06a6d206b6fc69019, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

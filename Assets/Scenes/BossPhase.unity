@@ -7239,7 +7239,7 @@ PrefabInstance:
       objectReference: {fileID: 359229488}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: phase1MaxHealth
-      value: 100
+      value: 1500
       objectReference: {fileID: 0}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: attackController
