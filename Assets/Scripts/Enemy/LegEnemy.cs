@@ -120,10 +120,10 @@ public class LegEnemy : Enemy
             return;
         }
 
-        playerPos = playerController.transform.position;
+        playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
+        if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             UpdateMoveAnimation(false);
@@ -133,7 +133,7 @@ public class LegEnemy : Enemy
                 StartCoroutine(StompRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             ChasePlayer(playerPos);
         }
@@ -145,7 +145,7 @@ public class LegEnemy : Enemy
     }
 
     // 발구르기 공격 코루틴
-    private IEnumerator StompRoutine()
+    public IEnumerator StompRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -171,6 +171,18 @@ public class LegEnemy : Enemy
                 damageable.TakeDamage(stompDamage, DamageType.Normal);
                 hitPlayer = true;
                 Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
+            }
+            else if(isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.gameObject == this.gameObject) continue; 
+                
+                damageReceiver.Attacked(stompDamage);
+                hit.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
+                Debug.Log($"발구르기 적중! 데미지: {stompDamage}");
+            }
+            else if(playerController.IsPossessing && hit.CompareTag("Enemy"))
+            {
+                playerController.GetComponent<IDamageable>().TakeDamage(stompDamage, DamageType.Normal);
             }
         }
 

@@ -117,10 +117,10 @@ public class ArmEnemy : Enemy
             return;
         }
 
-        playerPos = playerController.transform.position;
+        playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
+        if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             UpdateMoveAnimation(false);
@@ -130,7 +130,7 @@ public class ArmEnemy : Enemy
                 StartCoroutine(AttackRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             ChasePlayer(playerPos);
         }
@@ -142,7 +142,7 @@ public class ArmEnemy : Enemy
     }
 
     // 공격 코루틴
-    private IEnumerator AttackRoutine()
+    public IEnumerator AttackRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
@@ -163,6 +163,18 @@ public class ArmEnemy : Enemy
                 damageable.TakeDamage(damage, DamageType.Normal);
                 hitPlayer = true;
                 Debug.Log("적 공격 적중");
+            }
+            else if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+            {
+                if (hit.gameObject == this.gameObject) continue;
+
+                damageReceiver.Attacked(damage);
+                hit.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
+                Debug.Log($"발구르기 적중! 데미지: {damage}");
+            }
+            else if (playerController.IsPossessing && hit.CompareTag("Enemy"))
+            {
+                playerController.GetComponent<IDamageable>().TakeDamage(damage, DamageType.Normal);
             }
         }
 

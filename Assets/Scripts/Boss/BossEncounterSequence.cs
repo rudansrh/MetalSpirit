@@ -453,6 +453,8 @@ public class BossEncounterSequence : MonoBehaviour
             triggerElevatorAppear.SetActive(true);
         }
 
+        AudioManager.instance?.StopBgm();
+
         SetPlayerLocked(player, false);
         onBossDefeatedSequenceFinished?.Invoke();
         bossDefeatCoroutine = null;
@@ -481,8 +483,17 @@ public class BossEncounterSequence : MonoBehaviour
             playerOffsetFromElevator = player.transform.position - elevatorRideTransform.position;
         }
 
+        float fadeDuration = !string.IsNullOrWhiteSpace(elevatorExitSceneName) ? Mathf.Max(0f, sceneFadeOutDuration) : 0f;
+        float escapeSequenceDuration = fadeDuration > 0f ? fadeDuration : Mathf.Max(0f, elevatorRideDuration);
+
+        if (fadeDuration > 0f)
+        {
+            EnsureSceneFadeOverlay();
+            SetSceneFadeAlpha(0f);
+        }
+
         float elapsed = 0f;
-        while (elapsed < elevatorRideDuration)
+        while (elapsed < escapeSequenceDuration)
         {
             elapsed += Time.deltaTime;
             Vector3 delta = moveDirection * elevatorMoveSpeed * Time.deltaTime;
@@ -506,12 +517,25 @@ public class BossEncounterSequence : MonoBehaviour
                 player.StopMovement();
             }
 
+            if (fadeDuration > 0f)
+            {
+                float fadeProgress = Mathf.Clamp01(elapsed / fadeDuration);
+                UpdateSceneFadeOverlayTransform(Camera.main);
+                SetSceneFadeAlpha(fadeProgress);
+            }
+
             yield return null;
+        }
+
+        if (fadeDuration > 0f)
+        {
+            UpdateSceneFadeOverlayTransform(Camera.main);
+            SetSceneFadeAlpha(1f);
         }
 
         if (!string.IsNullOrWhiteSpace(elevatorExitSceneName))
         {
-            yield return FadeOutToScene(elevatorExitSceneName);
+            SceneManager.LoadScene(elevatorExitSceneName);
         }
 
         elevatorEscapeCoroutine = null;

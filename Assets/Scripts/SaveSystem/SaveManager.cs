@@ -63,6 +63,7 @@ public class SaveManager : MonoBehaviour
             }
         }
 
+        PlayerController.Instance.lastSavedSlot = slotIndex;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
@@ -76,6 +77,7 @@ public class SaveManager : MonoBehaviour
         {
             string json = File.ReadAllText(GetSaveFilePath(slotIndex));
             currentLoadData = JsonUtility.FromJson<SaveData>(json);
+            PlayerController.Instance.lastSavedSlot = slotIndex;
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene(currentLoadData.savedSceneName);
@@ -119,5 +121,42 @@ public class SaveManager : MonoBehaviour
         }
         currentLoadData = null;
         SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void YouDied()
+    {
+        if (PlayerController.Instance.lastSavedSlot == 0) return;
+
+        string json = File.ReadAllText(GetSaveFilePath(PlayerController.Instance.lastSavedSlot));
+        currentLoadData = JsonUtility.FromJson<SaveData>(json);
+
+        if (currentLoadData.savedSceneName != SceneManager.GetActiveScene().name)
+        {
+            Destroy(PlayerController.Instance.gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+            SceneManager.LoadScene(currentLoadData.savedSceneName);
+        }
+
+        if (PlayerController.Instance != null && currentLoadData != null)
+        {
+            PlayerController.Instance.transform.position = new Vector2(currentLoadData.playerPosX, currentLoadData.playerPosY);
+
+            if (PlayerController.Instance.TryGetComponent<Health>(out var health))
+                health.LoadHealthData(currentLoadData.playerHp);
+
+            if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
+                stamina.LoadStaminaData(currentLoadData.playerStamina);
+
+            if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
+                progressionManager.SetUnlockedStage(currentLoadData.currentPlayerStage);
+
+            if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
+            {
+                if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
+                {
+                    inventory.LoadInventory(currentLoadData.inventoryItems);
+                }
+            }
+        }
     }
 }

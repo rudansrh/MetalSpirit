@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MossObstacle : MonoBehaviour, IInteractable
 {
+    private string purpose = "ÀÌ³¢ Ä¡¿ì±â";
+    public string Purpose => purpose;
     public void Interact(GameObject interactor)
     {
 

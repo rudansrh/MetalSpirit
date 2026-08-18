@@ -35,12 +35,15 @@ public class BodyEnemy : Enemy
     private Vector2 playerPos;
 
     private bool found = false;
+    private int thisLayer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         InitializeEnemyBase();
+
+        thisLayer = this.gameObject.layer;
     }
 
     private void FixedUpdate()
@@ -119,11 +122,11 @@ public class BodyEnemy : Enemy
             return;
         }
 
-        playerPos = playerController.transform.position;
+        playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
         // °ø°Ý ¹üÀ§ ³»¿¡ µé¾î¿À¸é µ¹Áø ÁØºñ
-        if (distanceToPlayer <= attackRange && !playerController.isPossessing)
+        if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
             UpdateMoveAnimation(false);
@@ -133,7 +136,7 @@ public class BodyEnemy : Enemy
                 StartCoroutine(ChargeRoutine());
             }
         }
-        else if (distanceToPlayer <= detectionRange && !playerController.isPossessing)
+        else if (distanceToPlayer <= detectionRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             ChasePlayer(playerPos);
         }
@@ -145,21 +148,49 @@ public class BodyEnemy : Enemy
     }
 
     // µ¹Áø °ø°Ý ÄÚ·çÆ¾
-    private IEnumerator ChargeRoutine()
+    public IEnumerator ChargeRoutine()
     {
         isAttacking = true;
         lastAttackTime = Time.time;
         animationController?.TriggerAttack();
 
-        float dirX = playerPos.x - transform.position.x;
+        Vector2 playerCenter = playerPos;
+
+        if (isPossessed)
+        {
+            playerCenter = new Vector2(-1000, -1000);
+            Collider2D[] findEnemys = Physics2D.OverlapBoxAll((Vector2)transform.position, new Vector2(10, 10), 0);
+            foreach (var hit in findEnemys)
+            {
+                if (isPossessed && hit.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver))
+                {
+                    if (hit.gameObject == this.gameObject || Vector2.Distance((Vector2)transform.position, playerCenter) < Vector2.Distance((Vector2)transform.position, hit.transform.position)) continue;
+
+                    playerCenter = hit.transform.position;
+                    Debug.Log(hit.name);
+                }
+            }
+
+            if (playerCenter.x == -1000)
+            {
+                Debug.Log("조준실패");
+                yield break;
+            }
+
+            this.gameObject.layer = 0;
+        }
+
+        if(isAttackingPossessed) this.gameObject.layer = 0;
+
+        float dirX = playerCenter.x - transform.position.x;
         if (Mathf.Abs(dirX) > 0.1f)
         {
             facingDirection = Mathf.Sign(dirX);
             UpdateFacingVisual();
         }
 
+        if (isPossessed) playerController.canMove = false;
         Debug.Log("적 돌진 준비!");
-
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         yield return new WaitForSeconds(attackDelay);
 
@@ -171,12 +202,13 @@ public class BodyEnemy : Enemy
             rb.linearVelocity = new Vector2(facingDirection * chargeSpeed, rb.linearVelocity.y);
             currentChargeTime += Time.deltaTime;
 
-
             yield return null;
         }
 
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         Debug.Log("돌진 종료");
+        this.gameObject.layer = thisLayer;
+        if (isPossessed) playerController.canMove = true;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -268,9 +300,9 @@ public class BodyEnemy : Enemy
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);
-        if (collision.gameObject.TryGetComponent<PlayerController>(out var playerController))
+        if (collision.gameObject.TryGetComponent<PlayerController>(out var player))
         {
-            if (playerController.isInvincibility) return;
+            if (player.isInvincibility) return;
         }
 
         if (collision.gameObject.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
@@ -281,6 +313,15 @@ public class BodyEnemy : Enemy
         if (collision.gameObject.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(damage, DamageType.Normal);
+        }
+        else if(collision.gameObject.TryGetComponent<IEnemyDamageReceiver>(out var damageReceiver) && isPossessed)
+        {
+            damageReceiver.Attacked(damage);
+            collision.gameObject.GetComponent<Enemy>().isAttackingPossessed = true;
+        }
+        else if (playerController.IsPossessing && collision.gameObject.CompareTag("Enemy") && !isPossessed && isAttackingPossessed)
+        {
+            playerController.GetComponent<IDamageable>().TakeDamage(damage, DamageType.Normal);
         }
 
         if (collision.gameObject.TryGetComponent<Rigidbody2D>(out var rb2d))
