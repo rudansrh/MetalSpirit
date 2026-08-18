@@ -14,6 +14,9 @@ public class Password : MonoBehaviour, IInteractable
     [SerializeField] bool stayUnlockedAfterSuccess = true;
     [SerializeField] UnityEvent onPasswordMatched;
 
+    private string purpose = "비밀번호 입력";
+    public string Purpose => purpose;
+
     bool isUnlocked;
     Collider2D triggerCollider;
     Collider2D soulBlockingCollider;

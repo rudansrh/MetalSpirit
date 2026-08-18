@@ -104,9 +104,15 @@ public class PlayerCombatManager : MonoBehaviour
         }
     }
 
-    public void OnLegAttack(InputValue value)
+    public void OnLegAttack(InputValue value) //다리공격 + 빙의 공격
     {
-        if (!value.isPressed || !CanStartCommonAttack()) return;
+        if (!value.isPressed || playerController == null || playerController.IsUiOpen) return;
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack();
+            return;
+        }
+
         if (abilityManager == null || !abilityManager.canLegAttack || legAttackCoolTime > curTime_leg) return;
 
         curTime_leg = 0f;
@@ -127,6 +133,21 @@ public class PlayerCombatManager : MonoBehaviour
 
         Vector2 center = GetAttackCenter(armAttackOffset);
         ApplyDamageInBox(center, armAttackSize, armAttackDamage);
+
+        Collider2D[] hits = Physics2D.OverlapBoxAll(center, armAttackSize, 0f);
+        foreach (Collider2D hit in hits)
+        {
+            if (hit.TryGetComponent<ArmBreakableObject>(out var breakable))
+            {
+                breakable.BreakObject();
+            }
+
+            if (hit.TryGetComponent<ArmPushableBox>(out var pushable))
+            {
+                pushable.Push(playerController.FacingDirection);
+            }
+        }
+
         ShowAttackBoxVisual(center, armAttackSize);
     }
 

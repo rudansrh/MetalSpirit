@@ -35,7 +35,7 @@ public class PlayerDamageHandler : MonoBehaviour, IDamageable
         _controller.isInvincibility = true;
         _controller.StopDash();
         StartCoroutine(damagedEffect());
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         _controller.canMove = true;
         _controller.isInvincibility = false;
     }

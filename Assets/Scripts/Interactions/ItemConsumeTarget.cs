@@ -21,6 +21,9 @@ public class ItemConsumeTarget : MonoBehaviour, IInteractable
     [SerializeField] UnityEvent onResolved;
     [SerializeField] UnityEvent onFailed;
 
+    private string purpose = "아이템 사용";
+    public string Purpose => purpose;
+
     bool isResolved;
 
     public bool IsResolved => isResolved;

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.Collections;
 
 
 public class MinigameManager : MonoBehaviour
@@ -16,6 +17,7 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] Transform rightWall;
     [SerializeField] Transform ceiling;
     [SerializeField] Transform retryPoint;
+    [SerializeField] float offsetX;
 
     PlayerController player;
     Transform p_transform;
@@ -48,7 +50,7 @@ public class MinigameManager : MonoBehaviour
             cooltime = Random.Range(minSpawnInterval, maxSpawnInterval); //생성 쿨타임 초기화
             var prefab = Instantiate(obstaclePrefab, transform);
             prefab.GetComponent<Obstacle_Minigame>().minigameManager = this;
-            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x, rightWall.transform.position.x), ceiling.position.y);
+            Vector2 fallPoint = new Vector2(Random.Range(leftWall.transform.position.x + offsetX, rightWall.transform.position.x - offsetX), ceiling.position.y);
             prefab.transform.position = fallPoint;
             prefab.GetComponent<Rigidbody2D>().AddForceY(1f, ForceMode2D.Impulse);
         }
