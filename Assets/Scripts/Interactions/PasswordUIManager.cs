@@ -61,7 +61,7 @@ public class PasswordUIManager : MonoBehaviour
 
         passwordUI.SetActive(true);
         RefreshInputText();
-        SetMessage("암호를 입력하세요.");
+        SetMessage(password.DefaultMessage);
     }
 
     public void Close()
