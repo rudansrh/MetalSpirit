@@ -2326,7 +2326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[0].text
-      value: "<\uB85C\uBCF4\uC2A4\uD53C\uB9BF \uD504\uB85C\uC81D\uD2B8>"
+      value: "-\uB85C\uBCF4\uC2A4\uD53C\uB9BF \uD504\uB85C\uC81D\uD2B8-"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[1].text
@@ -2334,7 +2334,7 @@ PrefabInstance:
         \uC218: \u25A0\u25A0\u25A0\uB9CC \uAC00\uAD6C\r\n\uCD08\uAE30 \uBC30\uD3EC\uB41C
         \uB85C\uBD07 \uC218: \u25A0\u25A0\u25A0\u25A0\uB9CC \uAE30\r\n\uD3D0\uAE30\uB41C
         \uB85C\uBD07 \uC218: \u25A0\u25A0\u25A0\u25A0\uC5B5 \uAE30\r\n\uB85C\uBD07
-        \uD3D0\uAE30\uC7A5\uC758 \uBE44\uC728: \uCD08\uAE30 \u25A0% -> \u25A0\u25A0\u25A0%\r\n\uC2DC\uBBFC\uB4E4\uC758
+        \uD3D0\uAE30\uC7A5\uC758 \uBE44\uC728: \uCD08\uAE30 \u25A0%\uC5D0\uC11C \u25A0\u25A0\u25A0%\r\n\uC2DC\uBBFC\uB4E4\uC758
         \uD3D0\uAE30 \uC774\uC720: \uAE30\uC2A4 \uD558\uB098, \uC2A4\uD06C\uB798\uCE58
         \uD558\uB098, \uC6C0\uC9C1\uC784\uC774 \uB9C8\uC74C\uC5D0 \uC548 \uB4E4\uC5B4\uC11C,
         \uAD00\uC808\uC774 \uC2DC\uB044\uB7EC\uC6CC\uC11C, \uB4F1\r\n\r\n\uC774\uCC98\uB7FC
@@ -2353,7 +2353,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[2].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[3].text
@@ -2370,7 +2370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[4].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[5].text
@@ -2386,7 +2386,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[6].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[7].text
@@ -2402,7 +2402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[8].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[9].text
@@ -2416,7 +2416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[10].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[11].text
@@ -2431,7 +2431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[12].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[13].text
@@ -2446,7 +2446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[14].text
-      value: "<\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0>\n"
+      value: "-\uC2E4\uD5D8\uC77C\uC9C0 #\u25A0\u25A0\u25A0\u25A0-\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentTextElements.Array.data[15].text
@@ -12593,6 +12593,7 @@ MonoBehaviour:
   rightWall: {fileID: 2015081154}
   ceiling: {fileID: 693641121}
   retryPoint: {fileID: 1895224175}
+  offsetX: 0
 --- !u!68 &2100473737
 EdgeCollider2D:
   m_ObjectHideFlags: 0
