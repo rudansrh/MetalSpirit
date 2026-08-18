@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
 - Active game object:
-  - Name: MapUIPanel
+  - Name: SavePanel
   - Tag: Untagged
   - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
