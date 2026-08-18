@@ -2988,6 +2988,10 @@ PrefabInstance:
         \uC54C\uAC8C \uB420 \uD130\uC774\uB2C8 \uADF8\uB0A0\uC744 \uACE0\uB300\uD558\uB77C.\r\n
         \r\n- L.U.R.D. (Libaro Underground Robo-spirit Division)"
       objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[0].color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
       value: 
@@ -4143,6 +4147,10 @@ PrefabInstance:
         \r\n12\uC6D4 25\uC77C\uAE4C\uC9C0 \uD55C\uC815 \uC138\uC77C \uBC0F \uC6D0\uC608\uC6A9
         \uAC00\uC704\uAE4C\uC9C0 \uC81C\uACF5!\r\n \r\n\uD76C\uB300\uC758 \uAE30\uD68C\uB97C
         \uB193\uCE58\uC9C0 \uB9C8\uC138\uC694!"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[0].color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText
@@ -6083,6 +6091,10 @@ PrefabInstance:
       propertyPath: documentTextElements.Array.data[1].text
       value: "\uCD5C\uADFC \uAC80\uAC70 \uD604\uD669: \uD3D0\uAE30\uC7A5 1-23, \uD3D0\uAE30\uC7A5
         12-3"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: documentTextElements.Array.data[0].color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7802080114544549392, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
       propertyPath: documentText

@@ -1362,6 +1362,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 1f4b9e6cb94cc6a4d8d70d3571a5cc1e, type: 2}
@@ -1569,6 +1573,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 3b3ba926e77708144a7dcf97a10a65b6, type: 2}
@@ -1767,6 +1775,10 @@ PrefabInstance:
     - target: {fileID: 3430600966364963011, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
@@ -2749,6 +2761,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 826be0223d49ffb43a1bd0a0518ccc8a, type: 2}
@@ -3392,6 +3408,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 648f776fe0742cc42b2b0326b2e7f7fb, type: 2}
@@ -3843,6 +3863,10 @@ PrefabInstance:
     - target: {fileID: 3430600966364963011, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
@@ -4514,6 +4538,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 0c26c7957cfa09340bad8f5edadf770e, type: 2}
@@ -5052,6 +5080,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
@@ -6678,6 +6710,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: b373f9ff6a01b224aa05658de89dd710, type: 2}
@@ -7431,6 +7467,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: dba963403b1ae3141aef1d3c177c8af5, type: 2}
@@ -7505,6 +7545,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
@@ -7618,6 +7662,10 @@ PrefabInstance:
     - target: {fileID: 3430600966364963011, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
@@ -8849,6 +8897,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: fb353f6d4b030b64abf00fb3f7ce4999, type: 2}
@@ -8992,6 +9044,10 @@ PrefabInstance:
     - target: {fileID: 3430600966364963011, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
@@ -11788,6 +11844,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
       value: 
       objectReference: {fileID: 11400000, guid: 1c61537182ff9974599705dcdbd69ec2, type: 2}
@@ -11813,6 +11873,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 428872256}
     m_Modifications:
+    - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1528853367460925081, guid: 40bab6f762aa444f8a9647e5263ee936, type: 3}
       propertyPath: armsDialogue
       value: 
@@ -12223,6 +12287,10 @@ PrefabInstance:
     - target: {fileID: 3430600966364963011, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
+      propertyPath: dialogue
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7164822767115729566, guid: ba893da1560b14594ad4aa1766789b9c, type: 3}
       propertyPath: armsDialogue
