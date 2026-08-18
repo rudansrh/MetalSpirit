@@ -3811,7 +3811,7 @@ PrefabInstance:
         1\uC778 1\uB85C\uBD07\uC744 \uBB34\uC0C1 \uBC30\uD3EC, \uBB34\uC0C1 \uAD50\uCCB4\uB97C
         \uD574\uB4DC\uB9AC\uACE0 \uC788\uC2B5\uB2C8\uB2E4!\r\n \r\n\uAFC8\uC758 \uB3C4\uC2DC,
         \uB85C\uBD07\uC758 \uB3C4\uC2DC, \uC790\uC720\uC758 \uB3C4\uC2DC\r\n\uB9AC\uBC14\uB85C
-        \uC2DC\uD2F0\uB85C \uC5B4\uC11C\uC624\uC138\uC694!\r\n \r\n\u2748\uBC30\uD3EC
+        \uC2DC\uD2F0\uB85C \uC5B4\uC11C\uC624\uC138\uC694!\r\n \r\n-\uBC30\uD3EC
         \uB85C\uBD07 \uAE30\uC885: 1\uC138\uB300 B-1"
       objectReference: {fileID: 0}
     - target: {fileID: 6978089568397602837, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
