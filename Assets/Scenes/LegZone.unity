@@ -681,6 +681,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b89e05b938f50d4a98fc33c24ff8b1c, type: 3}
+--- !u!1 &222213390 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1898090617797125776, guid: 9b89e05b938f50d4a98fc33c24ff8b1c, type: 3}
+  m_PrefabInstance: {fileID: 222213389}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &230352966
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8119,6 +8124,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  LegParts: {fileID: 222213390}
 --- !u!61 &1793847964
 BoxCollider2D:
   m_ObjectHideFlags: 0

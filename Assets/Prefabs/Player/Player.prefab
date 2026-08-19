@@ -315,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
   playerController: {fileID: 4498660297260647806}
   progressionManager: {fileID: 4984105835560708788}
-  isSoul: 1
+  isSoul: 0
   canPossess: 1
   canDash: 0
   canWallJump: 0
