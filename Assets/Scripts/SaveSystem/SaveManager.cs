@@ -109,7 +109,10 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
 
             if (PlayerController.Instance.TryGetComponent<Health>(out var health))
+            {
                 health.LoadHealthData(currentLoadData.playerHp);
+                health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+            }
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
@@ -134,7 +137,10 @@ public class SaveManager : MonoBehaviour
     public void YouDied()
     {
         Debug.Log("You Died");
-        
+        if (PlayerController.Instance.isPossessing)
+        {
+            PlayerController.Instance.DepossessFromEnemy();
+        }
         lastSlot = PlayerController.Instance.lastSavedSlot;
         string json = File.ReadAllText(GetSaveFilePath(PlayerController.Instance.lastSavedSlot));
         currentLoadData = JsonUtility.FromJson<SaveData>(json);

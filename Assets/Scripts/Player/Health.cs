@@ -6,6 +6,7 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
 { 
     public float MaxHealth { get; set; } = 200f;        // 최대 체력
     public float CurrentHealth { get; set; }    // 현재 체력
+    public bool PlayerIsDead { get; set; } = false; // 플레이어 사망 여부
 
     public event Action OnHealthChanged;    // 체력 변화 이벤트
     public event Action OnDeath;            // 사망 이벤트
@@ -38,9 +39,9 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
         CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
         OnHealthChanged?.Invoke();
 
-        if (CurrentHealth <= 0)
+        if (CurrentHealth <= 0 && !PlayerIsDead)
         {
-            this.enabled = false;
+            PlayerIsDead = true;
             OnDeath?.Invoke();
             if (SaveManager.Instance != null)
             {

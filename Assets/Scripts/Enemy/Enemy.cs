@@ -191,7 +191,7 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
             {
                 if (contact.normal.y > 0.1f)
                 {
-                    playerController.isJump = false;
+                    playerController.resetJump();
                     return;
                 }
             }

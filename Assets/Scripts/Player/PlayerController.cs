@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float wallClimbMoveStaminaCostPerSecond = 3f;
     [SerializeField] float wallClimbFallOffDistance = 0.1f;
     [SerializeField] float jumpStaminaCost = 10f;
+    [SerializeField] int jumpLimit = 3;
+    [SerializeField]int jumpCount = 0;
+    [SerializeField] float jumpCooldown = 0.2f;
+    [SerializeField]float jumpCooldownTimer = 0f;
 
     [Header("Dash Settings")]
     [SerializeField] float dashSpeed = 20f;     // 돌진 속도
@@ -187,6 +191,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        jumpCooldownTimer += Time.deltaTime;
         // 대시 중일 땐 이동과 중력 무시
         if (isDashing || !canMove)
         {
@@ -298,6 +303,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void resetJump()
+    {
+        isJump = false;
+        jumpCooldownTimer = 0;
+        jumpCount = 0;
+    }
+
     public void OnMove(InputValue value)
     {
         if (isUIopen)
@@ -362,14 +374,16 @@ public class PlayerController : MonoBehaviour
         if (isUIopen) return;
 
         // 점프 불가
-        if (isDashing || IsSoulForm() || !canMove || isWallClimbing) return;
+        if (isDashing || IsSoulForm() || !canMove || isWallClimbing || (jumpCooldownTimer < jumpCooldown && isJump) || jumpCount >= jumpLimit) return;
 
-        if (value.isPressed && !isJump)
+        if (value.isPressed)
         {
             if (stamina != null && !stamina.UseStamina(jumpStaminaCost))
             {
                 return;
             }
+            jumpCooldownTimer = 0f;
+            jumpCount++;
 
             StopWallClimb();
             rigid.linearVelocityY = 0;
@@ -467,8 +481,8 @@ public class PlayerController : MonoBehaviour
             StopWallClimb();
             return false;
         }
-        
-        isJump = false;
+
+        resetJump();
         float climbInput = moveInput.y;
         bool isMovingVertically = Mathf.Abs(climbInput) > 0.01f;
         float staminaCostPerSecond = isMovingVertically
@@ -545,7 +559,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Mathf.Abs(contact.normal.x) > 0.1f)
             {
-                if (abilityManager.canWallJump) isJump = false;
+                if (abilityManager.canWallJump) resetJump();
 
                 wallClimbDetachDirection = Mathf.Sign(contact.normal.x);
                 return;
@@ -575,7 +589,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (contact.normal.y > 0.1f)
                 {
-                    isJump = false;
+                    resetJump();
                     return;
                 }
             }
@@ -660,7 +674,7 @@ public class PlayerController : MonoBehaviour
 
         abilityManager.PossessBody();
         UpdateFormState();
-        isJump = false;
+        resetJump();
         ClampControlledBodyToBounds();
 
         targetEnemyToPossess = null;
@@ -673,7 +687,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void DepossessFromEnemy()
+    public void DepossessFromEnemy()
     {
         isPossessing = false;
         possessGauge.possessGaugeHide();
