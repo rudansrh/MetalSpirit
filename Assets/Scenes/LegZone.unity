@@ -358,6 +358,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: c8e7b9965774f8e46b8c0e5102c23e0d, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (3)
@@ -1150,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b005157ba186f444a9a6b74d8169213, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (6)
@@ -2198,6 +2206,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 78628d1d946af2a4c83fce350083e177, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (2)
@@ -3287,6 +3299,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: fcfd0ece487e0c542af784c4a42cd40c, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (4)
@@ -3637,6 +3653,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: ab0889e03bab9234286a8755412e5500, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (1)
@@ -7905,6 +7925,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: e73e2cf54ce402b449dc106f75cc8bbf, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (7)
@@ -8892,6 +8916,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4080733677208413442, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: d589fe5f2117bae4a8a26645e84fcabc, type: 2}
     - target: {fileID: 6815542131244286404, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_Name
       value: LegEnemy (5)
