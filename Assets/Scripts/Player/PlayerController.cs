@@ -276,21 +276,21 @@ public class PlayerController : MonoBehaviour
         return rigid != null ? rigid.GetComponent<Collider2D>() : null;
     }
 
-    public void enemyAttack() // 빙의상태로 공격
+    public void enemyAttack(string attackParts) // 빙의상태로 공격
     {
-        if(rigid.TryGetComponent<LegEnemy>(out var legEnemy))
+        if(rigid.TryGetComponent<LegEnemy>(out var legEnemy) && attackParts=="Leg")
         {
             StartCoroutine(legEnemy.StompRoutine());
         }
-        else if(rigid.TryGetComponent<ArmEnemy>(out var armEnemy))
+        else if(rigid.TryGetComponent<ArmEnemy>(out var armEnemy) && attackParts == "Arm")
         {
             StartCoroutine(armEnemy.AttackRoutine());
         }
-        else if (rigid.TryGetComponent<HeadEnemy>(out var headEnemy))
+        else if (rigid.TryGetComponent<HeadEnemy>(out var headEnemy) && attackParts == "Head")
         {
             StartCoroutine(headEnemy.LaserRoutine());
         }
-        else if (rigid.TryGetComponent<BodyEnemy>(out var bodyEnemy))
+        else if (rigid.TryGetComponent<BodyEnemy>(out var bodyEnemy) && attackParts == "Body")
         {
             StartCoroutine(bodyEnemy.ChargeRoutine());
         }
@@ -645,6 +645,8 @@ public class PlayerController : MonoBehaviour
 
         isPossessing = true;
         rigid.linearVelocity = Vector3.zero;
+        rigid.bodyType = RigidbodyType2D.Kinematic;
+
         rigid = targetEnemy.GetComponent<Rigidbody2D>();
         rigid.linearVelocity = Vector3.zero;
         cameraFollow.Instance.SetTarget(targetEnemy.transform);
@@ -683,6 +685,7 @@ public class PlayerController : MonoBehaviour
         }
 
         rigid = GetComponent<Rigidbody2D>();
+        rigid.bodyType = RigidbodyType2D.Dynamic;
         rigid.linearVelocity = Vector3.zero;
         spriteRenderer.enabled = true;
         col = GetComponent<Collider2D>();
