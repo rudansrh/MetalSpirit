@@ -6,7 +6,7 @@ public class PlayerAbilityManager : MonoBehaviour
     [SerializeField] private PlayerProgressionManager progressionManager;
 
     [Header("State")]
-    public bool isSoul = true;
+    public bool isSoul = false;
     public bool canPossess = true;
 
     [Header("Abilities")]

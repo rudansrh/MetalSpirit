@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -131,6 +132,7 @@ public class PlayerController : MonoBehaviour
             UpdateAnimationState();
 
             cameraFollow.Instance.SetTarget(transform);
+            SaveManager.Instance.SaveGame(0);
         }
         else if (instance != this)
         {

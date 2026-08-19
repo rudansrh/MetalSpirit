@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
 { 
@@ -18,6 +19,11 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
         Debug.Log($"Player Health Initialized: {CurrentHealth}/{MaxHealth}");
     }
 
+    private void Start()
+    {
+        OnDeath += SaveManager.Instance.YouDied;
+    }
+
     private void Update()
     {
         // 체력(기름)은 상시 감소 
@@ -29,18 +35,18 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
     // 체력 감소 메서드, 외부에서 공격 등으로 호출
     public void ReduceHealth(float amount)
     {
-        if (CurrentHealth <= 0)
-        {
-            SaveManager.Instance.YouDied();
-            return;
-        }
-
         CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
         OnHealthChanged?.Invoke();
 
         if (CurrentHealth <= 0)
         {
+            this.enabled = false;
             OnDeath?.Invoke();
+            if (SaveManager.Instance != null)
+            {
+                OnDeath -= SaveManager.Instance.YouDied;
+            }
+            return;
         }
 
         //Debug.Log($"Player Health Reduced: {CurrentHealth}/{MaxHealth}");
