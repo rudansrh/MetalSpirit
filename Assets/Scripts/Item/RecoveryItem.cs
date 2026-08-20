@@ -6,6 +6,9 @@ public class RecoveryItem : MonoBehaviour, IInteractable
     public ItemType type;
     public float recoveryAmount = 20f;
 
+    private string purpose = "아이템 획득";
+    public string Purpose => purpose;
+
     public void Interact(GameObject interactor)
     {
         if(interactor.TryGetComponent<PlayerAbilityManager>(out var abilityManager)
