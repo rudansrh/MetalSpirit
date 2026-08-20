@@ -9,9 +9,8 @@ public class BossWeakPointManager : MonoBehaviour
     [SerializeField] float weakPointOpenDuration = 5f;                                      // 약점 포인트 활성화 시간
     [SerializeField] List<BossPartHitbox> weakPointHitboxes = new List<BossPartHitbox>();   // 약점 포인트 Hitbox 목록
 
-    [Header("UI")]
-    [SerializeField] Text weakPointText;                // 약점 포인트 UI 텍스트
-    [SerializeField] string weakPointTextPrefix = "-";  // 약점 포인트 UI 텍스트 접두사
+    [Header("Light Image")]
+    [SerializeField] GameObject[] weakPointImage; // 약점 포인트 UI 이미지 (L U R D)
 
     BossController bossController;      // 보스 컨트롤러 참조
     BossPartHitbox currentWeakPoint;    // 현재 활성화된 약점 포인트
@@ -32,13 +31,21 @@ public class BossWeakPointManager : MonoBehaviour
         BindHitboxes();
     }
 
+    void Start()
+    {
+        if (currentWeakPoint == null || weakPointImage == null) return;
+
+        for (int i = 0; i < weakPointImage.Length; i++)
+        {
+            if (weakPointImage[i] == null) continue;
+
+            weakPointImage[i].SetActive(false);
+        }
+    }
+
     void Update()
     {
-        if (currentWeakPoint == null || weakPointText == null) return;
-
         remainingOpenTime = Mathf.Max(0f, remainingOpenTime - Time.deltaTime);
-        weakPointText.text =
-            $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({remainingOpenTime:0.0}s)";
     }
 
     void CacheWeakPoints()
@@ -178,30 +185,21 @@ public class BossWeakPointManager : MonoBehaviour
             hitbox.SetWeakPointActive(hitbox == currentWeakPoint);
         }
 
-        if (weakPointText == null)
+        if (weakPointImage == null) return;
+
+        // 모든 이미지 비활성화
+        for (int i = 0; i < weakPointImage.Length; i++)
         {
-            return;
+            if (weakPointImage[i] == null) continue;
+            weakPointImage[i].SetActive(false);
         }
 
-        weakPointText.text = currentWeakPoint == null
-            ? $"{weakPointTextPrefix}: -"
-            : $"{weakPointTextPrefix}: {GetDisplayName(currentWeakPoint.WeakPointType)} ({weakPointOpenDuration}s)";
-    }
+        // 현재 약점 이미지 활성화
+        if (currentWeakPoint != null)
+        {
+            weakPointImage[(int)currentWeakPoint.WeakPointType].SetActive(true);
 
-    string GetDisplayName(BossWeakPointType type)
-    {
-        switch (type)
-        {   
-            case BossWeakPointType.UpperBody:
-                return "상체";
-            case BossWeakPointType.LowerBody:
-                return "하체";
-            case BossWeakPointType.RightArm:
-                return "오른팔";
-            case BossWeakPointType.LeftArm:
-                return "왼팔";
-            default:
-                return type.ToString();
+            Debug.Log($"Current Weak Point: {currentWeakPoint.WeakPointType}");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,6 +13,9 @@ public class DialogueManager : MonoBehaviour
 
     int index;
     bool isTalking = false;
+
+    public event Action<DialogueData> DialogueStarted;
+    public event Action<DialogueData> DialogueEnded;
 
     void Awake()
     {
@@ -50,6 +54,11 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(DialogueData dialogue, Transform npcTransform)
     {
+        if (dialogue == null || dialogue.lines == null || dialogue.lines.Length == 0)
+        {
+            return;
+        }
+
         currentDialogue = dialogue;
         npc = npcTransform;
         isTalking = true;
@@ -59,6 +68,7 @@ public class DialogueManager : MonoBehaviour
             PlayerController.Instance.isTalking = true;
         }
 
+        DialogueStarted?.Invoke(currentDialogue);
         ShowCurrentLine();
     }
 
@@ -69,17 +79,37 @@ public class DialogueManager : MonoBehaviour
         index++;
         if(index >= currentDialogue.lines.Length)
         {
-            DialogueUI.Instance.Hide();
-            isTalking = false;
-            if (PlayerController.Instance != null)
-            {
-                PlayerController.Instance.canMove = true;
-                PlayerController.Instance.isTalking = false;
-            }
+            EndDialogue();
             return;
         }
 
         ShowCurrentLine();
+    }
+
+    void EndDialogue()
+    {
+        DialogueData finishedDialogue = currentDialogue;
+
+        if (DialogueUI.Instance != null)
+        {
+            DialogueUI.Instance.Hide();
+        }
+
+        currentDialogue = null;
+        npc = null;
+        isTalking = false;
+
+        if (PlayerController.Instance != null)
+        {
+            if (!PlayerController.Instance.IsAutoDepossessDialogueActive)
+            {
+                PlayerController.Instance.canMove = true;
+            }
+
+            PlayerController.Instance.isTalking = false;
+        }
+
+        DialogueEnded?.Invoke(finishedDialogue);
     }
 
     void ShowCurrentLine()
