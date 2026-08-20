@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 62b5ef9f20a6a46ca9b7197ffa358aad
+guid: 6eff0e9765189814ca1e7d6239821696
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1374859111447736369
-    second: item_binary_0
+      213: 389102162336409961
+    second: headbodyzone04_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,30 +96,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: item_binary_0
+      name: headbodyzone04_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 19
-        height: 18
+        width: 2160
+        height: 1248
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcfc2f52ce48bece0800000000000000
-      internalID: -1374859111447736369
+      spriteID: 969e567ea5e566500800000000000000
+      internalID: 389102162336409961
       vertices: []
       indices: 
       edges: []
@@ -148,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      item_binary_0: -1374859111447736369
+      headbodyzone04_0: 389102162336409961
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

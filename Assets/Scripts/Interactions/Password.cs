@@ -12,6 +12,7 @@ public class Password : MonoBehaviour, IInteractable
     [SerializeField] float reamainTime = 1.5f;
     [SerializeField] bool stayUnlockedAfterSuccess = true;
     [SerializeField] UnityEvent onPasswordMatched;
+    [SerializeField] GameObject LegParts;
 
     bool isUnlocked;
     Collider2D triggerCollider;
@@ -24,6 +25,20 @@ public class Password : MonoBehaviour, IInteractable
     void Awake()
     {
         CacheColliders();
+    }
+
+    void Start()
+    {
+        if(PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
+        {
+            if(progressionManager.UnlockedStage >= PlayerStage.Legs)
+            {
+                isUnlocked = true;
+                onPasswordMatched?.Invoke();
+                LegParts.SetActive(false);
+                gameObject.SetActive(false);
+            }
+        }
     }
 
 #if UNITY_EDITOR

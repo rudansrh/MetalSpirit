@@ -106,16 +106,18 @@ public class PlayerCombatManager : MonoBehaviour
 
     public void OnLegAttack(InputValue value) //다리공격 + 빙의 공격
     {
-        if (!value.isPressed || playerController == null || playerController.IsUiOpen) return;
+        if (!value.isPressed || playerController == null || playerController.IsUiOpen || abilityManager == null || legAttackCoolTime > curTime_leg) return;
+
+        curTime_leg = 0f;
+
         if (playerController.IsPossessing)
         {
-            playerController.enemyAttack();
+            playerController.enemyAttack("Leg");
             return;
         }
 
-        if (abilityManager == null || !abilityManager.canLegAttack || legAttackCoolTime > curTime_leg) return;
+        if (!abilityManager.canLegAttack) return;
 
-        curTime_leg = 0f;
         visualManager?.PlayLegAttackAnimation();
 
         Vector2 center = GetAttackCenter(legAttackOffset);
@@ -125,10 +127,18 @@ public class PlayerCombatManager : MonoBehaviour
 
     public void OnArmAttack(InputValue value)
     {
-        if (!value.isPressed || !CanStartCommonAttack()) return;
-        if (abilityManager == null || !abilityManager.canArmAttack || armAttackCoolTime > curTime_arm) return;
+        if (!value.isPressed || playerController == null || playerController.IsUiOpen || abilityManager == null || armAttackCoolTime > curTime_arm) return;
 
         curTime_arm = 0f;
+
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack("Arm");
+            return;
+        }
+
+        if (!abilityManager.canArmAttack) return;
+
         visualManager?.PlayArmAttackAnimation();
 
         Vector2 center = GetAttackCenter(armAttackOffset);
@@ -139,10 +149,19 @@ public class PlayerCombatManager : MonoBehaviour
     public void OnBodyAttack(InputValue value)
     {
         if (!value.isPressed || !CanStartCommonAttack()) return;
-        if (abilityManager == null || !abilityManager.canBodyAttack || bodyAttackCoolTime > curTime_body) return;
-        if (playerController.IsDashing || !playerController.canMove) return;
+        if (abilityManager == null || bodyAttackCoolTime > curTime_body) return;
+        if (playerController.IsUiOpen || playerController.IsDashing || !playerController.canMove) return;
 
         curTime_body = 0f;
+
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack("Body");
+            return;
+        }
+
+        if (!abilityManager.canBodyAttack) return;
+
         visualManager?.PlayBodyAttackAnimation();
         StartCoroutine(BodyAttackRoutine());
     }
@@ -150,10 +169,19 @@ public class PlayerCombatManager : MonoBehaviour
     public void OnHeadAttack(InputValue value)
     {
         if (!value.isPressed || !CanStartCommonAttack()) return;
-        if (abilityManager == null || !abilityManager.canHeadAttack || headAttackCoolTime > curTime_head) return;
-        if (playerController.IsDashing || !playerController.canMove) return;
+        if (abilityManager == null || headAttackCoolTime > curTime_head) return;
+        if (playerController.IsUiOpen || playerController.IsDashing || !playerController.canMove) return;
 
         curTime_head = 0f;
+
+        if (playerController.IsPossessing)
+        {
+            playerController.enemyAttack("Head");
+            return;
+        }
+
+        if (!abilityManager.canHeadAttack) return;
+
         visualManager?.PlayHeadAttackAnimation();
         StartCoroutine(HeadAttackRoutine());
     }
@@ -162,7 +190,6 @@ public class PlayerCombatManager : MonoBehaviour
     {
         return playerController != null
             && !playerController.IsUiOpen
-            && !playerController.IsPossessing
             && !isAttacking;
     }
 

@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 62b5ef9f20a6a46ca9b7197ffa358aad
+guid: 12aab5d832e29f746aecfd40661144b5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1374859111447736369
-    second: item_binary_0
+      213: -4184456579310426622
+    second: headbodyzone03_0
+  - first:
+      213: 6940237810589558502
+    second: headbodyzone03_1
+  - first:
+      213: 1432949449457565079
+    second: headbodyzone03_2
+  - first:
+      213: -9193116213121369888
+    second: headbodyzone03_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 25
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -96,30 +105,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WindowsStoreApps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: item_binary_0
+      name: headbodyzone03_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 19
-        height: 18
+        x: 391
+        y: 1054
+        width: 223
+        height: 71
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fcfc2f52ce48bece0800000000000000
-      internalID: -1374859111447736369
+      spriteID: 206e72c49e2dde5c0800000000000000
+      internalID: -4184456579310426622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: headbodyzone03_1
+      rect:
+        serializedVersion: 2
+        x: 375
+        y: 869
+        width: 257
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e6ecec848da05060800000000000000
+      internalID: 6940237810589558502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: headbodyzone03_2
+      rect:
+        serializedVersion: 2
+        x: 1735
+        y: 574
+        width: 227
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79d7204aeebd2e310800000000000000
+      internalID: 1432949449457565079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: headbodyzone03_3
+      rect:
+        serializedVersion: 2
+        x: 1726
+        y: 392
+        width: 244
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e8340ae28d7b6080800000000000000
+      internalID: -9193116213121369888
       vertices: []
       indices: 
       edges: []
@@ -148,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      item_binary_0: -1374859111447736369
+      headbodyzone03_0: -4184456579310426622
+      headbodyzone03_1: 6940237810589558502
+      headbodyzone03_2: 1432949449457565079
+      headbodyzone03_3: -9193116213121369888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

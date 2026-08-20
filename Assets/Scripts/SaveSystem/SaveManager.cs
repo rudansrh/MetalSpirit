@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
     private SaveData currentLoadData;
+    private int lastSlot = 0;
 
     private void Awake()
     {
@@ -60,6 +62,7 @@ public class SaveManager : MonoBehaviour
                     data.inventoryItems = inventory.items;
                     Debug.Log(data.inventoryItems.Length);
                 }
+                data.isSoulState = playerAbility.isSoul;
             }
         }
 
@@ -77,7 +80,7 @@ public class SaveManager : MonoBehaviour
         {
             string json = File.ReadAllText(GetSaveFilePath(slotIndex));
             currentLoadData = JsonUtility.FromJson<SaveData>(json);
-            PlayerController.Instance.lastSavedSlot = slotIndex;
+            lastSlot = slotIndex;
 
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene(currentLoadData.savedSceneName);
@@ -92,18 +95,24 @@ public class SaveManager : MonoBehaviour
     public void StartNewGame(string firstSceneName)
     {
         // 첫 번째 씬을 로드하면 씬에 있는 플레이어가 기본 상태(최대 체력/스태미나)로 초기화되어 시작됩니다.
+        lastSlot = 0;
         SceneManager.LoadScene(firstSceneName);
         Debug.Log($"새 게임 시작: {firstSceneName} 씬 로드");
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
         if (PlayerController.Instance != null && currentLoadData != null)
         {
             PlayerController.Instance.transform.position = new Vector2(currentLoadData.playerPosX, currentLoadData.playerPosY);
+            PlayerController.Instance.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
 
             if (PlayerController.Instance.TryGetComponent<Health>(out var health))
+            {
                 health.LoadHealthData(currentLoadData.playerHp);
+                health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+            }
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
@@ -117,46 +126,27 @@ public class SaveManager : MonoBehaviour
                 {
                     inventory.LoadInventory(currentLoadData.inventoryItems);
                 }
+                playerAbility.isSoul = currentLoadData.isSoulState;
             }
+
+            PlayerController.Instance.lastSavedSlot = lastSlot;
         }
         currentLoadData = null;
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void YouDied()
     {
-        if (PlayerController.Instance.lastSavedSlot == 0) return;
-
+        Debug.Log("You Died");
+        if (PlayerController.Instance.isPossessing)
+        {
+            PlayerController.Instance.DepossessFromEnemy();
+        }
+        lastSlot = PlayerController.Instance.lastSavedSlot;
         string json = File.ReadAllText(GetSaveFilePath(PlayerController.Instance.lastSavedSlot));
         currentLoadData = JsonUtility.FromJson<SaveData>(json);
 
-        if (currentLoadData.savedSceneName != SceneManager.GetActiveScene().name)
-        {
-            Destroy(PlayerController.Instance.gameObject);
-            SceneManager.sceneLoaded += OnSceneLoaded;
-            SceneManager.LoadScene(currentLoadData.savedSceneName);
-        }
-
-        if (PlayerController.Instance != null && currentLoadData != null)
-        {
-            PlayerController.Instance.transform.position = new Vector2(currentLoadData.playerPosX, currentLoadData.playerPosY);
-
-            if (PlayerController.Instance.TryGetComponent<Health>(out var health))
-                health.LoadHealthData(currentLoadData.playerHp);
-
-            if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
-                stamina.LoadStaminaData(currentLoadData.playerStamina);
-
-            if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
-                progressionManager.SetUnlockedStage(currentLoadData.currentPlayerStage);
-
-            if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
-            {
-                if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
-                {
-                    inventory.LoadInventory(currentLoadData.inventoryItems);
-                }
-            }
-        }
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.LoadScene(currentLoadData.savedSceneName);
     }
 }

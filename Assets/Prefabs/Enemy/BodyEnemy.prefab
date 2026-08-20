@@ -223,7 +223,7 @@ MonoBehaviour:
   attackRange: 6
   attackCooldown: 3
   attackDelay: 0.6
-  chargeSpeed: 15
+  chargeSpeed: 8.5
   chargeDuration: 0.4
   wallCheckDistance: 1
   pitCheckDistance: 2
