@@ -65,10 +65,9 @@ public class SaveManager : MonoBehaviour
                 }
                 data.isSoulState = playerAbility.isSoul;
             }
-            data.unlockedPassword = PlayerController.Instance.unlockedPassword;
-            PlayerController.Instance.lastSavedSlot = slotIndex;
         }
 
+        PlayerController.Instance.lastSavedSlot = slotIndex;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
@@ -144,9 +143,6 @@ public class SaveManager : MonoBehaviour
             }
 
             PlayerController.Instance.lastSavedSlot = lastSlot;
-            PlayerController.Instance.unlockedPassword = currentLoadData.unlockedPassword;
-            PlayerController.Instance.isUIopen = false;
-            PlayerController.Instance.canMove = true;
         }
         currentLoadData = null;
         playerRevive = false;
