@@ -159,6 +159,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SettingPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5311403931054829113, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6048413187971212490, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -655,6 +659,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 299586617}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSlotUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5911399930206474754, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1010,6 +1042,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TutorialPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 7328416716821118272, guid: 6ce5cd328d3ad4c06a6d206b6fc69019, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1067,10 +1103,51 @@ MonoBehaviour:
   bgmClip: {fileID: 8300000, guid: dfd64964478c74369837210a4b3f7b29, type: 3}
   playSceneBgmOnAwake: 1
   Bvolume: 1
-  sfxClips: []
+  sfxClips:
+  - {fileID: 8300000, guid: 4b0708867af834509ac0374820fb3927, type: 3}
+  - {fileID: 8300000, guid: 8aa236eaf4d114d0db75353c6e4c6ede, type: 3}
+  - {fileID: 8300000, guid: 1f00643323b1145bdab76e769778b523, type: 3}
+  - {fileID: 8300000, guid: 6282f45fcbe5642a685991d7dcb0bb1a, type: 3}
+  - {fileID: 8300000, guid: 51a1a9d12bb7b47c1869c33b0a3ef852, type: 3}
+  - {fileID: 8300000, guid: a447ced135410456582b06f6c7883f7d, type: 3}
+  - {fileID: 8300000, guid: 5e108bf7e7ba44d94b99737ceeec5773, type: 3}
+  - {fileID: 8300000, guid: b9b448163a7994a3cafb6d3d46d740c0, type: 3}
+  - {fileID: 8300000, guid: b22e205d288aa4c6abdfc093139dc47c, type: 3}
+  - {fileID: 8300000, guid: 28a17b5e511f3429ca988c88aebabe26, type: 3}
+  - {fileID: 8300000, guid: afeb71a62d14e4ab6b8776914f0ca0e9, type: 3}
+  - {fileID: 8300000, guid: 32b24e68abc8643ecbc2246b72c48a72, type: 3}
+  - {fileID: 8300000, guid: 15c6573ba7c9644f49038be630997843, type: 3}
+  - {fileID: 8300000, guid: 30bf93dd100814b2fb0497fb244bf2c7, type: 3}
+  - {fileID: 8300000, guid: df6f126a3abfe494e84a55008a73e1a3, type: 3}
+  - {fileID: 8300000, guid: 71a80e402af5c46eba8d2ade1c81212d, type: 3}
+  - {fileID: 8300000, guid: 67977e40370414d288d76f5a80be603a, type: 3}
+  - {fileID: 8300000, guid: eed3a7c07ad8d4bbba995e6a66e0427e, type: 3}
+  - {fileID: 8300000, guid: 7bc2f453b888643199fe614906199797, type: 3}
+  - {fileID: 8300000, guid: 8a026a8fc27aa43ad9d0de47625ddb4b, type: 3}
+  - {fileID: 8300000, guid: efcb392a0d2c84cecaf2afdb56ba0cc1, type: 3}
+  - {fileID: 8300000, guid: f3f9915917c174a87b80935ff1c36af9, type: 3}
+  - {fileID: 8300000, guid: 8db2cd94fe3084e7eb842a771d8538a6, type: 3}
+  - {fileID: 8300000, guid: 0ca16ebc541d7424db4f931bd3d4e711, type: 3}
+  - {fileID: 8300000, guid: f918ded8eb3db498ba3a7a0541bac499, type: 3}
+  - {fileID: 8300000, guid: aef75d3532f1f4f3e9a3cb5957ee8c34, type: 3}
+  - {fileID: 8300000, guid: c9a80a5145671488982e3101fca628c1, type: 3}
+  - {fileID: 8300000, guid: d78b0528ba0c74e5fa8590c3a5208d97, type: 3}
+  - {fileID: 8300000, guid: aac4b3b997e444c4fb07af18afb06465, type: 3}
+  - {fileID: 8300000, guid: fdda7c49c6d554e708209a4425a69b3f, type: 3}
+  - {fileID: 8300000, guid: f4ca18c1765304254ba3c8aaf4c01996, type: 3}
+  - {fileID: 8300000, guid: 3ac0d6c56714147229028a6aca7c273e, type: 3}
+  - {fileID: 8300000, guid: d78f2a0a6536d44f6840a9e294e4d7b7, type: 3}
+  - {fileID: 8300000, guid: 6d1ef831664424714b5cd256c6dc20c8, type: 3}
+  - {fileID: 8300000, guid: 908624539d0b84ef79b264b5e6223b85, type: 3}
+  - {fileID: 8300000, guid: f783c36af091c4e8eaa1ec9249c7e4eb, type: 3}
+  - {fileID: 8300000, guid: 15aedeb8138f54654b2e0da151e3f59a, type: 3}
+  - {fileID: 8300000, guid: 28ad7466d8546452b85d48262d680e5f, type: 3}
+  - {fileID: 8300000, guid: 22bec877eafae4fc89c0aa3f5e9e64ea, type: 3}
+  - {fileID: 8300000, guid: b076fda4acd954578874a9fe16538844, type: 3}
+  - {fileID: 8300000, guid: 6484e9bab31e44d57b6a5bec4ff3cce0, type: 3}
   Svolume: 1
-  Schannels: 8
-  defaultCooldown: 0.05
+  Schannels: 50
+  defaultCooldown: 0.01
 --- !u!1 &1309969820
 GameObject:
   m_ObjectHideFlags: 0

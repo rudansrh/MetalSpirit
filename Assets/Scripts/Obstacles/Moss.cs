@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MossObstacle : MonoBehaviour, IInteractable
 {
-    private string purpose = "ÀÌ³¢ Ä¡¿ì±â";
+    private string purpose = "Ã€ÃŒÂ³Â¢ Ã„Â¡Â¿Ã¬Â±Ã¢";
     public string Purpose => purpose;
     public void Interact(GameObject interactor)
     {
@@ -11,12 +11,13 @@ public class MossObstacle : MonoBehaviour, IInteractable
         {
             if (inventoryManager.TryConsumeItem(ItemType.Scissors, 1))
             {
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Scissors); //***
                 Destroy(gameObject);
             }
             else
             {
 
-                Debug.Log("°¡À§ ÇÊ¿ä");
+                Debug.Log("Â°Â¡Ã€Â§ Ã‡ÃŠÂ¿Ã¤");
             }
         }
     }

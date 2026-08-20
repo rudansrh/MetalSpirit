@@ -154,6 +154,7 @@ public class BodyEnemy : Enemy
         isAttacking = true;
         lastAttackTime = Time.time;
         animationController?.TriggerAttack();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDash); //***
 
         Vector2 playerCenter = playerPos;
 
@@ -368,6 +369,7 @@ public class BodyEnemy : Enemy
 
         PlayHitFlash();
         animationController?.TriggerHit();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyHit); //***
     }
 
     private void StartDeath()
@@ -380,6 +382,7 @@ public class BodyEnemy : Enemy
         isDying = true;
         isAttacking = false;
         CancelHitFlash();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDeath); //***
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

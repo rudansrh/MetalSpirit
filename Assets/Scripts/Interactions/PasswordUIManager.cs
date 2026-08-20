@@ -111,6 +111,7 @@ public class PasswordUIManager : MonoBehaviour
 
         currentInput += number;
         RefreshInputText();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PasswordEnter); //***
     }
 
     public void RemoveLastNumber()
@@ -136,12 +137,14 @@ public class PasswordUIManager : MonoBehaviour
 
         if (isCorrect)
         {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.PasswordCorrect); //***
             closeAfterSuccessCoroutine = StartCoroutine(CloseAfterSuccess(currentPassword));
             return;
         }
 
         if (!isCorrect)
         {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.PasswordIncorrect); //***
             currentInput = string.Empty;
             RefreshInputText();
         }

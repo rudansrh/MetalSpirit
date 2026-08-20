@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvincibility = false;
 
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
+    public int[] unlockedPassword = new int[4] {0,0,0,0};
 
     public bool isPlayingMinigame = false;
     public bool isTalking = false;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
     bool isHeadEnemy = false;
 
     public int lastSavedSlot = 0;
+    public bool isMovingToNextScene = false;
 
     public CanInteractUI canInteractUI;
     public GameObject possessChecker;
@@ -136,14 +138,17 @@ public class PlayerController : MonoBehaviour
             UpdateFormState();
             UpdateFacingVisual();
             UpdateAnimationState();
-
-            cameraFollow.Instance.SetTarget(transform);
-            SaveManager.Instance.SaveGame(0);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        cameraFollow.Instance.SetTarget(transform);
+        SaveManager.Instance.SaveGame(0);
     }
 
     void OnDestroy()
@@ -395,6 +400,7 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(0,0.01f,0));
             if(IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
             isJump = true;
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Jump); //***
         }
     }
 
@@ -407,6 +413,7 @@ public class PlayerController : MonoBehaviour
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerDash); //***
                 DashCoroutine = StartCoroutine(DashRoutine());
             }
         }
@@ -628,6 +635,7 @@ public class PlayerController : MonoBehaviour
                 abilityManager.PossessBody();
                 UpdateFormState();
                 ClampControlledBodyToBounds();
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
             }
         }
         else if (!IsSoulForm() && abilityManager.canBeSoul)
@@ -642,6 +650,7 @@ public class PlayerController : MonoBehaviour
                 abilityManager.DepossessBody();
                 UpdateFormState();
                 ClampControlledBodyToBounds();
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
             }
         }
         else if (!IsSoulForm() && !abilityManager.canBeSoul) //파츠 얻은 후 (영혼상태 불가)
@@ -675,6 +684,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.enabled = false;
         col.enabled = false;
         col = targetEnemy.GetComponent<Collider2D>();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
 
         abilityManager.PossessBody();
         UpdateFormState();
@@ -715,6 +725,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.enabled = true;
         col = GetComponent<Collider2D>();
         col.enabled = true;
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
 
         abilityManager.DepossessBody();
         UpdateFormState();
@@ -813,20 +824,29 @@ public class PlayerController : MonoBehaviour
     //E키 상호작용
     public void OnInteract(InputValue value)
     {
+        if (!value.isPressed) return;
+        
         Debug.Log("E키 입력 감지됨!");
 
-        if (value.isPressed && PasswordUIManager.IsUiOpen)
+        if (PasswordUIManager.IsUiOpen)
         {
             PasswordUIManager.Instance.Close();
             return;
         }
-
-        if (!value.isPressed) return;
+        else if(SaveSlotUIManager.Instance.isOpen)
+        {
+            SaveSlotUIManager.Instance.CloseSlotUI();
+            return;
+        }
 
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
         if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
+            if (IsPossessing)
+            {
+                transform.position = rigid.GetComponent<Transform>().position;
+            }
         }
         else
         {
@@ -860,6 +880,11 @@ public class PlayerController : MonoBehaviour
         touchInteractable(collision);
 
         if (collision.CompareTag("Wall")) insideWall++;
+
+        if (collision.CompareTag("Water"))
+        {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class AudioManager : MonoBehaviour
 {
@@ -27,8 +30,12 @@ public class AudioManager : MonoBehaviour
 
     public enum Sfx
     {
-        Jump, Dash, Attack
-        // TODO: 효과음 종류 정해지면 enum으로 정리하기
+        Possession, Depossession, BossDeath, BossExplosion, BoxOpen, Dash,
+        ElevatorArrive, ElevatorDing, EnemyDash, EnemyDeath, EnemyHit, EnemyKick,
+        EnemyLazer, EnemyPunch, EnemyTalk, FloorDown, GameOver, HallBeforeBoss,
+        HpHeal, ItemGet, Jump, LazerHit, MenuMove, MenuSelect, PaperFlip, PasswordCorrect,
+        PasswordEnter, PasswordIncorrect, PlayerDash, PlayerHit, PlayerKick, PlayerLazer,
+        PlayerPunch,PlayerRocketPunch, PlayerTalk, PlayerWalk, Save, Scissors, StaminaHeal, Thump, Water
     }
 
     [Header("SFX Spam Protection")]
@@ -48,6 +55,7 @@ public class AudioManager : MonoBehaviour
         sceneBgmClip = bgmClip;
         activeBgmZones.Clear();
         ApplyResolvedBgm();
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     private void Start()
@@ -56,14 +64,96 @@ public class AudioManager : MonoBehaviour
         {
             PlayBgm();
         }
+
+        RefreshUiSfxBindings();
     }
 
     private void OnDestroy()
     {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
+
         if (instance == this)
         {
             instance = null;
         }
+    }
+
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        RefreshUiSfxBindings();
+    }
+
+    public void RefreshUiSfxBindings()
+    {
+        Button[] buttons = FindObjectsByType<Button>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            Button button = buttons[i];
+            if (button == null)
+            {
+                continue;
+            }
+
+            UiButtonSfxRelay relay = button.GetComponent<UiButtonSfxRelay>();
+            if (relay == null)
+            {
+                relay = button.gameObject.AddComponent<UiButtonSfxRelay>();
+            }
+
+            relay.Configure(ResolveButtonClickSfx(button));
+        }
+    }
+
+    private Sfx? ResolveButtonClickSfx(Button button)
+    {
+        if (button == null)
+        {
+            return null;
+        }
+
+        if (IsUnderTransformNamed(button.transform, "Password"))
+        {
+            return null;
+        }
+
+        if (HasComponentInParents<SaveSlotUIManager>(button.transform) || IsUnderTransformNamed(button.transform, "SavePanel"))
+        {
+            return Sfx.Save;
+        }
+
+        return Sfx.MenuSelect;
+    }
+
+    private static bool IsUnderTransformNamed(Transform target, string expectedName)
+    {
+        Transform current = target;
+        while (current != null)
+        {
+            if (current.name == expectedName)
+            {
+                return true;
+            }
+
+            current = current.parent;
+        }
+
+        return false;
+    }
+
+    private static bool HasComponentInParents<T>(Transform target) where T : Component
+    {
+        Transform current = target;
+        while (current != null)
+        {
+            if (current.GetComponent<T>() != null)
+            {
+                return true;
+            }
+
+            current = current.parent;
+        }
+
+        return false;
     }
 
     /* private void OnDestroy()
@@ -400,5 +490,52 @@ public class AudioManager : MonoBehaviour
         sfxPlayers[stealIdx].Stop();
         sfxPlayers[stealIdx].clip = sfxClips[clipIdx];
         sfxPlayers[stealIdx].Play();
+    }
+}
+
+public sealed class UiButtonSfxRelay : MonoBehaviour, IPointerEnterHandler
+{
+    private Button button;
+    private AudioManager.Sfx? clickSfx;
+
+    private void Awake()
+    {
+        button = GetComponent<Button>();
+    }
+
+    public void Configure(AudioManager.Sfx? nextClickSfx)
+    {
+        if (button == null)
+        {
+            button = GetComponent<Button>();
+        }
+
+        if (button == null)
+        {
+            return;
+        }
+
+        button.onClick.RemoveListener(HandleClick);
+        clickSfx = nextClickSfx;
+
+        if (clickSfx.HasValue)
+        {
+            button.onClick.AddListener(HandleClick);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.MenuMove);
+    }
+
+    private void HandleClick()
+    {
+        if (!clickSfx.HasValue)
+        {
+            return;
+        }
+
+        AudioManager.instance?.PlaySfx(clickSfx.Value);
     }
 }

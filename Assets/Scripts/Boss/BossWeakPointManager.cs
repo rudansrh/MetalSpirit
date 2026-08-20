@@ -199,6 +199,8 @@ public class BossWeakPointManager : MonoBehaviour
         {
             weakPointImage[(int)currentWeakPoint.WeakPointType].SetActive(true);
 
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.ElevatorDing); //***
+
             Debug.Log($"Current Weak Point: {currentWeakPoint.WeakPointType}");
         }
     }

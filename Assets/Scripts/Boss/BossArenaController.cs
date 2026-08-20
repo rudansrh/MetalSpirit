@@ -370,6 +370,8 @@ public class BossArenaController : MonoBehaviour
         UnregisterSpawnedArenaObject(fallingDebris);
         Destroy(fallingDebris);
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.FloorDown); //***
+
         float halfHeight = GetDebrisHalfHeight();
         float randomHeight = Random.Range(landedDebrisHeightRange.x, landedDebrisHeightRange.y);
         Vector3 landedPosition = new Vector3(

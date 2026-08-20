@@ -44,6 +44,7 @@ public class InventoryPickupItem : MonoBehaviour, IInteractable
         }
 
         Debug.Log($"{itemType} item acquired x{itemCount}.");
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.ItemGet); //***
 
         if (destroyOnPickup)
         {

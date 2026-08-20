@@ -16,6 +16,7 @@ public class RecoveryItem : MonoBehaviour, IInteractable
             && interactor.GetComponent<InventoryManager>().AddItem(type, recoveryAmount))
         {   
             Debug.Log($"{type} item acquired.");
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.ItemGet); //***
             Destroy(gameObject);
             return;
         }
@@ -26,6 +27,7 @@ public class RecoveryItem : MonoBehaviour, IInteractable
             {
                 health.RestoreHealth(recoveryAmount);
                 Debug.Log($"Health restored. Current Health: {health.CurrentHealth}");
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.HpHeal); //***
             }
         }
         else if (type == ItemType.Stamina)
@@ -34,6 +36,7 @@ public class RecoveryItem : MonoBehaviour, IInteractable
             {
                 stamina.RestoreStamina(recoveryAmount);
                 Debug.Log($"Stamina restored. Current Stamina: {stamina.CurrentStamina}");
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.StaminaHeal); //***
             }
         }
 
