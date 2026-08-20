@@ -184,8 +184,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogue: {fileID: 11400000, guid: e66c104e7c826394c893152214fa19c6, type: 2}
-  armsDialogue: {fileID: 0}
-  fullBodyDialogue: {fileID: 0}
 --- !u!114 &2642769067953601968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,15 +217,14 @@ MonoBehaviour:
   hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
-  isAttackingPossessed: 0
-  speed: 2
-  jumpForce: 11
-  detectionRange: 3.5
+  speed: 3
+  jumpForce: 12
+  detectionRange: 5
   attackRange: 1.5
   attackCooldown: 2.5
   attackDelay: 0.6
   stompDamage: 15
-  stompWidth: 1.6
+  stompWidth: 1
   legOffset: {x: 0.5, y: -0.5}
   wallCheckDistance: 1
   pitCheckDistance: 2

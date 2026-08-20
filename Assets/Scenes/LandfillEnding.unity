@@ -363,16 +363,11 @@ MonoBehaviour:
   nextSceneName: Start
   fadeInDuration: 3
   fadeOutDuration: 1.5
-  endingImageFlashDuration: 3
+  endingImageFlashDuration: 1
   firstFadeInStartDelay: 2
   dialogueStartDelay: 3
   postDialogueDelay: 0.2
   postFlashDelay: 0.2
-  dialogueCameraBeatTriggerLineIndex: 3
-  dialogueCameraBeatOffset: {x: 0, y: 3, z: 0}
-  dialogueCameraBeatUpDuration: 3
-  dialogueCameraBeatHoldDuration: 2
-  dialogueCameraBeatReturnDuration: 3
   endingCameraTargetPosition: {x: 0, y: 5, z: -10}
   endingZoomOutMultiplier: 2
   endingCameraMoveDuration: 5

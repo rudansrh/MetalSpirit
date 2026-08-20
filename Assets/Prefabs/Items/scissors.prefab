@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryPickupItem
   itemType: 3
-  itemAmount: 1
+  itemAmount: 0
   itemCount: 1
   requireInventoryAbility: 1
   destroyOnPickup: 1

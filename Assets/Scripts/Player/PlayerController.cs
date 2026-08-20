@@ -566,7 +566,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Wall")
         {
-            isWallAttatching = true;
+            // isWallAttatching = true;
 
             UpdateWallClimbDetachDirection(collision);
             foreach (ContactPoint2D contact in collision.contacts)
@@ -793,7 +793,7 @@ public class PlayerController : MonoBehaviour
             if (abilityManager.isSoul && !collision.CompareTag("Document") && !collision.CompareTag("Parts")) return;
 
             nearbyInteractable = interactable;
-            canInteractUI.showInterectUI(collision.transform, "e", interactable.Purpose);
+            canInteractUI.showInterectUI(collision.transform, "e", "상호작용");
         }
     }
 
