@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Document
   - Parts
+  - Water
   layers:
   - Default
   - TransparentFX

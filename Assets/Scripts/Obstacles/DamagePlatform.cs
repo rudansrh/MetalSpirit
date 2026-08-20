@@ -158,6 +158,7 @@ public class DamagePlatform : MonoBehaviour
             return;
         }
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
         currentDamageable.TakeDamage(damageAmount, DamageType.Water);
     }
 

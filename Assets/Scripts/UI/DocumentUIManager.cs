@@ -43,6 +43,7 @@ public class DocumentUIManager : MonoBehaviour
         documentText.text = content;
         documentPanel.SetActive(true);
         isOpen = true;
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PaperFlip); //***
 
         // 문서를 읽는 동안 플레이어 조작 막기
         if (PlayerController.Instance != null)

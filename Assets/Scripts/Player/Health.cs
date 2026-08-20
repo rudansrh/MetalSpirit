@@ -42,6 +42,7 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
         if (CurrentHealth <= 0 && !PlayerIsDead)
         {
             PlayerIsDead = true;
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.GameOver); //***
             OnDeath?.Invoke();
             return;
         }

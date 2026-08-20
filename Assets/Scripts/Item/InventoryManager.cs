@@ -189,10 +189,12 @@ public class InventoryManager : MonoBehaviour
         {
             case ItemType.Health:
                 player.GetComponent<Health>().RestoreHealth(item.amount);
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.HpHeal); //***
                 break;
 
             case ItemType.Stamina:
                 player.GetComponent<Stamina>().RestoreStamina(item.amount);
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.StaminaHeal); //***
                 break;
 
             case ItemType.BinaryCode:

@@ -152,12 +152,14 @@ public class LegEnemy : Enemy
         lastAttackTime = Time.time;
         rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
         animationController?.TriggerAttack();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyKick); //***
 
         Debug.Log("다리 올리기! (발구르기 준비)");
 
         yield return new WaitForSeconds(attackDelay);
 
         Debug.Log("쿵! (내려찍기)");
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Thump); //***
 
         Vector2 stompPos = (Vector2)transform.position + new Vector2(legOffset.x * facingDirection, legOffset.y);
 
@@ -335,6 +337,7 @@ public class LegEnemy : Enemy
 
         PlayHitFlash();
         animationController?.TriggerHit();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyHit); //***
     }
 
     private void StartDeath()
@@ -347,6 +350,7 @@ public class LegEnemy : Enemy
         isDying = true;
         isAttacking = false;
         CancelHitFlash();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDeath); //***
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

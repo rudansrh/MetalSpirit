@@ -154,7 +154,7 @@ MonoBehaviour:
   sfxClips: []
   Svolume: 1
   Schannels: 8
-  defaultCooldown: 0.05
+  defaultCooldown: 0.01
 --- !u!4 &304939240
 Transform:
   m_ObjectHideFlags: 0
@@ -343,6 +343,7 @@ MonoBehaviour:
   canArmAttack: 0
   canBodyAttack: 0
   canHeadAttack: 0
+  canBeSoul: 1
   canUseInventory: 0
 --- !u!95 &577896511
 Animator:
@@ -526,6 +527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogue: {fileID: 11400000, guid: 2ffda4269aaee4009941489cda5a58ea, type: 2}
+  armsDialogue: {fileID: 0}
+  fullBodyDialogue: {fileID: 0}
 --- !u!114 &577896519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,15 +1345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
   player: {fileID: 577896517}
-  submitAction:
-    m_Name: Submit
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: dd8315f0-80c2-48c6-9bb8-9738d883a4b0
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!4 &2107770547
 Transform:
   m_ObjectHideFlags: 0

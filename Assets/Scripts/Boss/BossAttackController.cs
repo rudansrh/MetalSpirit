@@ -134,6 +134,7 @@ public class BossAttackController : MonoBehaviour
         animator.ResetTrigger(chargeRightToLeftTriggerHash);
         animator.ResetTrigger(chargeLeftToRightTriggerHash);
         animator.SetTrigger(deathTriggerHash);
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossDeath); //***
     }
 
     IEnumerator AttackLoopRoutine()
@@ -344,24 +345,28 @@ public class BossAttackController : MonoBehaviour
         if (ReferenceEquals(attack, leftPunchAttack))
         {
             animator.SetTrigger(leftPunchTriggerHash);
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyPunch); //***
             return;
         }
 
         if (ReferenceEquals(attack, rightPunchAttack))
         {
             animator.SetTrigger(rightPunchTriggerHash);
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyPunch); //***
             return;
         }
 
         if (ReferenceEquals(attack, chargeAttackRL))
         {
             animator.SetTrigger(chargeRightToLeftTriggerHash);
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDash); //***
             return;
         }
 
         if (ReferenceEquals(attack, chargeAttackLR))
         {
             animator.SetTrigger(chargeLeftToRightTriggerHash);
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDash); //***
         }
     }
 

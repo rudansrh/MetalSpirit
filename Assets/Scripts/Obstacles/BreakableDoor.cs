@@ -15,6 +15,7 @@ public class BreakableDoor : MonoBehaviour
     IEnumerator disappear()
     {
         yield return new WaitForSeconds(0.5f);
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.BoxOpen); //***
         gameObject.SetActive(false);
     }
 }

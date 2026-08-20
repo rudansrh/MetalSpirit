@@ -26,6 +26,7 @@ public class Door : MonoBehaviour, IBreakable
         if (currentHp <= 0) //TODO : 미니게임 시작 조건 추가하기
         {
             minigame.MinigameReady();
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.BoxOpen); //***
             gameObject.SetActive(false);
         }
     }

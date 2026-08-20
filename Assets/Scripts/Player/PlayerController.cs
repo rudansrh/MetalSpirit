@@ -400,6 +400,7 @@ public class PlayerController : MonoBehaviour
             transform.Translate(new Vector3(0,0.01f,0));
             if(IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
             isJump = true;
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Jump); //***
         }
     }
 
@@ -412,6 +413,7 @@ public class PlayerController : MonoBehaviour
         {
             if (stamina != null && stamina.UseStamina(dashStaminaCost))
             {
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerDash); //***
                 DashCoroutine = StartCoroutine(DashRoutine());
             }
         }
@@ -633,6 +635,7 @@ public class PlayerController : MonoBehaviour
                 abilityManager.PossessBody();
                 UpdateFormState();
                 ClampControlledBodyToBounds();
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
             }
         }
         else if (!IsSoulForm() && abilityManager.canBeSoul)
@@ -647,6 +650,7 @@ public class PlayerController : MonoBehaviour
                 abilityManager.DepossessBody();
                 UpdateFormState();
                 ClampControlledBodyToBounds();
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
             }
         }
         else if (!IsSoulForm() && !abilityManager.canBeSoul) //파츠 얻은 후 (영혼상태 불가)
@@ -680,6 +684,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.enabled = false;
         col.enabled = false;
         col = targetEnemy.GetComponent<Collider2D>();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
 
         abilityManager.PossessBody();
         UpdateFormState();
@@ -720,6 +725,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.enabled = true;
         col = GetComponent<Collider2D>();
         col.enabled = true;
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
 
         abilityManager.DepossessBody();
         UpdateFormState();
@@ -874,6 +880,11 @@ public class PlayerController : MonoBehaviour
         touchInteractable(collision);
 
         if (collision.CompareTag("Wall")) insideWall++;
+
+        if (collision.CompareTag("Water"))
+        {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -118,6 +118,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (!abilityManager.canLegAttack) return;
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerKick); //***
         visualManager?.PlayLegAttackAnimation();
 
         Vector2 center = GetAttackCenter(legAttackOffset);
@@ -139,6 +140,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (!abilityManager.canArmAttack) return;
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerPunch); //***
         visualManager?.PlayArmAttackAnimation();
 
         Vector2 center = GetAttackCenter(armAttackOffset);
@@ -177,6 +179,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (!abilityManager.canBodyAttack) return;
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerRocketPunch); //***
         visualManager?.PlayBodyAttackAnimation();
         StartCoroutine(BodyAttackRoutine());
     }
@@ -197,6 +200,7 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (!abilityManager.canHeadAttack) return;
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerLazer); //***
         visualManager?.PlayHeadAttackAnimation();
         StartCoroutine(HeadAttackRoutine());
     }
@@ -309,8 +313,22 @@ public class PlayerCombatManager : MonoBehaviour
     {
         float radius = Mathf.Max(thickness * 0.5f, 0.01f);
         RaycastHit2D[] hits = Physics2D.CircleCastAll(start, radius, direction, distance);
+        if (HasEnemyDamageTarget(hits)) AudioManager.instance?.PlaySfx(AudioManager.Sfx.LazerHit); //***
         ApplyDamageToHits(hits, damage);
     }
+
+    private bool HasEnemyDamageTarget(RaycastHit2D[] hits) //***
+    { //***
+        foreach (RaycastHit2D hit in hits) //***
+        { //***
+            if (hit.collider != null && hit.collider.GetComponent<IEnemyDamageReceiver>() != null) //***
+            { //***
+                return true; //***
+            } //***
+        } //***
+
+        return false; //***
+    } //***
 
     private void ApplyDamageToHits(RaycastHit2D[] hits, float damage)
     {
