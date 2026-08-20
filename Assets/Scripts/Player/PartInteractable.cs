@@ -9,9 +9,6 @@ public class PartInteractable : MonoBehaviour, IInteractable
     [TextArea(3, 5)]
     public string unlockMessage = "»õ·Î¿î ÆÄÃ÷¸¦ È¹µæÇß½À´Ï´Ù!";
 
-    private string purpose = "ÆÄÃ÷ È¹µæ";
-    public string Purpose => purpose;
-
     public void Interact(GameObject interactor)
     {
         if (interactor.TryGetComponent<PlayerProgressionManager>(out var progressionManager))

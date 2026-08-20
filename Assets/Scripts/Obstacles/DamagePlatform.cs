@@ -80,17 +80,17 @@ public class DamagePlatform : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         CachePlayer(collision.gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         CachePlayer(collision.gameObject);
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnCollisionExit2D(Collision2D collision)
     {
         if (currentPlayerController != null && collision.gameObject == currentPlayerController.gameObject)
         {

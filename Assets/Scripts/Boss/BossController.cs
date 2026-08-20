@@ -42,7 +42,7 @@ public class BossController : MonoBehaviour
     [SerializeField] BossPhase startPhase = BossPhase.Phase1;   // 시작 페이즈
     [SerializeField] float phase1MaxHealth = 100f;              // 페이즈 1 최대 체력
     [SerializeField] float phase2MaxHealth = 150f;              // 페이즈 2 최대 체력
-    [SerializeField] float phase2TransitionHealthPercent = 0.33f; // 페이즈 2 전환 체력 비율
+    [SerializeField] float phase2TransitionHealthPercent = 0.5f;// 페이즈 2 전환 체력 비율
     [SerializeField] bool autoStartBattle = true;               // 자동으로 전투 시작 여부
 
     [Header("Combat Test Settings")]
@@ -250,11 +250,11 @@ public class BossController : MonoBehaviour
     public void InitializePhase(BossPhase phase, float startingHealth, bool silent = false)
     {
         CurrentPhase = phase;
-        if (phase == BossPhase.Phase1) MaxHealth = GetDefaultMaxHealthForPhase(phase);
+        MaxHealth = GetDefaultMaxHealthForPhase(phase);
         CurrentHealth = Mathf.Clamp(startingHealth, 0f, MaxHealth);
         phase2TransitionTriggered = phase != BossPhase.Phase1;
         ApplyPhaseVisual(phase);
-        if (phase == BossPhase.Phase1) RefreshBossHealthUI();
+        RefreshBossHealthUI();
 
         if (!silent)
         {

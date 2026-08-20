@@ -32,13 +32,6 @@ public class LandfillEndingSequence : MonoBehaviour
     [SerializeField] float postDialogueDelay = 0.2f;
     [SerializeField] float postFlashDelay = 0.2f;
 
-    [Header("Mid Dialogue Camera Beat")]
-    [SerializeField] int dialogueCameraBeatTriggerLineIndex = 3;
-    [SerializeField] Vector3 dialogueCameraBeatOffset = new Vector3(0f, 3f, 0f);
-    [SerializeField] float dialogueCameraBeatUpDuration = 0.35f;
-    [SerializeField] float dialogueCameraBeatHoldDuration = 0.1f;
-    [SerializeField] float dialogueCameraBeatReturnDuration = 0.4f;
-
     [Header("Camera Settings")]
     [SerializeField] Vector3 endingCameraTargetPosition = new Vector3(0f, 5f, -10f);
     [SerializeField] float endingZoomOutMultiplier = 2f;
@@ -192,12 +185,6 @@ public class LandfillEndingSequence : MonoBehaviour
 
             yield return WaitForAdvanceRelease();
             yield return WaitForDialogueAdvance();
-
-            if (i == dialogueCameraBeatTriggerLineIndex)
-            {
-                dialogueUI.Hide();
-                yield return PlayDialogueCameraBeat();
-            }
         }
 
         dialogueUI.Hide();
@@ -235,53 +222,6 @@ public class LandfillEndingSequence : MonoBehaviour
 
         float targetSize = initialCameraSize * Mathf.Max(1f, endingZoomOutMultiplier);
         yield return ZoomCamera(startPosition, targetPosition, introCamera.orthographicSize, targetSize, endingCameraMoveDuration);
-    }
-
-    IEnumerator PlayDialogueCameraBeat()
-    {
-        if (introCamera == null)
-        {
-            yield break;
-        }
-
-        Vector3 startPosition = introCamera.transform.position;
-        Vector3 liftedPosition = startPosition + dialogueCameraBeatOffset;
-        liftedPosition.z = startPosition.z;
-
-        yield return MoveCamera(startPosition, liftedPosition, dialogueCameraBeatUpDuration);
-
-        if (dialogueCameraBeatHoldDuration > 0f)
-        {
-            yield return new WaitForSeconds(dialogueCameraBeatHoldDuration);
-        }
-
-        yield return MoveCamera(liftedPosition, startPosition, dialogueCameraBeatReturnDuration);
-    }
-
-    IEnumerator MoveCamera(Vector3 startPosition, Vector3 endPosition, float duration)
-    {
-        if (introCamera == null)
-        {
-            yield break;
-        }
-
-        if (duration <= 0f)
-        {
-            introCamera.transform.position = endPosition;
-            yield break;
-        }
-
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float progress = Mathf.Clamp01(elapsed / duration);
-            float easedProgress = Mathf.SmoothStep(0f, 1f, progress);
-            introCamera.transform.position = Vector3.Lerp(startPosition, endPosition, easedProgress);
-            yield return null;
-        }
-
-        introCamera.transform.position = endPosition;
     }
 
     IEnumerator ZoomCamera(Vector3 startPosition, Vector3 endPosition, float startSize, float endSize, float duration)

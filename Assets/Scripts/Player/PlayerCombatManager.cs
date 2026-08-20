@@ -143,21 +143,6 @@ public class PlayerCombatManager : MonoBehaviour
 
         Vector2 center = GetAttackCenter(armAttackOffset);
         ApplyDamageInBox(center, armAttackSize, armAttackDamage);
-
-        Collider2D[] hits = Physics2D.OverlapBoxAll(center, armAttackSize, 0f);
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.TryGetComponent<ArmBreakableObject>(out var breakable))
-            {
-                breakable.BreakObject();
-            }
-
-            if (hit.TryGetComponent<ArmPushableBox>(out var pushable))
-            {
-                pushable.Push(playerController.FacingDirection);
-            }
-        }
-
         ShowAttackBoxVisual(center, armAttackSize);
     }
 
