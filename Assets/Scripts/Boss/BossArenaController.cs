@@ -39,7 +39,7 @@ public class BossArenaController : MonoBehaviour
     Coroutine shakeCoroutine;                           // 흔들림 코루틴
     bool usingPlatformSetA = true;                      // 현재 사용 중인 발판 세트 (A 또는 B)
     Vector3 originalShakeLocalPosition;                 // 흔들림 대상의 원래 로컬 위치
-    readonly List<GameObject> spawnedDebrisObjects = new List<GameObject>();
+    readonly List<GameObject> spawnedArenaObjects = new List<GameObject>();
 
     void Awake()
     {
@@ -91,7 +91,7 @@ public class BossArenaController : MonoBehaviour
             shakeCoroutine = null;
         }
 
-        ClearSpawnedDebrisObjects();
+        ClearSpawnedArenaObjects();
         ResetShakePosition();
     }
 
@@ -143,7 +143,7 @@ public class BossArenaController : MonoBehaviour
                 shakeCoroutine = null;
             }
 
-            ClearSpawnedDebrisObjects();
+            ClearSpawnedArenaObjects();
             ResetShakePosition();
         }
     }
@@ -214,7 +214,7 @@ public class BossArenaController : MonoBehaviour
                 continue;
             }
 
-            ClearSpawnedDebrisObjects();
+            ClearSpawnedArenaObjects();
 
             Transform spawnPoint = debrisSpawnPoints[Random.Range(0, debrisSpawnPoints.Count)];
             if (spawnPoint == null)
@@ -312,6 +312,7 @@ public class BossArenaController : MonoBehaviour
 
         Vector3 indicatorPosition = (spawnPosition + targetPosition) * 0.5f;
         GameObject warningInstance = Instantiate(debrisWarningIndicatorPrefab, indicatorPosition, Quaternion.identity);
+        RegisterSpawnedArenaObject(warningInstance);
 
         Vector3 warningScale = warningInstance.transform.localScale;
         warningScale.y = Mathf.Abs(spawnPosition.y - targetPosition.y);
@@ -323,7 +324,7 @@ public class BossArenaController : MonoBehaviour
     IEnumerator RunDebrisFallRoutine(Vector3 spawnPosition, Vector3 fallTargetPosition, float floorY)
     {
         GameObject fallingDebris = Instantiate(debrisObjectPrefab, spawnPosition, Quaternion.identity);
-        RegisterSpawnedDebris(fallingDebris);
+        RegisterSpawnedArenaObject(fallingDebris);
 
         BossDebrisObject debrisObject = fallingDebris.GetComponent<BossDebrisObject>();
         if (debrisObject == null)
@@ -340,7 +341,7 @@ public class BossArenaController : MonoBehaviour
                 if (debrisObject.PlayerWasHit)
                 {
                     SpawnDebrisImpactEffect(fallingDebris.transform.position);
-                    UnregisterSpawnedDebris(fallingDebris);
+                    UnregisterSpawnedArenaObject(fallingDebris);
                     Destroy(fallingDebris);
                     yield break;
                 }
@@ -366,7 +367,7 @@ public class BossArenaController : MonoBehaviour
             yield break;
         }
 
-        UnregisterSpawnedDebris(fallingDebris);
+        UnregisterSpawnedArenaObject(fallingDebris);
         Destroy(fallingDebris);
 
         float halfHeight = GetDebrisHalfHeight();
@@ -377,7 +378,7 @@ public class BossArenaController : MonoBehaviour
             fallTargetPosition.z);
 
         GameObject landedDebris = Instantiate(debrisObjectPrefab, landedPosition, Quaternion.identity);
-        RegisterSpawnedDebris(landedDebris);
+        RegisterSpawnedArenaObject(landedDebris);
         // ActivateBonusPlatform();
         SpawnDebrisImpactEffect(fallTargetPosition);
     }
@@ -389,41 +390,44 @@ public class BossArenaController : MonoBehaviour
             return;
         }
 
-        Destroy(Instantiate(debrisImpactEffectPrefab, position, Quaternion.identity), 1.5f);
+        GameObject impactEffect = Instantiate(debrisImpactEffectPrefab, position, Quaternion.identity);
+        RegisterSpawnedArenaObject(impactEffect);
+        Destroy(impactEffect, 1.5f);
     }
 
-    void RegisterSpawnedDebris(GameObject debrisObject)
+    void RegisterSpawnedArenaObject(GameObject spawnedObject)
     {
-        if (debrisObject == null)
+        if (spawnedObject == null)
         {
             return;
         }
 
-        spawnedDebrisObjects.Add(debrisObject);
+        spawnedArenaObjects.Add(spawnedObject);
     }
 
-    void UnregisterSpawnedDebris(GameObject debrisObject)
+    void UnregisterSpawnedArenaObject(GameObject spawnedObject)
     {
-        if (debrisObject == null)
+        if (spawnedObject == null)
         {
             return;
         }
 
-        spawnedDebrisObjects.Remove(debrisObject);
+        spawnedArenaObjects.Remove(spawnedObject);
     }
 
-    void ClearSpawnedDebrisObjects()
+    void ClearSpawnedArenaObjects()
     {
-        for (int i = spawnedDebrisObjects.Count - 1; i >= 0; i--)
+        for (int i = spawnedArenaObjects.Count - 1; i >= 0; i--)
         {
-            GameObject debrisObject = spawnedDebrisObjects[i];
-            if (debrisObject != null)
+            GameObject spawnedObject = spawnedArenaObjects[i];
+            if (spawnedObject != null)
             {
-                Destroy(debrisObject);
+                spawnedObject.SetActive(false);
+                Destroy(spawnedObject);
             }
         }
 
-        spawnedDebrisObjects.Clear();
+        spawnedArenaObjects.Clear();
     }
 
     /* void ActivateBonusPlatform()

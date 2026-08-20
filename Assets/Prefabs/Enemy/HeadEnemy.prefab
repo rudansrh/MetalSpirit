@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPC
   dialogue: {fileID: 11400000, guid: e66c104e7c826394c893152214fa19c6, type: 2}
+  armsDialogue: {fileID: 0}
+  fullBodyDialogue: {fileID: 0}
 --- !u!114 &6642797471223478873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,11 +330,12 @@ MonoBehaviour:
   hitFlashDuration: 0.2
   isPossessed: 0
   nearbyEnemy: {fileID: 0}
+  isAttackingPossessed: 0
   flySpeed: 4
-  detectionRange: 12
+  detectionRange: 6.5
   hoverDistance: 3
-  laserRange: 5
-  laserDamage: 50
+  laserRange: 4
+  laserDamage: 40
   laserThickness: 0.3
   attackCooldown: 3
   attackDelay: 0.8

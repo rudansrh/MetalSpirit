@@ -58,6 +58,13 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
         animationController?.TriggerStun();
     }
 
+    public virtual void PrepareForPossessionDialogue()
+    {
+        isAttackingPossessed = false;
+        CancelHitFlash();
+        StopAllCoroutines();
+    }
+
     protected void UpdateFacingVisual()
     {
         Vector3 localScale = transform.localScale;
@@ -191,7 +198,7 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
             {
                 if (contact.normal.y > 0.1f)
                 {
-                    playerController.isJump = false;
+                    playerController.resetJump();
                     return;
                 }
             }
