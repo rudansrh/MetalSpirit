@@ -9,10 +9,11 @@ public class PortalSpawnPoint : MonoBehaviour
     {
         if (ScenePortal.TargetSpawnPointID == spawnPointID)
         {
-            if (PlayerController.Instance != null)
+            if (PlayerController.Instance != null && PlayerController.Instance.isMovingToNextScene)
             {
                 PlayerController.Instance.transform.position = this.transform.position;
                 Debug.Log("¸Ê ÀÌµ¿ ¿Ï·á");
+                PlayerController.Instance.isMovingToNextScene = false;
             }
         }
     }

@@ -24,6 +24,7 @@ public class ScenePortal : MonoBehaviour
         {
             Debug.Log($"{targetSceneName} 씬으로 이동합니다...");
 
+            player.isMovingToNextScene = true;
             TargetSpawnPointID = spawnPointID;
             SceneManager.LoadScene(targetSceneName);
         }

@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
     bool isHeadEnemy = false;
 
     public int lastSavedSlot = 0;
+    public bool isMovingToNextScene = false;
 
     public CanInteractUI canInteractUI;
     public GameObject possessChecker;
@@ -836,6 +837,10 @@ public class PlayerController : MonoBehaviour
         if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)
         {
             nearbyInteractable.Interact(this.gameObject);
+            if (IsPossessing)
+            {
+                transform.position = rigid.GetComponent<Transform>().position;
+            }
         }
         else
         {
