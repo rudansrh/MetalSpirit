@@ -441,7 +441,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -614,23 +614,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 915579692725001747, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 915579692725001747, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559645704539075347, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559645704539075347, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1559645704539075347, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2433729091308265590, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.y
@@ -674,7 +674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2993065898900824811, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 79.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2993065898900824811, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -774,27 +774,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1703
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 69.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 851.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7933547745598521362, guid: 16136226647be024a814ab3b9117b636, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -44.505
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2424,7 +2424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 0
+  consumeItemOnResolve: 1
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -2434,7 +2434,19 @@ MonoBehaviour:
   inventoryLockedLogMessage: Inventory use is not available yet.
   onResolved:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1868289804}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onFailed:
     m_PersistentCalls:
       m_Calls: []
@@ -2721,6 +2733,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: SavePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1358068874}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSlotUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5911399930206474754, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2971,19 +3011,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1864099236383403945, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1864099236383403945, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3188713840077382428, guid: 0a8e4069e2557458bbca6563a377ab42, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3291,7 +3331,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3849,7 +3889,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4106,23 +4146,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3601035562079317047, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3601035562079317047, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3601035562079317047, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4808301645143632040, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4808301645143632040, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5311403931054829113, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_Name
@@ -4142,23 +4182,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6877721216010344740, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6877721216010344740, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8106894084088724488, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8106894084088724488, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8106894084088724488, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8135071045488426706, guid: 1ee18bf5cffad4dbeb9a8be6c6b595c7, type: 3}
       propertyPath: m_Pivot.x
@@ -4340,6 +4380,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
   bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
   interactKeys: {fileID: 1164083954}
+--- !u!1 &696848673 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+  m_PrefabInstance: {fileID: 1442610235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &701444397 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+  m_PrefabInstance: {fileID: 748948232}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &748948232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4445,6 +4495,10 @@ PrefabInstance:
       propertyPath: documentPanel
       value: 
       objectReference: {fileID: 88181455}
+    - target: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4810,7 +4864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
-  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
+  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
   Items: {fileID: 1059448246}
 --- !u!114 &857560014
 MonoBehaviour:
@@ -5243,6 +5297,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   LegParts: {fileID: 0}
+  passwordId: 1
 --- !u!61 &1058990484
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5522,7 +5577,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6556,7 +6611,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6903,6 +6958,10 @@ PrefabInstance:
       propertyPath: documentPanel
       value: 
       objectReference: {fileID: 88181455}
+    - target: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7477,7 +7536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 0
+  consumeItemOnResolve: 1
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -7487,7 +7546,19 @@ MonoBehaviour:
   inventoryLockedLogMessage: Inventory use is not available yet.
   onResolved:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 696848673}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onFailed:
     m_PersistentCalls:
       m_Calls: []
@@ -7846,6 +7917,10 @@ PrefabInstance:
       propertyPath: documentPanel
       value: 
       objectReference: {fileID: 88181455}
+    - target: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7874,7 +7949,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1460168073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8940,7 +9015,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 0
+  consumeItemOnResolve: 1
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -8950,7 +9025,19 @@ MonoBehaviour:
   inventoryLockedLogMessage: Inventory use is not available yet.
   onResolved:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 701444397}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onFailed:
     m_PersistentCalls:
       m_Calls: []
@@ -9560,7 +9647,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 4898526194757454730, guid: ed0f0ee0527fea9409c33d9b6ae8046f, type: 3}
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9753,6 +9840,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1092765697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1868289804 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
+  m_PrefabInstance: {fileID: 1295024884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1880727991
 GameObject:
   m_ObjectHideFlags: 0
@@ -10467,7 +10559,7 @@ PrefabInstance:
     - target: {fileID: 9213602234490616068, guid: a2ee90be6cbfc438f8c843fc5d19e123, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

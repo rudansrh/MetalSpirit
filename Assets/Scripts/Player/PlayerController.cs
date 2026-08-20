@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvincibility = false;
 
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
+    public int[] unlockedPassword = new int[4] {0,0,0,0};
 
     public bool isPlayingMinigame = false;
     public bool isTalking = false;
@@ -136,14 +137,17 @@ public class PlayerController : MonoBehaviour
             UpdateFormState();
             UpdateFacingVisual();
             UpdateAnimationState();
-
-            cameraFollow.Instance.SetTarget(transform);
-            SaveManager.Instance.SaveGame(0);
         }
         else if (instance != this)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        cameraFollow.Instance.SetTarget(transform);
+        SaveManager.Instance.SaveGame(0);
     }
 
     void OnDestroy()
@@ -813,15 +817,20 @@ public class PlayerController : MonoBehaviour
     //E키 상호작용
     public void OnInteract(InputValue value)
     {
+        if (!value.isPressed) return;
+        
         Debug.Log("E키 입력 감지됨!");
 
-        if (value.isPressed && PasswordUIManager.IsUiOpen)
+        if (PasswordUIManager.IsUiOpen)
         {
             PasswordUIManager.Instance.Close();
             return;
         }
-
-        if (!value.isPressed) return;
+        else if(SaveSlotUIManager.Instance.isOpen)
+        {
+            SaveSlotUIManager.Instance.CloseSlotUI();
+            return;
+        }
 
         // E키가 눌렸고, 상호작용 가능한 객체가 있으며, 영혼 상태가 아닐 때만 작동
         if (nearbyInteractable != null /*&& !abilityManager.isSoul*/)

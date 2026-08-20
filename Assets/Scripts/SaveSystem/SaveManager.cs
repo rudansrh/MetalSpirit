@@ -9,6 +9,7 @@ public class SaveManager : MonoBehaviour
 
     private SaveData currentLoadData;
     private int lastSlot = 0;
+    private bool playerRevive = false;
 
     private void Awake()
     {
@@ -64,9 +65,10 @@ public class SaveManager : MonoBehaviour
                 }
                 data.isSoulState = playerAbility.isSoul;
             }
+            data.unlockedPassword = PlayerController.Instance.unlockedPassword;
+            PlayerController.Instance.lastSavedSlot = slotIndex;
         }
 
-        PlayerController.Instance.lastSavedSlot = slotIndex;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
@@ -112,10 +114,22 @@ public class SaveManager : MonoBehaviour
             {
                 health.LoadHealthData(currentLoadData.playerHp);
                 health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+
+                if(playerRevive)
+                {
+                    health.LoadHealthData(health.MaxHealth);
+                }
             }
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
+            {
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
+
+                if (playerRevive)
+                {
+                    stamina.LoadStaminaData(stamina.MaxStamina);
+                }
+            }
 
             if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
                 progressionManager.SetUnlockedStage(currentLoadData.currentPlayerStage);
@@ -130,8 +144,12 @@ public class SaveManager : MonoBehaviour
             }
 
             PlayerController.Instance.lastSavedSlot = lastSlot;
+            PlayerController.Instance.unlockedPassword = currentLoadData.unlockedPassword;
+            PlayerController.Instance.isUIopen = false;
+            PlayerController.Instance.canMove = true;
         }
         currentLoadData = null;
+        playerRevive = false;
     }
 
     public void YouDied()
@@ -144,6 +162,7 @@ public class SaveManager : MonoBehaviour
         lastSlot = PlayerController.Instance.lastSavedSlot;
         string json = File.ReadAllText(GetSaveFilePath(PlayerController.Instance.lastSavedSlot));
         currentLoadData = JsonUtility.FromJson<SaveData>(json);
+        playerRevive = true;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;

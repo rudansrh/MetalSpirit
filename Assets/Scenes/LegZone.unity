@@ -2171,6 +2171,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.37
@@ -3537,6 +3541,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 767258118}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSlotUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5911399930206474754, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -3620,7 +3652,7 @@ PrefabInstance:
     - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.14
@@ -7647,7 +7679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
-  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
   Items: {fileID: 694665053}
 --- !u!114 &1720966236
 MonoBehaviour:
@@ -8129,6 +8161,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   LegParts: {fileID: 222213390}
+  passwordId: 0
 --- !u!61 &1793847964
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -9157,6 +9190,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.48
