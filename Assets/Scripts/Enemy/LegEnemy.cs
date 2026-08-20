@@ -64,7 +64,6 @@ public class LegEnemy : Enemy
 
             if (playerController.isTalking)
             {
-                rb.linearVelocity = Vector2.zero;
                 UpdateMoveAnimation(false);
                 return;
             }
@@ -222,21 +221,6 @@ public class LegEnemy : Enemy
         rb.linearVelocity = new Vector2(facingDirection * speed, rb.linearVelocity.y);
         CheckJumpObstacle();
         UpdateMoveAnimation(Mathf.Abs(rb.linearVelocityX) > 0.05f);
-    }
-
-    public override void PrepareForPossessionDialogue()
-    {
-        base.PrepareForPossessionDialogue();
-        isAttacking = false;
-        found = false;
-        nearbyEnemy = null;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
-
-        UpdateMoveAnimation(false);
     }
 
     private void CheckJumpObstacle()

@@ -66,7 +66,6 @@ public class BodyEnemy : Enemy
 
             if (playerController.isTalking)
             {
-                rb.linearVelocity = Vector2.zero;
                 UpdateMoveAnimation(false);
                 return;
             }
@@ -214,22 +213,6 @@ public class BodyEnemy : Enemy
         yield return new WaitForSeconds(0.5f);
 
         isAttacking = false;
-        UpdateMoveAnimation(false);
-    }
-
-    public override void PrepareForPossessionDialogue()
-    {
-        base.PrepareForPossessionDialogue();
-        isAttacking = false;
-        found = false;
-        nearbyEnemy = null;
-        gameObject.layer = thisLayer;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
-
         UpdateMoveAnimation(false);
     }
 

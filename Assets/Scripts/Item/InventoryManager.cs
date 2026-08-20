@@ -20,43 +20,9 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public bool AddItem(ItemType type, float amount, string itemText = "")
+    public bool AddItem(ItemType type, float amount)
     {
-        return AddItem(type, amount, 1, itemText);
-    }
-
-    public bool AddItem(ItemType type, float amount, int count, string itemText = "")
-    {
-        if (type == ItemType.Empty || count <= 0)
-        {
-            return false;
-        }
-
-        // 같은 아이템 찾기
-        for (int i = 0; i < items.Length; i++)
-        {
-            if (items[i].type != ItemType.Empty && items[i].type == type)
-            {
-                items[i].count += count;
-                items[i].amount = amount;
-                if (!string.IsNullOrEmpty(itemText)) items[i].itemText = itemText; // 텍스트 갱신
-                RefreshInventoryUI();
-                return true;
-            }
-        }
-
-        // 빈 슬롯 찾기
-        for (int i = 0; i < items.Length; i++)
-        {
-            if (items[i].type == ItemType.Empty)
-            {
-                items[i] = new InventoryItem(type, amount, count, itemText); // 텍스트 저장
-                RefreshInventoryUI();
-                return true;
-            }
-        }
-        Debug.Log("인벤토리 가득 참");
-        return false;
+        return AddItem(type, amount, 1);
     }
 
     public bool HasItem(ItemType type, int count = 1)
@@ -195,29 +161,6 @@ public class InventoryManager : MonoBehaviour
                 player.GetComponent<Stamina>().RestoreStamina(item.amount);
                 break;
 
-            case ItemType.BinaryCode:
-                if (DocumentUIManager.Instance != null)
-                {
-                    if (DocumentUIManager.Instance.isOpen)
-                    {
-                        DocumentUIManager.Instance.CloseDocument();
-                        if (PlayerController.Instance != null)
-                        {
-                            PlayerController.Instance.isUIopen = false; // 조작 다시 활성화
-                        }
-                    }
-                    else
-                    {
-                        DocumentUIManager.Instance.ShowDocument(item.itemText, null);
-                        if (PlayerController.Instance != null)
-                        {
-                            PlayerController.Instance.isUIopen = true; // 읽는 동안 조작 막기
-                        }
-                    }
-                }
-                shouldConsume = false;
-                break;
-
             default:
                 shouldConsume = false;
                 Debug.Log($"{item.type} is not consumed by direct slot use.");
@@ -235,7 +178,6 @@ public class InventoryManager : MonoBehaviour
         {
             items[index].type = ItemType.Empty;
             items[index].amount = 0f;
-            items[index].itemText = "";
         }
         RefreshInventoryUI();
     }

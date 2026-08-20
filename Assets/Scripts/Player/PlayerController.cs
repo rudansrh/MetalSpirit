@@ -89,10 +89,8 @@ public class PlayerController : MonoBehaviour
     public CanInteractUI canInteractUI;
     public GameObject possessChecker;
     public static PlayerController Instance => instance == null ? null : instance;
-    public bool IsAutoDepossessDialogueActive => isAwaitingAutoDepossessAfterDialogue;
 
     bool isSubscribedToProgressionState = false;
-    bool isAwaitingAutoDepossessAfterDialogue = false;
     readonly PlayerMovementBoundsController movementBoundsController = new PlayerMovementBoundsController();
 
     void Awake()
@@ -152,7 +150,6 @@ public class PlayerController : MonoBehaviour
 
     void OnDestroy()
     {
-        UnsubscribeAutoDepossessDialogueHandler();
         UnsubscribeFromProgressionState();
 
         if (instance == this)
@@ -168,7 +165,6 @@ public class PlayerController : MonoBehaviour
 
     void OnDisable()
     {
-        UnsubscribeAutoDepossessDialogueHandler();
         UnsubscribeFromProgressionState();
     }
 
@@ -693,15 +689,10 @@ public class PlayerController : MonoBehaviour
             isHeadEnemy = true;
             rigid.gravityScale = 0;
         }
-
-        TryStartPossessedEnemySelfDialogue(targetEnemy);
     }
 
     public void DepossessFromEnemy()
     {
-        isAwaitingAutoDepossessAfterDialogue = false;
-        UnsubscribeAutoDepossessDialogueHandler();
-
         isPossessing = false;
         possessGauge.possessGaugeHide();
         transform.position = rigid.GetComponent<Transform>().position;
@@ -733,80 +724,6 @@ public class PlayerController : MonoBehaviour
         {
             rigid.gravityScale = originalGravity;
         }
-    }
-
-    void TryStartPossessedEnemySelfDialogue(Enemy possessedEnemy)
-    {
-        if (possessedEnemy == null || DialogueManager.Instance == null || progressionManager == null)
-        {
-            return;
-        }
-
-        if (IsSoulForm() || progressionManager.EffectiveUnlockedStage != PlayerStage.FullBody)
-        {
-            return;
-        }
-
-        if (!possessedEnemy.TryGetComponent<NPC>(out var npc))
-        {
-            return;
-        }
-
-        UnsubscribeAutoDepossessDialogueHandler();
-        isAwaitingAutoDepossessAfterDialogue = StartDialogueWhilePossessing(npc);
-
-        if (!isAwaitingAutoDepossessAfterDialogue)
-        {
-            canMove = true;
-            return;
-        }
-
-        DialogueManager.Instance.DialogueEnded += HandlePossessionDialogueEnded;
-    }
-
-    void HandlePossessionDialogueEnded(DialogueData _)
-    {
-        if (!isAwaitingAutoDepossessAfterDialogue)
-        {
-            return;
-        }
-
-        canMove = false;
-        StopMovement();
-        isAwaitingAutoDepossessAfterDialogue = false;
-        UnsubscribeAutoDepossessDialogueHandler();
-
-        if (isPossessing)
-        {
-            DepossessFromEnemy();
-        }
-    }
-
-    void UnsubscribeAutoDepossessDialogueHandler()
-    {
-        if (DialogueManager.Instance != null)
-        {
-            DialogueManager.Instance.DialogueEnded -= HandlePossessionDialogueEnded;
-        }
-    }
-
-    bool StartDialogueWhilePossessing(NPC npc)
-    {
-        if (npc == null)
-        {
-            return false;
-        }
-
-        if (rigid != null && rigid.TryGetComponent<Enemy>(out var controlledEnemy))
-        {
-            controlledEnemy.PrepareForPossessionDialogue();
-        }
-
-        transform.position = rigid.GetComponent<Transform>().position;
-        canMove = false;
-        rigid.linearVelocity = Vector3.zero;
-        Debug.Log("대화시작");
-        return npc.Talk();
     }
 
     public Vector2 GetPossessedEnemyPosition()
@@ -847,7 +764,11 @@ public class PlayerController : MonoBehaviour
                 return;
             }
 
-            StartDialogueWhilePossessing(controlledEnemy.nearbyEnemy.GetComponent<NPC>());
+            transform.position = rigid.GetComponent<Transform>().position;
+            canMove = false;
+            rigid.linearVelocity = Vector3.zero;
+            Debug.Log("대화시작");
+            controlledEnemy.nearbyEnemy.GetComponent<NPC>().Talk();
         }
         canInteractUI.hideInterectUI();
         rigid.linearVelocity = Vector2.zero;

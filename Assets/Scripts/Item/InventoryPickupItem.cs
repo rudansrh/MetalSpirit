@@ -9,10 +9,6 @@ public class InventoryPickupItem : MonoBehaviour, IInteractable
     [SerializeField] bool requireInventoryAbility = true;
     [SerializeField] bool destroyOnPickup = true;
 
-    [Header("Document Settings")]
-    [TextArea(5, 10)]
-    [SerializeField] string documentText = "";
-
     private string purpose = "아이템 획득";
     public string Purpose => purpose;
 
@@ -37,7 +33,7 @@ public class InventoryPickupItem : MonoBehaviour, IInteractable
             return;
         }
 
-        if (!inventoryManager.AddItem(itemType, itemAmount, itemCount, documentText))
+        if (!inventoryManager.AddItem(itemType, itemAmount, itemCount))
         {
             Debug.Log($"{name}: Failed to add {itemType} to inventory.");
             return;

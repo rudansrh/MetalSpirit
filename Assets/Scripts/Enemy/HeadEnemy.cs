@@ -63,7 +63,6 @@ public class HeadEnemy : Enemy
 
             if (playerController.isTalking)
             {
-                rb.linearVelocity = Vector2.zero;
                 UpdateMoveAnimation(false);
                 return;
             }
@@ -249,26 +248,6 @@ public class HeadEnemy : Enemy
 
         lineRenderer.enabled = false;
         isAttacking = false;
-        UpdateMoveAnimation(false);
-    }
-
-    public override void PrepareForPossessionDialogue()
-    {
-        base.PrepareForPossessionDialogue();
-        isAttacking = false;
-        found = false;
-        nearbyEnemy = null;
-
-        if (rb != null)
-        {
-            rb.linearVelocity = Vector2.zero;
-        }
-
-        if (lineRenderer != null)
-        {
-            lineRenderer.enabled = false;
-        }
-
         UpdateMoveAnimation(false);
     }
 
