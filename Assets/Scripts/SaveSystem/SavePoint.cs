@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class SavePoint : MonoBehaviour, IInteractable
 {
+    private string purpose = "¼¼ÀÌºê";
+    public string Purpose => purpose;
     public void Interact(GameObject interactor)
     {
         if (SaveSlotUIManager.Instance == null) return;

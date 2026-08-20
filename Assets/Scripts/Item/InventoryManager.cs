@@ -94,6 +94,30 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
+    public void RemoveItem(ItemType type, int count = 1)
+    {
+        if (type == ItemType.Empty || count <= 0)
+        {
+            return;
+        }
+
+        int slotIndex = FindItemSlotIndex(type);
+        if (slotIndex < 0 || items[slotIndex].count < count)
+        {
+            return;
+        }
+
+        items[slotIndex].count -= count;
+        if (items[slotIndex].count <= 0)
+        {
+            items[slotIndex].type = ItemType.Empty;
+            items[slotIndex].amount = 0f;
+            items[slotIndex].count = 1;
+        }
+
+        RefreshInventoryUI();
+    }
+
     #region OnUseItem
     public void OnUseSlot1(InputValue value)
     {
@@ -150,7 +174,7 @@ public class InventoryManager : MonoBehaviour
 
         Debug.Log("아이템 사용");
 
-        if(--items[index].count == 0)
+        if (--items[index].count == 0)
         {
             items[index].type = ItemType.Empty;
             items[index].amount = 0f;
@@ -205,5 +229,10 @@ public class InventoryManager : MonoBehaviour
         }
 
         return -1;
+    }
+    
+    public void RemoveScissors()
+    {
+        RemoveItem(ItemType.Scissors, 1);
     }
 }
