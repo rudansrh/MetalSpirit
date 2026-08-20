@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 12aab5d832e29f746aecfd40661144b5
+guid: d42beec1be1fb43c5ac9f467215867d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4184456579310426622
-    second: headbodyzone03_0
-  - first:
-      213: 6940237810589558502
-    second: headbodyzone03_1
-  - first:
-      213: 1432949449457565079
-    second: headbodyzone03_2
-  - first:
-      213: -9193116213121369888
-    second: headbodyzone03_3
+      213: 4204266804691735649
+    second: bosszone_R_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -109,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: headbodyzone03_0
+      name: bosszone_R_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 2160
-        height: 1248
+        x: 737
+        y: 521
+        width: 98
+        height: 110
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 206e72c49e2dde5c0800000000000000
-      internalID: -4184456579310426622
+      spriteID: 1641e9a326e885a30800000000000000
+      internalID: 4204266804691735649
       vertices: []
       indices: 
       edges: []
@@ -134,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 3ffeec98f25f8408d8d6082a7c6272a8
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -142,11 +133,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries:
-      - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":2160.0,"y":1248.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+      entries: []
     nameFileIdTable:
-      headbodyzone03_0: -4184456579310426622
+      bosszone_R_0: 4204266804691735649
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
