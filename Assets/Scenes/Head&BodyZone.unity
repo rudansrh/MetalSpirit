@@ -4283,6 +4283,34 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1203787647}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseSlotUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SaveSlotUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5418984531051588621, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5911399930206474754, guid: 930bcff67fe1fee4c96fd4dd9402fc5f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -11384,6 +11412,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  LegParts: {fileID: 0}
+  passwordId: 2
 --- !u!1 &1818143229
 GameObject:
   m_ObjectHideFlags: 0
@@ -11436,6 +11466,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  LegParts: {fileID: 0}
+  passwordId: 3
 --- !u!61 &1818143232
 BoxCollider2D:
   m_ObjectHideFlags: 0

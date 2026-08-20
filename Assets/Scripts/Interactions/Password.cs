@@ -14,6 +14,7 @@ public class Password : MonoBehaviour, IInteractable
     [SerializeField] bool stayUnlockedAfterSuccess = true;
     [SerializeField] UnityEvent onPasswordMatched;
     [SerializeField] GameObject LegParts;
+    [SerializeField] int passwordId = 0;
 
     private string purpose = "비밀번호 입력";
     public string Purpose => purpose;
@@ -33,14 +34,17 @@ public class Password : MonoBehaviour, IInteractable
 
     void Start()
     {
-        if(PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
+        if (PlayerController.Instance != null)
         {
-            if(progressionManager.UnlockedStage >= PlayerStage.Legs)
+            if(PlayerController.Instance.unlockedPassword[passwordId] == 1)
             {
                 isUnlocked = true;
                 onPasswordMatched?.Invoke();
-                LegParts.SetActive(false);
                 gameObject.SetActive(false);
+                if(LegParts != null && PlayerController.Instance.GetComponent<PlayerProgressionManager>().UnlockedStage >= PlayerStage.Legs)
+                {
+                    LegParts.SetActive(false);
+                }
             }
         }
     }
@@ -85,6 +89,7 @@ public class Password : MonoBehaviour, IInteractable
             }
 
             onPasswordMatched?.Invoke();
+            PlayerController.Instance.unlockedPassword[passwordId] = 1;
             return true;
         }
 

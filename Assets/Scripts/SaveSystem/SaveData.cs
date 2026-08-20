@@ -18,5 +18,7 @@ public class SaveData
 
     //인벤토리 저장
     public InventoryItem[] inventoryItems;
+    // 비밀번호 잠금 해제 상태 저장
+    public int[] unlockedPassword = new int[4] { 0, 0, 0, 0 };
 
 }
