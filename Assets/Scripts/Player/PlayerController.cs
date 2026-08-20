@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public bool isInvincibility = false;
 
     public bool isPossessing { get; private set; } = false; //에너미한테 빙의중인지 판단
+    public int[] unlockedPassword = new int[4] {0,0,0,0};
 
     public bool isPlayingMinigame = false;
     public bool isTalking = false;
