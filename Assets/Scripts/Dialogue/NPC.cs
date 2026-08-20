@@ -6,16 +6,17 @@ public class NPC : MonoBehaviour
     [SerializeField] private DialogueData armsDialogue;
     [SerializeField] private DialogueData fullBodyDialogue;
 
-    public void Talk()
+    public bool Talk()
     {
         DialogueData selectedDialogue = ResolveDialogue();
 
         if (selectedDialogue == null || DialogueManager.Instance == null)
         {
-            return;
+            return false;
         }
 
         DialogueManager.Instance.StartDialogue(selectedDialogue, transform);
+        return true;
     }
 
     private DialogueData ResolveDialogue()

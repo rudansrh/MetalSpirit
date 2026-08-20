@@ -58,6 +58,13 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
         animationController?.TriggerStun();
     }
 
+    public virtual void PrepareForPossessionDialogue()
+    {
+        isAttackingPossessed = false;
+        CancelHitFlash();
+        StopAllCoroutines();
+    }
+
     protected void UpdateFacingVisual()
     {
         Vector3 localScale = transform.localScale;
