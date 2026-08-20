@@ -875,6 +875,11 @@ public class PlayerController : MonoBehaviour
         touchInteractable(collision);
 
         if (collision.CompareTag("Wall")) insideWall++;
+
+        if (collision.CompareTag("Water"))
+        {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

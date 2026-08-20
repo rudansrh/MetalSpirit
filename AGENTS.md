@@ -8,7 +8,7 @@
   - Layers:
     - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy, Box, PlayerChild
 - Active game object:
-  - Name: TutorialPanel
+  - Name: Renderer
   - Tag: Untagged
   - Layer: UI
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
