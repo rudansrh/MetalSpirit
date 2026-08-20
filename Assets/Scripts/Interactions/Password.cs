@@ -7,6 +7,7 @@ public class Password : MonoBehaviour, IInteractable
 
     [Header("Password Settings")]
     [SerializeField] string correctPassword = "";
+    [SerializeField] string defaultMessage = "암호를 입력하세요. (E / ESC 닫기)";
     [SerializeField] string successMessage = "암호가 일치합니다.";
     [SerializeField] string failureMessage = "암호가 틀렸습니다.";
     [SerializeField] float reamainTime = 1.5f;
@@ -14,12 +15,15 @@ public class Password : MonoBehaviour, IInteractable
     [SerializeField] UnityEvent onPasswordMatched;
     [SerializeField] GameObject LegParts;
 
+    private string purpose = "비밀번호 입력";
+    public string Purpose => purpose;
+
     bool isUnlocked;
     Collider2D triggerCollider;
     Collider2D soulBlockingCollider;
 
     public int MaxInputLength => string.IsNullOrEmpty(correctPassword) ? 8 : correctPassword.Length;
-    public string DefaultMessage => "암호를 입력하세요. (E / ESC 닫기)";
+    public string DefaultMessage => defaultMessage;
     public float ReamainTime => reamainTime;
 
     void Awake()
