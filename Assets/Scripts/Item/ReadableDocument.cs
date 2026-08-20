@@ -7,9 +7,6 @@ public class ReadableDocument : MonoBehaviour, IInteractable
     public string documentContent = "이곳에 보고서나 문서의 내용을 입력하세요.";
     public DialogueTextElement[] documentTextElements;
 
-    private string purpose = "문서 읽기";
-    public string Purpose => purpose;
-
     public void Interact(GameObject interactor)
     {
         if (DocumentUIManager.Instance == null)
