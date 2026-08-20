@@ -9,6 +9,7 @@ public class SaveManager : MonoBehaviour
 
     private SaveData currentLoadData;
     private int lastSlot = 0;
+    private bool playerRevive = false;
 
     private void Awake()
     {
@@ -112,10 +113,22 @@ public class SaveManager : MonoBehaviour
             {
                 health.LoadHealthData(currentLoadData.playerHp);
                 health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+
+                if(playerRevive)
+                {
+                    health.LoadHealthData(health.MaxHealth);
+                }
             }
 
             if (PlayerController.Instance.TryGetComponent<Stamina>(out var stamina))
+            {
                 stamina.LoadStaminaData(currentLoadData.playerStamina);
+
+                if (playerRevive)
+                {
+                    stamina.LoadStaminaData(stamina.MaxStamina);
+                }
+            }
 
             if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
                 progressionManager.SetUnlockedStage(currentLoadData.currentPlayerStage);
@@ -132,6 +145,7 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.lastSavedSlot = lastSlot;
         }
         currentLoadData = null;
+        playerRevive = false;
     }
 
     public void YouDied()
@@ -144,6 +158,7 @@ public class SaveManager : MonoBehaviour
         lastSlot = PlayerController.Instance.lastSavedSlot;
         string json = File.ReadAllText(GetSaveFilePath(PlayerController.Instance.lastSavedSlot));
         currentLoadData = JsonUtility.FromJson<SaveData>(json);
+        playerRevive = true;
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
         SceneManager.sceneLoaded += OnSceneLoaded;

@@ -43,10 +43,6 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
         {
             PlayerIsDead = true;
             OnDeath?.Invoke();
-            if (SaveManager.Instance != null)
-            {
-                OnDeath -= SaveManager.Instance.YouDied;
-            }
             return;
         }
 
