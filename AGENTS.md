@@ -2,13 +2,13 @@
 - Project name: MetalSpirit
 - Unity version: Unity 6000.4.9f1
 - Active scene:
-  - Name: BossPhase
+  - Name: LandfillEnding
   - Tags:
     - Untagged, Respawn, Finish, EditorOnly, MainCamera, Player, GameController, Wall, Enemy, Floor, Document, Parts
   - Layers:
-    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy
+    - Default, TransparentFX, Ignore Raycast, Water, UI, Wall, Player, MiniMap, Enemy, Box, PlayerChild
 - Active game object:
-  - Name: MapUIPanel
+  - Name: EndingManager
   - Tag: Untagged
-  - Layer: UI
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->

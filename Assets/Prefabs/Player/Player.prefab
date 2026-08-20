@@ -199,7 +199,7 @@ MonoBehaviour:
   soulSpeed: 10
   jumpForce: 8
   wallJumpDelay: 0.3
-  wallClimbSpeed: 1.5
+  wallClimbSpeed: 2
   wallClimbHoldStaminaCostPerSecond: 2
   wallClimbMoveStaminaCostPerSecond: 3
   wallClimbFallOffDistance: 0.15
@@ -222,7 +222,9 @@ MonoBehaviour:
   isPlayingMinigame: 0
   isTalking: 0
   isUIopen: 0
+  lastSavedSlot: 0
   canInteractUI: {fileID: 0}
+  possessChecker: {fileID: 0}
 --- !u!114 &9006375917508010104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,7 +593,7 @@ GameObject:
   - component: {fileID: 5884814833920840980}
   - component: {fileID: 5984517714579217413}
   - component: {fileID: 90469483820837130}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PossessChecker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +659,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 1}
+  m_Size: {x: 2, y: 1.5}
   m_EdgeRadius: 0
 --- !u!114 &90469483820837130
 MonoBehaviour:

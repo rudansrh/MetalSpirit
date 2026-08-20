@@ -24,12 +24,12 @@ public class MossObstacle : MonoBehaviour, IInteractable
                     objectToReveal.SetActive(true);
                 }
 
-                // ÀÌ³¢ Á¦°Å
+                // Ã€ÃŒÂ³Â¢ ÃÂ¦Â°Ã…
                 Destroy(gameObject);
             }
             else
             {
-                Debug.Log("[°¡À§]°¡ ÇÊ¿ä");
+                Debug.Log("[Â°Â¡Ã€Â§]Â°Â¡ Ã‡ÃŠÂ¿Ã¤");
             }
         }
     }
