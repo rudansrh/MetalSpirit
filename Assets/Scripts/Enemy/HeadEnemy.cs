@@ -208,6 +208,7 @@ public class HeadEnemy : Enemy
         lineRenderer.endWidth = laserThickness;
         lineRenderer.startColor = Color.red;
         lineRenderer.endColor = Color.red;
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyLazer); //***
 
         lineRenderer.SetPosition(0, firePoint);
         lineRenderer.SetPosition(1, firePoint + aimDirection * laserRange);
@@ -319,6 +320,7 @@ public class HeadEnemy : Enemy
 
         PlayHitFlash();
         animationController?.TriggerHit();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyHit); //***
     }
 
     private void StartDeath()
@@ -331,6 +333,7 @@ public class HeadEnemy : Enemy
         isDying = true;
         isAttacking = false;
         CancelHitFlash();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDeath); //***
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

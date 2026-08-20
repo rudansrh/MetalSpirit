@@ -24,6 +24,11 @@ public class PlayerDamageHandler : MonoBehaviour, IDamageable
         _health.ReduceHealth(damage);
 
         if (type == DamageType.Normal)
+        {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerHit); //***
+        }
+
+        if (type == DamageType.Normal)
         { 
             StartCoroutine(playerKnockBack());
         }

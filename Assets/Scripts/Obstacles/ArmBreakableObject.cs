@@ -4,12 +4,12 @@ using UnityEngine;
 public class ArmBreakableObject : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private int requiredHits = 3; // ºÎ¼ö±â À§ÇØ ÇÊ¿äÇÑ Å¸°Ý È½¼ö
+    [SerializeField] private int requiredHits = 3; // ÂºÃŽÂ¼Ã¶Â±Ã¢ Ã€Â§Ã‡Ã˜ Ã‡ÃŠÂ¿Ã¤Ã‡Ã‘ Ã…Â¸Â°Ã ÃˆÂ½Â¼Ã¶
     private int currentHits = 0;
 
     [Header("Shake Effect")]
-    [SerializeField] private float shakeDuration = 0.2f;  // Èçµé¸®´Â ½Ã°£
-    [SerializeField] private float shakeMagnitude = 0.1f; // Èçµé¸®´Â °­µµ(°Å¸®)
+    [SerializeField] private float shakeDuration = 0.2f;  // ÃˆÃ§ÂµÃ©Â¸Â®Â´Ã‚ Â½ÃƒÂ°Â£
+    [SerializeField] private float shakeMagnitude = 0.1f; // ÃˆÃ§ÂµÃ©Â¸Â®Â´Ã‚ Â°Â­ÂµÂµ(Â°Ã…Â¸Â®)
 
     private Vector3 originalPosition;
     private Coroutine shakeCoroutine;
@@ -25,6 +25,7 @@ public class ArmBreakableObject : MonoBehaviour
 
         if (currentHits >= requiredHits)
         {
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.BoxOpen); //***
             Destroy(gameObject);
         }
         else

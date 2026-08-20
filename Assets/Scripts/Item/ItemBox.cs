@@ -10,6 +10,7 @@ public class ItemBox : MonoBehaviour, IBreakable
         if(hp <= 0)
         {
             GetComponent<DropItem>().dropItem();
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.BoxOpen); //***
             gameObject.SetActive(false);
         }
     }

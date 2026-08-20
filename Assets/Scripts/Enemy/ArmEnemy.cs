@@ -148,6 +148,7 @@ public class ArmEnemy : Enemy
         isAttacking = true;
         lastAttackTime = Time.time;
         animationController?.TriggerAttack();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyPunch); //***
 
         Debug.Log("적 공격 준비!");
 
@@ -336,6 +337,7 @@ public class ArmEnemy : Enemy
 
         PlayHitFlash();
         animationController?.TriggerHit();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyHit); //***
     }
 
     private void StartDeath()
@@ -348,6 +350,7 @@ public class ArmEnemy : Enemy
         isDying = true;
         isAttacking = false;
         CancelHitFlash();
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.EnemyDeath); //***
         StopAllCoroutines();
         StartCoroutine(DeathRoutine());
     }

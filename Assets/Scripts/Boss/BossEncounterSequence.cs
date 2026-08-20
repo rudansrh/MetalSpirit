@@ -442,6 +442,8 @@ public class BossEncounterSequence : MonoBehaviour
             bossAttackController.PlayDeathAnimation();
         }
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossExplosion); //***
+
         if (bossFadeOutDuration > 0f)
         {
             yield return new WaitForSeconds(bossFadeOutDuration);
@@ -478,6 +480,8 @@ public class BossEncounterSequence : MonoBehaviour
             playerPosition.x = 0f;
             player.transform.position = playerPosition;
         }
+
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.ElevatorArrive); //***
 
         yield return PlayElevatorDoorOpenSequence();
 
