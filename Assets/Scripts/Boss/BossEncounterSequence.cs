@@ -47,6 +47,10 @@ public class BossEncounterSequence : MonoBehaviour
     [SerializeField] float bossFadeOutDuration = 1f;
 
     [Header("Elevator Escape")]
+    [SerializeField] GameObject elevatorLeftDoor;
+    [SerializeField] GameObject elevatorRightDoor;
+    [SerializeField] float elevatorDoorOpenDistance = 1f;
+    [SerializeField] float elevatorDoorOpenDuration = 0.5f;
     [SerializeField] Vector3 elevatorMoveDirection = Vector3.up;
     [SerializeField] float elevatorMoveSpeed = 2f;
     [SerializeField] float elevatorRideDuration = 3f;
@@ -475,6 +479,8 @@ public class BossEncounterSequence : MonoBehaviour
             player.transform.position = playerPosition;
         }
 
+        yield return PlayElevatorDoorOpenSequence();
+
         Vector3 moveDirection = elevatorMoveDirection.sqrMagnitude > 0f ? elevatorMoveDirection.normalized : Vector3.up;
         Vector3 playerOffsetFromElevator = Vector3.zero;
 
@@ -539,6 +545,70 @@ public class BossEncounterSequence : MonoBehaviour
         }
 
         elevatorEscapeCoroutine = null;
+    }
+
+    IEnumerator PlayElevatorDoorOpenSequence()
+    {
+        if (elevatorDoorOpenDuration <= 0f)
+        {
+            SnapElevatorDoorsOpen();
+            yield break;
+        }
+
+        Transform leftDoorTransform = elevatorLeftDoor != null ? elevatorLeftDoor.transform : null;
+        Transform rightDoorTransform = elevatorRightDoor != null ? elevatorRightDoor.transform : null;
+
+        if (leftDoorTransform == null && rightDoorTransform == null)
+        {
+            yield break;
+        }
+
+        Vector3 leftStartLocalPosition = leftDoorTransform != null ? leftDoorTransform.localPosition : Vector3.zero;
+        Vector3 rightStartLocalPosition = rightDoorTransform != null ? rightDoorTransform.localPosition : Vector3.zero;
+        Vector3 leftTargetLocalPosition = leftStartLocalPosition + Vector3.left * elevatorDoorOpenDistance;
+        Vector3 rightTargetLocalPosition = rightStartLocalPosition + Vector3.right * elevatorDoorOpenDistance;
+
+        float elapsed = 0f;
+        while (elapsed < elevatorDoorOpenDuration)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / elevatorDoorOpenDuration);
+
+            if (leftDoorTransform != null)
+            {
+                leftDoorTransform.localPosition = Vector3.Lerp(leftStartLocalPosition, leftTargetLocalPosition, progress);
+            }
+
+            if (rightDoorTransform != null)
+            {
+                rightDoorTransform.localPosition = Vector3.Lerp(rightStartLocalPosition, rightTargetLocalPosition, progress);
+            }
+
+            yield return null;
+        }
+
+        if (leftDoorTransform != null)
+        {
+            leftDoorTransform.localPosition = leftTargetLocalPosition;
+        }
+
+        if (rightDoorTransform != null)
+        {
+            rightDoorTransform.localPosition = rightTargetLocalPosition;
+        }
+    }
+
+    void SnapElevatorDoorsOpen()
+    {
+        if (elevatorLeftDoor != null)
+        {
+            elevatorLeftDoor.transform.localPosition += Vector3.left * elevatorDoorOpenDistance;
+        }
+
+        if (elevatorRightDoor != null)
+        {
+            elevatorRightDoor.transform.localPosition += Vector3.right * elevatorDoorOpenDistance;
+        }
     }
 
     void SetPlayerLocked(PlayerController player, bool locked)
