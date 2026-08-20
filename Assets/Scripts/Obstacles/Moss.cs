@@ -2,21 +2,34 @@ using UnityEngine;
 
 public class MossObstacle : MonoBehaviour, IInteractable
 {
-    private string purpose = "ÀÌ³¢ Ä¡¿ì±â";
-    public string Purpose => purpose;
+    [Header("Hidden Object (Optional)")]
+    public GameObject objectToReveal;
+
+    private void Start()
+    {
+        if (objectToReveal != null)
+        {
+            objectToReveal.SetActive(false);
+        }
+    }
+
     public void Interact(GameObject interactor)
     {
-
         if (interactor.TryGetComponent<InventoryManager>(out var inventoryManager))
         {
             if (inventoryManager.TryConsumeItem(ItemType.Scissors, 1))
             {
+                if (objectToReveal != null)
+                {
+                    objectToReveal.SetActive(true);
+                }
+
+                // Ã€ÃŒÂ³Â¢ ÃÂ¦Â°Ã…
                 Destroy(gameObject);
             }
             else
             {
-
-                Debug.Log("°¡À§ ÇÊ¿ä");
+                Debug.Log("[Â°Â¡Ã€Â§]Â°Â¡ Ã‡ÃŠÂ¿Ã¤");
             }
         }
     }

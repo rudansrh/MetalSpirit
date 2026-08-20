@@ -81,13 +81,16 @@ public class DocumentUIManager : MonoBehaviour
         }
 
         StringBuilder builder = new StringBuilder();
+        bool hasActualText = false; // 실제 텍스트가 존재하는지 확인하는 변수 추가
 
         foreach (DialogueTextElement element in textElements)
         {
-            if (element == null)
+            if (element == null || string.IsNullOrEmpty(element.text))
             {
                 continue;
             }
+
+            hasActualText = true;
 
             builder.Append("<color=#");
             builder.Append(ColorUtility.ToHtmlStringRGBA(element.color));
@@ -108,7 +111,7 @@ public class DocumentUIManager : MonoBehaviour
             builder.Append("</color>");
         }
 
-        return builder.ToString();
+        return hasActualText ? builder.ToString() : string.Empty;
     }
 
     static string EscapeRichText(string value)
