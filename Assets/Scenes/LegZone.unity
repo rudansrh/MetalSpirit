@@ -2171,6 +2171,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.37
@@ -3648,7 +3652,7 @@ PrefabInstance:
     - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: 'ItemPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+      objectReference: {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.14
@@ -7675,7 +7679,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DropItem
   ItemPrefabs:
-  - {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
+  - {fileID: 8868164505880334075, guid: 799397d98973f6844bcfbf6800d2be4e, type: 3}
   Items: {fileID: 694665053}
 --- !u!114 &1720966236
 MonoBehaviour:
@@ -9186,6 +9190,10 @@ PrefabInstance:
       propertyPath: Items
       value: 
       objectReference: {fileID: 694665053}
+    - target: {fileID: 2642769067953601968, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
+      propertyPath: 'ItemPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6436083868105815688, guid: 4ff347e169698b74b991d1445229e663, type: 3}
     - target: {fileID: 3805876872793649110, guid: f4e1067fc7a6143a2aa12bce77008349, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.48
