@@ -2424,7 +2424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -7624,7 +7624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
@@ -9206,7 +9206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemConsumeTarget
   requiredItemType: 3
   requiredItemCount: 1
-  consumeItemOnResolve: 1
+  consumeItemOnResolve: 0
   requireInventoryAbility: 1
   resolveOnlyOnce: 1
   destroyOnResolve: 0
