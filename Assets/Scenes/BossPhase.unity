@@ -8872,7 +8872,7 @@ PrefabInstance:
       objectReference: {fileID: 359229488}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: phase1MaxHealth
-      value: 1000
+      value: 1100
       objectReference: {fileID: 0}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: attackController
@@ -8892,7 +8892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: phase2TransitionHealthPercent
-      value: 0.33
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5255579126316600328, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: activeColor.a
