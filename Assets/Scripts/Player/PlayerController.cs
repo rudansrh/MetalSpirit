@@ -629,16 +629,6 @@ public class PlayerController : MonoBehaviour
             {
                 PossessToEnemy();
             }
-            else //영혼 -> 물질상태
-            {
-                if (insideWall > 0) return;
-
-                rigid.linearVelocity = Vector3.zero;
-                abilityManager.PossessBody();
-                UpdateFormState();
-                ClampControlledBodyToBounds();
-                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
-            }
         }
         else if (!IsSoulForm() && abilityManager.canBeSoul)
         {
