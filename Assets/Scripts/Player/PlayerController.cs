@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool isTalking = false;
     public bool isUIopen = false;
     bool isHeadEnemy = false;
+    public bool hasGloves = false;
 
     public int lastSavedSlot = 0;
     public bool isMovingToNextScene = false;

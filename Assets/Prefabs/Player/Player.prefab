@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 2
+  m_GravityScale: 1.5
   m_Material: {fileID: 6200000, guid: d95a345c5009f6f4f9ef4d05358816ed, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -204,6 +204,10 @@ MonoBehaviour:
   wallClimbMoveStaminaCostPerSecond: 3
   wallClimbFallOffDistance: 0.15
   jumpStaminaCost: 10
+  jumpLimit: 3
+  jumpCount: 0
+  jumpCooldown: 0.2
+  jumpCooldownTimer: 0
   dashSpeed: 20
   dashDuration: 0.15
   dashCooldown: 1
@@ -219,10 +223,13 @@ MonoBehaviour:
   isWallAttatching: 0
   canMove: 1
   isInvincibility: 0
+  unlockedPassword: 00000000000000000000000000000000
   isPlayingMinigame: 0
   isTalking: 0
   isUIopen: 0
+  hasGloves: 0
   lastSavedSlot: 0
+  isMovingToNextScene: 0
   canInteractUI: {fileID: 0}
   possessChecker: {fileID: 0}
 --- !u!114 &9006375917508010104
