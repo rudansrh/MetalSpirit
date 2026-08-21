@@ -6,18 +6,24 @@ public class CobwebObstacle : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponentInParent<PlayerController>() is PlayerController controller)
+        if (other.CompareTag("Player"))
         {
-            controller.SetSpeedMultiplier(slowDebuffRate);
-            controller.StopDash();
+            if (other.TryGetComponent<PlayerController>(out var controller))
+            {
+                controller.SetSpeedMultiplier(slowDebuffRate);
+                controller.StopDash();
+            }
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.GetComponentInParent<PlayerController>() is PlayerController controller)
+        if (other.CompareTag("Player"))
         {
-            controller.ResetSpeedMultiplier();
+            if (other.TryGetComponent<PlayerController>(out var controller))
+            {
+                controller.ResetSpeedMultiplier();
+            }
         }
     }
 }

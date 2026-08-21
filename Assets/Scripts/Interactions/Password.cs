@@ -90,6 +90,12 @@ public class Password : MonoBehaviour, IInteractable
 
             onPasswordMatched?.Invoke();
             PlayerController.Instance.unlockedPassword[passwordId] = 1;
+            if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventoryManager))
+            {
+                inventoryManager.RemoveScissors();
+                Debug.Log("비밀번호 일치: 인벤토리에서 가위가 성공적으로 제거되었습니다.");
+            }
+
             return true;
         }
 
