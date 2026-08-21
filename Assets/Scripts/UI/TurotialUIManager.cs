@@ -14,8 +14,10 @@ public class TurotialUIManager : MonoBehaviour
 
     private int totalPages;
     private int currentPageIndex = 0;
+    public bool isShowingMinigame = false;
 
     public bool IsOpen => tutorialPanel != null && tutorialPanel.activeSelf;
+    public MinigameManager minigame;
 
     private void Awake()
     {
@@ -88,12 +90,12 @@ public class TurotialUIManager : MonoBehaviour
         }
     }
 
-    public void OpenTutorial()
+    public void OpenTutorial(int openpages = 0)
     {
-        currentPageIndex = 0;
-        contentText.text = pages[0].text;
-        prevButton.SetActive(false);
-        nextButton.SetActive(true);
+        currentPageIndex = openpages;
+        contentText.text = pages[currentPageIndex].text;
+        prevButton.SetActive(openpages > 0);
+        nextButton.SetActive(openpages < totalPages - 1);
 
         gameObject.SetActive(true);
         if (PlayerController.Instance != null)
@@ -108,6 +110,14 @@ public class TurotialUIManager : MonoBehaviour
         if (PlayerController.Instance != null)
         {
             PlayerController.Instance.isUIopen = false;
+        }
+        if (isShowingMinigame)
+        {
+            isShowingMinigame = false;
+            if (minigame != null)
+            {
+                minigame.gameStart = true;
+            }
         }
     }
 }

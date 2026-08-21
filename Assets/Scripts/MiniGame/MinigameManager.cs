@@ -25,7 +25,7 @@ public class MinigameManager : MonoBehaviour
 
     float currentTime = 0;
     float cooltime = 4;
-    bool gameStart = false;
+    public bool gameStart = false;
 
     void Start()
     {
@@ -110,7 +110,13 @@ public class MinigameManager : MonoBehaviour
         player.canMove = true;
         door.SetActive(true);
         door.GetComponent<Door>().minigameStarted = true;
-        gameStart = true;
+        
+        if(TurotialUIManager.Instance != null)
+        {
+            TurotialUIManager.Instance.OpenTutorial(7);
+            TurotialUIManager.Instance.minigame = this;
+            TurotialUIManager.Instance.isShowingMinigame = true;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)

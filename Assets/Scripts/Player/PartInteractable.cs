@@ -30,6 +30,22 @@ public class PartInteractable : MonoBehaviour, IInteractable
                 }
             }
 
+            if(targetStage == PlayerStage.Legs)
+            {
+                if (TurotialUIManager.Instance != null)
+                {
+                    TurotialUIManager.Instance.OpenTutorial(5);
+                }
+            }
+
+            if (targetStage == PlayerStage.Arms)
+            {
+                if (TurotialUIManager.Instance != null)
+                {
+                    TurotialUIManager.Instance.OpenTutorial(6);
+                }
+            }
+
             if (targetStage == PlayerStage.FullBody)
             {
                 if (interactor.TryGetComponent<Health>(out var health))
@@ -41,6 +57,11 @@ public class PartInteractable : MonoBehaviour, IInteractable
                 {
                     inventoryManager.AddItem(ItemType.BinaryCode, 0, 1, binary);
                     Debug.Log("Binary Code 1°³ È¹µæ");
+                }
+
+                if(TurotialUIManager.Instance != null)
+                {
+                    TurotialUIManager.Instance.OpenTutorial(8);
                 }
             }
 

@@ -10,6 +10,7 @@ public class SaveManager : MonoBehaviour
     private SaveData currentLoadData;
     private int lastSlot = 0;
     private bool playerRevive = false;
+    private bool newGameStarted = false;
 
     private void Awake()
     {
@@ -69,6 +70,12 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.lastSavedSlot = slotIndex;
         }
 
+        if(newGameStarted)
+        {
+            newGameStarted = false;
+            TurotialUIManager.Instance.OpenTutorial(0);
+        }
+
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
         Debug.Log($"슬롯 {slotIndex}에 게임 저장 완료!");
@@ -98,6 +105,7 @@ public class SaveManager : MonoBehaviour
     {
         // 첫 번째 씬을 로드하면 씬에 있는 플레이어가 기본 상태(최대 체력/스태미나)로 초기화되어 시작됩니다.
         lastSlot = 0;
+        newGameStarted = true;
         SceneManager.LoadScene(firstSceneName);
         Debug.Log($"새 게임 시작: {firstSceneName} 씬 로드");
     }
