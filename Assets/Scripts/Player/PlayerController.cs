@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
     public GameObject possessChecker;
     public static PlayerController Instance => instance == null ? null : instance;
     public bool IsAutoDepossessDialogueActive => isAwaitingAutoDepossessAfterDialogue;
+    public ReadableDocument openedDocument;
 
     bool isSubscribedToProgressionState = false;
     bool isAwaitingAutoDepossessAfterDialogue = false;
@@ -736,6 +737,7 @@ public class PlayerController : MonoBehaviour
 
         isHeadEnemy = false;
         possessChecker.SetActive(true);
+        canMove = true;
 
         if (!abilityManager.canBeSoul)
         {
@@ -845,6 +847,12 @@ public class PlayerController : MonoBehaviour
         else if(SaveSlotUIManager.Instance.isOpen)
         {
             SaveSlotUIManager.Instance.CloseSlotUI();
+            return;
+        }
+
+        if (isUIopen && openedDocument != null)
+        {
+            openedDocument.Interact(this.gameObject);
             return;
         }
 

@@ -23,6 +23,7 @@ public class ReadableDocument : MonoBehaviour, IInteractable
             if (PlayerController.Instance != null)
             {
                 PlayerController.Instance.isUIopen = false;
+                PlayerController.Instance.openedDocument = null;
             }
         }
         else
@@ -31,6 +32,7 @@ public class ReadableDocument : MonoBehaviour, IInteractable
             if (PlayerController.Instance != null)
             {
                 PlayerController.Instance.isUIopen = true;
+                PlayerController.Instance.openedDocument = this;
             }
         }
     }
