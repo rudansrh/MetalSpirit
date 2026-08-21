@@ -4406,7 +4406,7 @@ MonoBehaviour:
   portraitSize: {x: 150, y: 150}
   portraitBackgroundPadding: {x: 0, y: 0}
   portraitOffset: {x: -10, y: 0}
-  paddingX: 300
+  paddingX: 400
   paddingY: 100
   typingSpeed: 0.03
 --- !u!114 &694770020
