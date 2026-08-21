@@ -32,6 +32,8 @@ public class LandfillEndingSequence : MonoBehaviour
     [SerializeField] float postDialogueDelay = 0.2f;
     [SerializeField] float postFlashDelay = 0.2f;
 
+    [SerializeField] float dialogueYOffset = 2.5f;
+
     [Header("Mid Dialogue Camera Beat")]
     [SerializeField] int dialogueCameraBeatTriggerLineIndex = 3;
     [SerializeField] Vector3 dialogueCameraBeatOffset = new Vector3(0f, 3f, 0f);
@@ -184,11 +186,16 @@ public class LandfillEndingSequence : MonoBehaviour
             yield break;
         }
 
+        GameObject dummyTarget = new GameObject("EndingDialogueDummyTarget");
+
         for (int i = 0; i < playerDialogue.lines.Length; i++)
         {
             DialogueLine line = playerDialogue.lines[i];
-            Transform target = ResolveSpeakerTarget(line != null ? line.speaker : SpeakerType.Player);
-            dialogueUI.Show(line, target);
+            Transform actualTarget = ResolveSpeakerTarget(line != null ? line.speaker : SpeakerType.Player);
+
+            dummyTarget.transform.position = actualTarget.position + new Vector3(0f, dialogueYOffset, 0f);
+
+            dialogueUI.Show(line, dummyTarget.transform);
 
             yield return WaitForAdvanceRelease();
             yield return WaitForDialogueAdvance();
@@ -201,6 +208,7 @@ public class LandfillEndingSequence : MonoBehaviour
         }
 
         dialogueUI.Hide();
+        Destroy(dummyTarget);
     }
 
     IEnumerator PlayEndingImageFlash()

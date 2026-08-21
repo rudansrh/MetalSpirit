@@ -409,6 +409,7 @@ MonoBehaviour:
   dialogueStartDelay: 3
   postDialogueDelay: 0.2
   postFlashDelay: 0.2
+  dialogueYOffset: 0.3
   dialogueCameraBeatTriggerLineIndex: 3
   dialogueCameraBeatOffset: {x: 0, y: 3, z: 0}
   dialogueCameraBeatUpDuration: 3
@@ -923,6 +924,8 @@ MonoBehaviour:
   portraitSize: {x: 150, y: 150}
   portraitBackgroundPadding: {x: 0, y: 0}
   portraitOffset: {x: -10, y: 0}
+  paddingX: 500
+  paddingY: 100
   typingSpeed: 0.03
 --- !u!4 &1233698693
 Transform:
