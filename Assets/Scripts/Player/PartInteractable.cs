@@ -34,7 +34,7 @@ public class PartInteractable : MonoBehaviour, IInteractable
             {
                 if (TurotialUIManager.Instance != null)
                 {
-                    TurotialUIManager.Instance.OpenTutorial(5);
+                    TurotialUIManager.Instance.OpenTutorial(3);
                 }
             }
 

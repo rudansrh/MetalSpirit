@@ -77,10 +77,15 @@ public class PlayerStatsUIManager : MonoBehaviour
     // Stats 참조를 캐싱
     void CacheStatReferences()
     {
-        health = FindAnyObjectByType<Health>();
-        stamina = FindAnyObjectByType<Stamina>();
+        //health = FindAnyObjectByType<Health>();
+        //stamina = FindAnyObjectByType<Stamina>();
+        if(PlayerController.Instance != null)
+        {
+            health = PlayerController.Instance.GetComponent<Health>();
+            stamina = PlayerController.Instance.GetComponent<Stamina>();
+        }
 
-        if(health != null && stamina != null)
+        if (health != null && stamina != null)
         {
             SubscribeToStats();
             RefreshAll();
