@@ -5191,6 +5191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PartInteractable
   targetStage: 3
   unlockMessage: "\uC0C8\uB85C\uC6B4 \uD30C\uCE20\uB97C \uD68D\uB4DD\uD588\uC2B5\uB2C8\uB2E4"
+  binary: 
 --- !u!61 &1186110607
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6181,6 +6182,8 @@ MonoBehaviour:
   portraitSize: {x: 150, y: 150}
   portraitBackgroundPadding: {x: 0, y: 0}
   portraitOffset: {x: -10, y: 0}
+  paddingX: 500
+  paddingY: 100
   typingSpeed: 0.03
 --- !u!114 &1440883207
 MonoBehaviour:
@@ -6196,6 +6199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
   bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
   interactKeys: {fileID: 2050464206}
+  offset: {x: 0, y: 0.5}
+  paddingX: 150
+  paddingY: 50
 --- !u!1 &1462157460
 GameObject:
   m_ObjectHideFlags: 0
@@ -8866,7 +8872,7 @@ PrefabInstance:
       objectReference: {fileID: 359229488}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: phase1MaxHealth
-      value: 150
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5198544931590844989, guid: db3e9d97455df4b048f915275401e42b, type: 3}
       propertyPath: attackController
