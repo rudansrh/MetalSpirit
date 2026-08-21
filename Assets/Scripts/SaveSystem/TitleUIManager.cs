@@ -37,4 +37,14 @@ public class TitleUIManager : MonoBehaviour
             SceneManager.LoadScene("Stage1");
         }
     }
+
+    public void OnClickQuitGame()
+    {
+        Debug.Log("게임을 종료합니다.");
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
