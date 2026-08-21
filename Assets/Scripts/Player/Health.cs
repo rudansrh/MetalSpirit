@@ -36,6 +36,8 @@ public class Health : MonoBehaviour // 플레이어 체력 컴포넌트
     // 체력 감소 메서드, 외부에서 공격 등으로 호출
     public void ReduceHealth(float amount)
     {
+        if(PlayerController.Instance != null && PlayerController.Instance.isInvincibility) return;
+
         CurrentHealth = Mathf.Max(0, CurrentHealth - amount);
         OnHealthChanged?.Invoke();
 

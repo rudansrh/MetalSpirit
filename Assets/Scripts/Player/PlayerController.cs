@@ -741,6 +741,14 @@ public class PlayerController : MonoBehaviour
         {
             rigid.gravityScale = originalGravity;
         }
+        StartCoroutine(invincibilityRoutine(0.5f));
+    }
+
+    IEnumerator invincibilityRoutine(float duration)
+    {
+        isInvincibility = true;
+        yield return new WaitForSeconds(duration);
+        isInvincibility = false;
     }
 
     void TryStartPossessedEnemySelfDialogue(Enemy possessedEnemy)
