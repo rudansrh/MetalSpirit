@@ -33,11 +33,13 @@ public class SaveSlotUIManager : MonoBehaviour
                 Destroy(DocumentUIManager.Instance.gameObject);
             }
 
+            /*
             PlayerStatsUIManager statsUI = FindAnyObjectByType<PlayerStatsUIManager>();
             if (statsUI != null)
             {
                 Destroy(statsUI.gameObject);
             }
+            */
         }
     }
 

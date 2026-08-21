@@ -51,9 +51,9 @@ public class PlayerStatsUIManager : MonoBehaviour
 
     void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        UnsubscribeFromStats();
         CacheUiReferences();
-        SubscribeToStats();
-        RefreshAll();
+        CacheStatReferences();
     }
 
     void BindToScene()
@@ -165,7 +165,7 @@ public class PlayerStatsUIManager : MonoBehaviour
     // 이름으로 컴포넌트를 찾는 유틸리티 메서드
     static T FindNamedComponent<T>(T currentReference, string objectName) where T : Component
     {
-        if (currentReference != null)
+        if ((UnityEngine.Object)currentReference != null)
         {
             return currentReference;
         }
