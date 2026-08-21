@@ -332,7 +332,7 @@ MonoBehaviour:
   nearbyEnemy: {fileID: 0}
   isAttackingPossessed: 0
   flySpeed: 4
-  detectionRange: 6.5
+  detectionRange: 5.5
   hoverDistance: 3
   laserRange: 4
   laserDamage: 40

@@ -139,6 +139,7 @@ public class SaveManager : MonoBehaviour
                 if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
                 {
                     inventory.LoadInventory(currentLoadData.inventoryItems);
+                    Debug.Log("인벤토리 로드 완료");
                 }
                 playerAbility.isSoul = currentLoadData.isSoulState;
             }

@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     public bool isTalking = false;
     public bool isUIopen = false;
     bool isHeadEnemy = false;
+    public bool hasGloves = false;
 
     public int lastSavedSlot = 0;
     public bool isMovingToNextScene = false;
@@ -740,6 +741,14 @@ public class PlayerController : MonoBehaviour
         {
             rigid.gravityScale = originalGravity;
         }
+        StartCoroutine(invincibilityRoutine(0.5f));
+    }
+
+    IEnumerator invincibilityRoutine(float duration)
+    {
+        isInvincibility = true;
+        yield return new WaitForSeconds(duration);
+        isInvincibility = false;
     }
 
     void TryStartPossessedEnemySelfDialogue(Enemy possessedEnemy)

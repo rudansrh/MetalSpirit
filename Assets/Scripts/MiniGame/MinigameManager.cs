@@ -18,6 +18,7 @@ public class MinigameManager : MonoBehaviour
     [SerializeField] Transform ceiling;
     [SerializeField] Transform retryPoint;
     [SerializeField] float offsetX;
+    [SerializeField] GameObject minigameReward;
 
     PlayerController player;
     Transform p_transform;
@@ -64,6 +65,9 @@ public class MinigameManager : MonoBehaviour
         door.SetActive(false);
         player.isPlayingMinigame = false;
         //TODO : 미니게임 클리어 보상 추가하기
+        var fullBody = Instantiate(minigameReward, transform);
+        fullBody.transform.position = new Vector2((leftWall.position.x + rightWall.position.x) / 2, ceiling.position.y - 1f);
+        fullBody.transform.localScale = new Vector3(6f, 4.2f, 1);
     }
     
     public void MinigameFail()

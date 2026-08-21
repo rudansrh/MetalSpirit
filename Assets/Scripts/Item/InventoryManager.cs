@@ -32,6 +32,11 @@ public class InventoryManager : MonoBehaviour
             return false;
         }
 
+        if(type == ItemType.Gloves && PlayerController.Instance != null)
+        {
+            PlayerController.Instance.hasGloves = true;
+        }
+
         // 같은 아이템 찾기
         for (int i = 0; i < items.Length; i++)
         {
@@ -257,7 +262,11 @@ public class InventoryManager : MonoBehaviour
 
     public void LoadInventory(InventoryItem[] savedItems)
     {
-        if (savedItems == null || savedItems.Length == 0) return;
+        if (savedItems == null || savedItems.Length == 0)
+        {
+            maxSlotCount = 0;
+            items = new InventoryItem[maxSlotCount];
+        }
 
         items = savedItems;
         maxSlotCount = savedItems.Length;
