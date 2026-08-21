@@ -3005,6 +3005,7 @@ GameObject:
   - component: {fileID: 1003299600}
   - component: {fileID: 1003299599}
   - component: {fileID: 1003299601}
+  - component: {fileID: 1003299603}
   - component: {fileID: 1003299602}
   m_Layer: 6
   m_Name: BreakableDoor
@@ -3142,9 +3143,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1003299598}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62d3d749a6a9034fb943ae05a534c63, type: 3}
+  m_Script: {fileID: 11500000, guid: e512dfbfd33a5d34c807fff4902d558f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BreakableDoor
+  m_EditorClassIdentifier: Assembly-CSharp::CollapsingBridge
+  fallDelay: 0.5
+  shakeMagnitude: 0.05
+  destroyDelay: 0.5
+--- !u!50 &1003299603
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003299598}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &1036295297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4794,6 +4825,8 @@ MonoBehaviour:
   portraitSize: {x: 150, y: 150}
   portraitBackgroundPadding: {x: 0, y: 0}
   portraitOffset: {x: -10, y: 0}
+  paddingX: 500
+  paddingY: 100
   typingSpeed: 0.03
 --- !u!114 &1346522991
 MonoBehaviour:
@@ -4809,6 +4842,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
   bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
   interactKeys: {fileID: 1546583051}
+  offset: {x: 0, y: 0.5}
+  paddingX: 150
+  paddingY: 50
 --- !u!1 &1347264118
 GameObject:
   m_ObjectHideFlags: 0
@@ -8041,6 +8077,7 @@ GameObject:
   - component: {fileID: 1793847960}
   - component: {fileID: 1793847964}
   - component: {fileID: 1793847961}
+  - component: {fileID: 1793847965}
   m_Layer: 4
   m_Name: PasswordObject
   m_TagString: Wall
@@ -8110,7 +8147,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -4
   m_MaskInteraction: 0
   m_Sprite: {fileID: -6630407129268053024, guid: b67c7226eafec1c4cb103e1096e91eb9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -8201,6 +8238,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1793847965}
+        m_TargetAssemblyTypeName: DoorCoroutine, Assembly-CSharp
+        m_MethodName: OpenDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   LegParts: {fileID: 222213390}
   passwordId: 0
 --- !u!61 &1793847964
@@ -8249,6 +8298,23 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 5.2, y: 3}
   m_EdgeRadius: 0
+--- !u!114 &1793847965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1793847957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e715c36b097b8440bfe30456940e83a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorCoroutine
+  targetPositionOffset: {x: 0, y: 2, z: 0}
+  targetScale: {x: 1.5, y: 1.6, z: 1}
+  duration: 1
+  autoClose: 0
+  autoCloseDelay: 5
 --- !u!1001 &1816731988
 PrefabInstance:
   m_ObjectHideFlags: 0

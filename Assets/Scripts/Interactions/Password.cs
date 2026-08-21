@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -108,7 +109,7 @@ public class Password : MonoBehaviour, IInteractable
     {
         if (!stayUnlockedAfterSuccess)
         {
-            return;
+            return; 
         }
 
         gameObject.SetActive(false);

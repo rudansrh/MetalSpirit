@@ -990,7 +990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a433b88d96504a82744ef4765a652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmPushableBox
-  pushForce: 100
+  pushForce: 400
   floatPower: 40
   waterDrag: 3
 --- !u!50 &107504134
@@ -5333,6 +5333,7 @@ GameObject:
   - component: {fileID: 1058990485}
   - component: {fileID: 1058990484}
   - component: {fileID: 1058990483}
+  - component: {fileID: 1058990487}
   m_Layer: 4
   m_Name: PasswordObject
   m_TagString: Wall
@@ -5350,10 +5351,9 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 13.24, y: -8.67, z: 0}
-  m_LocalScale: {x: 1.5002857, y: 4.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 4.5, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1529061959}
+  m_Children: []
   m_Father: {fileID: 1318778425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1058990483
@@ -5380,6 +5380,18 @@ MonoBehaviour:
       - m_Target: {fileID: 752912436}
         m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
         m_MethodName: RemoveScissors
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1058990487}
+        m_TargetAssemblyTypeName: DoorCoroutine, Assembly-CSharp
+        m_MethodName: OpenDoor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5542,6 +5554,23 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &1058990487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1058990481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e715c36b097b8440bfe30456940e83a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorCoroutine
+  targetPositionOffset: {x: 0, y: 2.3, z: 0}
+  targetScale: {x: 1.5, y: 0, z: 1}
+  duration: 1
+  autoClose: 0
+  autoCloseDelay: 5
 --- !u!1 &1059448245
 GameObject:
   m_ObjectHideFlags: 0
@@ -7234,6 +7263,7 @@ Transform:
   - {fileID: 215326878}
   - {fileID: 383489661}
   - {fileID: 1058990482}
+  - {fileID: 1529061959}
   - {fileID: 1665609141}
   - {fileID: 1286891412}
   - {fileID: 1383768369}
@@ -8587,11 +8617,11 @@ Transform:
   m_GameObject: {fileID: 1529061958}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.53323126, y: -0.171111, z: 0}
-  m_LocalScale: {x: 1.2695993, y: 0.4232804, z: 0}
+  m_LocalPosition: {x: 12.440153, y: -9.439999, z: 0}
+  m_LocalScale: {x: 1.9043988, y: 1.9047617, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1058990482}
+  m_Father: {fileID: 1318778425}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1529061962
 SpriteRenderer:
@@ -8849,7 +8879,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a433b88d96504a82744ef4765a652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmPushableBox
-  pushForce: 100
+  pushForce: 400
   floatPower: 40
   waterDrag: 3
 --- !u!50 &1647325554
@@ -11018,7 +11048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a433b88d96504a82744ef4765a652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArmPushableBox
-  pushForce: 100
+  pushForce: 400
   floatPower: 40
   waterDrag: 3
 --- !u!50 &2066036793
