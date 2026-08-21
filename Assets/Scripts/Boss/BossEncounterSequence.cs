@@ -21,6 +21,7 @@ public class BossEncounterSequence : MonoBehaviour
     [SerializeField] Transform elevatorRideTransform;
     [SerializeField] DialogueData introDialogue;
     [SerializeField] Transform dialogueAnchor;
+    [SerializeField] Transform dialogueAnchor11;
 
     [Header("Entrance")]
     [SerializeField] bool hideBossOnStart = true;
@@ -292,7 +293,7 @@ public class BossEncounterSequence : MonoBehaviour
         {
             dialogueFinished = false;
             bossDialogueManager.DialogueEnded += HandleDialogueEnded;
-            bossDialogueManager.StartDialogue(introDialogue, bossTransform);
+            bossDialogueManager.StartDialogue(introDialogue, dialogueAnchor11);
 
             yield return new WaitUntil(() => dialogueFinished);
 
