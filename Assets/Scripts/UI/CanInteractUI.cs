@@ -7,6 +7,11 @@ public class CanInteractUI : MonoBehaviour
 {
     [SerializeField] GameObject bubble;
     [SerializeField] Transform interactKeys;
+
+    [Header("UI Offset")]
+    [Tooltip("UI가 나타날 위치를 미세 조정 (X: 좌우, Y: 상하)")]
+    [SerializeField] Vector2 offset = new Vector2(0f, 0.5f);
+
     TMP_Text keyText;
     Transform target;
 
@@ -22,7 +27,7 @@ public class CanInteractUI : MonoBehaviour
     {
         if (bubble.activeSelf)
         {
-            Vector2 keyPos = new Vector2(target.position.x, target.position.y - target.localScale.y);
+            Vector2 keyPos = new Vector2(target.position.x + offset.x, target.position.y - target.localScale.y + offset.y);
             bubble.transform.position = Camera.main.WorldToScreenPoint(keyPos);
         }
     }
@@ -33,6 +38,7 @@ public class CanInteractUI : MonoBehaviour
         keyText.text = $"[{key}]키를 눌러 {purpose}";
         bubble.SetActive(true);
     }
+
     public void hideInterectUI()
     {
         bubble.SetActive(false);

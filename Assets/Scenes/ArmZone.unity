@@ -4421,6 +4421,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CanInteractUI
   bubble: {fileID: 9063119564059809700, guid: 20862c7dfb7f2284e9d27296431624d7, type: 3}
   interactKeys: {fileID: 1164083954}
+  offset: {x: 0, y: 0.5}
 --- !u!1 &696848673 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8136222595877079551, guid: 78ee73c3063fc8240a2454e4ef347b81, type: 3}
