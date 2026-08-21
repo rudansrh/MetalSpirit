@@ -15,6 +15,10 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] Vector2 portraitBackgroundPadding = new Vector2(20f, 20f);
     [SerializeField] Vector2 portraitOffset = new Vector2(-24f, 0f);
 
+    [Header("Screen Bounds Clamp")]
+    [SerializeField] float paddingX = 500f;
+    [SerializeField] float paddingY = 100f;
+
     Transform target;
     HorizontalLayoutGroup bubbleLayout;
     LayoutElement portraitLayoutElement;
@@ -46,7 +50,11 @@ public class DialogueUI : MonoBehaviour
         if (target == null) return;
 
         Vector3 targetPos = Camera.main.WorldToScreenPoint(target.position + Vector3.up * 1.5f);
-        targetPos.x += (Mathf.Max(0, bubble.rect.width - 268 - portraitSize.x) / 2 + 80) * bubble.localScale.x; 
+        targetPos.x += (Mathf.Max(0, bubble.rect.width - 268 - portraitSize.x) / 2 + 80) * bubble.localScale.x;
+
+        targetPos.x = Mathf.Clamp(targetPos.x, paddingX, Screen.width - paddingX);
+        targetPos.y = Mathf.Clamp(targetPos.y, paddingY, Screen.height - paddingY);
+
         bubble.position = targetPos;
     }
 
