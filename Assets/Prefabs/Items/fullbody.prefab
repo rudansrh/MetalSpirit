@@ -233,6 +233,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PartInteractable
   targetStage: 3
   unlockMessage: "\uC0C8\uB85C\uC6B4 \uD30C\uCE20\uB97C \uD68D\uB4DD\uD588\uC2B5\uB2C8\uB2E4"
+  binary: "<2\uC9C4\uBC95\uD45C>\r\n0 = 0\r\n1 = 1\r\n10 = 2\r\n11 = 3\r\n100 = 4\r\n101
+    = 5\r\n110 = 6\r\n111 = 7\r\n1000 = 8\r\n1001 = 9\r\n"
 --- !u!50 &8005789016811955171
 Rigidbody2D:
   serializedVersion: 5

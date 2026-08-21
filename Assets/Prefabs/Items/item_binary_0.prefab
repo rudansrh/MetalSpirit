@@ -110,7 +110,8 @@ MonoBehaviour:
   itemCount: 1
   requireInventoryAbility: 1
   destroyOnPickup: 1
-  documentText: "\uC774\uC9C4\uBC95\uC5D0 \uB300\uD55C \uB0B4\uC6A9 \uAE00"
+  documentText: "<2\uC9C4\uBC95\uD45C>\r\n0 = 0\r\n1 = 1\r\n10 = 2\r\n11 = 3\r\n100
+    = 4\r\n101 = 5\r\n110 = 6\r\n111 = 7\r\n1000 = 8\r\n1001 = 9\r\n"
 --- !u!61 &4410229857937621203
 BoxCollider2D:
   m_ObjectHideFlags: 0

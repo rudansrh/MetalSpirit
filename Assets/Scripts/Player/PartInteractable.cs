@@ -12,6 +12,9 @@ public class PartInteractable : MonoBehaviour, IInteractable
     private string purpose = "ÆÄÃ÷ È¹µæ";
     public string Purpose => purpose;
 
+    [TextArea]
+    [SerializeField] string binary = "";
+
     public void Interact(GameObject interactor)
     {
         if (interactor.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
@@ -34,6 +37,11 @@ public class PartInteractable : MonoBehaviour, IInteractable
 
                 if (interactor.TryGetComponent<Stamina>(out var stamina))
                     stamina.RestoreStamina(stamina.MaxStamina);
+                if(interactor.TryGetComponent<InventoryManager>(out var inventoryManager))
+                {
+                    inventoryManager.AddItem(ItemType.BinaryCode, 0, 1, binary);
+                    Debug.Log("Binary Code 1°³ È¹µæ");
+                }
             }
 
             Debug.Log($"[{targetStage}] ÆÄÃ÷ È¹µæ: {unlockMessage}");
