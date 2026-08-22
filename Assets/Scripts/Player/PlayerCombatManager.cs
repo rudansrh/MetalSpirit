@@ -179,6 +179,8 @@ public class PlayerCombatManager : MonoBehaviour
 
         if (!abilityManager.canBodyAttack) return;
 
+        StartCoroutine(invincibilityRoutine(0.7f)); // 돌진 무적 추가
+
         AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerRocketPunch); //***
         visualManager?.PlayBodyAttackAnimation();
         StartCoroutine(BodyAttackRoutine());
@@ -362,7 +364,7 @@ public class PlayerCombatManager : MonoBehaviour
                 continue;
             }
 
-            if(hit.TryGetComponent<IBreakable>(out var breakable))
+            if (hit.TryGetComponent<IBreakable>(out var breakable))
             {
                 breakable.objectDamaged();
             }
@@ -461,5 +463,12 @@ public class PlayerCombatManager : MonoBehaviour
         {
             attackVisualLineRenderer.material = new Material(spriteShader);
         }
+    }
+    
+    IEnumerator invincibilityRoutine(float duration) // 무적 코루틴 (PlayerController와 동일)
+    {
+        playerController.isInvincibility = true;
+        yield return new WaitForSeconds(duration);
+        playerController.isInvincibility = false;
     }
 }

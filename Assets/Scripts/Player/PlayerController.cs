@@ -417,7 +417,7 @@ public class PlayerController : MonoBehaviour
             {
                 AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerDash); //***
                 DashCoroutine = StartCoroutine(DashRoutine());
-                StartCoroutine(invincibilityRoutine(0.7f));
+                // StartCoroutine(invincibilityRoutine(0.7f)); // 대쉬 무적 호출 제거
             }
         }
     }

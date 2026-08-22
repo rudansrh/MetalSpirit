@@ -215,6 +215,9 @@ public abstract class Enemy : MonoBehaviour, IEnemyDamageReceiver
     {
         if (!isPossessed) return;
 
+        if (isPossessed && collision.gameObject.tag == "Water")
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
+
         // 아이템 등 상호작용 객체 감지 로직
         playerController.touchInteractable(collision);
     }
