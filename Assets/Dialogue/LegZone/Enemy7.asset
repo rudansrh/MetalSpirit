@@ -74,7 +74,7 @@ MonoBehaviour:
   - speaker: 0
     portraitSprite: {fileID: 2358148765893468524, guid: df3d360f2163141f2a9755f6f0fa2e99, type: 3}
     textElements:
-    - text: "\uC2A4\uCE90\uBBFC\uC800?"
+    - text: "\uC2A4\uCE90\uBE48\uC800?"
       bold: 0
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
