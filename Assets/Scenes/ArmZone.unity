@@ -8155,12 +8155,12 @@ RectTransform:
   - {fileID: 481979312}
   - {fileID: 870737209}
   - {fileID: 1164083954}
+  - {fileID: 1486183382}
   - {fileID: 378370464}
   - {fileID: 490488522}
   - {fileID: 88181457}
   - {fileID: 4343909}
   - {fileID: 656526936}
-  - {fileID: 1486183382}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

@@ -32,6 +32,7 @@ public class BossArenaController : MonoBehaviour
     [SerializeField] Transform shakeTarget;             // 흔들림 대상 (카메라)
     [SerializeField] float shakeAmount = 0.15f;         // 흔들림 강도
     [SerializeField] float shakeTickInterval = 0.1f;    // 흔들림 갱신 간격
+    [SerializeField] Collider2D BossAreaSave;
 
     BossController bossController;                      // 보스 컨트롤러 참조
     Coroutine platformCycleCoroutine;                   // 발판 순환 코루틴
@@ -62,6 +63,7 @@ public class BossArenaController : MonoBehaviour
         bossController.OnPhaseChanged -= HandlePhaseChanged;
         bossController.OnPhaseChanged += HandlePhaseChanged;
 
+        BossAreaSave.enabled = false;
         StartPlatformLoop();
         HandlePhaseChanged(bossController.CurrentPhase);
     }

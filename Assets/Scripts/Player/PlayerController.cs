@@ -417,6 +417,7 @@ public class PlayerController : MonoBehaviour
             {
                 AudioManager.instance?.PlaySfx(AudioManager.Sfx.PlayerDash); //***
                 DashCoroutine = StartCoroutine(DashRoutine());
+                StartCoroutine(invincibilityRoutine(0.7f));
             }
         }
     }
@@ -711,6 +712,8 @@ public class PlayerController : MonoBehaviour
             controlledEnemy.SetPossessed(false);
         }
 
+        StartCoroutine(invincibilityRoutine(1f));
+
         rigid = GetComponent<Rigidbody2D>();
         rigid.bodyType = RigidbodyType2D.Dynamic;
         rigid.linearVelocity = Vector3.zero;
@@ -733,7 +736,6 @@ public class PlayerController : MonoBehaviour
         {
             rigid.gravityScale = originalGravity;
         }
-        StartCoroutine(invincibilityRoutine(0.5f));
     }
 
     IEnumerator invincibilityRoutine(float duration)

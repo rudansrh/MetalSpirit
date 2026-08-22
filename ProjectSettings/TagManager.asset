@@ -10,6 +10,7 @@ TagManager:
   - Document
   - Parts
   - Water
+  - BossWall
   layers:
   - Default
   - TransparentFX
@@ -28,7 +29,7 @@ TagManager:
   - Bottom
   - Parts
   - Laser
-  - 
+  - BossWall
   - 
   - 
   - 

@@ -106,6 +106,13 @@ public class SaveManager : MonoBehaviour
         // 첫 번째 씬을 로드하면 씬에 있는 플레이어가 기본 상태(최대 체력/스태미나)로 초기화되어 시작됩니다.
         lastSlot = 0;
         newGameStarted = true;
+
+        if (PlayerController.Instance.TryGetComponent<Health>(out var health))
+        {
+            health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+            health.gameOver = false; // 게임 오버 상태 초기화
+        }
+
         SceneManager.LoadScene(firstSceneName);
         Debug.Log($"새 게임 시작: {firstSceneName} 씬 로드");
     }
@@ -122,8 +129,9 @@ public class SaveManager : MonoBehaviour
             {
                 health.LoadHealthData(currentLoadData.playerHp);
                 health.PlayerIsDead = false; // 체력 로드 후 사망 상태 초기화
+                health.gameOver = false; // 게임 오버 상태 초기화
 
-                if(playerRevive)
+                if (playerRevive)
                 {
                     health.LoadHealthData(health.MaxHealth);
                 }

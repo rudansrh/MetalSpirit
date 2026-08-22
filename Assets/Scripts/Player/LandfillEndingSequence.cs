@@ -47,6 +47,8 @@ public class LandfillEndingSequence : MonoBehaviour
     [SerializeField] float endingCameraMoveDuration = 3f;
     [SerializeField] float postZoomOutDelay = 2f;
 
+    Health playerHealth;
+
     float initialCameraSize;
     PlayerController playerController;
 
@@ -85,6 +87,9 @@ public class LandfillEndingSequence : MonoBehaviour
         SetFinalFadeAlpha(0f);
         UpdateFadeOverlayTransform();
         StartCoroutine(PlayEndingSequence());
+
+        playerHealth = playerController.GetComponent<Health>();
+        playerHealth.gameOver = true;
     }
 
     void LateUpdate()
