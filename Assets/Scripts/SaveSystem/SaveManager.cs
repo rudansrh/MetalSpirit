@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
         return File.Exists(GetSaveFilePath(slotIndex));
     }
 
-    // ���� ����
+    // 게임 저장
     public void SaveGame(int slotIndex)
     {
         SaveData data = new SaveData();
@@ -78,11 +78,11 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
-        Debug.Log($"���� {slotIndex}�� ���� ���� �Ϸ�!");
-        Debug.Log($"���̺� ���: {GetSaveFilePath(slotIndex)}");
+        Debug.Log($"{slotIndex}번 슬롯 저장 완료!");
+        Debug.Log($"세이브 경로: {GetSaveFilePath(slotIndex)}");
     }
 
-    //���� �ҷ����� 
+    // 게임 불러오기
     public void LoadGame(int slotIndex)
     {
         if (HasSaveFile(slotIndex))
@@ -96,25 +96,25 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{slotIndex}�� ������ ����ֽ��ϴ�.");
+            Debug.LogWarning($"{slotIndex}번 슬롯이 비어 있습니다.");
         }
     }
 
-    // �� ����
+    // 새 게임
     public void StartNewGame(string firstSceneName)
     {
-        // ù ��° ���� �ε��ϸ� ���� �ִ� �÷��̾ �⺻ ����(�ִ� ü��/���¹̳�)�� �ʱ�ȭ�Ǿ� ���۵˴ϴ�.
+        // 첫 번째 씬을 로드하면 기존 플레이어가 기본 상태로 초기화되어 시작됩니다.
         lastSlot = 0;
         newGameStarted = true;
 
         if (PlayerController.Instance.TryGetComponent<Health>(out var health))
         {
-            health.PlayerIsDead = false; // ü�� �ε� �� ��� ���� �ʱ�ȭ
-            health.gameOver = false; // ���� ���� ���� �ʱ�ȭ
+            health.PlayerIsDead = false; // 체력 로드 전 사망 상태 초기화
+            health.gameOver = false; // 게임 오버 상태 초기화
         }
 
         SceneManager.LoadScene(firstSceneName);
-        Debug.Log($"�� ���� ����: {firstSceneName} �� �ε�");
+        Debug.Log($"새 게임 시작: {firstSceneName} 씬 로드");
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -129,8 +129,8 @@ public class SaveManager : MonoBehaviour
             if (PlayerController.Instance.TryGetComponent<Health>(out var health))
             {
                 health.LoadHealthData(currentLoadData.playerHp);
-                health.PlayerIsDead = false; // ü�� �ε� �� ��� ���� �ʱ�ȭ
-                health.gameOver = false; // ���� ���� ���� �ʱ�ȭ
+                health.PlayerIsDead = false; // 체력 로드 전 사망 상태 초기화
+                health.gameOver = false; // 게임 오버 상태 초기화
 
                 if (playerRevive)
                 {
@@ -156,7 +156,7 @@ public class SaveManager : MonoBehaviour
                 if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
                 {
                     inventory.LoadInventory(currentLoadData.inventoryItems);
-                    Debug.Log("�κ��丮 �ε� �Ϸ�");
+                    Debug.Log("인벤토리 로드 완료");
                 }
                 playerAbility.isSoul = currentLoadData.isSoulState;
             }

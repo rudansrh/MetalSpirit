@@ -2,18 +2,18 @@ using UnityEngine;
 
 public class SavePoint : MonoBehaviour, IInteractable
 {
-    private string purpose = "¼¼ÀÌºê";
+    private string purpose = "ì„¸ì´ë¸Œ";
     public string Purpose => purpose;
     public void Interact(GameObject interactor)
     {
         if (SaveSlotUIManager.Instance == null) return;
 
-        // ÀÌ¹Ì ½½·Ô Ã¢ÀÌ ¿­·ÁÀÖ´Ù¸é ´İ±â (Åä±Û ¹æ½Ä)
+        // ì´ë¯¸ ìŠ¬ë¡¯ ì°½ì´ ì—´ë ¤ìˆë‹¤ë©´ ë‹«ê¸° (í† ê¸€ ë°©ì‹)
         if (SaveSlotUIManager.Instance.isOpen)
         {
             SaveSlotUIManager.Instance.CloseSlotUI();
         }
-        // ´İÇôÀÖ´Ù¸é ½½·Ô ¼±ÅÃ Ã¢ ¿­±â
+        // ë‹«í˜€ìˆë‹¤ë©´ ìŠ¬ë¡¯ ì„ íƒ ì°½ ì—´ê¸°
         else
         {
             SaveSlotUIManager.Instance.OpenSlotUI();

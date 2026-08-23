@@ -5,9 +5,9 @@ using UnityEngine;
 public class CollapsingBridge : MonoBehaviour
 {
     [Header("Collapse Settings")]
-    [SerializeField] private float fallDelay = 0.5f;        // ¹â°í ³ª¼­ ¶³¾îÁö±â±îÁöÀÇ ´ë±â ½Ã°£
-    [SerializeField] private float shakeMagnitude = 0.05f;  // ¶³¾îÁö±â Àü Èçµé¸®´Â °­µµ
-    [SerializeField] private float destroyDelay = 3.0f;     // Ãß¶ôÇÑ µÚ ¾À¿¡¼­ »èÁ¦µÇ±â±îÁöÀÇ ½Ã°£
+    [SerializeField] private float fallDelay = 0.5f;        // ë°Ÿê³  ë‚˜ì„œ ë–¨ì–´ì§€ê¸°ê¹Œì§€ì˜ ëŒ€ê¸° ì‹œê°„
+    [SerializeField] private float shakeMagnitude = 0.05f;  // ë–¨ì–´ì§€ê¸° ì „ í”ë“¤ë¦¬ëŠ” ê°•ë„
+    [SerializeField] private float destroyDelay = 3.0f;     // ì¶”ë½í•œ ë’¤ ì”¬ì—ì„œ ì‚­ì œë˜ê¸°ê¹Œì§€ì˜ ì‹œê°„
 
     private Rigidbody2D rb;
     private bool isCollapsing = false;

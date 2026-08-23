@@ -26,7 +26,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    // ÀÏ½ÃÁ¤Áö »óÅÂ¸¦ ÄÑ°í ²ô´Â ¸Ş¼­µå
+    // ì¼ì‹œì •ì§€ ìƒíƒœë¥¼ ì¼œê³  ë„ëŠ” ë©”ì„œë“œ
     public void TogglePause()
     {
         isPaused = !isPaused;

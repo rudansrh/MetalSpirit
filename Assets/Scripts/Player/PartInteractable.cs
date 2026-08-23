@@ -3,13 +3,13 @@ using UnityEngine;
 public class PartInteractable : MonoBehaviour, IInteractable
 {
     [Header("Part Settings")]
-    public PlayerStage targetStage; // À¯´ÏÆ¼ ÀÎ½ºÆåÅÍ¿¡¼­ Legs, Arms, FullBody Áß ÇÏ³ª¸¦ ¼±ÅÃ
+    public PlayerStage targetStage; // ìœ ë‹ˆí‹° ì¸ìŠ¤í™í„°ì—ì„œ Legs, Arms, FullBody ì¤‘ í•˜ë‚˜ë¥¼ ì„ íƒ
 
     [Header("UI Settings")]
     [TextArea(3, 5)]
-    public string unlockMessage = "»õ·Î¿î ÆÄÃ÷¸¦ È¹µæÇß½À´Ï´Ù!";
+    public string unlockMessage = "ìƒˆë¡œìš´ íŒŒì¸ ë¥¼ íšë“í–ˆìŠµë‹ˆë‹¤!";
 
-    private string purpose = "ÆÄÃ÷ È¹µæ";
+    private string purpose = "íŒŒì¸  íšë“";
     public string Purpose => purpose;
 
     [TextArea]
@@ -56,7 +56,7 @@ public class PartInteractable : MonoBehaviour, IInteractable
                 if(interactor.TryGetComponent<InventoryManager>(out var inventoryManager))
                 {
                     inventoryManager.AddItem(ItemType.BinaryCode, 0, 1, binary);
-                    Debug.Log("Binary Code 1°³ È¹µæ");
+                    Debug.Log("Binary Code 1ê°œ íšë“");
                 }
 
                 if(TurotialUIManager.Instance != null)
@@ -65,7 +65,7 @@ public class PartInteractable : MonoBehaviour, IInteractable
                 }
             }
 
-            Debug.Log($"[{targetStage}] ÆÄÃ÷ È¹µæ: {unlockMessage}");
+            Debug.Log($"[{targetStage}] íŒŒì¸  íšë“: {unlockMessage}");
 
             Destroy(gameObject);
         }

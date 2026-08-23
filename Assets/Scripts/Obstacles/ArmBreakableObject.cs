@@ -4,12 +4,12 @@ using UnityEngine;
 public class ArmBreakableObject : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private int requiredHits = 3; // ºÎ¼ö±â À§ÇØ ÇÊ¿äÇÑ Å¸°Ý È½¼ö
+    [SerializeField] private int requiredHits = 3; // 부수기 위해 필요한 타격 횟수
     private int currentHits = 0;
 
     [Header("Shake Effect")]
-    [SerializeField] private float shakeDuration = 0.2f;  // Èçµé¸®´Â ½Ã°£
-    [SerializeField] private float shakeMagnitude = 0.1f; // Èçµé¸®´Â °­µµ(°Å¸®)
+    [SerializeField] private float shakeDuration = 0.2f;  // 흔들리는 시간
+    [SerializeField] private float shakeMagnitude = 0.1f; // 흔들리는 강도(거리)
 
     private Vector3 originalPosition;
     private Coroutine shakeCoroutine;

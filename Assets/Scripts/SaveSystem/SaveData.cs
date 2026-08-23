@@ -3,22 +3,22 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    // ÀúÀåÇÒ ¾À ÀÌ¸§
+    // ì €ì¥í•  ì”¬ ì´ë¦„
     public string savedSceneName;
 
-    // ÇÃ·¹ÀÌ¾î À§Ä¡
+    // í”Œë ˆì´ì–´ ìœ„ì¹˜
     public float playerPosX;
     public float playerPosY;
 
-    // ÇÃ·¹ÀÌ¾î »óÅÂ
+    // í”Œë ˆì´ì–´ ìƒíƒœ
     public float playerHp;
     public float playerStamina;
     public PlayerStage currentPlayerStage;
     public bool isSoulState;
 
-    //ÀÎº¥Åä¸® ÀúÀå
+    //ì¸ë²¤í† ë¦¬ ì €ì¥
     public InventoryItem[] inventoryItems;
-    // ºñ¹Ğ¹øÈ£ Àá±İ ÇØÁ¦ »óÅÂ ÀúÀå
+    // ë¹„ë°€ë²ˆí˜¸ ì ê¸ˆ í•´ì œ ìƒíƒœ ì €ì¥
     public int[] unlockedPassword = new int[4] { 0, 0, 0, 0 };
 
 }

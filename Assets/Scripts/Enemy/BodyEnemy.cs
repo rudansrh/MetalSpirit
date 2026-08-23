@@ -9,11 +9,11 @@ public class BodyEnemy : Enemy
     [SerializeField] private float detectionRange = 10f;
 
     [Header("Charge Attack Settings")]
-    [SerializeField] private float attackRange = 6f; // µ¹ÁøÀ» ½ÃÀÛÇÒ °Å¸®
+    [SerializeField] private float attackRange = 6f; // 돌진을 시작할 거리
     [SerializeField] private float attackCooldown = 3f;
-    [SerializeField] private float attackDelay = 0.6f; // µ¹Áø Àü ÁØºñ ½Ã°£
-    [SerializeField] private float chargeSpeed = 15f;  // µ¹ÁøÇÏ´Â ¼Óµµ
-    [SerializeField] private float chargeDuration = 0.4f; // µ¹ÁøÀÌ À¯ÁöµÇ´Â ½Ã°£
+    [SerializeField] private float attackDelay = 0.6f; // 돌진 전 준비 시간
+    [SerializeField] private float chargeSpeed = 15f;  // 돌진하는 속도
+    [SerializeField] private float chargeDuration = 0.4f; // 돌진이 유지되는 시간
 
     [Header("Detection (Raycast) Settings")]
     [SerializeField] private float wallCheckDistance = 1f;
@@ -30,7 +30,7 @@ public class BodyEnemy : Enemy
     private Collider2D col;
     private bool isGrounded;
 
-    private bool isAttacking = false; // µ¹Áø ÁßÀÎÁö ¿©ºÎ
+    private bool isAttacking = false; // 돌진 중인지 여부
     private float lastAttackTime = 0f;
     private Vector2 playerPos;
 
@@ -57,7 +57,7 @@ public class BodyEnemy : Enemy
             return;
         }
 
-        // ºùÀÇ »óÅÂ ·ÎÁ÷ À¯Áö
+        // 빙의 상태 로직 유지
         if (isPossessed)
         {
             if (rb.linearVelocityX > 0.1f) facingDirection = 1f;
@@ -107,7 +107,7 @@ public class BodyEnemy : Enemy
             return;
         }
 
-        // ¿µÈ¥ »óÅÂ ·ÎÁ÷ À¯Áö
+        // 영혼 상태 로직 유지
         if (playerAbility.isSoul)
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -126,7 +126,7 @@ public class BodyEnemy : Enemy
         playerPos = !playerController.IsPossessing ? playerController.transform.position : playerController.GetPossessedEnemyPosition();
         float distanceToPlayer = Vector2.Distance(transform.position, playerPos);
 
-        // °ø°Ý ¹üÀ§ ³»¿¡ µé¾î¿À¸é µ¹Áø ÁØºñ
+        // 공격 범위 내에 들어오면 돌진 준비
         if (distanceToPlayer <= attackRange && (!playerController.isPossessing || isAttackingPossessed))
         {
             rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
@@ -148,7 +148,7 @@ public class BodyEnemy : Enemy
         }
     }
 
-    // µ¹Áø °ø°Ý ÄÚ·çÆ¾
+    // 돌진 공격 코루틴
     public IEnumerator ChargeRoutine()
     {
         isAttacking = true;

@@ -8,15 +8,15 @@ public class HeadEnemy : Enemy
     [Header("Flight & AI Settings")]
     [SerializeField] private float flySpeed = 2.5f;
     [SerializeField] private float detectionRange = 12f;
-    [SerializeField] private float hoverDistance = 4f; // ÇÃ·¹ÀÌ¾î¿Í À¯ÁöÇÏ·Á´Â ÃÖ¼Ò °Å¸®
+    [SerializeField] private float hoverDistance = 4f; // 플레이어와 유지하려는 최소 거리
 
     [Header("Laser Attack Settings")]
-    [SerializeField] private float laserRange = 5f;       // °ø°Ý ¹üÀ§
-    [SerializeField] private float laserDamage = 50f;     // µ¥¹ÌÁö
-    [SerializeField] private float laserThickness = 1f;   // ·¹ÀÌÀú µÎ²²
-    [SerializeField] private float attackCooldown = 3f;   // °ø°Ý ÄðÅ¸ÀÓ
-    [SerializeField] private float attackDelay = 0.8f;    // ¹ß»ç Àü °æ°í ½Ã°£
-    [SerializeField] private Vector2 headOffset = new Vector2(0f, 0.5f); // ¸Ó¸® À§Ä¡ ¿ÀÇÁ¼Â
+    [SerializeField] private float laserRange = 5f;       // 공격 범위
+    [SerializeField] private float laserDamage = 50f;     // 데미지
+    [SerializeField] private float laserThickness = 1f;   // 레이저 두께
+    [SerializeField] private float attackCooldown = 3f;   // 공격 쿨타임
+    [SerializeField] private float attackDelay = 0.8f;    // 발사 전 경고 시간
+    [SerializeField] private Vector2 headOffset = new Vector2(0f, 0.5f); // 머리 위치 오프셋
 
     [Header("Enemy Hp")]
     [SerializeField] private float enemyHp = 30f;
@@ -155,7 +155,7 @@ public class HeadEnemy : Enemy
         }
     }
 
-    // ·¹ÀÌÀú ¹ß»ç ÄÚ·çÆ¾
+    // 레이저 발사 코루틴
     public IEnumerator LaserRoutine()
     {
         isAttacking = true;

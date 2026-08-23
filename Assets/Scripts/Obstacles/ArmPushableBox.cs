@@ -4,11 +4,11 @@ using UnityEngine;
 public class ArmPushableBox : MonoBehaviour
 {
     [Header("Push Settings")]
-    [SerializeField] private float pushForce = 20f; // ÆÈ °ø°İ¿¡ ¸Â¾ÒÀ» ¶§ ³¯¾Æ°¡´Â Èû
+    [SerializeField] private float pushForce = 20f; // íŒ” ê³µê²©ì— ë§ì•˜ì„ ë•Œ ë‚ ì•„ê°€ëŠ” í˜
 
     [Header("Buoyancy Settings")]
-    [SerializeField] private float floatPower = 3f; // ¹°¿¡ ¶ß´Â ºÎ·ÂÀÇ °­µµ
-    [SerializeField] private float waterDrag = 3f;  // ¹° ¼Ó¿¡¼­ÀÇ ÀúÇ×
+    [SerializeField] private float floatPower = 3f; // ë¬¼ì— ëœ¨ëŠ” ë¶€ë ¥ì˜ ê°•ë„
+    [SerializeField] private float waterDrag = 3f;  // ë¬¼ ì†ì—ì„œì˜ ì €í•­
 
     private Rigidbody2D rb;
     private bool isInWater = false;

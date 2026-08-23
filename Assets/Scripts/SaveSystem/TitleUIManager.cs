@@ -5,14 +5,14 @@ public class TitleUIManager : MonoBehaviour
 {
     private void Awake()
     {
-        // Å¸ÀÌÆ² È­¸é¿¡ ÇÃ·¹ÀÌ¾î°¡ ³²¾ÆÀÖ´Ù¸é ÆÄ±«
+        // íƒ€ì´í‹€ í™”ë©´ì— í”Œë ˆì´ì–´ê°€ ë‚¨ì•„ìˆë‹¤ë©´ íŒŒê´´
         if (PlayerController.Instance != null)
         {
             Destroy(PlayerController.Instance.gameObject);
         }
     }
 
-    // ÀÌ¾îÇÏ±â ¹öÆ°
+    // ì´ì–´í•˜ê¸° ë²„íŠ¼
     public void OnClickLoadGame()
     {
         if (SaveManager.Instance != null)
@@ -21,11 +21,11 @@ public class TitleUIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("SaveManager ÀÎ½ºÅÏ½º¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù!");
+            Debug.LogWarning("SaveManager ì¸ìŠ¤í„´ìŠ¤ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤!");
         }
     }
 
-    // »õ °ÔÀÓ ¹öÆ°
+    // ìƒˆ ê²Œì„ ë²„íŠ¼
     public void OnClickNewGame()
     {
         if (SaveManager.Instance != null)
@@ -40,7 +40,7 @@ public class TitleUIManager : MonoBehaviour
 
     public void OnClickQuitGame()
     {
-        Debug.Log("°ÔÀÓÀ» Á¾·áÇÕ´Ï´Ù.");
+        Debug.Log("ê²Œì„ì„ ì¢…ë£Œí•©ë‹ˆë‹¤.");
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

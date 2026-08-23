@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MossObstacle : MonoBehaviour, IInteractable
 {
-    private string purpose = "ÀÌ³¢ Ä¡¿ì±â";
+    private string purpose = "이끼 치우기";
     public string Purpose => purpose;
     public void Interact(GameObject interactor)
     {
@@ -17,7 +17,7 @@ public class MossObstacle : MonoBehaviour, IInteractable
             else
             {
 
-                Debug.Log("°¡À§ ÇÊ¿ä");
+                Debug.Log("가위 필요");
             }
         }
     }

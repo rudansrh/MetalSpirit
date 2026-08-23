@@ -3,7 +3,7 @@ using UnityEngine;
 public class PortalSpawnPoint : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public string spawnPointID; // ÀÌ µµÂø ÁöÁ¡ÀÇ °íÀ¯ ID
+    public string spawnPointID; // ì´ ë„ì°© ì§€ì ì˜ ê³ ìœ  ID
 
     private void Start()
     {
@@ -12,7 +12,7 @@ public class PortalSpawnPoint : MonoBehaviour
             if (PlayerController.Instance != null && PlayerController.Instance.isMovingToNextScene)
             {
                 PlayerController.Instance.transform.position = this.transform.position;
-                Debug.Log("¸Ê ÀÌµ¿ ¿Ï·á");
+                Debug.Log("ë§µ ì´ë™ ì™„ë£Œ");
                 PlayerController.Instance.isMovingToNextScene = false;
             }
         }

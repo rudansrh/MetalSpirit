@@ -15,7 +15,7 @@ public class SaveSlotUIManager : MonoBehaviour
         if (Instance == null) Instance = this;
         if (slotPanel != null) slotPanel.SetActive(false);
 
-        // Å¸ÀÌÆ² È­¸éÀÏ ¶§ ÀÎ°ÔÀÓ¿¡¼­ ³Ñ¾î¿Â °´Ã¼µéÀ» ÆÄ±«
+        // íƒ€ì´í‹€ í™”ë©´ì¼ ë•Œ ì¸ê²Œì„ì—ì„œ ë„˜ì–´ì˜¨ ê°ì²´ë“¤ì„ íŒŒê´´
         if (isTitleScreen)
         {
             if (PlayerController.Instance != null)
@@ -69,7 +69,7 @@ public class SaveSlotUIManager : MonoBehaviour
         }
     }
 
-    // »õ °ÔÀÓ ¹öÆ°À» ´­·¶À» ¶§
+    // ìƒˆ ê²Œì„ ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ
     public void OnClickNewGameDirectly()
     {
         if (SaveManager.Instance != null)
@@ -78,24 +78,24 @@ public class SaveSlotUIManager : MonoBehaviour
         }
     }
 
-    // ½½·ÔÀ» ´©¸¦ ¶§
+    // ìŠ¬ë¡¯ì„ ëˆ„ë¥¼ ë•Œ
     public void OnClickSlot(int slotIndex)
     {
         if (isTitleScreen)
         {
-            // [Å¸ÀÌÆ² È­¸é - Load Àü¿ë] 
+            // [íƒ€ì´í‹€ í™”ë©´ - Load ì „ìš©] 
             if (SaveManager.Instance.HasSaveFile(slotIndex))
             {
                 SaveManager.Instance.LoadGame(slotIndex);
             }
             else
             {
-                Debug.LogWarning($"{slotIndex}¹ø ½½·ÔÀº ºñ¾îÀÖ½À´Ï´Ù. ·ÎµåÇÒ ¼ö ¾ø½À´Ï´Ù.");
+                Debug.LogWarning($"{slotIndex}ë²ˆ ìŠ¬ë¡¯ì€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤. ë¡œë“œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
             }
         }
         else
         {
-            // [ÀÎ°ÔÀÓ - Save Àü¿ë] 
+            // [ì¸ê²Œì„ - Save ì „ìš©] 
             SaveManager.Instance.SaveGame(slotIndex);
             CloseSlotUI();
 

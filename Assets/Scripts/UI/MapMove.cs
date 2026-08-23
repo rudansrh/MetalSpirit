@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 public class ScenePortal : MonoBehaviour
 {
     [Header("Transition Settings")]
-    public string targetSceneName; // ÀÌµ¿ÇÒ ´ÙÀ½ ¾ÀÀÇ ÀÌ¸§
-    public string spawnPointID;    // ´ÙÀ½ ¾À¿¡¼­ ÇÃ·¹ÀÌ¾î°¡ µîÀåÇÒ À§Ä¡ ID
+    public string targetSceneName; // ì´ë™í•  ë‹¤ìŒ ì”¬ì˜ ì´ë¦„
+    public string spawnPointID;    // ë‹¤ìŒ ì”¬ì—ì„œ í”Œë ˆì´ì–´ê°€ ë“±ì¥í•  ìœ„ì¹˜ ID
 
     public static string TargetSpawnPointID;
 
@@ -22,7 +22,7 @@ public class ScenePortal : MonoBehaviour
 
         if (collision.TryGetComponent<PlayerController>(out var player))
         {
-            Debug.Log($"{targetSceneName} ¾ÀÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù...");
+            Debug.Log($"{targetSceneName} ì”¬ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤...");
 
             player.isMovingToNextScene = true;
             TargetSpawnPointID = spawnPointID;

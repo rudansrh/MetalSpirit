@@ -3,6 +3,6 @@ using UnityEngine;
 public interface IInteractable
 {
     public string Purpose { get; }
-    // »óÈ£ÀÛ¿ëÀ» ½ÇÇàÇÑ ÁÖÃ¼
+    // ìƒí˜¸ì‘ìš©ì„ ì‹¤í–‰í•œ ì£¼ì²´
     void Interact(GameObject interactor);
 }
