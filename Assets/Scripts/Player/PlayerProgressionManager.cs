@@ -11,6 +11,10 @@ public class PlayerProgressionManager : MonoBehaviour
     [Header("Progression")]
     [SerializeField] private PlayerStage unlockedStage = PlayerStage.Soul;
 
+    [Header("Collider Progression")]
+    [SerializeField] private Collider2D basicCollider;
+    [SerializeField] private Collider2D fullBodyCollider;
+
     [Header("Debug Runtime Override")]
     [SerializeField] private bool useDebugOverride = false;
     [SerializeField] private bool debugIsSoul = true;
@@ -21,6 +25,8 @@ public class PlayerProgressionManager : MonoBehaviour
     public PlayerStage CurrentVisualStage => IsSoulForm ? PlayerStage.Soul : EffectiveUnlockedStage;
     public bool IsSoulForm => EffectiveIsSoul;
     public bool EffectiveIsSoul => useDebugOverride ? debugIsSoul : runtimeSoulState;
+    public Collider2D BasicCollider => basicCollider;
+    public Collider2D FullBodyCollider => fullBodyCollider;
 
     public event Action StateChanged;
 
@@ -42,6 +48,11 @@ public class PlayerProgressionManager : MonoBehaviour
         if (visualManager == null)
         {
             visualManager = GetComponent<PlayerVisualManager>();
+        }
+
+        if (basicCollider == null)
+        {
+            basicCollider = GetComponent<Collider2D>();
         }
 
         unlockedStage = ClampStage(unlockedStage);
