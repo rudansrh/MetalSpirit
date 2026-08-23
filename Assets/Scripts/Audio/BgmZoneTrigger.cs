@@ -40,7 +40,8 @@ public class BgmZoneTrigger : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.TryGetComponent<PlayerController>(out var player) && player.IsPossessing)
+        PlayerController player = other.GetComponentInParent<PlayerController>();
+        if (player != null && player.IsPossessing)
             return;
 
         if (!IsPlayer(other))
@@ -56,10 +57,11 @@ public class BgmZoneTrigger : MonoBehaviour
 
     private static bool IsPlayer(Collider2D other)
     {
-        if (other.TryGetComponent<PlayerController>(out _))
+        if (other.GetComponentInParent<PlayerController>() != null)
             return true;
 
-        if (other.TryGetComponent<Enemy>(out var enemy) && enemy.isPossessed) // 빙의 중에도 플레이어로 간주
+        Enemy enemy = other.GetComponentInParent<Enemy>();
+        if (enemy != null && enemy.isPossessed) // 빙의 중에도 플레이어로 간주
             return true;
 
         return false;
