@@ -12,6 +12,9 @@ public class DoorCoroutine : MonoBehaviour
     [SerializeField] private bool autoClose = true;                                // 자동 닫힘 사용 여부
     [SerializeField] private float autoCloseDelay = 5.0f;                          // 대기 시간(초)
 
+    [Header("가벽")]
+    [SerializeField] private GameObject wall;                                      // 문이 열릴 때 비활성화할 가벽
+
     private Vector3 originalPosition;
     private Vector3 originalScale;
 
@@ -49,6 +52,11 @@ public class DoorCoroutine : MonoBehaviour
 
         isOpen = true;
         Vector3 targetPos = originalPosition + targetPositionOffset;
+
+        if (wall != null)
+        {
+            wall.SetActive(false); // 문이 열릴 때 가벽 비활성화
+        }
 
         activeCoroutine = StartCoroutine(AnimateDoor(targetPos, targetScale, () =>
         {
