@@ -111,8 +111,8 @@ MonoBehaviour:
   - speaker: 1
     portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
-    - text: "\uC5EC\uB7EC\uAC00\uC9C0 \uC22B\uC790\uAC00 \uB110 \uD604\uD639\uD558\uB824
-        \uB4E4\uC5B4\uB3C4"
+    - text: "\uC22B\uC790\uAC00 \uBD88\uADDC\uCE59\uD558\uAC8C \uB9CE\uC740 \uAC8C
+        \uC544\uB2C8\uB77C\uBA74"
       bold: 1
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
@@ -121,7 +121,8 @@ MonoBehaviour:
   - speaker: 1
     portraitSprite: {fileID: 3290172580784513831, guid: 74bb64d9c7627402d8fd262ca0d0adad, type: 3}
     textElements:
-    - text: "\uACB0\uAD6D \uB0A8\uB294 \uAC74 \uD558\uB098 \uBFD0\uC774\uC57C."
+    - text: "\uACB0\uAD6D \uD55C \uD3EC\uC2A4\uD130\uC5D0 \uB0A8\uB294 \uC22B\uC790\uB294
+        \uD558\uB098 \uBFD0\uC774\uC57C."
       bold: 1
       color: {r: 1, g: 1, b: 1, a: 1}
     text: 
