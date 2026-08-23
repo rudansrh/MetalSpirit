@@ -73,6 +73,9 @@ public class BossEncounterSequence : MonoBehaviour
     [SerializeField] UnityEvent onBossDefeatedSequenceFinished;
     [SerializeField] UnityEvent onElevatorEscapeStarted;
 
+    [Header("Save Point")]
+    [SerializeField] GameObject savePoint;
+
     Coroutine sequenceCoroutine;
     Coroutine phase2TransitionCoroutine;
     Coroutine bossDefeatCoroutine;
@@ -233,6 +236,8 @@ public class BossEncounterSequence : MonoBehaviour
         {
             return;
         }
+
+        savePoint?.SetActive(false); // 보스 전투 시작 시 Save Point 비활성화
 
         sequenceCoroutine = StartCoroutine(PlayEncounterSequence());
     }

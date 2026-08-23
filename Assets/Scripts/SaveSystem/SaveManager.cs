@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
         return File.Exists(GetSaveFilePath(slotIndex));
     }
 
-    // °ÔÀÓ ÀúÀå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SaveGame(int slotIndex)
     {
         SaveData data = new SaveData();
@@ -78,11 +78,11 @@ public class SaveManager : MonoBehaviour
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(GetSaveFilePath(slotIndex), json);
-        Debug.Log($"½½·Ô {slotIndex}¿¡ °ÔÀÓ ÀúÀå ¿Ï·á!");
-        Debug.Log($"¼¼ÀÌºê °æ·Î: {GetSaveFilePath(slotIndex)}");
+        Debug.Log($"ï¿½ï¿½ï¿½ï¿½ {slotIndex}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½!");
+        Debug.Log($"ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½: {GetSaveFilePath(slotIndex)}");
     }
 
-    //°ÔÀÓ ºÒ·¯¿À±â 
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ 
     public void LoadGame(int slotIndex)
     {
         if (HasSaveFile(slotIndex))
@@ -96,30 +96,31 @@ public class SaveManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"{slotIndex}¹ø ½½·ÔÀº ºñ¾îÀÖ½À´Ï´Ù.");
+            Debug.LogWarning($"{slotIndex}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
-    // »õ °ÔÀÓ
+    // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void StartNewGame(string firstSceneName)
     {
-        // Ã¹ ¹øÂ° ¾ÀÀ» ·ÎµåÇÏ¸é ¾À¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾î°¡ ±âº» »óÅÂ(ÃÖ´ë Ã¼·Â/½ºÅÂ¹Ì³ª)·Î ÃÊ±âÈ­µÇ¾î ½ÃÀÛµË´Ï´Ù.
+        // Ã¹ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½âº» ï¿½ï¿½ï¿½ï¿½(ï¿½Ö´ï¿½ Ã¼ï¿½ï¿½/ï¿½ï¿½ï¿½Â¹Ì³ï¿½)ï¿½ï¿½ ï¿½Ê±ï¿½È­ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ÛµË´Ï´ï¿½.
         lastSlot = 0;
         newGameStarted = true;
 
         if (PlayerController.Instance.TryGetComponent<Health>(out var health))
         {
-            health.PlayerIsDead = false; // Ã¼·Â ·Îµå ÈÄ »ç¸Á »óÅÂ ÃÊ±âÈ­
-            health.gameOver = false; // °ÔÀÓ ¿À¹ö »óÅÂ ÃÊ±âÈ­
+            health.PlayerIsDead = false; // Ã¼ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+            health.gameOver = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         }
 
         SceneManager.LoadScene(firstSceneName);
-        Debug.Log($"»õ °ÔÀÓ ½ÃÀÛ: {firstSceneName} ¾À ·Îµå");
+        Debug.Log($"ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {firstSceneName} ï¿½ï¿½ ï¿½Îµï¿½");
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+
         if (PlayerController.Instance != null && currentLoadData != null)
         {
             PlayerController.Instance.transform.position = new Vector2(currentLoadData.playerPosX, currentLoadData.playerPosY);
@@ -128,8 +129,8 @@ public class SaveManager : MonoBehaviour
             if (PlayerController.Instance.TryGetComponent<Health>(out var health))
             {
                 health.LoadHealthData(currentLoadData.playerHp);
-                health.PlayerIsDead = false; // Ã¼·Â ·Îµå ÈÄ »ç¸Á »óÅÂ ÃÊ±âÈ­
-                health.gameOver = false; // °ÔÀÓ ¿À¹ö »óÅÂ ÃÊ±âÈ­
+                health.PlayerIsDead = false; // Ã¼ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
+                health.gameOver = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
 
                 if (playerRevive)
                 {
@@ -155,7 +156,7 @@ public class SaveManager : MonoBehaviour
                 if (PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
                 {
                     inventory.LoadInventory(currentLoadData.inventoryItems);
-                    Debug.Log("ÀÎº¥Åä¸® ·Îµå ¿Ï·á");
+                    Debug.Log("ï¿½Îºï¿½ï¿½ä¸® ï¿½Îµï¿½ ï¿½Ï·ï¿½");
                 }
                 playerAbility.isSoul = currentLoadData.isSoulState;
             }
@@ -165,8 +166,11 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.isUIopen = false;
             PlayerController.Instance.canMove = true;
         }
+
         currentLoadData = null;
         playerRevive = false;
+
+        PlayerController.Instance.Invincibility(1f); // í”Œë ˆì´ì–´ ë¶€í™œ í›„ 1ì´ˆ ë¬´ì 
     }
 
     public void YouDied()

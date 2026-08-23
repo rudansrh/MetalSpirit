@@ -712,7 +712,7 @@ public class PlayerController : MonoBehaviour
             controlledEnemy.SetPossessed(false);
         }
 
-        StartCoroutine(invincibilityRoutine(1f));
+        Invincibility(1f);
 
         rigid = GetComponent<Rigidbody2D>();
         rigid.bodyType = RigidbodyType2D.Dynamic;
@@ -738,11 +738,20 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Invincibility(float duration) // 플레이어 일정 시간 무적
+    {
+        StartCoroutine(invincibilityRoutine(duration));
+    }
+
     IEnumerator invincibilityRoutine(float duration)
     {
+        Debug.Log("플레이어 무적 시작, 지속시간: " + duration);
+
         isInvincibility = true;
         yield return new WaitForSeconds(duration);
         isInvincibility = false;
+
+        Debug.Log("플레이어 무적 종료");
     }
 
     void TryStartPossessedEnemySelfDialogue(Enemy possessedEnemy)
