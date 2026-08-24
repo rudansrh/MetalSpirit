@@ -183,28 +183,15 @@ public class PlayerController : MonoBehaviour
 
     void UpdateFormState()
     {
-        if (!isPossessing)
-        {
-            Collider2D activePlayerCollider = ResolveActivePlayerCollider();
-            SetPlayerColliderState(activePlayerCollider);
-            col = activePlayerCollider;
-        }
-
         if (IsSoulForm())
         {
             rigid.gravityScale = 0f;
-            if (col != null)
-            {
-                col.isTrigger = true;
-            }
+            col.isTrigger = true;
         }
         else
         {
             rigid.gravityScale = originalGravity;
-            if (col != null)
-            {
-                col.isTrigger = false;
-            }
+            col.isTrigger = false;
         }
 
         if (visualManager != null)
@@ -313,55 +300,6 @@ public class PlayerController : MonoBehaviour
         }
 
         return rigid != null ? rigid.GetComponent<Collider2D>() : null;
-    }
-
-    Collider2D ResolveActivePlayerCollider()
-    {
-        Collider2D basicCollider = progressionManager != null ? progressionManager.BasicCollider : null;
-        Collider2D fullBodyCollider = progressionManager != null ? progressionManager.FullBodyCollider : null;
-
-        if (basicCollider == null)
-        {
-            basicCollider = GetComponent<Collider2D>();
-        }
-
-        bool useFullBodyCollider = progressionManager != null
-            && progressionManager.EffectiveUnlockedStage == PlayerStage.FullBody
-            && fullBodyCollider != null;
-
-        return useFullBodyCollider ? fullBodyCollider : basicCollider;
-    }
-
-    void SetPlayerColliderState(Collider2D activeCollider)
-    {
-        Collider2D basicCollider = progressionManager != null ? progressionManager.BasicCollider : null;
-        Collider2D fullBodyCollider = progressionManager != null ? progressionManager.FullBodyCollider : null;
-
-        if (basicCollider != null)
-        {
-            basicCollider.enabled = basicCollider == activeCollider;
-        }
-
-        if (fullBodyCollider != null)
-        {
-            fullBodyCollider.enabled = fullBodyCollider == activeCollider;
-        }
-    }
-
-    void SetAllPlayerCollidersEnabled(bool enabled)
-    {
-        Collider2D basicCollider = progressionManager != null ? progressionManager.BasicCollider : null;
-        Collider2D fullBodyCollider = progressionManager != null ? progressionManager.FullBodyCollider : null;
-
-        if (basicCollider != null)
-        {
-            basicCollider.enabled = enabled;
-        }
-
-        if (fullBodyCollider != null)
-        {
-            fullBodyCollider.enabled = enabled;
-        }
     }
 
     public void enemyAttack(string attackParts) // 빙의상태로 공격
@@ -830,7 +768,7 @@ public class PlayerController : MonoBehaviour
 
         targetEnemy.SetPossessed(true);
         spriteRenderer.enabled = false;
-        SetAllPlayerCollidersEnabled(false);
+        col.enabled = false;
         col = targetEnemy.GetComponent<Collider2D>();
         AudioManager.instance?.PlaySfx(AudioManager.Sfx.Possession); //***
 
@@ -873,6 +811,8 @@ public class PlayerController : MonoBehaviour
         rigid.bodyType = RigidbodyType2D.Dynamic;
         rigid.linearVelocity = Vector3.zero;
         spriteRenderer.enabled = true;
+        col = GetComponent<Collider2D>();
+        col.enabled = true;
         AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
 
         abilityManager.DepossessBody();

@@ -674,7 +674,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.15}
   m_EdgeRadius: 0
 --- !u!212 &220172841
 SpriteRenderer:
@@ -6658,7 +6658,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.15}
   m_EdgeRadius: 0
 --- !u!114 &1391396888
 MonoBehaviour:
@@ -7477,7 +7477,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.15}
   m_EdgeRadius: 0
 --- !u!212 &1594888910
 SpriteRenderer:
@@ -8959,7 +8959,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.15}
   m_EdgeRadius: 0
 --- !u!212 &1855663673
 SpriteRenderer:
@@ -9155,7 +9155,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.1, y: 1.15}
   m_EdgeRadius: 0
 --- !u!212 &1953539530
 SpriteRenderer:
