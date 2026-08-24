@@ -4784,6 +4784,7 @@ MonoBehaviour:
   duration: 1
   autoClose: 1
   autoCloseDelay: 5
+  wall: {fileID: 0}
 --- !u!1 &596092276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5830,6 +5831,7 @@ MonoBehaviour:
   duration: 1
   autoClose: 1
   autoCloseDelay: 5
+  wall: {fileID: 0}
 --- !u!61 &814537972
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8604,6 +8606,7 @@ MonoBehaviour:
   duration: 1
   autoClose: 1
   autoCloseDelay: 5
+  wall: {fileID: 0}
 --- !u!61 &1138752086
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13721,7 +13724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Password
   correctPassword: 495
-  defaultMessage: "\uBD99\uC774\uAE30 & \uBD84\uB9AC"
+  defaultMessage: "\uC804\uBD80\uAC00 \uB2F5\uC774 \uC544\uB2C8\uB2E4"
   successMessage: "\uC554\uD638\uAC00 \uC77C\uCE58\uD569\uB2C8\uB2E4."
   failureMessage: "\uC554\uD638\uAC00 \uD2C0\uB838\uC2B5\uB2C8\uB2E4."
   reamainTime: 1.5
