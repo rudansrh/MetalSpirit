@@ -409,7 +409,7 @@ MonoBehaviour:
   dialogueStartDelay: 3
   postDialogueDelay: 0.2
   postFlashDelay: 0.2
-  dialogueYOffset: 0.3
+  dialogueYOffset: 0.5
   dialogueCameraBeatTriggerLineIndex: 3
   dialogueCameraBeatOffset: {x: 0, y: 3, z: 0}
   dialogueCameraBeatUpDuration: 3
