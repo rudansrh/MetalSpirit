@@ -448,6 +448,7 @@ public class BossEncounterSequence : MonoBehaviour
             bossAttackController.PlayDeathAnimation();
         }
 
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossDeath); //***
         AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossExplosion); //***
 
         if (bossFadeOutDuration > 0f)
