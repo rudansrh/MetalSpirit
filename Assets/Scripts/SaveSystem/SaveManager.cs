@@ -70,9 +70,11 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.lastSavedSlot = slotIndex;
         }
 
-        if(newGameStarted)
+        if (newGameStarted)
         {
             newGameStarted = false;
+
+            //TurotialUIManager.Instance.OpenTutorial(0);
             if (TurotialUIManager.Instance != null)
             {
                 TurotialUIManager.Instance.OpenTutorial(0);
