@@ -5984,7 +5984,7 @@ MonoBehaviour:
   phase2ReturnDuration: 0.35
   enableArenaShakeInPhase2: 1
   bossDefeatDelay: 2
-  bossFadeOutDuration: 4
+  bossFadeOutDuration: 1
   elevatorLeftDoor: {fileID: 1407691610}
   elevatorRightDoor: {fileID: 1030908368}
   elevatorDoorOpenDistance: 1

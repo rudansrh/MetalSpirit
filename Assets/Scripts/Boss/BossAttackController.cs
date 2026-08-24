@@ -134,8 +134,7 @@ public class BossAttackController : MonoBehaviour
         animator.ResetTrigger(chargeRightToLeftTriggerHash);
         animator.ResetTrigger(chargeLeftToRightTriggerHash);
         animator.SetTrigger(deathTriggerHash);
-
-        // AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossDeath); //***
+        AudioManager.instance?.PlaySfx(AudioManager.Sfx.BossDeath); //***
     }
 
     IEnumerator AttackLoopRoutine()
