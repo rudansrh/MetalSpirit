@@ -30,7 +30,7 @@ public class PossessGauge : MonoBehaviour
         if (!playerController.isTalking) currentPossessTime -= Time.deltaTime;
         if (currentPossessTime < 0 && !isInfinityPossess)
         {
-            playerController.OnPossess(null);
+            playerController.Possess();
         }
 
         possessGauge.fillAmount = currentPossessTime / possessionLimitTime;
