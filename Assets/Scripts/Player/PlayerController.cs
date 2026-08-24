@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float soulSpeed = 10f;
     [SerializeField] float jumpForce;
+    [SerializeField] private float cutJumpFactor = 0.5f;   // 키를 뗐을 때 속도 감소 비율 (0~1)
     [SerializeField] float wallJumpDelay;
     [SerializeField] float wallClimbSpeed = 0.25f;
     [SerializeField] float wallClimbHoldStaminaCostPerSecond = 2f;
@@ -55,6 +56,11 @@ public class PlayerController : MonoBehaviour
 
     [Header("Interaction Settings")]
     public IInteractable nearbyInteractable = null; // 근처에 있는 상호작용 객체
+
+    [Header("Wall Climb Hold Settings")]
+    [SerializeField] private float wallHoldTime = 0.15f;
+    private float currentWallHoldTimer = 0f;
+    [SerializeField]private bool isWallHoldActive = false;
 
 
     bool isDashing = false;
@@ -232,6 +238,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        UpdateHoldWallClimb();
+
         // 빙의 상태일 때
         if (UpdateWallClimbState())
         {
@@ -384,11 +392,12 @@ public class PlayerController : MonoBehaviour
     {
         if (isUIopen) return;
 
-        // 점프 불가
-        if (isDashing || IsSoulForm() || !canMove || isWallClimbing || (jumpCooldownTimer < jumpCooldown && isJump) || jumpCount >= jumpLimit) return;
-
+        // 1. 점프 키를 누른 순간 (isPressed == true)
         if (value.isPressed)
         {
+            // 점프 불가 조건을 충족하면 리턴
+            if (isDashing || IsSoulForm() || !canMove || isWallClimbing || (jumpCooldownTimer < jumpCooldown && isJump) || jumpCount >= jumpLimit) return;
+
             if (stamina != null && !stamina.UseStamina(jumpStaminaCost))
             {
                 return;
@@ -399,10 +408,20 @@ public class PlayerController : MonoBehaviour
             StopWallClimb();
             rigid.linearVelocityY = 0;
             rigid.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            transform.Translate(new Vector3(0,0.01f,0));
-            if(IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
+            transform.Translate(new Vector3(0, 0.01f, 0));
+            if (IsPossessing) rigid.transform.Translate(new Vector3(0, 0.01f, 0));
             isJump = true;
-            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Jump); //***
+            AudioManager.instance?.PlaySfx(AudioManager.Sfx.Jump);
+        }
+        // 2. 점프 키를 뗀 순간 (isPressed == false)
+        else
+        {
+            Debug.Log("점프 키 해제 감지됨");
+            // 상승 중일 때(linearVelocityY > 0) 속도를 줄여 숏점프 구현
+            if (rigid.linearVelocityY > 0)
+            {
+                rigid.linearVelocityY *= cutJumpFactor;
+            }
         }
     }
 
@@ -410,6 +429,8 @@ public class PlayerController : MonoBehaviour
     public void OnDash(InputValue value)
     {
         if (IsSoulForm() || !canMove || isUIopen) return;
+
+        if (!value.isPressed) return;
 
         if ((abilityManager.canDash || IsPossessing) && canDashAgain && !isDashing && canMove && !IsAttackInProgress)
         {
@@ -487,6 +508,34 @@ public class PlayerController : MonoBehaviour
     }
 
     #region Wall Climb
+    // 매 프레임(Update 또는 FixedUpdate)마다 체크
+    private void UpdateHoldWallClimb()
+    {
+        if (isWallClimbing) return;
+
+        bool isPushingAgainstWall = isWallAttatching && (Mathf.Sign(moveInput.x) != wallClimbDetachDirection && moveInput.x != 0);
+
+        if (isPushingAgainstWall)
+        {
+            currentWallHoldTimer += Time.deltaTime;
+
+            if (currentWallHoldTimer >= wallHoldTime)
+            {
+                StartWallClimb();
+            }
+        }
+        else
+        {
+            currentWallHoldTimer = 0f;
+        }
+    }
+
+    private void StartWallClimb()
+    {
+        currentWallHoldTimer = 0f;
+        isWallHoldActive = true;
+    }
+
     // 벽 타기 상태를 업데이트
     bool UpdateWallClimbState()
     {
@@ -526,6 +575,7 @@ public class PlayerController : MonoBehaviour
             && isWallAttatching
             && wallClimbDetachDirection != 0
             && !isDashing
+            && isWallHoldActive
             && canMove
             && (isWallClimbing
                 || rigid.linearVelocityY < -0.01f
@@ -542,6 +592,7 @@ public class PlayerController : MonoBehaviour
 
         isWallClimbing = false;
         rigid.gravityScale = originalGravity;
+        isWallHoldActive = false;
     }
 
     IEnumerator FallFromWall()
@@ -615,10 +666,52 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Wall")
         {
             isWallAttatching = false;
+            isWallHoldActive = false;
         }
     }
 
     public void OnPossess(InputValue value)
+    {
+        if (isUIopen || isPlayingMinigame || isTalking) return;
+
+        if (!value.isPressed) return;
+
+        if (IsSoulForm() && abilityManager.canPossess)
+        {
+            if (!isPossessing && targetEnemyToPossess != null) //영혼 -> 빙의
+            {
+                PossessToEnemy();
+            }
+        }
+        else if (!IsSoulForm() && abilityManager.canBeSoul)
+        {
+            if (isPossessing) //빙의 -> 영혼
+            {
+                DepossessFromEnemy();
+            }
+            else //물질 -> 영혼
+            {
+                rigid.linearVelocity = Vector3.zero;
+                abilityManager.DepossessBody();
+                UpdateFormState();
+                ClampControlledBodyToBounds();
+                AudioManager.instance?.PlaySfx(AudioManager.Sfx.Depossession); //***
+            }
+        }
+        else if (!IsSoulForm() && !abilityManager.canBeSoul) //파츠 얻은 후 (영혼상태 불가)
+        {
+            if (!IsPossessing && targetEnemyToPossess != null) //물질 -> 빙의
+            {
+                PossessToEnemy();
+            }
+            else if (isPossessing) //빙의 -> 물질
+            {
+                DepossessFromEnemy();
+            }
+        }
+    }
+
+    public void Possess()
     {
         if (isUIopen || isPlayingMinigame || isTalking) return;
 

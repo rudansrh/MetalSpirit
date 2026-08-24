@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8943573642785184300}
   - component: {fileID: 4042588426224211654}
   - component: {fileID: 6745240621538429374}
-  - component: {fileID: 7665167476358093721}
+  - component: {fileID: 7137644644523328574}
   - component: {fileID: 4498660297260647806}
   - component: {fileID: 9006375917508010104}
   - component: {fileID: 1264556610119915763}
@@ -133,7 +133,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!61 &7665167476358093721
+--- !u!61 &7137644644523328574
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,6 +198,7 @@ MonoBehaviour:
   speed: 3.5
   soulSpeed: 10
   jumpForce: 8
+  cutJumpFactor: 0.5
   wallJumpDelay: 0.3
   wallClimbSpeed: 2
   wallClimbHoldStaminaCostPerSecond: 2
@@ -218,6 +219,8 @@ MonoBehaviour:
   cobwebMaxFallSpeed: 1.5
   targetEnemyToPossess: {fileID: 0}
   possessGauge: {fileID: 0}
+  wallHoldTime: 0.15
+  isWallHoldActive: 0
   isJump: 0
   wallClimbDetachDirection: 0
   isWallAttatching: 0
@@ -232,6 +235,7 @@ MonoBehaviour:
   isMovingToNextScene: 0
   canInteractUI: {fileID: 0}
   possessChecker: {fileID: 0}
+  openedDocument: {fileID: 0}
 --- !u!114 &9006375917508010104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,7 +326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAbilityManager
   playerController: {fileID: 4498660297260647806}
   progressionManager: {fileID: 4984105835560708788}
-  isSoul: 0
+  isSoul: 1
   canPossess: 1
   canDash: 0
   canWallJump: 0

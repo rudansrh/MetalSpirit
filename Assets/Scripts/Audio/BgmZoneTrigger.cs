@@ -41,10 +41,14 @@ public class BgmZoneTrigger : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.TryGetComponent<PlayerController>(out var player) && player.IsPossessing)
+        {
             return;
+        }
 
         if (!IsPlayer(other))
+        {
             return;
+        }
 
         AudioManager.instance?.ExitBgmZone(this);
     }
@@ -57,10 +61,14 @@ public class BgmZoneTrigger : MonoBehaviour
     private static bool IsPlayer(Collider2D other)
     {
         if (other.TryGetComponent<PlayerController>(out _))
+        {
             return true;
+        }
 
         if (other.TryGetComponent<Enemy>(out var enemy) && enemy.isPossessed) // 빙의 중에도 플레이어로 간주
+        {
             return true;
+        }
 
         return false;
     }

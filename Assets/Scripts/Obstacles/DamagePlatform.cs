@@ -10,8 +10,7 @@ public class DamagePlatform : MonoBehaviour
     [SerializeField] private float alphaLerpSpeed = 8f;
 
     [Header("Damage Settings")]
-    [SerializeField] private float damageAmount = 2f;
-    [SerializeField] private float damageInterval = 1f;
+    [SerializeField] private float damagePerSecond = 5f; // 초당 데미지
 
     [Header("Alpha Settings")]
     [SerializeField] private float activeAlpha = 0.75f;
@@ -22,9 +21,6 @@ public class DamagePlatform : MonoBehaviour
 
     private Collider2D platformCollider;
     private SpriteRenderer spriteRenderer;
-    private IDamageable currentDamageable;
-    private PlayerController currentPlayerController;
-    private PlayerAbilityManager currentAbilityManager;
 
     private Color baseColor;
 
@@ -55,17 +51,6 @@ public class DamagePlatform : MonoBehaviour
 
         if (isActive)
         {
-            if (currentDamageable != null)
-            {
-                damageTimer += Time.deltaTime;
-
-                if (damageTimer >= damageInterval)
-                {
-                    damageTimer -= damageInterval;
-                    ApplyDamage();
-                }
-            }
-
             if (timer >= activeTime)
             {
                 SetPlatformState(false);
@@ -80,86 +65,25 @@ public class DamagePlatform : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        CachePlayer(collision.gameObject);
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        CachePlayer(collision.gameObject);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (currentPlayerController != null && collision.gameObject == currentPlayerController.gameObject)
-        {
-            ClearPlayer();
-        }
-    }
-
     private void SetPlatformState(bool nextState)
     {
         isActive = nextState;
         timer = 0f;
 
         platformCollider.enabled = isActive;
-
-        if (!isActive)
-        {
-            ClearPlayer();
-        }
     }
 
-    private void CachePlayer(GameObject target)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (!isActive)
+        if (!isActive) return;
+
+        if (other.TryGetComponent<IDamageable>(out var damageable))
         {
-            return;
+            // 초당 데미지 적용
+            damageable.TakeDamage(damagePerSecond * Time.deltaTime, DamageType.Water);
+
+            Debug.Log($"Damage applied to {other.gameObject.name}: {damagePerSecond * Time.deltaTime} damage.");
         }
-
-        if (!target.TryGetComponent<PlayerController>(out var playerController))
-        {
-            return;
-        }
-
-        if (!target.TryGetComponent<IDamageable>(out var damageable))
-        {
-            return;
-        }
-
-        currentPlayerController = playerController;
-        currentDamageable = damageable;
-        currentAbilityManager = target.GetComponent<PlayerAbilityManager>();
-    }
-
-    private void ClearPlayer()
-    {
-        currentDamageable = null;
-        currentPlayerController = null;
-        currentAbilityManager = null;
-        damageTimer = 0f;
-    }
-
-    private void ApplyDamage()
-    {
-        if (currentDamageable == null || currentPlayerController == null)
-        {
-            return;
-        }
-
-        if (currentPlayerController.isInvincibility)
-        {
-            return;
-        }
-
-        if (currentAbilityManager != null && currentAbilityManager.isSoul)
-        {
-            return;
-        }
-
-        AudioManager.instance?.PlaySfx(AudioManager.Sfx.Water); //***
-        currentDamageable.TakeDamage(damageAmount, DamageType.Water);
     }
 
     private void SetAlpha(float alpha)
