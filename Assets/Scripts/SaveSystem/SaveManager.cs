@@ -70,10 +70,15 @@ public class SaveManager : MonoBehaviour
             PlayerController.Instance.lastSavedSlot = slotIndex;
         }
 
-        if(newGameStarted)
+        if (newGameStarted)
         {
             newGameStarted = false;
-            TurotialUIManager.Instance.OpenTutorial(0);
+
+            //TurotialUIManager.Instance.OpenTutorial(0);
+            if (TurotialUIManager.Instance != null)
+            {
+                TurotialUIManager.Instance.OpenTutorial(0);
+            }
         }
 
         string json = JsonUtility.ToJson(data, true);
@@ -107,7 +112,8 @@ public class SaveManager : MonoBehaviour
         lastSlot = 0;
         newGameStarted = true;
 
-        if (PlayerController.Instance.TryGetComponent<Health>(out var health))
+        if (PlayerController.Instance != null &&
+            PlayerController.Instance.TryGetComponent<Health>(out var health))
         {
             health.PlayerIsDead = false; // 체력 로드 전 사망 상태 초기화
             health.gameOver = false; // 게임 오버 상태 초기화
