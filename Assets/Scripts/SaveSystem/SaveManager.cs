@@ -39,6 +39,8 @@ public class SaveManager : MonoBehaviour
     // 게임 저장
     public void SaveGame(int slotIndex)
     {
+        // if (PlayerController.Instance.isPossessing) return; // 적을 조종 중일 때는 저장하지 않음
+
         SaveData data = new SaveData();
         data.savedSceneName = SceneManager.GetActiveScene().name;
 
@@ -55,8 +57,9 @@ public class SaveManager : MonoBehaviour
                 data.playerStamina = stamina.CurrentStamina;
 
             if (PlayerController.Instance.TryGetComponent<PlayerProgressionManager>(out var progressionManager))
+            {
                 data.currentPlayerStage = progressionManager.UnlockedStage;
-
+            }
             if (PlayerController.Instance.TryGetComponent<PlayerAbilityManager>(out var playerAbility))
             {
                 if (playerAbility.canUseInventory && PlayerController.Instance.TryGetComponent<InventoryManager>(out var inventory))
@@ -64,7 +67,7 @@ public class SaveManager : MonoBehaviour
                     data.inventoryItems = inventory.items;
                     Debug.Log(data.inventoryItems.Length);
                 }
-                data.isSoulState = playerAbility.isSoul;
+                data.isSoulState = data.currentPlayerStage == PlayerStage.Soul;
             }
             data.unlockedPassword = PlayerController.Instance.unlockedPassword;
             PlayerController.Instance.lastSavedSlot = slotIndex;
