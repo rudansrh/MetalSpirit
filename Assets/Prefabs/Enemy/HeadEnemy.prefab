@@ -335,7 +335,7 @@ MonoBehaviour:
   detectionRange: 5.5
   hoverDistance: 3
   laserRange: 4
-  laserDamage: 40
+  laserDamage: 20
   laserThickness: 0.3
   attackCooldown: 3
   attackDelay: 0.8

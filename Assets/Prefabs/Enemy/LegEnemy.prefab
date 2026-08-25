@@ -231,7 +231,7 @@ MonoBehaviour:
   legOffset: {x: 0.5, y: -0.5}
   wallCheckDistance: 1
   pitCheckDistance: 2
-  bodyDamage: 10
+  bodyDamage: 8
   knockbackForce: 7
   enemyHp: 30
 --- !u!114 &1942846257271365811
