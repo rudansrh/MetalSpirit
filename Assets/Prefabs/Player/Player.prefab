@@ -204,12 +204,12 @@ MonoBehaviour:
   wallClimbHoldStaminaCostPerSecond: 2
   wallClimbMoveStaminaCostPerSecond: 3
   wallClimbFallOffDistance: 0.15
-  jumpStaminaCost: 10
+  jumpStaminaCost: 3
   jumpLimit: 3
   jumpCount: 0
   jumpCooldown: 0.2
   jumpCooldownTimer: 0
-  dashSpeed: 20
+  dashSpeed: 8
   dashDuration: 0.15
   dashCooldown: 1
   dashStaminaCost: 20
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bb4073002c1ab41824a6dde88fac0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Stamina
-  staminaRegenRate: 2
+  staminaRegenRate: 8
 --- !u!114 &5588872401859130026
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -230,7 +230,7 @@ MonoBehaviour:
   chargeDuration: 0.4
   wallCheckDistance: 1
   pitCheckDistance: 2
-  damage: 15
+  damage: 10
   knockbackForce: 5
   enemyHp: 30
 --- !u!114 &3915287083702208988

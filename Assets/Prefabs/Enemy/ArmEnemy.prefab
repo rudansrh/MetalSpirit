@@ -199,7 +199,7 @@ MonoBehaviour:
   attackBoxSize: {x: 1.5, y: 1}
   wallCheckDistance: 0
   pitCheckDistance: 1
-  damage: 15
+  damage: 10
   knockbackForce: 7
   enemyHp: 30
 --- !u!114 &5032547348321135105
